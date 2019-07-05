@@ -20,12 +20,19 @@
   </url>
   
   <url>
-    <loc>zhouqian0.github.io/archives/</loc>
+    <loc>zhouqian0.github.io/tags/</loc>
+    <lastmod>2019-06-24T17:26:57+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>zhouqian0.github.io/tags/</loc>
+    <loc>zhouqian0.github.io/tags/typescript/</loc>
+    <lastmod>2019-06-24T17:26:57+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>zhouqian0.github.io/archives/</loc>
     <priority>0</priority>
   </url>
   
