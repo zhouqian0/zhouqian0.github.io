@@ -1,13 +1,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>typeScript on Let&#39;s finish what we started</title>
-    <link>https://zhouqian0.github.io/tags/typescript/</link>
-    <description>Recent content in typeScript on Let&#39;s finish what we started</description>
+    <title>2019 on Let&#39;s finish what we started</title>
+    <link>https://zhouqian0.github.io/archives/2019/</link>
+    <description>Recent content in 2019 on Let&#39;s finish what we started</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 05 Jul 2019 11:30:29 +0800</lastBuildDate>
     
-        <atom:link href="https://zhouqian0.github.io/tags/typescript/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://zhouqian0.github.io/archives/2019/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -17,15 +17,6 @@
       
       <guid>https://zhouqian0.github.io/2019/second/</guid>
       <description>变量声明  https://typescript.bootcss.com/variable-declarations.html var 声明可以在包含它的函数，模块，命名空间或全局作用域内部任何位置被访问。  多次声明同一个变量并不会报错 声明的变量可以在包含它们的函数外访问  let 声明的变量使用的是词法作用域或块作用域。  块作用域变量在包含它们的块或 for 循环之外无法访问 不能在被声明之前读或写(仍可在一个拥有块作用域变量被声明前获取它，只是我们不能在变量声明前去调用此函数) 在同一作用域只能声明一次 每进入一个作用域就会创建一个变量的环境，就算作用域内代码已经执行完毕，这个环境与其捕获的变量依然存在  const 拥有与 let 相同的作用域规则，但不能对它们重新赋值。  变量内部状态可修改(可通过设置对象成员为只读改变)  使用最小特权原则，所有变量除了计划去修改的都应使用const。  基本原则：如果一个变量不需要对它写入，那么其它使用这些代码的人也不能够写入它们，并且要思考为什么会需要对这些变量重新赋值。 使用 const 可更容易推测数据的流动。  解构数组：  let input = [1, 2]; let [first, second] = input; [first, second] = [second, first]; // wap variavle function f([first, second]: [number, number]) let [, second, , fourth] = [1, 2, 3, 4]; 可用作在一行内声明多个数组变量，用作自解释  元组结构  let tuple: [number, string, boolean] = [7, &amp;quot;hello&amp;quot;, true]; let [a, .</description>
-    </item>
-    
-    <item>
-      <title>TS 文档阅读小结1</title>
-      <link>https://zhouqian0.github.io/2019/first/</link>
-      <pubDate>Mon, 24 Jun 2019 17:26:57 +0800</pubDate>
-      
-      <guid>https://zhouqian0.github.io/2019/first/</guid>
-      <description> 基础类型  https://typescript.bootcss.com/basic-types.html TypeScript 里的所有数字都是浮点数。 元组类型( Tuple )允许表示一个已知元素数量和类型的数组，各元素的类型不必相同。  eg: let x: [string, number]; x = [&amp;lsquo;hello&amp;rsquo;, 10]; // 必须要按照定义类型的顺序赋值 如果要定义访问越界元素，会使用定义的类型的联合类型（如 eg 中，越界元素必须是 string or number）  枚举类型提供的一个便利是你可以由枚举的值得到它的名字。 类型检查器不对any类型的值进行检查而是直接让它们通过编译阶段的检查。Object类型的变量只是允许你给它赋任意值 ，但是却不能够在它上面调用任意的方法，即便它真的有这些方法。 指定了 &amp;ndash;strictNullChecks 标记(编译选项)，null 和 undefined 只能赋值给 void 和它们各自。 never 类型表示的是那些永不存在的值的类型，即使 any 也不能复制给 never。  可作为 error 函数 (return Error()) 的返回值  类型断言( as , 尖括号 (&amp;lt;String&amp;gt;)) 类似JAVA中的类型转换，但是不进行特殊的数据检查和解构。不影响运行，只干预编译阶段。 推荐使用 let 代替 var （和作用域有关）  </description>
     </item>
     
   </channel>
