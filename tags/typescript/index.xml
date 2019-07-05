@@ -1,21 +1,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>typeScript on Let&#39;s finish what we started</title>
-    <link>zhouqian0.github.io/tags/typescript/</link>
+    <link>https://zhouqian0.github.io/tags/typescript/</link>
     <description>Recent content in typeScript on Let&#39;s finish what we started</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 24 Jun 2019 17:26:57 +0800</lastBuildDate>
     
-        <atom:link href="zhouqian0.github.io/tags/typescript/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://zhouqian0.github.io/tags/typescript/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>TS 文档阅读小结1</title>
-      <link>zhouqian0.github.io/2019/first/</link>
+      <link>https://zhouqian0.github.io/2019/first/</link>
       <pubDate>Mon, 24 Jun 2019 17:26:57 +0800</pubDate>
       
-      <guid>zhouqian0.github.io/2019/first/</guid>
+      <guid>https://zhouqian0.github.io/2019/first/</guid>
       <description> 基础类型  https://typescript.bootcss.com/basic-types.html TypeScript 里的所有数字都是浮点数。 元组类型( Tuple )允许表示一个已知元素数量和类型的数组，各元素的类型不必相同。  eg: let x: [string, number]; x = [&amp;lsquo;hello&amp;rsquo;, 10]; // 必须要按照定义类型的顺序赋值 如果要定义访问越界元素，会使用定义的类型的联合类型（如 eg 中，越界元素必须是 string or number）  枚举类型提供的一个便利是你可以由枚举的值得到它的名字。 类型检查器不对any类型的值进行检查而是直接让它们通过编译阶段的检查。Object类型的变量只是允许你给它赋任意值 ，但是却不能够在它上面调用任意的方法，即便它真的有这些方法。 指定了 &amp;ndash;strictNullChecks 标记(编译选项)，null 和 undefined 只能赋值给 void 和它们各自。 never 类型表示的是那些永不存在的值的类型，即使 any 也不能复制给 never。  可作为 error 函数 (return Error()) 的返回值  类型断言( as , 尖括号 (&amp;lt;String&amp;gt;)) 类似JAVA中的类型转换，但是不进行特殊的数据检查和解构。不影响运行，只干预编译阶段。 推荐使用 let 代替 var （和作用域有关）  </description>
     </item>
     

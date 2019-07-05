@@ -1,12 +1,12 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Archives on Let&#39;s finish what we started</title>
-    <link>zhouqian0.github.io/archives/</link>
+    <link>https://zhouqian0.github.io/archives/</link>
     <description>Recent content in Archives on Let&#39;s finish what we started</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     
-        <atom:link href="zhouqian0.github.io/archives/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://zhouqian0.github.io/archives/index.xml" rel="self" type="application/rss+xml" />
     
     
   </channel>
