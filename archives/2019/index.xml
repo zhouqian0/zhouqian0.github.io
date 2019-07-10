@@ -5,10 +5,19 @@
     <description>Recent content in 2019 on Let&#39;s finish what we started</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 05 Jul 2019 11:30:29 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 10 Jul 2019 09:28:07 +0800</lastBuildDate>
     
         <atom:link href="https://zhouqian0.github.io/archives/2019/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>TS 文档阅读小结3</title>
+      <link>https://zhouqian0.github.io/2019/third/</link>
+      <pubDate>Wed, 10 Jul 2019 09:28:07 +0800</pubDate>
+      
+      <guid>https://zhouqian0.github.io/2019/third/</guid>
+      <description>接口  https://typescript.bootcss.com/interfaces.html 在TypeScript里，接口的作用就是定义结构。 可选属性名字( ? ), 可以对可能存在的属性进行预定义，以及捕获引用了不存在的属性时的错误。 可以将接口属性定义为 readonly，定义后只能在初始化时接口对象时赋值。 ReadonlyArray，只读数组，定义后不可更改，同时也不可将其复制给普通数组。 变量使用const，属性使用readonly。 对象字面量会被特殊对待且会额外属性检查，当将其赋值给变量或作为参数传递的时候。 如果一个对象字面量存在任何“目标类型”不包含的属性时，会报错，可以用以下方法规避：  类型断言（使用类型断言可以绕开类型检查） 字符串索引签名（eg: man[&amp;lsquo;canRead&amp;rsquo;]） 将该对象赋值给一个另一个变量  接口表示函数类型，需给接口定义一个调用签名。  interface SearchFunc { (source: string, subString: string): boolean; } let mySearch: SearchFunc; mySearch = function(source: string, subString: string) { let result = source.search(subString); return result &amp;gt; -1; }   可索引的类型，具有一个索引签名，它描述了对象索引的类型，还有相应的索引返回值类型。  可以同时使用 string 和 number 两种类型的索引，但是数字索引的返回值必须是字符串索引返回值类型的子类型。（使用 number 类型索引时会自动将其转化为 string 类型的索引） 字符串索引签名能够很好的描述 dictionary 模式，并且它们也会确保所有属性与其返回值类型相匹配 (obj.property 和 obj[&amp;ldquo;property&amp;rdquo;]) [key: string]: string | number; // 必须包括所用成员类型 索引签名可设置为只读（readonly）  class 强制一个类去符合某种契约 接口描述了类的公共部分，而不是公共和私有两部分。 它不会帮你检查类是否具有某些私有成员。 当你用构造器签名去定义一个接口并试图定义一个类去实现这个接口时会得到一个错误:</description>
+    </item>
     
     <item>
       <title>TS 文档阅读小结2</title>
