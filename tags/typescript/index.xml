@@ -5,10 +5,21 @@
     <description>Recent content in typeScript on Let&#39;s finish what we started</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 10 Jul 2019 09:28:07 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 11 Jul 2019 14:25:12 +0800</lastBuildDate>
     
         <atom:link href="https://zhouqian0.github.io/tags/typescript/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>TS 文档阅读小结4</title>
+      <link>https://zhouqian0.github.io/2019/fourth/</link>
+      <pubDate>Thu, 11 Jul 2019 14:25:12 +0800</pubDate>
+      
+      <guid>https://zhouqian0.github.io/2019/fourth/</guid>
+      <description>类  https://typescript.bootcss.com/classes.html 在 TypeScript 里，使用面向对象模式，允许使用继承来扩展现有的类。 派生类(子类)包含了一个构造函数，它必须调用 super() 方法（会执行基类的构造函数）。  在构造函数里访问 this 的属性之前，一定要先调用 super()  在 TypeScript 里，成员都默认为 public。 TypeScript 是一种结构类型系统。当我们比较两种不同的类型时，无论它们来自何处，如果所有成员的类型都兼容，那么我们说类型本身是兼容的。  当两个类不同名称的类（它们都只定义了属性，无方法，且属性名称类型都相同），此时，如果它们的属性中存在有 private (私有成员)，那么两者不能用 = 进行赋值，但如果它们的属性都是 public 的，则可用 = 进行赋值。protected 同理。  被标记成 protected 的构造函数意味着这个类不能在包含它的类外被实例化，但是能被继承。 将类属性标记为 readonly 会导致这些属性必须在声明时或构造函数里被初始化。 参数属性通过给构造函数参数添加一个访问限定符来声明。 使用 private 限定一个参数属性会声明并初始化一个私有成员；对于public和protected来说也是一样。
+ class Animal { constructor(private name: string) { } move(distanceInMeters: number) { console.log(`${this.name} moved ${distanceInMeters}m.`); } }  等同于
+class Animal { private name: string; constructor(name: string) { this.</description>
+    </item>
     
     <item>
       <title>TS 文档阅读小结3</title>

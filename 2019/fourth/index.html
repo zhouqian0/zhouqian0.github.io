@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Let&#39;s finish what we started  | TS 文档阅读小结4</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://zhouqian0.github.io/css/blog.css" />
+    
+</head>
+<body>
+
+    
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://zhouqian0.github.io/">Home</a>
+        </div>
+    </nav>
+    
+
+    
+    <section class="hero is-info is-medium">
+        <div class="hero-body" style="background-image: url(https://zhouqian0.github.io/img/bg-blog.jpg);">
+            <div class="container has-text-centered">
+                <br>
+                <h1 class="title is-size-1">
+                    
+                        TS 文档阅读小结4
+                    
+                </h1>
+                
+            </div>
+        </div>
+    </section>
+
+
+<div class="container">
+    <div class="section">
+    
+
+<div class="columns">
+    <div class="column is-9">
+        <div class="tile is-child box">
+            <div class="content">
+                
+
+<h3 id="类">类</h3>
+
+<ol>
+<li><a href="https://typescript.bootcss.com/classes.html">https://typescript.bootcss.com/classes.html</a></li>
+<li>在 TypeScript 里，使用面向对象模式，允许使用继承来扩展现有的类。</li>
+<li>派生类(子类)包含了一个构造函数，它必须调用 super() 方法（会执行基类的构造函数）。
+
+<ol>
+<li>在构造函数里访问 this 的属性之前，一定要先调用 super()</li>
+</ol></li>
+<li>在 TypeScript 里，成员都默认为 public。</li>
+<li>TypeScript 是一种结构类型系统。当我们比较两种不同的类型时，无论它们来自何处，如果所有成员的类型都兼容，那么我们说类型本身是兼容的。
+
+<ol>
+<li>当两个类不同名称的类（它们都只定义了属性，无方法，且属性名称类型都相同），此时，如果它们的属性中存在有 private (私有成员)，那么两者不能用 = 进行赋值，但如果它们的属性都是 public 的，则可用 = 进行赋值。<em>protected 同理。</em></li>
+</ol></li>
+<li>被标记成 protected 的构造函数意味着这个类不能在包含它的类外被实例化，但是能被继承。</li>
+<li>将类属性标记为 readonly 会导致这些属性必须在声明时或构造函数里被初始化。</li>
+
+<li><p>参数属性通过给构造函数参数添加一个<strong>访问限定符</strong>来声明。 使用 private 限定一个参数属性会声明并初始化一个私有成员；对于public和protected来说也是一样。</p>
+
+<ol>
+<li><pre><code>class Animal {
+    constructor(private name: string) { }
+    move(distanceInMeters: number) {
+        console.log(`${this.name} moved ${distanceInMeters}m.`);
+    }
+}
+</code></pre>
+
+<p>等同于</p>
+
+<pre><code>class Animal {
+    private name: string;
+    constructor(name: string) {
+        this.name = name;
+    }
+    move(distanceInMeters: number) {
+        console.log(`${this.name} moved ${distanceInMeters}m.`);
+    }
+}
+</code></pre></li>
+</ol></li>
+
+<li><p>TypeScript支持通过getters/setters来截取对对象成员的访问。</p>
+
+<ol>
+<li><pre><code>let passcode = &quot;secret passcode&quot;;
+        
+class Employee {
+    private _fullName: string;
+        
+    get fullName(): string {
+        return this._fullName;
+    }
+        
+    set fullName(newName: string) {
+        if (passcode &amp;&amp; passcode == &quot;secret passcode&quot;) {
+            this._fullName = newName;
+        }
+        else {
+            console.log(&quot;Error: Unauthorized update of employee!&quot;);
+        }
+    }
+}
+        
+let employee = new Employee();
+employee.fullName = &quot;Bob Smith&quot;;
+if (employee.fullName) {
+    alert(employee.fullName);
+}
+</code></pre></li>
+
+<li><p>只带有 get 不带有 set 的存取器自动被推断为 readonly</p></li>
+</ol></li>
+
+<li><p>类的实例成员：那些仅当类被实例化的时候才会被初始化的属性。</p>
+
+<p>类的静态成员(static)：存在于类本身上面而不是类的实例上。</p></li>
+
+<li><p>抽象类做为其它派生类的基类使用，一般不会直接被实例化。</p>
+
+<ol>
+<li>不同于接口，抽象类可以包含成员的实现细节</li>
+<li>抽象类中的抽象方法(abstract，只定义签名，无方法体)不包含具体实现并且必须在派生类中实现。</li>
+<li>允许创建一个对抽象类型的引用，但不能创建一个抽象类的实例。</li>
+
+<li><pre><code>abstract class Department {
+        
+    constructor(public name: string) {
+    }
+        
+    printName(): void {
+        console.log('Department name: ' + this.name);
+    }
+        
+    abstract printMeeting(): void; // 必须在派生类中实现
+}
+        
+class AccountingDepartment extends Department {
+        
+    constructor() {
+        super('Accounting and Auditing'); // 在派生类的构造函数中必须调用 super()
+    }
+        
+    printMeeting(): void {
+        console.log('The Accounting Department meets each Monday at 10am.');
+    }
+        
+    generateReports(): void {
+        console.log('Generating accounting reports...');
+    }
+}
+        
+let department: Department; // 允许创建一个对抽象类型的引用
+department = new Department(); // 错误: 不能创建一个抽象类的实例
+department = new AccountingDepartment(); // 允许对一个抽象子类进行实例化和赋值
+department.printName();
+department.printMeeting();
+department.generateReports(); // 错误: 方法在声明的抽象类中不存在
+</code></pre></li>
+</ol></li>
+
+<li><p>typeof Greeter，意思是取 Greeter 类的类型，而不是实例的类型。 或者更确切的说，”告诉我 Greeter 标识符的类型”，也就是构造函数的类型。 这个类型包含了类的所有静态成员和构造函数。</p>
+
+<ol>
+<li><pre><code> class Greeter {
+     static standardGreeting = &quot;Hello, there&quot;;
+     greeting: string;
+     greet() {
+         if (this.greeting) {
+             return &quot;Hello, &quot; + this.greeting;
+         }
+         else {
+             return Greeter.standardGreeting;
+         }
+     }
+ }
+         
+ let greeter1: Greeter;
+ greeter1 = new Greeter();
+ console.log(greeter1.greet());
+         
+ let greeterMaker: typeof Greeter = Greeter;
+ greeterMaker.standardGreeting = &quot;Hey there!&quot;;
+         
+ let greeter2: Greeter = new greeterMaker();
+ console.log(greeter2.greet());
+</code></pre></li>
+</ol></li>
+
+<li><p>因为类可以创建出类型，所以能够在允许使用接口的地方使用类。</p>
+
+<ol>
+<li>接口可以继承类</li>
+
+<li><pre><code> class Point {
+     x: number;
+     y: number;
+ }
+         
+ interface Point3d extends Point {
+     z: number;
+ }
+         
+ let point3d: Point3d = {x: 1, y: 2, z: 3};
+</code></pre></li>
+</ol></li>
+</ol>
+
+            </div>
+        </div>
+    </div>
+    <div class="column is-3">
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Tags</h1>
+        <div class="tags">
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/typescript">typescript</a></span>
+        
+        </div>          
+    </div>
+</div><br>
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Recent posts</h1>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/fourth/">TS 文档阅读小结4</a></h1>
+            <time class="has-text-grey-light is-size-7">11 July 2019</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/third/">TS 文档阅读小结3</a></h1>
+            <time class="has-text-grey-light is-size-7">10 July 2019</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/second/">TS 文档阅读小结2</a></h1>
+            <time class="has-text-grey-light is-size-7">5 July 2019</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/first/">TS 文档阅读小结1</a></h1>
+            <time class="has-text-grey-light is-size-7">24 June 2019</time>
+        
+    </div>
+</div>
+    <br>
+                
+  
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Related posts</h1>
+      
+      
+            <h1><a href="https://zhouqian0.github.io/2019/third/">TS 文档阅读小结3</a></h1>
+            <time class="has-text-grey-light is-size-7">10 July 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/second/">TS 文档阅读小结2</a></h1>
+            <time class="has-text-grey-light is-size-7">5 July 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/first/">TS 文档阅读小结1</a></h1>
+            <time class="has-text-grey-light is-size-7">24 June 2019</time>
+      
+    </div>
+</div>
+
+    
+<br>
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Archives</h1>
+        
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (4)<br>
+        
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+    </div>
+</div>
+
+<footer class="footer has-background-grey-darker has-text-white">
+    <div class="content has-text-centered">
+        <p>
+            <span class="icon is-large"><a href="https://twitter.com/" class="mysocial" rel="me"><i class="fab fa-twitter fa-3x"></i></a></span>&nbsp;&nbsp;
+            <span class="icon is-large"><a href="https://www.youtube.com/" class="mysocial" rel="me"><i class="fab fa-youtube fa-3x"></i></a></span>&nbsp;&nbsp;
+            <span class="icon is-large"><a href="https://github.com/" class="mysocial" rel="me"><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;
+            <br><br>
+            Copyright &copy; Let&#39;s finish what we started 2019 - Theme by <a href="https://jeffprod.com" class="mysocial">JeffProd.com</a>
+            - <a class="mysocial" href="https://zhouqian0.github.io/about">About</a>
+        </p>
+    </div>
+</footer>
+
+<script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+</body>
+</html>
