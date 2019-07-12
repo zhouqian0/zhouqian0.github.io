@@ -5,10 +5,25 @@
     <description>Recent content in typeScript on Let&#39;s finish what we started</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 11 Jul 2019 14:25:12 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 12 Jul 2019 14:19:14 +0800</lastBuildDate>
     
         <atom:link href="https://zhouqian0.github.io/tags/typescript/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>TS 文档阅读小结5</title>
+      <link>https://zhouqian0.github.io/2019/fifth/</link>
+      <pubDate>Fri, 12 Jul 2019 14:19:14 +0800</pubDate>
+      
+      <guid>https://zhouqian0.github.io/2019/fifth/</guid>
+      <description>函数  https://typescript.bootcss.com/functions.html 完整函数类型，包含参数类型和返回值类型。
+let myAdd: (x:number, y:number) =&amp;gt; number = function(x: number, y: number): number { return x + y; };   以参数列表的形式写出参数类型，为每个参数指定一个名字和类型。名字只是为了增加可读性，只要参数类型是匹配即有效 在函数和返回值类型之前使用(=&amp;gt;)符号，返回值类型是函数类型的必要部分，即使函数没有返回任何值也必须指定返回值类型为 void  TypeScript 编译器会检查用户是否为每个参数都传入了值，所以每个函数参数都是必须的（可输入 null or undefined）。
+ 可选参数（?） 必须跟在必须参数后面 有默认初始化值的参数， 在所有必须参数后面的带默认初始化的参数都是可选的。共享同样的类型
+function buildName(firstName: string, lastName = &amp;quot;Smith&amp;quot;) { return firstName + &amp;quot; &amp;quot; + lastName; }  带默认值的参数不需要放在必须参数的后面。如果带默认值的参数出现在必须参数前面，用户必须明确的传入undefined值来获得默认值。
+ 剩余参数 会被当做个数不限的可选参数。编译器创建参数数组，名字是你在省略号（&amp;hellip;）后面给定的名字，你可以在函数体内使用这个数组。
+  JavaScript 里 this 的工作原理，它的值在函数被调用的时候才会指定。
+ 顶级的非方法式调用会将this视为window。（在严格模式下，this为undefined而不是window） ECMAScript 6 箭头语法能保存函数创建时的 this 值，而不是调用时的值。 this 来自对象字面量里的函数表达式(this 为 any 类型)。 显式调用 this，指定 this 类型。</description>
+    </item>
     
     <item>
       <title>TS 文档阅读小结4</title>
