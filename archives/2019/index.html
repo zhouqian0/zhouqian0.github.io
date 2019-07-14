@@ -134,6 +134,20 @@ class Animal { private name: string; constructor(name: string) { this....</p>
                 </article>
                 <br>
 
+                <article class="media">
+                    <div class="media-content">
+                        <div class="content">
+                            <p class="title is-4"><a href="/2019/first/">TS 文档阅读小结1</a></p>
+                            <p class="subtitle is-size-6 has-text-grey-light">
+                                Published at June 24, 2019 &middot;
+                                <i class="far fa-clock"></i>&nbsp;1 min read
+                            </p>
+                            <p> 基础类型  https://typescript.bootcss.com/basic-types.html TypeScript 里的所有数字都是浮点数。 元组类型( Tuple )允许表示一个已知元素数量和类型的数组，各元素的类型不必相同。  eg: let x: [string, number]; x = [&lsquo;hello&rsquo;, 10]; // 必须要按照定义类型的顺序赋值 如果要定义访问越界元素，会使用定义的类型的联合类型（如 eg 中，越界元素必须是 string or number）  枚举类型提供的一个便利是你可以由枚举的值得到它的名字。 类型检查器不对any类型的值进行检查而是直接让它们通过编译阶段的检查。Object类型的变量只是允许你给它赋任意值 ，但是却不能够在它上面调用任意的方法，即便它真的有这些方法。 指定了 &ndash;strictNullChecks 标记(编译选项)，null 和 undefined 只能赋值给 void 和它们各自。 never 类型表示的是那些永不存在的值的类型，即使 any 也不能复制给 never。  可作为 error 函数 (return Error()) 的返回值  类型断言( as , 尖括号 (&lt;String&gt;)) 类似 JAVA 中的类型转换，但是不进行特殊的数据检查和解构。不影响运行，只干预编译阶段。 推荐使用 let 代替 var （和作用域有关）  ...</p>
+                        </div>
+                    </div>
+                </article>
+                <br>
+
             </div>
         </div>
     </div>
