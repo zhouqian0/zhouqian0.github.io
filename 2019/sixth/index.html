@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Let&#39;s finish what we started  | TS 文档阅读小结2</title>
+    <title>Let&#39;s finish what we started  | TS 文档阅读小结6</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -29,7 +29,7 @@
                 <br>
                 <h1 class="title is-size-1">
                     
-                        TS 文档阅读小结2
+                        TS 文档阅读小结6
                     
                 </h1>
                 
@@ -48,92 +48,135 @@
             <div class="content">
                 
 
-<h3 id="变量声明">变量声明</h3>
+<h3 id="泛型">泛型</h3>
 
 <ol>
-<li><a href="https://typescript.bootcss.com/variable-declarations.html">https://typescript.bootcss.com/variable-declarations.html</a></li>
-<li>var 声明可以在包含它的函数，模块，命名空间或全局作用域内部任何位置被访问。
+<li>泛型，类型变量，是一种特殊的变量，只用于表示类型而不是值。</li>
+
+<li><p>定义了泛型函数后，可以用两种方法使用。</p>
 
 <ol>
-<li>多次声明同一个变量并不会报错</li>
-<li>声明的变量可以在包含它们的函数外访问</li>
+<li><p>第一种是，传入所有的参数，包含类型参数</p>
+
+<pre><code>let output = identity&lt;string&gt;(&quot;myString&quot;);  // type of output will be 'string'
+</code></pre></li>
+
+<li><p>利用类型推论 – 即编译器会根据传入的参数自动地帮助我们确定T的类型</p>
+
+<pre><code>let output = identity(&quot;myString&quot;);  // type of output will be 'string'
+</code></pre></li>
 </ol></li>
-<li>let 声明的变量使用的是词法作用域或块作用域。
 
-<ol>
-<li>块作用域变量在包含它们的块或 for 循环之外无法访问</li>
-<li>不能在被声明之前读或写(仍可在一个拥有块作用域变量被声明前获取它，只是我们不能在变量声明前去调用此函数)</li>
-<li>在同一作用域只能声明一次</li>
-<li>每进入一个作用域就会创建一个变量的环境，就算作用域内代码已经执行完毕，这个环境与其捕获的变量依然存在</li>
-</ol></li>
-<li>const 拥有与 let 相同的作用域规则，但不能对它们重新赋值。
+<li><p>编译器要求你在泛型函数的函数体必须正确的使用这个通用的类型。 换句话说，你必须把这些参数当做是任意或所有类型。<br />
+否则可能将 T 类型定义为 number， 然后去调用 T 的 length 属性，但是 number 类型是没有 length 属性的。</p>
 
-<ol>
-<li>变量内部状态可修改(可通过设置对象成员为只读改变)</li>
-</ol></li>
-<li>使用<a href="https://en.wikipedia.org/wiki/Principle_of_least_privilege">最小特权原则</a>，所有变量除了计划去修改的都应使用const。
+<pre><code>function loggingIdentity&lt;T&gt;(arg: T): T {
+    console.log(arg.length);  // Error: T doesn't have .length
+    return arg;
+}
+// 这里可以将 arg 定义为 T[] 或 Array&lt;T&gt; 类型， 这样就可以使用 length 属性了
+</code></pre></li>
 
-<ol>
-<li>基本原则：如果一个变量不需要对它写入，那么其它使用这些代码的人也不能够写入它们，并且要思考为什么会需要对这些变量重新赋值。</li>
-<li>使用 const 可更容易推测数据的流动。</li>
-</ol></li>
-<li>解构数组：
+<li><p>泛型函数的类型与非泛型函数的类型</p>
 
-<ol>
-<li><code>let input = [1, 2]; let [first, second] = input;</code></li>
-<li><code>[first, second] = [second, first]; // wap variavle</code></li>
-<li><code>function f([first, second]: [number, number])</code></li>
-<li><code>let [, second, , fourth] = [1, 2, 3, 4];</code></li>
-<li>可用作在一行内声明多个数组变量，用作自解释</li>
-</ol></li>
-<li>元组结构
+<pre><code>function identity&lt;T&gt;(arg: T): T {
+    return arg;
+}
+    
+let myIdentity: &lt;T&gt;(arg: T) =&gt; T = identity;
+// let myIdentity: &lt;U&gt;(arg: U) =&gt; U = identity;
+// let myIdentity: {&lt;T&gt;(arg: T): T} = identity;
+</code></pre></li>
 
-<ol>
-<li><code>let tuple: [number, string, boolean] = [7, &quot;hello&quot;, true];</code></li>
-<li><code>let [a, ...bc] = tuple; // bc: [&quot;hello&quot;, true]</code></li>
-<li><code>let [a, b, c, ...d] = tuple; // d: [], the empty tuple, only three emlements</code></li>
-<li><code>let [, b] = tuple; // b: string = 7</code></li>
-</ol></li>
-<li>对象解构：
+<li><p>泛型接口</p>
 
-<ol>
-<li><code>let o = {
-    a: &quot;foo&quot;,
-    b: 12,
-    c: &quot;bar&quot;
-};
-let { a, b } = o;</code></li>
-<li><code>({ a, b } = { a: &quot;baz&quot;, b: 101 }); // 是用括号是因为 js 通常以 { 起始的语句解析块</code></li>
-<li><code>let { a, ...passthrough } = o;let total = passthrough.b + passthrough.c.length; // 在对象里使用...语法创建剩余变量</code></li>
-</ol></li>
-<li>属性重命名：
+<pre><code>interface GenericIdentityFn&lt;T&gt; {
+    (arg: T): T;
+}
+   
+function identity&lt;T&gt;(arg: T): T {
+    return arg;
+}
+   
+let myIdentity: GenericIdentityFn&lt;number&gt; = identity;
+</code></pre></li>
 
-<ol>
-<li><code>let { a: newName1, b: newName2 } = o;</code></li>
-<li><code>let {a, b}: {a: string, b: number} = o; // 指定类型</code></li>
-</ol></li>
-<li>函数声明:
+<li><p>泛型类</p>
 
-<ol>
-<li><code>function f({ a, b } = { a: &quot;&quot;, b: 0 }): void {
-    // ...
-} // default to { a: &quot;&quot;, b: 0 }</code></li>
-<li>解构表达式要尽量保持小而简单</li>
-</ol></li>
-<li>展开(Spread)操作符正与解构相反。 它允许你将一个数组展开为另一个数组，或将一个对象展开为另一个对象。
+<pre><code>class GenericNumber&lt;T&gt; {
+    zeroValue: T;
+    add: (x: T, y: T) =&gt; T;
+}
+   
+let myGenericNumber = new GenericNumber&lt;number&gt;();
+myGenericNumber.zeroValue = 0;
+myGenericNumber.add = function(x, y) { return x + y; }; 
+</code></pre>
 
-<ol>
-<li><code>let first = [1, 2];
-let second = [3, 4];
-let bothPlus = [0, ...first, ...second, 5]; // [0, 1, 2, 3, 4, 5]</code>
-展开操作创建了first和second的一份浅拷贝。 它们不会被展开操作所改变</li>
-<li><code>let defaults = { food: &quot;spicy&quot;, price: &quot;$$&quot;, ambiance: &quot;noisy&quot; };
-let search = { food: &quot;rich&quot;, ...defaults };</code>展开对象后面的属性会覆盖前面的属性</li>
-<li>仅包含对象<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Enumerability_and_ownership_of_properties">自身的可枚举属性</a>，也就是说展开的对象只能有其属性值，不能调用其原来有的方法</li>
-<li><code>let c = new C();
-let clone = { ...c };</code> <strong>可用作对象的简单浅拷贝，解除双向绑定</strong></li>
-<li>TypeScript编译器不允许展开泛型函数上的类型参数。</li>
-</ol></li>
+<p>类有静态部分和实例部分。泛型类指的是实例部分的类型，所以类的静态属性不能使用这个泛型类型。</p></li>
+
+<li><p>可以创建泛型接口、泛型类，但无法创建泛型枚举和泛型命名空间。</p></li>
+
+<li><p>泛型约束，约束传入的 T 的类型</p>
+
+<pre><code>interface Lengthwise {
+    length: number;
+}
+    
+function loggingIdentity&lt;T extends Lengthwise&gt;(arg: T): T {
+    console.log(arg.length);  // Now we know it has a .length property, so no more error
+    return arg;
+}
+loggingIdentity(3);  // Error, number doesn't have a .length property
+loggingIdentity({length: 10, value: 3}); // Ok， this object have .length property
+</code></pre></li>
+
+<li><p>在泛型约束中使用类型参数(keyof)，可声明一个类型参数，且它被另一个类型参数所约束。</p>
+
+<pre><code>function getProperty&lt;T, K extends keyof T&gt;(obj: T, key: K) {
+    return obj[key];
+}
+    
+let x = { a: 1, b: 2, c: 3, d: 4 };
+    
+getProperty(x, &quot;a&quot;); // okay
+getProperty(x, &quot;m&quot;); // error: Argument of type 'm' isn't assignable to 'a' | 'b' | 'c' | 'd'.
+</code></pre></li>
+
+<li><p>在泛型里使用类类型</p>
+
+<pre><code>function create&lt;T&gt;(c: {new(): T; }): T {
+    return new c();
+}
+</code></pre>
+
+<pre><code>class BeeKeeper {
+    hasMask: boolean;
+}
+    
+class ZooKeeper {
+    nametag: string;
+}
+    
+class Animal {
+    numLegs: number;
+}
+    
+class Bee extends Animal {
+    keeper: BeeKeeper;
+}
+    
+class Lion extends Animal {
+    keeper: ZooKeeper;
+}
+    
+function createInstance&lt;A extends Animal&gt;(c: new () =&gt; A): A {
+    return new c();
+}
+    
+createInstance(Lion).keeper.nametag;  // typechecks!
+createInstance(Bee).keeper.hasMask;   // typechecks!
+</code></pre></li>
 </ol>
 
             </div>
@@ -182,9 +225,6 @@ let clone = { ...c };</code> <strong>可用作对象的简单浅拷贝，解除�
         <h1 class="title is-5">Related posts</h1>
       
       
-            <h1><a href="https://zhouqian0.github.io/2019/sixth/">TS 文档阅读小结6</a></h1>
-            <time class="has-text-grey-light is-size-7">14 July 2019</time>
-      
             <h1><a href="https://zhouqian0.github.io/2019/fifth/">TS 文档阅读小结5</a></h1>
             <time class="has-text-grey-light is-size-7">12 July 2019</time>
       
@@ -193,6 +233,9 @@ let clone = { ...c };</code> <strong>可用作对象的简单浅拷贝，解除�
       
             <h1><a href="https://zhouqian0.github.io/2019/third/">TS 文档阅读小结3</a></h1>
             <time class="has-text-grey-light is-size-7">10 July 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/second/">TS 文档阅读小结2</a></h1>
+            <time class="has-text-grey-light is-size-7">5 July 2019</time>
       
             <h1><a href="https://zhouqian0.github.io/2019/first/">TS 文档阅读小结1</a></h1>
             <time class="has-text-grey-light is-size-7">24 June 2019</time>

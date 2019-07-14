@@ -5,10 +5,24 @@
     <description>Recent content in 2019 on Let&#39;s finish what we started</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 12 Jul 2019 14:19:14 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 14 Jul 2019 10:05:55 +0800</lastBuildDate>
     
         <atom:link href="https://zhouqian0.github.io/archives/2019/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>TS 文档阅读小结6</title>
+      <link>https://zhouqian0.github.io/2019/sixth/</link>
+      <pubDate>Sun, 14 Jul 2019 10:05:55 +0800</pubDate>
+      
+      <guid>https://zhouqian0.github.io/2019/sixth/</guid>
+      <description>泛型  泛型，类型变量，是一种特殊的变量，只用于表示类型而不是值。 定义了泛型函数后，可以用两种方法使用。
+ 第一种是，传入所有的参数，包含类型参数
+let output = identity&amp;lt;string&amp;gt;(&amp;quot;myString&amp;quot;); // type of output will be &#39;string&#39;  利用类型推论 – 即编译器会根据传入的参数自动地帮助我们确定T的类型
+let output = identity(&amp;quot;myString&amp;quot;); // type of output will be &#39;string&#39;   编译器要求你在泛型函数的函数体必须正确的使用这个通用的类型。 换句话说，你必须把这些参数当做是任意或所有类型。
+否则可能将 T 类型定义为 number， 然后去调用 T 的 length 属性，但是 number 类型是没有 length 属性的。
+function loggingIdentity&amp;lt;T&amp;gt;(arg: T): T { console.log(arg.length); // Error: T doesn&#39;t have .length return arg; } // 这里可以将 arg 定义为 T[] 或 Array&amp;lt;T&amp;gt; 类型， 这样就可以使用 length 属性了  泛型函数的类型与非泛型函数的类型</description>
+    </item>
     
     <item>
       <title>TS 文档阅读小结5</title>
