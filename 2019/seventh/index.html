@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Let&#39;s finish what we started  | TS 文档阅读小结7</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://zhouqian0.github.io/css/blog.css" />
+    
+</head>
+<body>
+
+    
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://zhouqian0.github.io/">Home</a>
+        </div>
+    </nav>
+    
+
+    
+    <section class="hero is-info is-medium">
+        <div class="hero-body" style="background-image: url(https://zhouqian0.github.io/img/bg-blog.jpg);">
+            <div class="container has-text-centered">
+                <br>
+                <h1 class="title is-size-1">
+                    
+                        TS 文档阅读小结7
+                    
+                </h1>
+                
+            </div>
+        </div>
+    </section>
+
+
+<div class="container">
+    <div class="section">
+    
+
+<div class="columns">
+    <div class="column is-9">
+        <div class="tile is-child box">
+            <div class="content">
+                
+
+<h3 id="枚举">枚举</h3>
+
+<ol>
+<li><a href="https://www.tslang.cn/docs/handbook/enums.html">https://www.tslang.cn/docs/handbook/enums.html</a></li>
+<li>使用枚举(enum)我们可以定义一些有名字的数字常量。</li>
+
+<li><p>数字枚举可以混入函数的和常量成员。</p>
+
+<p>不带初始化器的枚举或者被放在第一的位置，或者被放在使用了数字常量或其它常量初始化了的枚举后面。</p>
+
+<pre><code>enum E {
+    A = getSomeValue(),
+    B, // error! 'A' is not constant-initialized, so 'B' needs an initializer
+}
+
+</code></pre>
+
+<pre><code>enum E {
+    A, // A = 1 is also possible
+    B = getSomeValue(); // ok!
+}
+</code></pre></li>
+
+<li><p>字符串枚举，每个成员都必须用字符串字面量，或另外一个字符串枚举成员进行初始化。</p>
+
+<pre><code>enum Direction {
+    Up = &quot;UP&quot;,
+    Down = &quot;DOWN&quot;,
+    Left = &quot;LEFT&quot;, // Left = 1 is also possible
+    Right = &quot;RIGHT&quot;,
+}
+</code></pre></li>
+
+<li><p>异构枚举，就是上个例子中 Left = 1 的情景，可以混合字符串和数字成员，<em>一般不建议</em> 。</p></li>
+
+<li><p>一个枚举类型可以包含零个或多个枚举成员，它们可以是常量或者通过函数调用获取。</p>
+
+<p>当满足如下条件时，枚举成员被当作是常量：</p>
+
+<ol>
+<li>不具有初始化值或之前的枚举成员是常量。
+如果整个枚举都未初始化，那么第一个元素值为 0，后续元素值累加；
+如果前一个元素值为数字常量，那么后续元素默认均为前一元素累加。</li>
+<li>枚举成员使用常数枚举表达式（可以在编译阶段求值）初始化。表达式满足下面条件之一就是常数枚举表达式：
+
+<ol>
+<li>一个枚举表达式字面量（主要是字符串字面量或数字字面量）</li>
+<li>一个对之前定义的常量枚举成员的引用（可以是在不同的枚举类型中定义的）</li>
+<li>带括号的常数枚举表达式</li>
+<li>一元运算符 +, -, ~其中之一应用在了常量枚举表达式</li>
+<li>常量枚举表达式做为二元运算符 +, -, *, /, %, &lt;&lt;, &gt;&gt;, &gt;&gt;&gt;, &amp;, |, ^的操作对象。 若常数枚举表达式求值后为 NaN或 Infinity，则会在编译阶段报错。</li>
+</ol></li>
+</ol></li>
+
+<li><p>所有其它情况的枚举成员被当作是需要计算得出的值。</p>
+
+<pre><code>enum FileAccess {
+    // constant members
+    None,
+    Read    = 1 &lt;&lt; 1,
+    Write   = 1 &lt;&lt; 2,
+    ReadWrite  = Read | Write,
+    // computed member
+    G = &quot;123&quot;.length
+}
+</code></pre></li>
+
+<li><p>字面量枚举成员是指不带有初始值的常量枚举成员，或者是值被初始化为</p>
+
+<ol>
+<li>任何字符串字面量（例如： &ldquo;foo&rdquo;， &ldquo;bar&rdquo;， &ldquo;baz&rdquo;）</li>
+<li>任何数字字面量（例如： 1, 100）</li>
+<li>应用了一元 -符号的数字字面量（例如： -1, -100）
+<br /></li>
+</ol>
+
+<p>当所有枚举成员都拥有字面量枚举值时</p>
+
+<ul>
+<li><p>枚举成员成为了类型</p>
+
+<pre><code>enum ShapeKind {
+    Circle,
+    Square,
+}
+        
+interface Circle {
+    kind: ShapeKind.Circle;
+    radius: number;
+}
+        
+let c: Circle = {
+    kind: ShapeKind.Square, // Error!
+    // kind: ShapeKind.Circle, // Ok!
+    radius: 100,
+}
+</code></pre></li>
+
+<li><p>枚举类型本身变成了每个枚举成员的 联合</p>
+
+<pre><code>enum E {
+    Foo,
+    Bar,
+}
+        
+function f(x: E) {
+    if (x !== E.Foo || x !== E.Bar) {
+        //             ~~~~~~~~~~~
+        // Error! Operator '!==' cannot be applied to types 'E.Foo' and 'E.Bar'.
+    }
+}
+</code></pre></li>
+</ul></li>
+
+<li><p>枚举是在运行时真正存在的对象。</p>
+
+<pre><code>enum E {
+    X, Y, Z
+}
+    
+function f(obj: { X: number }) {
+    return obj.X;
+}
+    
+f(E); // Works, since 'E' has a property named 'X' which is a number.
+</code></pre></li>
+
+<li><p>除了创建一个以属性名做为对象成员的对象之外，<em>数字枚举成员(非字符串枚举成员)</em> 还具有了 反向映射，从枚举值到枚举名字。</p>
+
+<p>引用枚举成员总会生成为对属性访问并且永远也不会内联代码。</p>
+
+<pre><code>enum Enum {
+    A
+}
+let a = Enum.A;
+let nameOfA = Enum[a]; // &quot;A&quot;
+</code></pre></li>
+
+<li><p>const 枚举，避免在额外生成的代码上的开销和额外的非直接的对枚举成员的访问，它们在使用的地方会被内联进来（因为不允许包含计算成员）。</p>
+
+<pre><code>const enum Enum {
+    A = 1,
+    B = A * 2
+}
+</code></pre>
+
+<p>常量枚举只能使用常量枚举表达式，且它们在编译阶段会被删除。</p></li>
+
+<li><p>declare 定义的类型只会用于编译时的检查，编译结果中会被删除。</p></li>
+
+<li><p>外部枚举用来描述已经存在的枚举类型的形状。</p>
+
+<p>外部枚举和非外部枚举之间有一个重要的区别，在正常的枚举里，没有初始化方法的成员被当成常数成员。 对于非常数的外部枚举而言，没有初始化方法时被当做需要经过计算的。</p>
+
+<pre><code>declare const enum Directions {
+    Up,
+    Down,
+    Left,
+    Right
+}
+    
+let directions = [Directions.Up, Directions.Down, Directions.Left, Directions.Right]; 
+// [0 /* Up */, 1 /* Down */, 2 /* Left */, 3 /* Right */];
+</code></pre>
+
+<hr />
+
+<p><a href="https://medium.com/codessert/typescript-enums-e58a536fe9d1">使用 Ambient Enums 的主要原因是不希望 TypeScript 在 JavaScript 中生成查找对象，而是通过第三方服务（例如：从服务器获取）将提供它。</a></p>
+
+<pre><code>declare enum State {
+   applied = 1,
+   interview = 2,
+   hired = 3 ,
+   rejected = 4
+}
+var application
+    
+function changeStatus (application, newState) {
+ application.status = State[newState]
+}
+    
+window.fetch('https://goo.gl/ToR5OV')
+ .then(res =&gt; res.json())
+ .then(data =&gt; {
+    var State = data
+    application = {
+     name: 'Sami Najar',
+     status: State.applied
+    }
+    changeStatus(application, 'hired')
+})
+
+interface Window {
+    fetch(url: any, init?: any): any;
+}
+</code></pre></li>
+</ol>
+
+            </div>
+        </div>
+    </div>
+    <div class="column is-3">
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Tags</h1>
+        <div class="tags">
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/typescript">typescript</a></span>
+        
+        </div>          
+    </div>
+</div><br>
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Recent posts</h1>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/seventh/">TS 文档阅读小结7</a></h1>
+            <time class="has-text-grey-light is-size-7">14 July 2019</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/sixth/">TS 文档阅读小结6</a></h1>
+            <time class="has-text-grey-light is-size-7">14 July 2019</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/fifth/">TS 文档阅读小结5</a></h1>
+            <time class="has-text-grey-light is-size-7">12 July 2019</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/fourth/">TS 文档阅读小结4</a></h1>
+            <time class="has-text-grey-light is-size-7">11 July 2019</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/third/">TS 文档阅读小结3</a></h1>
+            <time class="has-text-grey-light is-size-7">10 July 2019</time>
+        
+    </div>
+</div>
+    <br>
+                
+  
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Related posts</h1>
+      
+      
+            <h1><a href="https://zhouqian0.github.io/2019/sixth/">TS 文档阅读小结6</a></h1>
+            <time class="has-text-grey-light is-size-7">14 July 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/fifth/">TS 文档阅读小结5</a></h1>
+            <time class="has-text-grey-light is-size-7">12 July 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/fourth/">TS 文档阅读小结4</a></h1>
+            <time class="has-text-grey-light is-size-7">11 July 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/third/">TS 文档阅读小结3</a></h1>
+            <time class="has-text-grey-light is-size-7">10 July 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/second/">TS 文档阅读小结2</a></h1>
+            <time class="has-text-grey-light is-size-7">5 July 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/first/">TS 文档阅读小结1</a></h1>
+            <time class="has-text-grey-light is-size-7">24 June 2019</time>
+      
+    </div>
+</div>
+
+    
+<br>
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Archives</h1>
+        
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (7)<br>
+        
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+    </div>
+</div>
+
+<footer class="footer has-background-grey-darker has-text-white">
+    <div class="content has-text-centered">
+        <p>
+            <span class="icon is-large"><a href="https://twitter.com/" class="mysocial" rel="me"><i class="fab fa-twitter fa-3x"></i></a></span>&nbsp;&nbsp;
+            <span class="icon is-large"><a href="https://www.youtube.com/" class="mysocial" rel="me"><i class="fab fa-youtube fa-3x"></i></a></span>&nbsp;&nbsp;
+            <span class="icon is-large"><a href="https://github.com/" class="mysocial" rel="me"><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;
+            <br><br>
+            Copyright &copy; Let&#39;s finish what we started 2019 - Theme by <a href="https://jeffprod.com" class="mysocial">JeffProd.com</a>
+            - <a class="mysocial" href="https://zhouqian0.github.io/about">About</a>
+        </p>
+    </div>
+</footer>
+
+<script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+</body>
+</html>
