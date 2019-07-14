@@ -25,7 +25,7 @@ enum Direction { Up = &amp;quot;UP&amp;quot;, Down = &amp;quot;DOWN&amp;quot;, L
     <item>
       <title>TS 文档阅读小结6</title>
       <link>https://zhouqian0.github.io/2019/sixth/</link>
-      <pubDate>Sun, 14 Jul 2019 10:05:55 +0800</pubDate>
+      <pubDate>Sat, 13 Jul 2019 10:05:55 +0800</pubDate>
       
       <guid>https://zhouqian0.github.io/2019/sixth/</guid>
       <description>泛型  https://typescript.bootcss.com/generics.html 泛型，类型变量，是一种特殊的变量，只用于表示类型而不是值。 定义了泛型函数后，可以用两种方法使用。
