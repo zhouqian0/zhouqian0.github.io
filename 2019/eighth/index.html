@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Let&#39;s finish what we started  | TS 文档阅读小结5</title>
+    <title>Let&#39;s finish what we started  | TS 文档阅读小结8</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -29,7 +29,7 @@
                 <br>
                 <h1 class="title is-size-1">
                     
-                        TS 文档阅读小结5
+                        TS 文档阅读小结8
                     
                 </h1>
                 
@@ -48,117 +48,61 @@
             <div class="content">
                 
 
-<h3 id="函数">函数</h3>
+<h3 id="类型推论">类型推论</h3>
 
 <ol>
-<li><a href="https://typescript.bootcss.com/functions.html">https://typescript.bootcss.com/functions.html</a></li>
+<li><a href="https://www.tslang.cn/docs/handbook/type-inference.html">https://www.tslang.cn/docs/handbook/type-inference.html</a></li>
 
-<li><p>完整函数类型，包含参数类型和返回值类型。</p>
-
-<pre><code>let myAdd: (x:number, y:number) =&gt; number =
-    function(x: number, y: number): number { return x + y; };
+<li><pre><code>let x = 3;
 </code></pre>
 
-<ol>
-<li>以参数列表的形式写出参数类型，为每个参数指定一个名字和类型。名字只是为了增加可读性，只要参数类型是匹配即有效</li>
-<li>在函数和返回值类型之前使用(=&gt;)符号，返回值类型是函数类型的必要部分，即使函数没有返回任何值也必须指定返回值类型为 void</li>
-</ol></li>
+<p>变量 x 的类型被推断为 number。 这种推断发生在初始化变量和成员，设置默认参数值和决定函数返回值时。</p></li>
 
-<li><p>TypeScript 编译器会检查用户是否为每个参数都传入了值，所以每个函数参数都是必须的（可输入 null or undefined）。</p>
+<li><p>最佳通用类型</p>
 
 <ol>
-<li><em>可选参数（?）</em> 必须跟在必须参数后面</li>
+<li><pre><code>let x = [0, 1, null]; // 
+</code></pre>
 
-<li><p><em>有默认初始化值的参数，</em> 在所有必须参数后面的带默认初始化的参数都是可选的。共享同样的类型</p>
+<p>推断 x 的类型需要考虑其中所有元素的类型，当前包括 number和null。
+计算通用类型算法会考虑所有的候选类型，并给出一个兼容所有候选类型的类型（最终的通用类型取自候选类型）。</p>
 
-<pre><code>function buildName(firstName: string, lastName = &quot;Smith&quot;) {
-    return firstName + &quot; &quot; + lastName;
-}
-</code></pre></li>
+<p>当前例子中， number 兼容 null（Null、Undefined 和 Never 是其它类型的子类型），故而 x 的类型 应为 number[]。</p></li>
 
-<li><p>带默认值的参数不需要放在必须参数的后面。如果带默认值的参数出现在必须参数前面，用户必须明确的传入undefined值来获得默认值。</p></li>
+<li><pre><code>let zoo = [new Rhino(), new Elephant(), new Snake()];
+</code></pre>
 
-<li><p><em>剩余参数</em> 会被当做个数不限的可选参数。编译器创建参数数组，名字是你在省略号（&hellip;）后面给定的名字，你可以在函数体内使用这个数组。</p></li>
+<p>zoo 中元素都继承自 Animal 类型，但是 zoo 里的元素没有是Animal类型的，因此不能推断出这个结果。</p>
+
+<p>当候选类型不能使用时需要明确的指出类型：<code>let zoo: Animal[]</code>，否则系统进行类型推断的结果将为联合数组类型：(Rhino | Elephant | Snake)[]。</p></li>
 </ol></li>
 
-<li><p>JavaScript 里 this 的<a href="https://yehudakatz.com/2011/08/11/understanding-javascript-function-invocation-and-this/">工作原理</a>，它的值在函数被调用的时候才会指定。</p>
+<li><p>上下文类型，按上下文归类会发生在表达式的类型与所处的位置相关时。</p>
 
-<ol>
-<li>顶级的非方法式调用会将this视为window。（在严格模式下，this为undefined而不是window）</li>
-<li>ECMAScript 6 箭头语法能保存函数创建时的 this 值，而不是调用时的值。</li>
-<li>this 来自对象字面量里的函数表达式(this 为 any 类型)。</li>
+<ul>
+<li><pre><code>window.onmousedown = function(mouseEvent) {
+    console.log(mouseEvent.button);  //&lt;- Error
+};
+</code></pre>
 
-<li><p>显式调用 this，指定 this 类型。</p>
+<p>TypeScript 类型检查器使用 Window.onmousedown 函数的类型来推断右边函数表达式的类型。</p>
 
-<pre><code> interface Card {
-     suit: string;
-     card: number;
- }
- interface Deck {
-     suits: string[];
-     cards: number[];
-     createCardPicker(this: Deck): () =&gt; Card;
- }
- let deck: Deck = {
-     suits: [&quot;hearts&quot;, &quot;spades&quot;, &quot;clubs&quot;, &quot;diamonds&quot;],
-     cards: Array(52),
-     // NOTE: The function now explicitly specifies that its callee must be of type Deck
-     createCardPicker: function(this: Deck) {
-         return () =&gt; {
-             let pickedCard = Math.floor(Math.random() * 52);
-             let pickedSuit = Math.floor(pickedCard / 13);
-         
-             return {suit: this.suits[pickedSuit], card: pickedCard % 13};
-         }
-     }
- }
-         
- let cardPicker = deck.createCardPicker();
- let pickedCard = cardPicker();
-         
- alert(&quot;card: &quot; + pickedCard.card + &quot; of &quot; + pickedCard.suit);
+<p>因此在上下文环境下能推断出 mouseEvent 参数的类型。
+如果函数表达式不是在上下文类型的位置时，系统就无法推断出右边函数表达式的类型，此时 mouseEvent 参数的类型需要指定为 any，否则会报错。</p>
+
+<pre><code>window.onmousedown = function(mouseEvent: any) {
+    console.log(mouseEvent.button);  //当有明确的参数类型注解时，上下文类型被忽略。因为这里不会使用到上下文类型。
+};
 </code></pre></li>
 
-<li><p>将 this: void 作为函数参数意味着函数不需要一个 this 类型。</p></li>
+<li><p>上下文归类使用场景通常包含函数的参数，赋值表达式的右边，类型断言，对象成员和数组字面量和返回值语句。
+上下文类型也会做为最佳通用类型的候选类型。</p>
 
-<li><p>箭头函数不会捕获 this，所以你总是可以把它们传给期望this: void的函数。 缺点是每个Handler对象都会创建一个箭头函数。 另一方面，方法只会被创建一次，添加到Handler的原型链上。 它们在不同Handler对象间是共享的。</p>
-
-<pre><code>class Handler {
-    info: string;
-    onClickGood = (e: Event) =&gt; { this.info = e.message }
+<pre><code>function createZoo(): Animal[] {
+    return [new Rhino(), new Elephant(), new Snake()]; // 最佳通用类型有4个候选者：Animal，Rhino，Elephant 和 Snake。此时 Animal 将会被做为最佳通用类型
 }
 </code></pre></li>
-</ol></li>
-
-<li><p>方法是为同一个函数提供多个函数类型定义来进行函数重载。编译器会根据这个列表去处理函数的调用。</p>
-
-<p>它与 JavaScript 里的处理流程相似，它查找重载列表，尝试使用第一个重载定义，因此，一定要把最精确的定义放在最前面。</p>
-
-<pre><code>let suits = [&quot;hearts&quot;, &quot;spades&quot;, &quot;clubs&quot;, &quot;diamonds&quot;];
-   
-function pickCard(x: {suit: string; card: number; }[]): number;
-function pickCard(x: number): {suit: string; card: number; };
-function pickCard(x): any {
-   // Check to see if we're working with an object/array
-   // if so, they gave us the deck and we'll pick the card
-   if (typeof x == &quot;object&quot;) {
-       let pickedCard = Math.floor(Math.random() * x.length);
-       return pickedCard;
-   }
-   // Otherwise just let them pick the card
-   else if (typeof x == &quot;number&quot;) {
-       let pickedSuit = Math.floor(x / 13);
-       return { suit: suits[pickedSuit], card: x % 13 };
-   }
-}
-   
-let myDeck = [{ suit: &quot;diamonds&quot;, card: 2 }, { suit: &quot;spades&quot;, card: 10 }, { suit: &quot;hearts&quot;, card: 4 }];
-let pickedCard1 = myDeck[pickCard(myDeck)];
-alert(&quot;card: &quot; + pickedCard1.card + &quot; of &quot; + pickedCard1.suit);
-   
-let pickedCard2 = pickCard(15);
-alert(&quot;card: &quot; + pickedCard2.card + &quot; of &quot; + pickedCard2.suit);
-</code></pre></li>
+</ul></li>
 </ol>
 
             </div>
@@ -207,14 +151,14 @@ alert(&quot;card: &quot; + pickedCard2.card + &quot; of &quot; + pickedCard2.sui
         <h1 class="title is-5">Related posts</h1>
       
       
-            <h1><a href="https://zhouqian0.github.io/2019/eighth/">TS 文档阅读小结8</a></h1>
-            <time class="has-text-grey-light is-size-7">15 July 2019</time>
-      
             <h1><a href="https://zhouqian0.github.io/2019/seventh/">TS 文档阅读小结7</a></h1>
             <time class="has-text-grey-light is-size-7">14 July 2019</time>
       
             <h1><a href="https://zhouqian0.github.io/2019/sixth/">TS 文档阅读小结6</a></h1>
             <time class="has-text-grey-light is-size-7">13 July 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/fifth/">TS 文档阅读小结5</a></h1>
+            <time class="has-text-grey-light is-size-7">12 July 2019</time>
       
             <h1><a href="https://zhouqian0.github.io/2019/fourth/">TS 文档阅读小结4</a></h1>
             <time class="has-text-grey-light is-size-7">11 July 2019</time>
