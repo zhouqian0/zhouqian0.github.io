@@ -53,44 +53,77 @@
 <ol>
 <li><a href="https://typescript.bootcss.com/classes.html">https://typescript.bootcss.com/classes.html</a></li>
 <li>在 TypeScript 里，使用面向对象模式，允许使用继承来扩展现有的类。</li>
-<li>派生类(子类)包含了一个构造函数，它必须调用 super() 方法（会执行基类的构造函数）。
+
+<li><p>派生类(子类)包含了一个构造函数，它必须调用 super() 方法（会执行基类的构造函数）。</p>
+
+<pre><code>    class Animal {
+        name: string;
+        constructor(theName: string) { this.name = theName; }
+        move(distanceInMeters: number = 0) {
+            console.log(`${this.name} moved ${distanceInMeters}m.`);
+        }
+    }
+        
+    class Snake extends Animal {
+        constructor(name: string) { super(name); }
+        move(distanceInMeters = 5) {
+            console.log(&quot;Slithering...&quot;);
+            super.move(distanceInMeters);
+        }
+    }
+        
+    class Horse extends Animal {
+        constructor(name: string) { super(name); }
+        move(distanceInMeters = 45) {
+            console.log(&quot;Galloping...&quot;);
+            super.move(distanceInMeters);
+        }
+    }
+        
+    let sam = new Snake(&quot;Sammy the Python&quot;);
+    let tom: Animal = new Horse(&quot;Tommy the Palomino&quot;);
+        
+    sam.move();
+    tom.move(34);
+</code></pre>
 
 <ol>
 <li>在构造函数里访问 this 的属性之前，一定要先调用 super()</li>
+<li>可以通过 super 调用父类的方法</li>
 </ol></li>
-<li>在 TypeScript 里，成员都默认为 public。</li>
-<li>TypeScript 是一种结构类型系统。当我们比较两种不同的类型时，无论它们来自何处，如果所有成员的类型都兼容，那么我们说类型本身是兼容的。
 
-<ol>
-<li>当两个类不同名称的类（它们都只定义了属性，无方法，且属性名称类型都相同），此时，如果它们的属性中存在有 private (私有成员)，那么两者不能用 = 进行赋值，但如果它们的属性都是 public 的，则可用 = 进行赋值。<em>protected 同理。</em></li>
-</ol></li>
-<li>被标记成 protected 的构造函数意味着这个类不能在包含它的类外被实例化，但是能被继承。</li>
-<li>将类属性标记为 readonly 会导致这些属性必须在声明时或构造函数里被初始化。</li>
+<li><p>在 TypeScript 里，成员都默认为 public。</p></li>
 
-<li><p>参数属性通过给构造函数参数添加一个<strong>访问限定符</strong>来声明。 使用 private 限定一个参数属性会声明并初始化一个私有成员；对于public和protected来说也是一样。</p>
+<li><p>TypeScript 是一种 <em>结构类型系统</em> 。当我们比较两种不同的类型时，无论它们来自何处，如果所有成员的类型都兼容，那么我们说类型本身是兼容的。</p>
 
-<ol>
-<li><pre><code>class Animal {
-    constructor(private name: string) { }
-    move(distanceInMeters: number) {
-        console.log(`${this.name} moved ${distanceInMeters}m.`);
+<p>当两个类不同名称的类（它们都只定义了属性，无方法，且属性名称类型都相同），此时，如果它们的属性中存在有 private (私有成员)，那么两者不能用 = 进行赋值，但如果它们的属性都是 public 的，则可用 = 进行赋值。<em>protected 与 private 同理。</em></p></li>
+
+<li><p>被标记成 protected 的构造函数意味着这个类不能在包含它的类外被实例化（可以用工厂方法进行实例化），但是能被继承。</p></li>
+
+<li><p>将类属性标记为 readonly 会导致这些属性必须在声明时或构造函数里被初始化。</p></li>
+
+<li><p>参数属性通过给构造函数参数添加一个<strong>访问限定符</strong>来声明。 使用 private 限定一个参数属性会声明并初始化一个私有成员；对于 public（public 类型也需要显示声明） 和 protected 来说也是一样。</p>
+
+<pre><code>    class Animal {
+        constructor(private name: string) { }
+        move(distanceInMeters: number) {
+            console.log(`${this.name} moved ${distanceInMeters}m.`);
+        }
     }
-}
 </code></pre>
 
 <p>等同于</p>
 
-<pre><code>class Animal {
-    private name: string;
-    constructor(name: string) {
-        this.name = name;
+<pre><code>    class Animal {
+        private name: string;
+        constructor(name: string) {
+            this.name = name;
+        }
+        move(distanceInMeters: number) {
+            console.log(`${this.name} moved ${distanceInMeters}m.`);
+        }
     }
-    move(distanceInMeters: number) {
-        console.log(`${this.name} moved ${distanceInMeters}m.`);
-    }
-}
 </code></pre></li>
-</ol></li>
 
 <li><p>TypeScript 支持通过 getters/setters 来截取对对象成员的访问。</p>
 
@@ -132,7 +165,7 @@ if (employee.fullName) {
 
 <ol>
 <li>不同于接口，抽象类可以包含成员的实现细节</li>
-<li>抽象类中的抽象方法(abstract，只定义签名，无方法体)不包含具体实现并且必须在派生类中实现。</li>
+<li>抽象类中的抽象方法（abstract，只定义签名，无方法体）不包含具体实现并且必须在派生类中实现。</li>
 <li>允许创建一个对抽象类型的引用，但不能创建一个抽象类的实例。</li>
 
 <li><pre><code>abstract class Department {

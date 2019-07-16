@@ -61,10 +61,10 @@
 <li><p>最佳通用类型</p>
 
 <ol>
-<li><pre><code>let x = [0, 1, null]; // 
+<li><pre><code>let x = [0, 1, null]; 
 </code></pre>
 
-<p>推断 x 的类型需要考虑其中所有元素的类型，当前包括 number和null。
+<p>推断 x 的类型需要考虑其中所有元素的类型，当前包括 number 和 null。
 计算通用类型算法会考虑所有的候选类型，并给出一个兼容所有候选类型的类型（最终的通用类型取自候选类型）。</p>
 
 <p>当前例子中， number 兼容 null（Null、Undefined 和 Never 是其它类型的子类型），故而 x 的类型 应为 number[]。</p></li>

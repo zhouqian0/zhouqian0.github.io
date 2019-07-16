@@ -86,12 +86,12 @@
 <li><code>let [, second, , fourth] = [1, 2, 3, 4];</code></li>
 <li>可用作在一行内声明多个数组变量，用作自解释</li>
 </ol></li>
-<li>元组结构
+<li>元组解构
 
 <ol>
 <li><code>let tuple: [number, string, boolean] = [7, &quot;hello&quot;, true];</code></li>
 <li><code>let [a, ...bc] = tuple; // bc: [&quot;hello&quot;, true]</code></li>
-<li><code>let [a, b, c, ...d] = tuple; // d: [], the empty tuple, only three emlements</code></li>
+<li><code>let [a, b, c, ...d] = tuple; // d: [], the empty tuple, only have three emlements</code></li>
 <li><code>let [, b] = tuple; // b: string = 7</code></li>
 </ol></li>
 <li>对象解构：
@@ -126,10 +126,10 @@ let { a, b } = o;</code></li>
 <li><code>let first = [1, 2];
 let second = [3, 4];
 let bothPlus = [0, ...first, ...second, 5]; // [0, 1, 2, 3, 4, 5]</code>
-展开操作创建了first和second的一份浅拷贝。 它们不会被展开操作所改变</li>
+展开操作创建了 first 和 second 的浅拷贝，它们不会被展开操作所改变</li>
 <li><code>let defaults = { food: &quot;spicy&quot;, price: &quot;$$&quot;, ambiance: &quot;noisy&quot; };
 let search = { food: &quot;rich&quot;, ...defaults };</code>展开对象后面的属性会覆盖前面的属性</li>
-<li>仅包含对象<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Enumerability_and_ownership_of_properties">自身的可枚举属性</a>，也就是说展开的对象只能有其属性值，不能调用其原来有的方法</li>
+<li>展开仅包含对象<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Enumerability_and_ownership_of_properties">自身的可枚举属性</a>，也就是说展开的对象只能有其属性值，不能调用其原来有的方法</li>
 <li><code>let c = new C();
 let clone = { ...c };</code> <strong>可用作对象的简单浅拷贝，解除双向绑定</strong></li>
 <li>TypeScript编译器不允许展开泛型函数上的类型参数。</li>

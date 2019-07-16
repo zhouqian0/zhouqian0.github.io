@@ -67,7 +67,7 @@ let p: Named;
 p = new Person(); // OK, because of structural typing
 </code></pre></li>
 
-<li><p>TypeScript结构化类型系统的基本规则是，如果x要兼容y，那么y至少具有与x相同的属性。</p>
+<li><p>TypeScript 结构化类型系统的基本规则是，如果 x 要兼容 y，那么 y 至少具有与 x 相同的属性。</p>
 
 <p>属性少的类型（例如只含有属性 x）可以赋值给属性多的类型（例如含有属性 x，y），但是属性多的类型不能赋值给属性少的类型。</p>
 
@@ -78,7 +78,7 @@ p = new Person(); // OK, because of structural typing
 let x: Named;
 let y = { name: 'Alice', location: 'Seattle' }; // y's inferred type is { name: string; location: string; }
 x = y;
-// y = x; Error! Property 'location' is missing in type 'Named'
+// y = x; // Error! Property 'location' is missing in type 'Named'
 </code></pre>
 
 <p>检查函数参数时使用相同的规则（目标类型（函数参数）的成员会被一一检查是否兼容。）。</p></li>
@@ -95,7 +95,6 @@ let y = (b: number, s: string) =&gt; 0;
         
 y = x; // OK
 x = y; // Error
-要查看x是否能赋值给y
 </code></pre></li>
 
 <li><p>比较返回值，类型系统强制源函数的返回值类型必须是目标函数返回值类型的子类型。</p>
@@ -165,7 +164,15 @@ s = a;  // OK
 这允许子类赋值给父类，但是不能赋值给其它有同样类型的类。
 <em>(TS 文档阅读小结4 第五条)</em></p></li>
 
-<li><p>TypeScript 是结构性的类型系统，类型参数只影响使用其做为类型一部分的结果类型( <em>泛型</em> )。</p>
+<li><p>TypeScript 是结构性的类型系统，类型参数( <em>泛型</em> )只影响使用其做为类型一部分的结果类型。</p>
+
+<pre><code>interface Empty&lt;T&gt; {
+}
+let x: Empty&lt;number&gt;;
+let y: Empty&lt;string&gt;;
+    
+x = y;  // OK, because y matches structure of x
+</code></pre>
 
 <pre><code>interface NotEmpty&lt;T&gt; {
     data: T;

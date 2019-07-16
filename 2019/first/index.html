@@ -53,22 +53,37 @@
 <ol>
 <li><a href="https://typescript.bootcss.com/basic-types.html">https://typescript.bootcss.com/basic-types.html</a></li>
 <li>TypeScript 里的所有数字都是浮点数。</li>
-<li>元组类型( Tuple )允许表示一个已知元素数量和类型的数组，各元素的类型不必相同。
+<li>模版字符串，可以定义多行文本和内嵌表达式。 其被反引号包围（ `），并且以 ${ expr } 这种形式嵌入表达式。</li>
+<li>数组，使用后跟[]元素的类型来表示该元素类型的数组或者使用通用数组类型Array<elemType>。</li>
+
+<li><p>元组类型( Tuple )允许表示一个已知元素数量和类型的数组，各元素的类型不必相同。</p>
 
 <ol>
 <li>eg: let x: [string, number];    x = [&lsquo;hello&rsquo;, 10]; // 必须要按照定义类型的顺序赋值</li>
-<li>如果要定义访问越界元素，会使用定义的类型的联合类型（如 eg 中，越界元素必须是 string or number）</li>
+
+<li><p>访问越界元素会出现错误提示:</p>
+
+<pre><code>x[3] = &quot;world&quot;; // Error, Property '3' does not exist on type '[string, number]'.
+        
+console.log(x[5].toString()); // Error, Property '5' does not exist on type '[string, number]'.
+</code></pre></li>
 </ol></li>
-<li>枚举类型提供的一个便利是你可以由枚举的值得到它的名字。</li>
-<li>类型检查器不对any类型的值进行检查而是直接让它们通过编译阶段的检查。Object类型的变量只是允许你给它赋任意值 ，但是却不能够在它上面调用任意的方法，即便它真的有这些方法。</li>
-<li>指定了 &ndash;strictNullChecks 标记(编译选项)，null 和 undefined 只能赋值给 void 和它们各自。</li>
-<li>never 类型表示的是那些永不存在的值的类型，即使 any 也不能复制给 never。
+
+<li><p>枚举类型提供的一个便利是你可以由枚举的值得到它的名字。</p></li>
+
+<li><p>类型检查器不对 any 类型的值进行检查而是直接让它们通过编译阶段的检查。Object 类型的变量只允许给它赋任意值 ，但是却不能够在它上面调用任意的方法，即便它真的有这些方法。</p></li>
+
+<li><p>指定了 &ndash;strictNullChecks 标记(编译选项)，null 和 undefined 只能赋值给 void 和它们各自。</p></li>
+
+<li><p>never 类型表示的是那些永不存在的值的类型，即使 any 也不能赋值给 never。</p>
 
 <ol>
 <li>可作为 error 函数 (return Error()) 的返回值</li>
 </ol></li>
-<li>类型断言( as , 尖括号 (&lt;String&gt;)) 类似 JAVA 中的类型转换，但是不进行特殊的数据检查和解构。不影响运行，只干预编译阶段。</li>
-<li>推荐使用 let 代替 var （和作用域有关）</li>
+
+<li><p>类型断言( as , 尖括号 (&lt;String&gt;)) 类似 JAVA 中的类型转换，但是不进行特殊的数据检查和解构。不影响运行，只干预编译阶段。</p></li>
+
+<li><p>推荐使用 let 代替 var（和作用域有关）</p></li>
 </ol>
 
             </div>
