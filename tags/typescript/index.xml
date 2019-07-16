@@ -11,7 +11,7 @@
     
     
     <item>
-      <title>TS 文档阅读小结9——类型兼容性</title>
+      <title>TS文档阅读小结9 类型兼容性</title>
       <link>https://zhouqian0.github.io/2019/ninth/</link>
       <pubDate>Tue, 16 Jul 2019 09:04:52 +0800</pubDate>
       
@@ -23,7 +23,7 @@ interface Named { name: string; } let x: Named; let y = { name: &#39;Alice&#39;,
     </item>
     
     <item>
-      <title>TS 文档阅读小结8——类型推论</title>
+      <title>TS文档阅读小结8 类型推论</title>
       <link>https://zhouqian0.github.io/2019/eighth/</link>
       <pubDate>Mon, 15 Jul 2019 16:32:42 +0800</pubDate>
       
@@ -39,7 +39,7 @@ interface Named { name: string; } let x: Named; let y = { name: &#39;Alice&#39;,
     </item>
     
     <item>
-      <title>TS 文档阅读小结7——枚举</title>
+      <title>TS文档阅读小结7 枚举</title>
       <link>https://zhouqian0.github.io/2019/seventh/</link>
       <pubDate>Sun, 14 Jul 2019 16:24:56 +0800</pubDate>
       
@@ -51,7 +51,7 @@ enum Direction { Up = &amp;quot;UP&amp;quot;, Down = &amp;quot;DOWN&amp;quot;, L
     </item>
     
     <item>
-      <title>TS 文档阅读小结6——泛型</title>
+      <title>TS文档阅读小结6 泛型</title>
       <link>https://zhouqian0.github.io/2019/sixth/</link>
       <pubDate>Sat, 13 Jul 2019 10:05:55 +0800</pubDate>
       
@@ -65,7 +65,7 @@ function loggingIdentity&amp;lt;T&amp;gt;(arg: T): T { console.log(arg.length); 
     </item>
     
     <item>
-      <title>TS 文档阅读小结5——函数</title>
+      <title>TS文档阅读小结5 函数</title>
       <link>https://zhouqian0.github.io/2019/fifth/</link>
       <pubDate>Fri, 12 Jul 2019 14:19:14 +0800</pubDate>
       
@@ -80,7 +80,7 @@ function buildName(firstName: string, lastName = &amp;quot;Smith&amp;quot;) { re
     </item>
     
     <item>
-      <title>TS 文档阅读小结4——类</title>
+      <title>TS文档阅读小结4 类</title>
       <link>https://zhouqian0.github.io/2019/fourth/</link>
       <pubDate>Thu, 11 Jul 2019 14:25:12 +0800</pubDate>
       
@@ -91,7 +91,7 @@ class Animal { private name: string; constructor(name: string) { this.</descript
     </item>
     
     <item>
-      <title>TS 文档阅读小结3——接口</title>
+      <title>TS文档阅读小结3 接口</title>
       <link>https://zhouqian0.github.io/2019/third/</link>
       <pubDate>Wed, 10 Jul 2019 09:28:07 +0800</pubDate>
       
@@ -100,7 +100,7 @@ class Animal { private name: string; constructor(name: string) { this.</descript
     </item>
     
     <item>
-      <title>TS 文档阅读小结2——变量声明</title>
+      <title>TS文档阅读小结2 变量声明</title>
       <link>https://zhouqian0.github.io/2019/second/</link>
       <pubDate>Fri, 05 Jul 2019 11:30:29 +0800</pubDate>
       
@@ -109,7 +109,7 @@ class Animal { private name: string; constructor(name: string) { this.</descript
     </item>
     
     <item>
-      <title>TS 文档阅读小结1——基础类型</title>
+      <title>TS文档阅读小结1 基础类型</title>
       <link>https://zhouqian0.github.io/2019/first/</link>
       <pubDate>Mon, 24 Jun 2019 17:26:57 +0800</pubDate>
       
