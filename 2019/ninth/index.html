@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Let&#39;s finish what we started  | TS 文档阅读小结9——类型兼容性</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://zhouqian0.github.io/css/blog.css" />
+    
+</head>
+<body>
+
+    
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://zhouqian0.github.io/">Home</a>
+        </div>
+    </nav>
+    
+
+    
+    <section class="hero is-info is-medium">
+        <div class="hero-body" style="background-image: url(https://zhouqian0.github.io/img/bg-blog.jpg);">
+            <div class="container has-text-centered">
+                <br>
+                <h1 class="title is-size-1">
+                    
+                        TS 文档阅读小结9——类型兼容性
+                    
+                </h1>
+                
+            </div>
+        </div>
+    </section>
+
+
+<div class="container">
+    <div class="section">
+    
+
+<div class="columns">
+    <div class="column is-9">
+        <div class="tile is-child box">
+            <div class="content">
+                
+
+<h3 id="类型兼容性">类型兼容性</h3>
+
+<ol>
+<li><a href="https://www.tslang.cn/docs/handbook/type-compatibility.html">https://www.tslang.cn/docs/handbook/type-compatibility.html</a></li>
+
+<li><p>TypeScript 里的类型兼容性是基于结构子类型的（只使用其成员来描述类型的方式）。C#、Java 等语言使用的是基于名义类型的类型系统。</p>
+
+<pre><code>interface Named {
+    name: string;
+}
+    
+class Person {
+    name: string;
+}
+    
+let p: Named;
+p = new Person(); // OK, because of structural typing
+</code></pre></li>
+
+<li><p>TypeScript结构化类型系统的基本规则是，如果x要兼容y，那么y至少具有与x相同的属性。</p>
+
+<p>属性少的类型（例如只含有属性 x）可以赋值给属性多的类型（例如含有属性 x，y），但是属性多的类型不能赋值给属性少的类型。</p>
+
+<pre><code>interface Named {
+    name: string;
+}
+    
+let x: Named;
+let y = { name: 'Alice', location: 'Seattle' }; // y's inferred type is { name: string; location: string; }
+x = y;
+// y = x; Error! Property 'location' is missing in type 'Named'
+</code></pre>
+
+<p>检查函数参数时使用相同的规则（目标类型（函数参数）的成员会被一一检查是否兼容。）。</p></li>
+
+<li><p>函数比较，</p>
+
+<ul>
+<li><p>比较参数列表（顺序及类型）。</p>
+
+<p>参数类型少的函数（例如只含有一个 number 参数）可以赋值给参数类型多的函数（含有一个 number 参数，一个 string 参数），但是参数类型多的不能赋值给参数类型少的。</p>
+
+<pre><code>let x = (a: number) =&gt; 0;
+let y = (b: number, s: string) =&gt; 0;
+        
+y = x; // OK
+x = y; // Error
+要查看x是否能赋值给y
+</code></pre></li>
+
+<li><p>比较返回值，类型系统强制源函数的返回值类型必须是目标函数返回值类型的子类型。</p>
+
+<p>返回值类型中包含元素多（例如返回值包含属性x， y）的可以返回给返回值包含元素少的（返回值只包含属性 x），反之则不行。</p>
+
+<pre><code>let x = () =&gt; ({name: 'Alice'});
+let y = () =&gt; ({name: 'Alice', location: 'Seattle'});
+        
+x = y; // OK
+y = x; // Error, because x() lacks a location property
+</code></pre></li>
+</ul></li>
+
+<li><p>当比较函数参数类型时，只有当源函数参数能够赋值给目标函数或者反过来时才能赋值成功。</p></li>
+
+<li><p>比较函数兼容性的时候，可选参数与必须参数是可互换的。</p>
+
+<p>源类型上有额外的可选参数不是错误，目标类型的可选参数在源类型里没有对应的参数也不是错误。</p>
+
+<p>从运行时的角度来看，可选参数一般来说是不强制的，因为对于大多数函数来说相当于传递了一些 undefined。</p>
+
+<pre><code>function invokeLater(args: any[], callback: (...args: any[]) =&gt; void) {
+    /* ... Invoke callback with 'args' ... */
+}
+    
+// Unsound - invokeLater &quot;might&quot; provide any number of arguments
+invokeLater([1, 2], (x, y) =&gt; console.log(x + ', ' + y));
+    
+// Confusing (x and y are actually required) and undiscoverable
+invokeLater([1, 2], (x?, y?) =&gt; console.log(x + ', ' + y));
+</code></pre></li>
+
+<li><p>对于有重载的函数，源函数的每个重载都要在目标函数上找到对应的函数签名。 这确保了目标函数可以在所有源函数可调用的地方调用。<em>(TS 文档阅读小结5)</em></p></li>
+
+<li><p>枚举类型与数字类型兼容，并且数字类型与枚举类型兼容。不同枚举类型之间是不兼容的。</p>
+
+<pre><code>enum Status { Ready, Waiting };
+enum Color { Red, Blue, Green };
+    
+let status = Status.Ready;
+status = Color.Green;  // Error
+</code></pre></li>
+
+<li><p>类与对象字面量和接口差不多，比较两个类类型的对象时，只有实例的成员会被比较。 <em>静态成员和构造函数不在比较的范围内</em> 。</p>
+
+<pre><code>class Animal {
+   feet: number;
+   constructor(name: string, numFeet: number) { }
+}
+   
+class Size {
+   feet: number;
+   constructor(numFeet: number) { }
+}
+   
+let a: Animal;
+let s: Size;
+   
+a = s;  // OK
+s = a;  // OK
+</code></pre></li>
+
+<li><p>类的私有成员和受保护成员会影响兼容性。
+当检查类实例的兼容时，如果目标类型包含一个私有成员，那么源类型必须包含来自同一个类的这个私有成员。
+同样地，这条规则也适用于包含受保护成员实例的类型检查。
+这允许子类赋值给父类，但是不能赋值给其它有同样类型的类。
+<em>(TS 文档阅读小结4 第五条)</em></p></li>
+
+<li><p>TypeScript 是结构性的类型系统，类型参数只影响使用其做为类型一部分的结果类型( <em>泛型</em> )。</p>
+
+<pre><code>interface NotEmpty&lt;T&gt; {
+    data: T;
+}
+let x: NotEmpty&lt;number&gt;;
+let y: NotEmpty&lt;string&gt;;
+    
+x = y;  // Error, because x and y are not compatible
+</code></pre>
+
+<p>对于没指定泛型类型的泛型参数时，会把所有泛型参数当成 any 比较。</p>
+
+<pre><code>let identity = function &lt;T&gt;(x: T): T {
+   // ...
+   return x;
+}
+    
+let reverse = function &lt;U&gt;(y: U): U {
+   // ...
+   return y;
+}
+    
+identity = reverse;  // OK, because (x: any) =&gt; any matches (y: any) =&gt; any
+</code></pre></li>
+
+<li><p>在 TypeScript 里，有两种兼容性：子类型和赋值。 它们的不同点在于，赋值扩展了子类型兼容性，增加了一些规则，允许和 any 来回赋值，以及 enum 和对应数字值之间的来回赋值。</p>
+
+<p>类型兼容性是由赋值兼容性来控制的，即使在 implements 和 extends 语句也不例外。</p></li>
+</ol>
+
+            </div>
+        </div>
+    </div>
+    <div class="column is-3">
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Tags</h1>
+        <div class="tags">
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/typescript">typescript</a></span>
+        
+        </div>          
+    </div>
+</div><br>
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Recent posts</h1>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/ninth/">TS 文档阅读小结9——类型兼容性</a></h1>
+            <time class="has-text-grey-light is-size-7">16 July 2019</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/eighth/">TS 文档阅读小结8——类型推论</a></h1>
+            <time class="has-text-grey-light is-size-7">15 July 2019</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/seventh/">TS 文档阅读小结7——枚举</a></h1>
+            <time class="has-text-grey-light is-size-7">14 July 2019</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/sixth/">TS 文档阅读小结6——泛型</a></h1>
+            <time class="has-text-grey-light is-size-7">13 July 2019</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/fifth/">TS 文档阅读小结5——函数</a></h1>
+            <time class="has-text-grey-light is-size-7">12 July 2019</time>
+        
+    </div>
+</div>
+    <br>
+                
+  
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Related posts</h1>
+      
+      
+            <h1><a href="https://zhouqian0.github.io/2019/eighth/">TS 文档阅读小结8——类型推论</a></h1>
+            <time class="has-text-grey-light is-size-7">15 July 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/seventh/">TS 文档阅读小结7——枚举</a></h1>
+            <time class="has-text-grey-light is-size-7">14 July 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/sixth/">TS 文档阅读小结6——泛型</a></h1>
+            <time class="has-text-grey-light is-size-7">13 July 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/fifth/">TS 文档阅读小结5——函数</a></h1>
+            <time class="has-text-grey-light is-size-7">12 July 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/fourth/">TS 文档阅读小结4——类</a></h1>
+            <time class="has-text-grey-light is-size-7">11 July 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/third/">TS 文档阅读小结3——接口</a></h1>
+            <time class="has-text-grey-light is-size-7">10 July 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/second/">TS 文档阅读小结2——变量声明</a></h1>
+            <time class="has-text-grey-light is-size-7">5 July 2019</time>
+      
+    </div>
+</div>
+
+    
+<br>
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Archives</h1>
+        
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (9)<br>
+        
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+    </div>
+</div>
+
+<footer class="footer has-background-grey-darker has-text-white">
+    <div class="content has-text-centered">
+        <p>
+            <span class="icon is-large"><a href="https://twitter.com/" class="mysocial" rel="me"><i class="fab fa-twitter fa-3x"></i></a></span>&nbsp;&nbsp;
+            <span class="icon is-large"><a href="https://www.youtube.com/" class="mysocial" rel="me"><i class="fab fa-youtube fa-3x"></i></a></span>&nbsp;&nbsp;
+            <span class="icon is-large"><a href="https://github.com/" class="mysocial" rel="me"><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;
+            <br><br>
+            Copyright &copy; Let&#39;s finish what we started 2019 - Theme by <a href="https://jeffprod.com" class="mysocial">JeffProd.com</a>
+            - <a class="mysocial" href="https://zhouqian0.github.io/about">About</a>
+        </p>
+    </div>
+</footer>
+
+<script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+</body>
+</html>

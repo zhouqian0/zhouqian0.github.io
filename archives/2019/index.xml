@@ -5,13 +5,25 @@
     <description>Recent content in 2019 on Let&#39;s finish what we started</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 15 Jul 2019 16:32:42 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 16 Jul 2019 09:04:52 +0800</lastBuildDate>
     
         <atom:link href="https://zhouqian0.github.io/archives/2019/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>TS 文档阅读小结8</title>
+      <title>TS 文档阅读小结9——类型兼容性</title>
+      <link>https://zhouqian0.github.io/2019/ninth/</link>
+      <pubDate>Tue, 16 Jul 2019 09:04:52 +0800</pubDate>
+      
+      <guid>https://zhouqian0.github.io/2019/ninth/</guid>
+      <description>类型兼容性  https://www.tslang.cn/docs/handbook/type-compatibility.html TypeScript 里的类型兼容性是基于结构子类型的（只使用其成员来描述类型的方式）。C#、Java 等语言使用的是基于名义类型的类型系统。
+interface Named { name: string; } class Person { name: string; } let p: Named; p = new Person(); // OK, because of structural typing  TypeScript结构化类型系统的基本规则是，如果x要兼容y，那么y至少具有与x相同的属性。
+属性少的类型（例如只含有属性 x）可以赋值给属性多的类型（例如含有属性 x，y），但是属性多的类型不能赋值给属性少的类型。
+interface Named { name: string; } let x: Named; let y = { name: &#39;Alice&#39;, location: &#39;Seattle&#39; }; // y&#39;s inferred type is { name: string; location: string; } x = y; // y = x; Error!</description>
+    </item>
+    
+    <item>
+      <title>TS 文档阅读小结8——类型推论</title>
       <link>https://zhouqian0.github.io/2019/eighth/</link>
       <pubDate>Mon, 15 Jul 2019 16:32:42 +0800</pubDate>
       
@@ -27,7 +39,7 @@
     </item>
     
     <item>
-      <title>TS 文档阅读小结7</title>
+      <title>TS 文档阅读小结7——枚举</title>
       <link>https://zhouqian0.github.io/2019/seventh/</link>
       <pubDate>Sun, 14 Jul 2019 16:24:56 +0800</pubDate>
       
@@ -39,7 +51,7 @@ enum Direction { Up = &amp;quot;UP&amp;quot;, Down = &amp;quot;DOWN&amp;quot;, L
     </item>
     
     <item>
-      <title>TS 文档阅读小结6</title>
+      <title>TS 文档阅读小结6——泛型</title>
       <link>https://zhouqian0.github.io/2019/sixth/</link>
       <pubDate>Sat, 13 Jul 2019 10:05:55 +0800</pubDate>
       
@@ -53,7 +65,7 @@ function loggingIdentity&amp;lt;T&amp;gt;(arg: T): T { console.log(arg.length); 
     </item>
     
     <item>
-      <title>TS 文档阅读小结5</title>
+      <title>TS 文档阅读小结5——函数</title>
       <link>https://zhouqian0.github.io/2019/fifth/</link>
       <pubDate>Fri, 12 Jul 2019 14:19:14 +0800</pubDate>
       
@@ -68,7 +80,7 @@ function buildName(firstName: string, lastName = &amp;quot;Smith&amp;quot;) { re
     </item>
     
     <item>
-      <title>TS 文档阅读小结4</title>
+      <title>TS 文档阅读小结4——类</title>
       <link>https://zhouqian0.github.io/2019/fourth/</link>
       <pubDate>Thu, 11 Jul 2019 14:25:12 +0800</pubDate>
       
@@ -79,7 +91,7 @@ class Animal { private name: string; constructor(name: string) { this.</descript
     </item>
     
     <item>
-      <title>TS 文档阅读小结3</title>
+      <title>TS 文档阅读小结3——接口</title>
       <link>https://zhouqian0.github.io/2019/third/</link>
       <pubDate>Wed, 10 Jul 2019 09:28:07 +0800</pubDate>
       
@@ -88,7 +100,7 @@ class Animal { private name: string; constructor(name: string) { this.</descript
     </item>
     
     <item>
-      <title>TS 文档阅读小结2</title>
+      <title>TS 文档阅读小结2——变量声明</title>
       <link>https://zhouqian0.github.io/2019/second/</link>
       <pubDate>Fri, 05 Jul 2019 11:30:29 +0800</pubDate>
       
@@ -97,7 +109,7 @@ class Animal { private name: string; constructor(name: string) { this.</descript
     </item>
     
     <item>
-      <title>TS 文档阅读小结1</title>
+      <title>TS 文档阅读小结1——基础类型</title>
       <link>https://zhouqian0.github.io/2019/first/</link>
       <pubDate>Mon, 24 Jun 2019 17:26:57 +0800</pubDate>
       
