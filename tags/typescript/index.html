@@ -55,6 +55,22 @@
                 <article class="media">
                     <div class="media-content">
                         <div class="content">
+                            <p class="title is-4"><a href="/2019/tenth/">TS文档阅读小结10 高级类型</a></p>
+                            <p class="subtitle is-size-6 has-text-grey-light">
+                                Published at July 17, 2019 &middot;
+                                <i class="far fa-clock"></i>&nbsp;9 min read
+                            </p>
+                            <p>高级类型  https://www.tslang.cn/docs/handbook/advanced-types.html 交叉类型（Intersection Types），将多个类型合并为一个类型。
+例如， Person &amp; Serializable &amp; Loggable 同时是 Person 和 Serializable 和 Loggable。 就是说这个类型的对象同时拥有了这三种类型的成员。
+function extend&lt;First, Second&gt;(first: First, second: Second): First &amp; Second { const result: Partial&lt;First &amp; Second&gt; = {}; for (const prop in first) { if (first.hasOwnProperty(prop)) { (result as First)[prop] = first[prop]; } } for (const prop in second) { if (second.hasOwnProperty(prop)) { (result as Second)[prop] = second[prop]; } } return result as First &amp; Second; } class Person { constructor(public name: string) { } } interface Loggable { log(name: string): void; } class ConsoleLogger implements Loggable { log(name) { console....</p>
+                        </div>
+                    </div>
+                </article>
+                <br>
+
+                <article class="media">
+                    <div class="media-content">
+                        <div class="content">
                             <p class="title is-4"><a href="/2019/ninth/">TS文档阅读小结9 类型兼容性</a></p>
                             <p class="subtitle is-size-6 has-text-grey-light">
                                 Published at July 16, 2019 &middot;
@@ -228,6 +244,9 @@ x[3] = &quot;world&quot;; // Error, Property '3' does not exist on type '[string
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2019/tenth/">TS文档阅读小结10 高级类型</a></h1>
+            <time class="has-text-grey-light is-size-7">17 July 2019</time>
+        
             <h1><a href="https://zhouqian0.github.io/2019/ninth/">TS文档阅读小结9 类型兼容性</a></h1>
             <time class="has-text-grey-light is-size-7">16 July 2019</time>
         
@@ -240,9 +259,6 @@ x[3] = &quot;world&quot;; // Error, Property '3' does not exist on type '[string
             <h1><a href="https://zhouqian0.github.io/2019/sixth/">TS文档阅读小结6 泛型</a></h1>
             <time class="has-text-grey-light is-size-7">13 July 2019</time>
         
-            <h1><a href="https://zhouqian0.github.io/2019/fifth/">TS文档阅读小结5 函数</a></h1>
-            <time class="has-text-grey-light is-size-7">12 July 2019</time>
-        
     </div>
 </div>
     <br>
@@ -250,7 +266,7 @@ x[3] = &quot;world&quot;; // Error, Property '3' does not exist on type '[string
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (9)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (10)<br>
         
     </div>
 </div>

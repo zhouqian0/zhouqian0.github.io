@@ -5,10 +5,21 @@
     <description>Recent content in typeScript on Let&#39;s finish what we started</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 16 Jul 2019 09:04:52 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 17 Jul 2019 14:10:34 +0800</lastBuildDate>
     
         <atom:link href="https://zhouqian0.github.io/tags/typescript/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>TS文档阅读小结10 高级类型</title>
+      <link>https://zhouqian0.github.io/2019/tenth/</link>
+      <pubDate>Wed, 17 Jul 2019 14:10:34 +0800</pubDate>
+      
+      <guid>https://zhouqian0.github.io/2019/tenth/</guid>
+      <description>高级类型  https://www.tslang.cn/docs/handbook/advanced-types.html 交叉类型（Intersection Types），将多个类型合并为一个类型。
+例如， Person &amp;amp; Serializable &amp;amp; Loggable 同时是 Person 和 Serializable 和 Loggable。 就是说这个类型的对象同时拥有了这三种类型的成员。
+function extend&amp;lt;First, Second&amp;gt;(first: First, second: Second): First &amp;amp; Second { const result: Partial&amp;lt;First &amp;amp; Second&amp;gt; = {}; for (const prop in first) { if (first.hasOwnProperty(prop)) { (result as First)[prop] = first[prop]; } } for (const prop in second) { if (second.hasOwnProperty(prop)) { (result as Second)[prop] = second[prop]; } } return result as First &amp;amp; Second; } class Person { constructor(public name: string) { } } interface Loggable { log(name: string): void; } class ConsoleLogger implements Loggable { log(name) { console.</description>
+    </item>
     
     <item>
       <title>TS文档阅读小结9 类型兼容性</title>

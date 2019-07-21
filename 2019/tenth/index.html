@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Let&#39;s finish what we started  | TS文档阅读小结10 高级类型</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://zhouqian0.github.io/css/blog.css" />
+    
+</head>
+<body>
+
+    
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://zhouqian0.github.io/">Home</a>
+        </div>
+    </nav>
+    
+
+    
+    <section class="hero is-info is-medium">
+        <div class="hero-body" style="background-image: url(https://zhouqian0.github.io/img/bg-blog.jpg);">
+            <div class="container has-text-centered">
+                <br>
+                <h1 class="title is-size-1">
+                    
+                        TS文档阅读小结10 高级类型
+                    
+                </h1>
+                
+            </div>
+        </div>
+    </section>
+
+
+<div class="container">
+    <div class="section">
+    
+
+<div class="columns">
+    <div class="column is-9">
+        <div class="tile is-child box">
+            <div class="content">
+                
+
+<h3 id="高级类型">高级类型</h3>
+
+<ol>
+<li><a href="https://www.tslang.cn/docs/handbook/advanced-types.html">https://www.tslang.cn/docs/handbook/advanced-types.html</a></li>
+
+<li><p>交叉类型（Intersection Types），将多个类型合并为一个类型。</p>
+
+<p>例如， Person &amp; Serializable &amp; Loggable 同时是 Person 和 Serializable 和 Loggable。 就是说这个类型的对象同时拥有了这三种类型的成员。</p>
+
+<pre><code>function extend&lt;First, Second&gt;(first: First, second: Second): First &amp; Second {
+   const result: Partial&lt;First &amp; Second&gt; = {};
+   for (const prop in first) {
+      if (first.hasOwnProperty(prop)) {
+         (result as First)[prop] = first[prop];
+      }
+   }
+   for (const prop in second) {
+      if (second.hasOwnProperty(prop)) {
+         (result as Second)[prop] = second[prop];
+      }
+   }
+   return result as First &amp; Second;
+}
+    
+class Person {
+   constructor(public name: string) { }
+}
+    
+interface Loggable {
+   log(name: string): void;
+}
+    
+class ConsoleLogger implements Loggable {
+   log(name) {
+      console.log(`Hello, I'm ${name}.`);
+   }
+}
+    
+const jim = extend(new Person('Jim'), ConsoleLogger.prototype);
+jim.log(jim.name);
+</code></pre></li>
+
+<li><p>联合类型表示一个值可以是几种类型之一。 我们用竖线（ |）分隔每个类型，所以 number | string | boolean 表示一个值可以是 number， string，或 boolean。</p>
+
+<pre><code>function padLeft(value: string, padding: string | number) {
+    // ...
+}
+    
+let indentedString = padLeft(&quot;Hello world&quot;, true); // errors during compilation
+</code></pre>
+
+<p>如果一个值是联合类型，在不确定这个值的属于联合类型中那个具体的类型之前，我们只能访问此联合类型的所有类型里共有的成员。</p></li>
+
+<li><pre><code>interface Bird {
+    fly();
+    layEggs();
+}
+    
+interface Fish {
+    swim();
+    layEggs();
+}
+    
+function getSmallPet(): Fish | Bird {
+    // ...
+}
+    
+let pet = getSmallPet();
+pet.layEggs(); // okay
+pet.swim();    // errors
+pet.layEggs(); // errors
+</code></pre>
+
+<ul>
+<li>自定义的类型保护
+<br /></li>
+</ul>
+
+<p>类型保护就是一些表达式，它们会在运行时检查以确保在某个作用域里的类型。</p>
+
+<pre><code>function isFish(pet: Fish | Bird): pet is Fish {
+    return (&lt;Fish&gt;pet).swim !== undefined;
+}
+</code></pre>
+
+<p>pet is Fish 就是类型谓词。 谓词为 parameterName is Type 这种形式， parameterName 必须是来自于当前函数签名里的一个参数名。</p>
+
+<pre><code>// 'swim' 和 'fly' 调用都没有问题了
+    
+if (isFish(pet)) {
+    pet.swim();
+}
+else {
+    pet.fly();
+}
+</code></pre>
+
+<ul>
+<li>typeof 类型保护
+<br /></li>
+</ul>
+
+<p>typeof 类型保护只有两种形式能被识别：typeof v === &ldquo;typename&rdquo; 和 typeof v !== &ldquo;typename&rdquo;， &ldquo;typename&rdquo;必须是 &ldquo;number&rdquo;， &ldquo;string&rdquo;， &ldquo;boolean&rdquo; 或 &ldquo;symbol&rdquo;。
+但是 TypeScript 并不会阻止你与其它字符串比较，语言不会把那些表达式识别为类型保护。</p>
+
+<pre><code>function padLeft(value: string, padding: string | number) {
+    if (typeof padding === &quot;number&quot;) {
+        return Array(padding + 1).join(&quot; &quot;) + value;
+    }
+    if (typeof padding === &quot;string&quot;) {
+        return padding + value;
+    }
+    throw new Error(`Expected string or number, got '${padding}'.`);
+}
+</code></pre>
+
+<ul>
+<li>in 运算符
+<br /></li>
+</ul>
+
+<p>n in x， 判断 n 是否为 x 的属性，返回 true or false。</p>
+
+<pre><code>function move(pet: Fish | Bird) {
+    if (&quot;swim&quot; in pet) {
+        return pet.swim();
+    }
+    return pet.fly();
+}
+</code></pre>
+
+<ul>
+<li>instanceof 类型保护
+<br /></li>
+</ul>
+
+<p>instanceof 的右侧要求是一个构造函数（通过构造函数来细化类型），TypeScript 将细化为：
+    1. 此构造函数的 prototype 属性的类型，如果它的类型不为 any 的话；
+    2. 构造签名所返回的类型的联合</p>
+
+<pre><code>interface Padder {
+   getPaddingString(): string
+}
+    
+class SpaceRepeatingPadder implements Padder {
+   constructor(private numSpaces: number) { }
+   getPaddingString() {
+      return Array(this.numSpaces + 1).join(&quot; &quot;);
+   }
+}
+    
+class StringPadder implements Padder {
+   constructor(private value: string) { }
+   getPaddingString() {
+      return this.value;
+   }
+}
+    
+function getRandomPadder() {
+   return Math.random() &lt; 0.5 ?
+      new SpaceRepeatingPadder(4) :
+      new StringPadder(&quot;  &quot;);
+}
+    
+// 类型为SpaceRepeatingPadder | StringPadder
+let padder: Padder = getRandomPadder();
+    
+if (padder instanceof SpaceRepeatingPadder) { // 类型细化为'SpaceRepeatingPadder'
+   // ...
+}
+if (padder instanceof StringPadder) { // 类型细化为'StringPadder'
+   // ...
+}
+</code></pre></li>
+
+<li><p>默认情况下，类型检查器认为 null 与 undefined 可以赋值给任何类型。 null 与 undefined 是所有其它类型的一个有效值。</p>
+
+<p>&ndash;strictNullChecks 标记</p>
+
+<ol>
+<li>当你声明一个变量时，它不会自动地包含 null 或 undefined</li>
+<li>可选参数会被自动地加上 | undefined</li>
+</ol></li>
+
+<li><p>identifier! 从 identifier 的类型里去除了 null 和 undefined（断言 identifier 不会存在 null 和 undefined）。</p></li>
+
+<li><p>类型别名不会新建一个类型（其实是创建了一个新名字来引用那个类型）。
+类型别名有时类似于接口，但可以命名原语，联合，元组以及您必须手动编写的任何其他类型。</p>
+
+<pre><code>type Name = string;
+type NameResolver = () =&gt; string;
+type NameOrResolver = Name | NameResolver;
+function getName(n: NameOrResolver): Name {
+    if (typeof n === 'string') {
+        return n;
+    }
+    else {
+        return n();
+    }
+}
+</code></pre>
+
+<p>类型别名也可以是泛型</p>
+
+<pre><code>type Tree&lt;T&gt; = {
+    value: T;
+    left: Tree&lt;T&gt;;
+    right: Tree&lt;T&gt;;
+}
+</code></pre>
+
+<p>类型别名不能出现在声明右侧的任何地方</p>
+
+<pre><code>type Yikes = Array&lt;Yikes&gt;; // error
+</code></pre></li>
+
+<li><p>接口 vs. 类型别名</p>
+
+<ol>
+<li>接口创建了一个新的名字，可以在其它任何地方使用。 类型别名并不创建新名字—比如，错误信息就不会使用别名。</li>
+<li>类型别名不能被 extends 和 implements（自己也不能 extends和 implements其它类型, <a href="https://en.wikipedia.org/wiki/Open%E2%80%93closed_principle">Open–closed principle</a>）, 应尽量使用接口代替类型别名。</li>
+
+<li><p>如果无法通过接口来描述一个类型并且需要使用联合类型或元组类型，这时通常会使用类型别名。</p>
+
+<pre><code>type Name = string;
+type NameResolver = () =&gt; string;
+type NameOrResolver = Name | NameResolver;
+function getName(n: NameOrResolver): Name {
+    if (typeof n === 'string') {
+        return n;
+    }
+    else {
+        return n();
+    }
+}
+</code></pre></li>
+</ol></li>
+
+<li><p>字符串字面量类型允许你指定字符串必须的固定值。</p>
+
+<pre><code>type Easing = &quot;ease-in&quot; | &quot;ease-out&quot; | &quot;ease-in-out&quot;;
+class UIElement {
+   animate(dx: number, dy: number, easing: Easing) {
+      if (easing === &quot;ease-in&quot;) {
+         // ...
+      }
+      else if (easing === &quot;ease-out&quot;) {
+      }
+      else if (easing === &quot;ease-in-out&quot;) {
+      }
+      else {
+         // error! should not pass null or undefined.
+      }
+   }
+}
+    
+let button = new UIElement();
+button.animate(0, 0, &quot;ease-in&quot;);
+button.animate(0, 0, &quot;uneasy&quot;); // error: &quot;uneasy&quot; is not allowed here
+</code></pre>
+
+<p>字符串字面量类型还可以用于区分函数重载</p></li>
+
+<li><p>数字字面量类型</p>
+
+<pre><code>function foo(x: number) {
+    if (x !== 1 || x !== 2) {
+        //         ~~~~~~~
+        // Operator '!==' cannot be applied to types '1' and '2'.
+    }
+}
+</code></pre></li>
+
+<li><p>当每个枚举成员都是用字面量初始化的时候枚举成员是具有类型的。单例类型多数是指枚举成员类型和数字/字符串字面量类型。</p></li>
+
+<li><p>可以合并单例类型，联合类型，类型保护和类型别名来创建一个叫做 可辨识联合的高级模式，它也称做 标签联合 或 代数数据类型。</p>
+
+<ul>
+<li>具有普通的单例类型属性— 可辨识的特征。</li>
+<li>一个类型别名包含了那些类型的联合— 联合。</li>
+
+<li><p>此属性上的类型保护。</p>
+
+<pre><code>// kind属性称做 可辨识的特征或 标签。
+interface Square {
+    kind: &quot;square&quot;;
+    size: number;
+}
+interface Rectangle {
+    kind: &quot;rectangle&quot;;
+    width: number;
+    height: number;
+}
+interface Circle {
+    kind: &quot;circle&quot;;
+    radius: number;
+}
+        
+type Shape = Square | Rectangle | Circle;
+    
+function area(s: Shape) {
+    switch (s.kind) {
+        case &quot;square&quot;: return s.size * s.size;
+        case &quot;rectangle&quot;: return s.height * s.width;
+        case &quot;circle&quot;: return Math.PI * s.radius ** 2;
+    }
+}
+</code></pre></li>
+</ul>
+
+<p>当没有涵盖所有可辨识联合的变化时，需要进行完整性检查。</p>
+
+<ol>
+<li><p>通过返回值是 number 还是 undefined 进行判断</p>
+
+<pre><code>type Shape = Square | Rectangle | Circle | Triangle;
+function area(s: Shape) {
+    switch (s.kind) {
+        case &quot;square&quot;: return s.size * s.size;
+        case &quot;rectangle&quot;: return s.height * s.width;
+        case &quot;circle&quot;: return Math.PI * s.radius ** 2;
+    }
+    // should error here - we didn't handle case &quot;triangle&quot;
+}
+</code></pre></li>
+
+<li><p>使用 never 类型</p>
+
+<pre><code>function assertNever(x: never): never {
+    throw new Error(&quot;Unexpected object: &quot; + x);
+}
+function area(s: Shape) {
+    switch (s.kind) {
+        case &quot;square&quot;: return s.size * s.size;
+        case &quot;rectangle&quot;: return s.height * s.width;
+        case &quot;circle&quot;: return Math.PI * s.radius ** 2;
+        default: return assertNever(s); // error here if there are missing cases
+    }
+}
+</code></pre></li>
+</ol></li>
+
+<li><p>多态的 this 类型表示的是某个包含类或接口的 子类型。 这被称做 F-bounded 多态性，它能很容易的表现连贯接口间的继承。</p></li>
+
+<li><p>keyof T， 索引类型查询操作符。 对于任何类型 T， keyof T 的结果为 T 上已知的公共属性名的联合。</p>
+
+<pre><code>    interface Person {
+        name: string;
+        age: number;
+    }
+        
+    let personProps: keyof Person; // 'name' | 'age'
+</code></pre></li>
+
+<li><p>T[K]， 索引访问操作符。（eg：person[&lsquo;name&rsquo;]）</p>
+
+<pre><code>    function getProperty&lt;T, K extends keyof T&gt;(o: T, name: K): T[K] {
+        return o[name]; // o[name] is of type T[K]
+    }
+        
+    let name: string = getProperty(person, 'name');
+    let age: number = getProperty(person, 'age');
+    let unknown = getProperty(person, 'unknown'); // error, 'unknown' is not in 'name' | 'age'
+</code></pre></li>
+
+<li><p>映射类型</p>
+
+<pre><code>interface PersonPartial {
+    name?: string;
+    age?: number;
+}
+    
+interface PersonReadonly {
+    readonly name: string;
+    readonly age: number;
+}
+</code></pre>
+
+<p>等同于</p>
+
+<pre><code>interface Person {
+    name: string;
+    age: number;
+}
+    
+type Readonly&lt;T&gt; = {
+    readonly [P in keyof T]: T[P];
+}
+type Partial&lt;T&gt; = {
+    [P in keyof T]?: T[P];
+}
+    
+type PersonPartial = Partial&lt;Person&gt;;
+type ReadonlyPerson = Readonly&lt;Person&gt;;
+</code></pre>
+
+<pre><code>type Keys = 'option1' | 'option2';
+type Flags = { [K in Keys]: boolean };
+    
+//type Flags = {
+//      option1: boolean;
+//      option2: boolean;
+//  }
+</code></pre></li>
+
+<li><p>同态类型，不会创建新的属性。</p>
+
+<pre><code>type Pick&lt;T, K extends keyof T&gt; = {
+    [P in K]: T[P];
+} // 同态
+type Record&lt;K extends string, T&gt; = {
+    [P in K]: T;
+} // 非同态，它们不会从它处拷贝属性修饰符
+    
+type ThreeStringProps = Record&lt;'prop1' | 'prop2' | 'prop3', string&gt;
+</code></pre></li>
+
+<li><p>条件类型</p>
+
+<p>增加了表达非均匀类型映射的能力。条件类型根据表示为类型关系测试的条件选择两种可能类型之一。</p>
+
+<pre><code>T extends U ? X : Y
+</code></pre></li>
+
+<li><p>预定义的有条件类型</p>
+
+<pre><code>type T00 = Exclude&lt;&quot;a&quot; | &quot;b&quot; | &quot;c&quot; | &quot;d&quot;, &quot;a&quot; | &quot;c&quot; | &quot;f&quot;&gt;;  // &quot;b&quot; | &quot;d&quot;
+type T01 = Extract&lt;&quot;a&quot; | &quot;b&quot; | &quot;c&quot; | &quot;d&quot;, &quot;a&quot; | &quot;c&quot; | &quot;f&quot;&gt;;  // &quot;a&quot; | &quot;c&quot;
+    
+type T02 = Exclude&lt;string | number | (() =&gt; void), Function&gt;;  // string | number
+type T03 = Extract&lt;string | number | (() =&gt; void), Function&gt;;  // () =&gt; void
+    
+type T04 = NonNullable&lt;string | number | undefined&gt;;  // string | number
+type T05 = NonNullable&lt;(() =&gt; string) | string[] | null | undefined&gt;;  // (() =&gt; string) | string[]
+    
+function f1(s: string) {
+    return { a: 1, b: s };
+}
+    
+class C {
+    x = 0;
+    y = 0;
+}
+    
+type T10 = ReturnType&lt;() =&gt; string&gt;;  // string
+type T11 = ReturnType&lt;(s: string) =&gt; void&gt;;  // void
+type T12 = ReturnType&lt;(&lt;T&gt;() =&gt; T)&gt;;  // {}
+type T13 = ReturnType&lt;(&lt;T extends U, U extends number[]&gt;() =&gt; T)&gt;;  // number[]
+type T14 = ReturnType&lt;typeof f1&gt;;  // { a: number, b: string }
+type T15 = ReturnType&lt;any&gt;;  // any
+type T16 = ReturnType&lt;never&gt;;  // any
+type T17 = ReturnType&lt;string&gt;;  // Error
+type T18 = ReturnType&lt;Function&gt;;  // Error
+    
+type T20 = InstanceType&lt;typeof C&gt;;  // C
+type T21 = InstanceType&lt;any&gt;;  // any
+type T22 = InstanceType&lt;never&gt;;  // any
+type T23 = InstanceType&lt;string&gt;;  // Error
+type T24 = InstanceType&lt;Function&gt;;  // Error
+</code></pre>
+
+<p><em>Exclude类型是建议的Diff类型的一种实现。我们使用Exclude这个名字是为了避免破坏已经定义了Diff的代码，并且我们感觉这个名字能更好地表达类型的语义。我们没有增加Omit<T, K>类型，因为它可以很容易的用Pick<T, Exclude<keyof T, K>&gt;来表示。</em></p></li>
+
+<li><p>检查类型是裸类型参数的条件类型称为分布式条件类型。分布式条件类型在实例化期间自动分布在联合类型上。</p>
+
+<pre><code>type BoxedValue&lt;T&gt; = { value: T };
+type BoxedArray&lt;T&gt; = { array: T[] };
+type Boxed&lt;T&gt; = T extends any[] ? BoxedArray&lt;T[number]&gt; : BoxedValue&lt;T&gt;;
+    
+type T20 = Boxed&lt;string&gt;;  // BoxedValue&lt;string&gt;;
+type T21 = Boxed&lt;number[]&gt;;  // BoxedArray&lt;number&gt;;
+type T22 = Boxed&lt;string | number[]&gt;;  // BoxedValue&lt;string&gt; | BoxedArray&lt;number&gt;;
+</code></pre>
+
+<p>条件类型的分布属性可以方便地用于过滤联合类型：</p>
+
+<pre><code>type Diff&lt;T, U&gt; = T extends U ? never : T;  // Remove types from T that are assignable to U
+type Filter&lt;T, U&gt; = T extends U ? T : never;  // Remove types from T that are not assignable to U
+    
+type T30 = Diff&lt;&quot;a&quot; | &quot;b&quot; | &quot;c&quot; | &quot;d&quot;, &quot;a&quot; | &quot;c&quot; | &quot;f&quot;&gt;;  // &quot;b&quot; | &quot;d&quot;
+type T31 = Filter&lt;&quot;a&quot; | &quot;b&quot; | &quot;c&quot; | &quot;d&quot;, &quot;a&quot; | &quot;c&quot; | &quot;f&quot;&gt;;  // &quot;a&quot; | &quot;c&quot;
+type T32 = Diff&lt;string | number | (() =&gt; void), Function&gt;;  // string | number
+type T33 = Filter&lt;string | number | (() =&gt; void), Function&gt;;  // () =&gt; void
+    
+type NonNullable&lt;T&gt; = Diff&lt;T, null | undefined&gt;;  // Remove null and undefined from T
+    
+type T34 = NonNullable&lt;string | number | undefined&gt;;  // string | number
+type T35 = NonNullable&lt;string | string[] | null | undefined&gt;;  // string | string[]
+    
+function f1&lt;T&gt;(x: T, y: NonNullable&lt;T&gt;) {
+    x = y;  // Ok
+    y = x;  // Error
+}
+    
+function f2&lt;T extends string | undefined&gt;(x: T, y: NonNullable&lt;T&gt;) {
+    x = y;  // Ok
+    y = x;  // Error
+    let s1: string = x;  // 严格模式下报错，正常不报错
+    let s2: string = y;  // Ok
+}
+</code></pre>
+
+<p>与映射类型结合使用：(不允许条件类型以递归方式引用它们)</p>
+
+<pre><code>type FunctionPropertyNames&lt;T&gt; = { [K in keyof T]: T[K] extends Function ? K : never }[keyof T];
+type FunctionProperties&lt;T&gt; = Pick&lt;T, FunctionPropertyNames&lt;T&gt;&gt;;
+    
+type NonFunctionPropertyNames&lt;T&gt; = { [K in keyof T]: T[K] extends Function ? never : K }[keyof T];
+type NonFunctionProperties&lt;T&gt; = Pick&lt;T, NonFunctionPropertyNames&lt;T&gt;&gt;;
+    
+interface Part {
+   id: number;
+   name: string;
+   subparts: Part[];
+   updatePart(newName: string): void;
+}
+    
+type T40 = FunctionPropertyNames&lt;Part&gt;;  // &quot;updatePart&quot;
+type T41 = NonFunctionPropertyNames&lt;Part&gt;;  // &quot;id&quot; | &quot;name&quot; | &quot;subparts&quot;
+type T42 = FunctionProperties&lt;Part&gt;;  // { updatePart(newName: string): void }
+type T43 = NonFunctionProperties&lt;Part&gt;;  // { id: number, name: string, subparts: Part[] }
+</code></pre>
+
+<pre><code>type ElementType&lt;T&gt; = T extends any[] ? ElementType&lt;T[number]&gt; : T;  // Error
+</code></pre></li>
+
+<li><p>条件类型中的类型推断
+在extends条件类型的子句中，现在可以具有infer（infer 可用来推断函数参数或返回值）引入要推断的类型变量的声明。可以在条件类型的真分支中引用这样的推断类型变量。可以infer为同一类型变量设置多个位置。</p>
+
+<pre><code>type Unpacked&lt;T&gt; =
+    T extends (infer U)[] ? U :
+    T extends (...args: any[]) =&gt; infer U ? U :
+    T extends Promise&lt;infer U&gt; ? U :
+    T;
+    
+type T0 = Unpacked&lt;string&gt;;  // string
+type T1 = Unpacked&lt;string[]&gt;;  // string
+type T2 = Unpacked&lt;() =&gt; string&gt;;  // string
+type T3 = Unpacked&lt;Promise&lt;string&gt;&gt;;  // string
+type T4 = Unpacked&lt;Promise&lt;string&gt;[]&gt;;  // Promise&lt;string&gt;
+type T5 = Unpacked&lt;Unpacked&lt;Promise&lt;string&gt;[]&gt;&gt;;  // string
+</code></pre>
+
+<pre><code>type TTuple = [string, number];
+type Res = TTuple[number]; // string | number，类型互转 tuple 转 union
+</code></pre>
+
+<p>共变量位置中相同类型变量的多个候选项如何导致联合类型被推断：</p>
+
+<pre><code>type Foo&lt;T&gt; = T extends { a: infer U, b: infer U } ? U : never;
+type T10 = Foo&lt;{ a: string, b: string }&gt;;  // string
+type T11 = Foo&lt;{ a: string, b: number }&gt;;  // string | number
+</code></pre>
+
+<p>反变量位置中相同类型变量的多个候选者会导致交叉类型被推断：</p>
+
+<pre><code>type Bar&lt;T&gt; = T extends { a: (x: infer U) =&gt; void, b: (x: infer U) =&gt; void } ? U : never;
+type T20 = Bar&lt;{ a: (x: string) =&gt; void, b: (x: string) =&gt; void }&gt;;  // string
+type T21 = Bar&lt;{ a: (x: string) =&gt; void, b: (x: number) =&gt; void }&gt;;  // string &amp; number
+</code></pre>
+
+<p>当从具有多个呼叫签名的类型（例如，重载函数的类型）推断时，从最后一个签名（可能是最宽松的全部捕获的情况）进行推断。无法基于参数类型列表执行重载解析。</p>
+
+<pre><code>declare function foo(x: string): number;
+declare function foo(x: number): string;
+declare function foo(x: string | number): string | number;
+type T30 = ReturnType&lt;typeof foo&gt;;  // string | number
+</code></pre>
+
+<p>infer对于常规类型参数，不可能在约束子句中使用声明,但通过擦除约束中的类型变量并改为指定条件类型，可以获得大致相同的效果：</p>
+
+<pre><code>type ReturnType&lt;T extends (...args: any[]) =&gt; infer R&gt; = R;  // Error, not supported
+
+type AnyFunction = (...args: any[]) =&gt; any;
+type ReturnType&lt;T extends AnyFunction&gt; = T extends (...args: any[]) =&gt; infer R ? R : any;
+</code></pre></li>
+</ol>
+
+            </div>
+        </div>
+    </div>
+    <div class="column is-3">
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Tags</h1>
+        <div class="tags">
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/typescript">typescript</a></span>
+        
+        </div>          
+    </div>
+</div><br>
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Recent posts</h1>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/tenth/">TS文档阅读小结10 高级类型</a></h1>
+            <time class="has-text-grey-light is-size-7">17 July 2019</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/ninth/">TS文档阅读小结9 类型兼容性</a></h1>
+            <time class="has-text-grey-light is-size-7">16 July 2019</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/eighth/">TS文档阅读小结8 类型推论</a></h1>
+            <time class="has-text-grey-light is-size-7">15 July 2019</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/seventh/">TS文档阅读小结7 枚举</a></h1>
+            <time class="has-text-grey-light is-size-7">14 July 2019</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/sixth/">TS文档阅读小结6 泛型</a></h1>
+            <time class="has-text-grey-light is-size-7">13 July 2019</time>
+        
+    </div>
+</div>
+    <br>
+                
+  
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Related posts</h1>
+      
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ninth/">TS文档阅读小结9 类型兼容性</a></h1>
+            <time class="has-text-grey-light is-size-7">16 July 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/eighth/">TS文档阅读小结8 类型推论</a></h1>
+            <time class="has-text-grey-light is-size-7">15 July 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/seventh/">TS文档阅读小结7 枚举</a></h1>
+            <time class="has-text-grey-light is-size-7">14 July 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/sixth/">TS文档阅读小结6 泛型</a></h1>
+            <time class="has-text-grey-light is-size-7">13 July 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/fifth/">TS文档阅读小结5 函数</a></h1>
+            <time class="has-text-grey-light is-size-7">12 July 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/fourth/">TS文档阅读小结4 类</a></h1>
+            <time class="has-text-grey-light is-size-7">11 July 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/third/">TS文档阅读小结3 接口</a></h1>
+            <time class="has-text-grey-light is-size-7">10 July 2019</time>
+      
+    </div>
+</div>
+
+    
+<br>
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Archives</h1>
+        
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (10)<br>
+        
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+    </div>
+</div>
+
+<footer class="footer has-background-grey-darker has-text-white">
+    <div class="content has-text-centered">
+        <p>
+            <span class="icon is-large"><a href="https://twitter.com/" class="mysocial" rel="me"><i class="fab fa-twitter fa-3x"></i></a></span>&nbsp;&nbsp;
+            <span class="icon is-large"><a href="https://www.youtube.com/" class="mysocial" rel="me"><i class="fab fa-youtube fa-3x"></i></a></span>&nbsp;&nbsp;
+            <span class="icon is-large"><a href="https://github.com/" class="mysocial" rel="me"><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;
+            <br><br>
+            Copyright &copy; Let&#39;s finish what we started 2019 - Theme by <a href="https://jeffprod.com" class="mysocial">JeffProd.com</a>
+            - <a class="mysocial" href="https://zhouqian0.github.io/about">About</a>
+        </p>
+    </div>
+</footer>
+
+<script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+</body>
+</html>
