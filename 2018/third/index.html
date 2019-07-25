@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Let&#39;s finish what we started  | Archives</title>
+    <title>Let&#39;s finish what we started  | 由于滚动条引起的页面抖动</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -11,9 +11,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
     <link rel="stylesheet" href="https://zhouqian0.github.io/css/blog.css" />
     
-  <link href="https://zhouqian0.github.io/archives/index.xml" rel="alternate" type="application/rss+xml" title="Let&#39;s finish what we started" />
-  <link href="https://zhouqian0.github.io/archives/index.xml" rel="feed" type="application/rss+xml" title="Let&#39;s finish what we started" />
-
 </head>
 <body>
 
@@ -32,7 +29,7 @@
                 <br>
                 <h1 class="title is-size-1">
                     
-                        Archive Archives
+                        由于滚动条引起的页面抖动
                     
                 </h1>
                 
@@ -45,11 +42,44 @@
     <div class="section">
     
 
-
 <div class="columns">
     <div class="column is-9">
         <div class="tile is-child box">
             <div class="content">
+                
+
+<h3 id="滚动条-页面抖动">滚动条 页面抖动</h3>
+
+<p>在网页的实现中，由于页面块的切换导致滚动条出现会使得页面往左挤压（滚动条占有宽度），造成一种抖动的视觉效果。</p>
+
+<hr />
+
+<ol>
+<li><p>最开始的解决办法是在 html 的 body 中加上 css 样式（如下），使得页面的滚动条一直出现，但是这样不仅影响美观效果，还引发了另外一个问题：在网页中打开弹窗时，会出现背景遮罩层，该遮罩层会使滚动条向右挤压隐藏，使弹框出现时看不到网页中有滚动条，但是当弹框消失时，遮罩层消失，滚动条复现，又使页面往左挤压了一点，造成抖动。</p>
+
+<pre><code>body {
+  overflow: scroll;
+} // 第一次的解决方式
+</code></pre></li>
+
+<li><p>所以，为了从根本上解决问题，再次 Google，找到了更加合适的版本（如下），在此版本中，滚动条不会一直出现，并且最重要的是，滚动条不再占用页面宽度。</p>
+
+<pre><code>html{
+    overflow-y: scroll;
+  }
+  :root {
+    overflow-x: auto;
+    overflow-y: hidden
+  }
+  :root body {
+    position: absolute;
+  }
+  body {
+    width: 100vw;
+    overflow: hidden;
+  } // 目前解决方式
+</code></pre></li>
+</ol>
 
             </div>
         </div>
@@ -93,6 +123,27 @@
     </div>
 </div>
     <br>
+                
+  
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Related posts</h1>
+      
+      
+            <h1><a href="https://zhouqian0.github.io/2019/first/">条件判断语句优化</a></h1>
+            <time class="has-text-grey-light is-size-7">27 February 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2018/second/">无顺序优先级的比较表达式优化</a></h1>
+            <time class="has-text-grey-light is-size-7">28 December 2018</time>
+      
+    </div>
+</div>
+
+    
+<br>
         <div class="card">
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
@@ -106,7 +157,6 @@
 
     </div>
 </div>
-
 
 
     </div>

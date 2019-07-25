@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Let&#39;s finish what we started  | Archives</title>
+    <title>Let&#39;s finish what we started  | javascript</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -11,8 +11,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
     <link rel="stylesheet" href="https://zhouqian0.github.io/css/blog.css" />
     
-  <link href="https://zhouqian0.github.io/archives/index.xml" rel="alternate" type="application/rss+xml" title="Let&#39;s finish what we started" />
-  <link href="https://zhouqian0.github.io/archives/index.xml" rel="feed" type="application/rss+xml" title="Let&#39;s finish what we started" />
+  <link href="https://zhouqian0.github.io/tags/javascript/index.xml" rel="alternate" type="application/rss+xml" title="Let&#39;s finish what we started" />
+  <link href="https://zhouqian0.github.io/tags/javascript/index.xml" rel="feed" type="application/rss+xml" title="Let&#39;s finish what we started" />
 
 </head>
 <body>
@@ -32,7 +32,7 @@
                 <br>
                 <h1 class="title is-size-1">
                     
-                        Archive Archives
+                        #javascript
                     
                 </h1>
                 
@@ -46,10 +46,74 @@
     
 
 
+
 <div class="columns">
     <div class="column is-9">
         <div class="tile is-child box">
             <div class="content">
+
+                <article class="media">
+                    <div class="media-content">
+                        <div class="content">
+                            <p class="title is-4"><a href="/2019/js-first/">异步方法中的同步</a></p>
+                            <p class="subtitle is-size-6 has-text-grey-light">
+                                Published at March 21, 2019 &middot;
+                                <i class="far fa-clock"></i>&nbsp;1 min read
+                            </p>
+                            <p> await  通过将 observable 转换为 promise，调用 promise 的 then() 方法，达到同步效果（在异步函数中）。 在异步函数中使用同步，需要加上 await 等待 promise 结束后再执行下一步操作。
+getALLReportData() { return (this.reportService.getReportBlockData() as Observable).toPromise(); } （await） this.getALLReportData().then(res =&gt; this.bkDataList = res['data'] || []);   ...</p>
+                        </div>
+                    </div>
+                </article>
+                <br>
+
+                <article class="media">
+                    <div class="media-content">
+                        <div class="content">
+                            <p class="title is-4"><a href="/2019/js-second/">js Date 类型的比较</a></p>
+                            <p class="subtitle is-size-6 has-text-grey-light">
+                                Published at February 21, 2019 &middot;
+                                <i class="far fa-clock"></i>&nbsp;1 min read
+                            </p>
+                            <p> 两个 Date 之间的相互对比  js 中 new Date() 得到的日期为当前日期时分秒。但是用 new Date(&ldquo;yy-mm-dd&rdquo;) 得到的日期却为 yy-mm-dd 那天的八点，非零点。
+ 两个Date日期比较采用getTime()方法。
+  ...</p>
+                        </div>
+                    </div>
+                </article>
+                <br>
+
+                <article class="media">
+                    <div class="media-content">
+                        <div class="content">
+                            <p class="title is-4"><a href="/2019/js-third/">隐藏/显示 网页滚动条</a></p>
+                            <p class="subtitle is-size-6 has-text-grey-light">
+                                Published at February 13, 2019 &middot;
+                                <i class="far fa-clock"></i>&nbsp;1 min read
+                            </p>
+                            <p> js 隐藏/显示 网页滚动条  隐藏：
+document.querySelector('html').style.overflow = 'hidden';  显示：
+document.querySelector('html').style.overflow = 'scroll';   ...</p>
+                        </div>
+                    </div>
+                </article>
+                <br>
+
+                <article class="media">
+                    <div class="media-content">
+                        <div class="content">
+                            <p class="title is-4"><a href="/2018/js-fourth/">js 中文排序</a></p>
+                            <p class="subtitle is-size-6 has-text-grey-light">
+                                Published at December 7, 2018 &middot;
+                                <i class="far fa-clock"></i>&nbsp;1 min read
+                            </p>
+                            <p> 中文排序  如果直接是中文数组，可以采用 arr.sort() 排序。
+ 如果对对象数组中的某个属性进行中文排序，可用 js 的 localeCompare() 对中文排序。
+corps.sort((a, b) =&gt; { return a.shortName.localeCompare(b.shortName, 'zh-Hans-CN',{sensitivity:'accent'}); });   不同浏览器可能会出现不同结果 无法识别多音字   ...</p>
+                        </div>
+                    </div>
+                </article>
+                <br>
 
             </div>
         </div>
@@ -106,7 +170,6 @@
 
     </div>
 </div>
-
 
 
     </div>

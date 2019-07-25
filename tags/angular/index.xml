@@ -1,0 +1,73 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>angular on Let&#39;s finish what we started</title>
+    <link>https://zhouqian0.github.io/tags/angular/</link>
+    <description>Recent content in angular on Let&#39;s finish what we started</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 25 Mar 2019 14:34:03 +0800</lastBuildDate>
+    
+        <atom:link href="https://zhouqian0.github.io/tags/angular/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>angular 项目编译成的网页源码中的注释</title>
+      <link>https://zhouqian0.github.io/2019/ng-first/</link>
+      <pubDate>Mon, 25 Mar 2019 14:34:03 +0800</pubDate>
+      
+      <guid>https://zhouqian0.github.io/2019/ng-first/</guid>
+      <description>&amp;lt;ng-template&amp;gt; &amp;lt;ng-template&amp;gt; 是一个 Angular 的元素，用作 HTML 的渲染。但在实际在渲染视图之前，Angular 会把 &amp;lt;ng-template&amp;gt; 及其内容替换为一个注释，而这个注释就是 &amp;lt;!&amp;mdash;-&amp;gt;。</description>
+    </item>
+    
+    <item>
+      <title>关于主动触发 angular 的表单验证机制</title>
+      <link>https://zhouqian0.github.io/2019/ng-second/</link>
+      <pubDate>Wed, 27 Feb 2019 14:54:42 +0800</pubDate>
+      
+      <guid>https://zhouqian0.github.io/2019/ng-second/</guid>
+      <description> errorStateMatcher 在某些情况下，submit 的操作并不能出发整个 form 的验证机制。
+ 可以为所有不能通过 submit 触发验证的表单组件添加 [errorStateMatcher]=&amp;ldquo;matcher&amp;rdquo; ，主动设置它的错误校验机制。 将 matcher 声明为 ErrorStateMatcher，不初始化，在需要触发验证的时候将其变为 this.matcher = new MyErrorStateMatcher(); 即可主动触发所有表单组件的验证状态。
+import {ErrorStateMatcher} from &#39;@angular/material&#39;; import {FormControl, FormGroupDirective, NgForm} from &#39;@angular/forms&#39;; export class FormErrorStateMatcher implements ErrorStateMatcher { isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean { return !!(control &amp;amp;&amp;amp; control.invalid &amp;amp;&amp;amp; !control.touched || (control &amp;amp;&amp;amp; (control.errors !== null))); } }   </description>
+    </item>
+    
+    <item>
+      <title>Cannot read property &#39;subscribe&#39; of undefined</title>
+      <link>https://zhouqian0.github.io/2019/ng-sixth/</link>
+      <pubDate>Thu, 21 Feb 2019 15:17:24 +0800</pubDate>
+      
+      <guid>https://zhouqian0.github.io/2019/ng-sixth/</guid>
+      <description> EventEmitter 在 angular 中如果没有对 @Output 的 EventEmitter 变量进行初始化就会报错 Cannot read property ‘subscribe’ of undefined ，并且不会有报错行信息。 （初始化放在 onInit 中也会报错, 必须在声明变量时或者在构造函数中初始化）
+@Output() eventEmit = new EventEmitter();  </description>
+    </item>
+    
+    <item>
+      <title>angular form 中的 disable() 导致 form valid 结果为 false</title>
+      <link>https://zhouqian0.github.io/2019/ng-third/</link>
+      <pubDate>Thu, 21 Feb 2019 15:17:24 +0800</pubDate>
+      
+      <guid>https://zhouqian0.github.io/2019/ng-third/</guid>
+      <description> form 的 disable（） 在angular 的 form 中，如果整个 form 的状态变为 disabled，会使 form.valid 返回的值会变为 false，表单校验不通过（哪怕 form 的所有组件都是验证通过的）。
+import {Component, OnInit} from &#39;@angular/core&#39;; import {FormGroup, FormControl, Validators} from &#39;@angular/forms&#39;; @Component({ selector: &#39;my-app&#39;, templateUrl: &#39;./app.component.html&#39;, styleUrls: [ &#39;./app.component.css&#39; ] }) export class AppComponent implements OnInit{ name = &#39;Angular&#39;; form = new FormGroup({ &#39;test&#39;:new FormControl(&#39;&#39;,Validators.required) }); ngOnInit(){ this.form.get(&#39;test&#39;).setValue(&#39;2&#39;); // this.form.disable(); console.log(this.form.valid); } }  </description>
+    </item>
+    
+    <item>
+      <title>angular datepicker 使用建议</title>
+      <link>https://zhouqian0.github.io/2019/ng-fifth/</link>
+      <pubDate>Wed, 13 Feb 2019 15:35:18 +0800</pubDate>
+      
+      <guid>https://zhouqian0.github.io/2019/ng-fifth/</guid>
+      <description> datepicker 实现点击 input 后会打开日期选择器：由于input标签可点击，可能会触发浏览器的自动联想（autocomplete）,会出现： 先打开可自动联想的下拉框，然后该下拉框消失，出现日期选择 。针对于此，现解决方案为禁用日期选择器的 input 标签的 autocomplete 属性（autocomplete=&amp;lsquo;off&amp;rsquo;）,然后添加 click 事件 (click)=&amp;ldquo;picker.open()&amp;ldquo;。
+&amp;lt;mat-form-field&amp;gt; &amp;lt;label&amp;gt; &amp;lt;input matInput [matDatepicker]=&amp;quot;picker&amp;quot; autocomplete=&amp;quot;off&amp;quot; required formControlName=&amp;quot;date&amp;quot; placeholder=&amp;quot;选择日期&amp;quot; (click)=&amp;quot;picker.open()&amp;quot; [errorStateMatcher]=&amp;quot;matcher&amp;quot;&amp;gt; &amp;lt;/label&amp;gt; &amp;lt;mat-datepicker-toggle matSuffix [for]=&amp;quot;picker&amp;quot;&amp;gt;&amp;lt;/mat-datepicker-toggle&amp;gt; &amp;lt;mat-datepicker #picker&amp;gt;&amp;lt;/mat-datepicker&amp;gt; &amp;lt;/mat-form-field&amp;gt;  </description>
+    </item>
+    
+    <item>
+      <title>angular 禁用/启用 鼠标滚轮事件</title>
+      <link>https://zhouqian0.github.io/2019/ng-fourth/</link>
+      <pubDate>Wed, 13 Feb 2019 15:28:20 +0800</pubDate>
+      
+      <guid>https://zhouqian0.github.io/2019/ng-fourth/</guid>
+      <description>禁用/启用 鼠标滚轮 event scrollFunc(event) { event = event || window.event; if (event.preventDefault) { // Firefox event.preventDefault(); event.stopPropagation(); } else { // IE event.cancelBubble = true; event.returnValue = false; } return false; }  // 禁用鼠标滚轮事件 const html = document.querySelector(&#39;html&#39;); if (html.addEventListener) { html.addEventListener(&#39;DOMMouseScroll&#39;, this.scrollFunc, false); //添加事件监听 } //firefox html.onmousewheel = html.onmousewheel = this.scrollFunc; //ie/opera/chrome  // 启用鼠标滚轮事件 const html = document.querySelector(&#39;html&#39;); if (html.removeEventListener) { html.removeEventListener(&#39;DOMMouseScroll&#39;, this.scrollFunc, false); //解绑事件监听 } //firefox html.</description>
+    </item>
+    
+  </channel>
+</rss>

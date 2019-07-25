@@ -1,0 +1,57 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>javascript on Let&#39;s finish what we started</title>
+    <link>https://zhouqian0.github.io/tags/javascript/</link>
+    <description>Recent content in javascript on Let&#39;s finish what we started</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 21 Mar 2019 15:03:45 +0800</lastBuildDate>
+    
+        <atom:link href="https://zhouqian0.github.io/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>异步方法中的同步</title>
+      <link>https://zhouqian0.github.io/2019/js-first/</link>
+      <pubDate>Thu, 21 Mar 2019 15:03:45 +0800</pubDate>
+      
+      <guid>https://zhouqian0.github.io/2019/js-first/</guid>
+      <description> await  通过将 observable 转换为 promise，调用 promise 的 then() 方法，达到同步效果（在异步函数中）。 在异步函数中使用同步，需要加上 await 等待 promise 结束后再执行下一步操作。
+getALLReportData() { return (this.reportService.getReportBlockData() as Observable).toPromise(); } （await） this.getALLReportData().then(res =&amp;gt; this.bkDataList = res[&#39;data&#39;] || []);   </description>
+    </item>
+    
+    <item>
+      <title>js Date 类型的比较</title>
+      <link>https://zhouqian0.github.io/2019/js-second/</link>
+      <pubDate>Thu, 21 Feb 2019 15:03:45 +0800</pubDate>
+      
+      <guid>https://zhouqian0.github.io/2019/js-second/</guid>
+      <description> 两个 Date 之间的相互对比  js 中 new Date() 得到的日期为当前日期时分秒。但是用 new Date(&amp;ldquo;yy-mm-dd&amp;rdquo;) 得到的日期却为 yy-mm-dd 那天的八点，非零点。
+ 两个Date日期比较采用getTime()方法。
+  </description>
+    </item>
+    
+    <item>
+      <title>隐藏/显示 网页滚动条</title>
+      <link>https://zhouqian0.github.io/2019/js-third/</link>
+      <pubDate>Wed, 13 Feb 2019 15:33:13 +0800</pubDate>
+      
+      <guid>https://zhouqian0.github.io/2019/js-third/</guid>
+      <description> js 隐藏/显示 网页滚动条  隐藏：
+document.querySelector(&#39;html&#39;).style.overflow = &#39;hidden&#39;;  显示：
+document.querySelector(&#39;html&#39;).style.overflow = &#39;scroll&#39;;   </description>
+    </item>
+    
+    <item>
+      <title>js 中文排序</title>
+      <link>https://zhouqian0.github.io/2018/js-fourth/</link>
+      <pubDate>Fri, 07 Dec 2018 15:52:27 +0800</pubDate>
+      
+      <guid>https://zhouqian0.github.io/2018/js-fourth/</guid>
+      <description> 中文排序  如果直接是中文数组，可以采用 arr.sort() 排序。
+ 如果对对象数组中的某个属性进行中文排序，可用 js 的 localeCompare() 对中文排序。
+corps.sort((a, b) =&amp;gt; { return a.shortName.localeCompare(b.shortName, &#39;zh-Hans-CN&#39;,{sensitivity:&#39;accent&#39;}); });   不同浏览器可能会出现不同结果 无法识别多音字   </description>
+    </item>
+    
+  </channel>
+</rss>

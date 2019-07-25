@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+	<meta name="generator" content="Hugo 0.55.6" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Let&#39;s finish what we started  | Let&#39;s finish what we started</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://zhouqian0.github.io/css/blog.css" />
+    
+  <link href="https://zhouqian0.github.io/index.xml" rel="alternate" type="application/rss+xml" title="Let&#39;s finish what we started" />
+  <link href="https://zhouqian0.github.io/index.xml" rel="feed" type="application/rss+xml" title="Let&#39;s finish what we started" />
+
+</head>
+<body>
+
+    
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://zhouqian0.github.io/">Home</a>
+        </div>
+    </nav>
+    
+
+    
+    <section class="hero is-info is-medium">
+        <div class="hero-body" style="background-image: url(https://zhouqian0.github.io/img/bg-blog.jpg);">
+            <div class="container has-text-centered">
+                <br>
+                <h1 class="title is-size-1">
+                    
+                        Let&#39;s finish what we started
+                    
+                </h1>
+                
+            </div>
+        </div>
+    </section>
+
+
+<div class="container">
+    <div class="section">
+    
+
+
+<div class="columns">
+    <div class="column is-9">
+        <div class="tile is-child box">
+            <div class="content">
+                <h3>Welcome to my blog !</h3>
+                <hr>
+                
+                    <article class="media">
+                        <div class="media-content">
+                            <div class="content">
+                                <p class="title is-4"><a href="https://zhouqian0.github.io/2018/second/">无顺序优先级的比较表达式优化</a></p>
+                                <p class="subtitle is-size-6 has-text-grey-light">
+                                    Published at December 28, 2018 &middot;
+                                    <i class="far fa-clock"></i>&nbsp;1 min read
+                                </p>
+                                <p> 比较表达式  当需要判断多个变量来获取结果，并且这些判断是没有判断先后顺序的优先级时，可以考虑将这些要判断的变量的值转换为数字，通过判断数字的大于小于来获取结果。  例如，权限系统会将权限等级用数字来表示，通过判断数字属于那个区间来判断具体权限。如判断权限 x &gt;= 400 &amp;&amp; x &lt;= 500。   ...</p>
+                            </div>
+                        </div>
+                    </article>
+                
+                    <article class="media">
+                        <div class="media-content">
+                            <div class="content">
+                                <p class="title is-4"><a href="https://zhouqian0.github.io/2018/third/">由于滚动条引起的页面抖动</a></p>
+                                <p class="subtitle is-size-6 has-text-grey-light">
+                                    Published at December 14, 2018 &middot;
+                                    <i class="far fa-clock"></i>&nbsp;1 min read
+                                </p>
+                                <p> 滚动条 页面抖动 在网页的实现中，由于页面块的切换导致滚动条出现会使得页面往左挤压（滚动条占有宽度），造成一种抖动的视觉效果。
+ 最开始的解决办法是在 html 的 body 中加上 css 样式（如下），使得页面的滚动条一直出现，但是这样不仅影响美观效果，还引发了另外一个问题：在网页中打开弹窗时，会出现背景遮罩层，该遮罩层会使滚动条向右挤压隐藏，使弹框出现时看不到网页中有滚动条，但是当弹框消失时，遮罩层消失，滚动条复现，又使页面往左挤压了一点，造成抖动。
+body { overflow: scroll; } // 第一次的解决方式  所以，为了从根本上解决问题，再次 Google，找到了更加合适的版本（如下），在此版本中，滚动条不会一直出现，并且最重要的是，滚动条不再占用页面宽度。
+html{ overflow-y: scroll; } :root { overflow-x: auto; overflow-y: hidden } :root body { position: absolute; } body { width: 100vw; overflow: hidden; } // 目前解决方式   ...</p>
+                            </div>
+                        </div>
+                    </article>
+                
+                    <article class="media">
+                        <div class="media-content">
+                            <div class="content">
+                                <p class="title is-4"><a href="https://zhouqian0.github.io/2018/js-fourth/">js 中文排序</a></p>
+                                <p class="subtitle is-size-6 has-text-grey-light">
+                                    Published at December 7, 2018 &middot;
+                                    <i class="far fa-clock"></i>&nbsp;1 min read
+                                </p>
+                                <p> 中文排序  如果直接是中文数组，可以采用 arr.sort() 排序。
+ 如果对对象数组中的某个属性进行中文排序，可用 js 的 localeCompare() 对中文排序。
+corps.sort((a, b) =&gt; { return a.shortName.localeCompare(b.shortName, 'zh-Hans-CN',{sensitivity:'accent'}); });   不同浏览器可能会出现不同结果 无法识别多音字   ...</p>
+                            </div>
+                        </div>
+                    </article>
+                
+            </div>
+        </div>
+    </div>
+    <div class="column is-3">
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Tags</h1>
+        <div class="tags">
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/angular">angular</a></span>
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/javascript">javascript</a></span>
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/journal">journal</a></span>
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/typescript">typescript</a></span>
+        
+        </div>          
+    </div>
+</div><br>
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Recent posts</h1>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/ts-tenth/">TS文档阅读小结10 高级类型</a></h1>
+            <time class="has-text-grey-light is-size-7">17 July 2019</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/ts-ninth/">TS文档阅读小结9 类型兼容性</a></h1>
+            <time class="has-text-grey-light is-size-7">16 July 2019</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/ts-eighth/">TS文档阅读小结8 类型推论</a></h1>
+            <time class="has-text-grey-light is-size-7">15 July 2019</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/ts-seventh/">TS文档阅读小结7 枚举</a></h1>
+            <time class="has-text-grey-light is-size-7">14 July 2019</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/ts-sixth/">TS文档阅读小结6 泛型</a></h1>
+            <time class="has-text-grey-light is-size-7">13 July 2019</time>
+        
+    </div>
+</div>
+    <br>
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Archives</h1>
+        
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (20)<br>
+        
+            <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
+        
+    </div>
+</div>
+
+    </div>
+</div>
+<div class="columns">
+    <div class="column is-9">
+        <nav class="pagination is-centered is-rounded" role="navigation" aria-label="pagination">
+            <a class="pagination-previous" href="/page/2/">Previous</a>
+            
+            <ul class="pagination-list">
+                
+                <li class="pagination__item">
+                    <a class="pagination-link" aria-label="Goto page 1" href="/">1</a>
+                </li>
+                
+                <li class="pagination__item">
+                    <a class="pagination-link" aria-label="Goto page 2" href="/page/2/">2</a>
+                </li>
+                
+                <li class="pagination__item">
+                    <a class="pagination-link is-current" aria-label="Goto page 3" href="/page/3/">3</a>
+                </li>
+                
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+    </div>
+</div>
+
+<footer class="footer has-background-grey-darker has-text-white">
+    <div class="content has-text-centered">
+        <p>
+            <span class="icon is-large"><a href="https://twitter.com/" class="mysocial" rel="me"><i class="fab fa-twitter fa-3x"></i></a></span>&nbsp;&nbsp;
+            <span class="icon is-large"><a href="https://www.youtube.com/" class="mysocial" rel="me"><i class="fab fa-youtube fa-3x"></i></a></span>&nbsp;&nbsp;
+            <span class="icon is-large"><a href="https://github.com/" class="mysocial" rel="me"><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;
+            <br><br>
+            Copyright &copy; Let&#39;s finish what we started 2019 - Theme by <a href="https://jeffprod.com" class="mysocial">JeffProd.com</a>
+            - <a class="mysocial" href="https://zhouqian0.github.io/about">About</a>
+        </p>
+    </div>
+</footer>
+
+<script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+</body>
+</html>

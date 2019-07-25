@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Let&#39;s finish what we started  | Archives</title>
+    <title>Let&#39;s finish what we started  | angular form 中的 disable() 导致 form valid 结果为 false</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -11,9 +11,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
     <link rel="stylesheet" href="https://zhouqian0.github.io/css/blog.css" />
     
-  <link href="https://zhouqian0.github.io/archives/index.xml" rel="alternate" type="application/rss+xml" title="Let&#39;s finish what we started" />
-  <link href="https://zhouqian0.github.io/archives/index.xml" rel="feed" type="application/rss+xml" title="Let&#39;s finish what we started" />
-
 </head>
 <body>
 
@@ -32,7 +29,7 @@
                 <br>
                 <h1 class="title is-size-1">
                     
-                        Archive Archives
+                        angular form 中的 disable() 导致 form valid 结果为 false
                     
                 </h1>
                 
@@ -45,11 +42,37 @@
     <div class="section">
     
 
-
 <div class="columns">
     <div class="column is-9">
         <div class="tile is-child box">
             <div class="content">
+                
+
+<h3 id="form-的-disable">form 的 disable（）</h3>
+
+<p>在angular 的 form 中，如果整个 form 的状态变为 disabled，会使 form.valid 返回的值会变为 false，表单校验不通过（哪怕 form 的所有组件都是验证通过的）。</p>
+
+<pre><code>import {Component, OnInit} from '@angular/core';
+import {FormGroup, FormControl, Validators} from '@angular/forms';
+@Component({
+  selector: 'my-app',
+  templateUrl: './app.component.html',
+  styleUrls: [ './app.component.css' ]
+})
+export class AppComponent implements OnInit{
+  name = 'Angular';
+
+  form = new FormGroup({
+    'test':new FormControl('',Validators.required)
+  });
+
+  ngOnInit(){
+    this.form.get('test').setValue('2');
+    // this.form.disable();
+    console.log(this.form.valid);
+  }
+}
+</code></pre>
 
             </div>
         </div>
@@ -93,6 +116,36 @@
     </div>
 </div>
     <br>
+                
+  
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Related posts</h1>
+      
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ng-first/">angular 项目编译成的网页源码中的注释</a></h1>
+            <time class="has-text-grey-light is-size-7">25 March 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ng-second/">关于主动触发 angular 的表单验证机制</a></h1>
+            <time class="has-text-grey-light is-size-7">27 February 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ng-sixth/">Cannot read property &#39;subscribe&#39; of undefined</a></h1>
+            <time class="has-text-grey-light is-size-7">21 February 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ng-fifth/">angular datepicker 使用建议</a></h1>
+            <time class="has-text-grey-light is-size-7">13 February 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ng-fourth/">angular 禁用/启用 鼠标滚轮事件</a></h1>
+            <time class="has-text-grey-light is-size-7">13 February 2019</time>
+      
+    </div>
+</div>
+
+    
+<br>
         <div class="card">
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
@@ -106,7 +159,6 @@
 
     </div>
 </div>
-
 
 
     </div>

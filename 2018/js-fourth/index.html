@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Let&#39;s finish what we started  | Archives</title>
+    <title>Let&#39;s finish what we started  | js 中文排序</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -11,9 +11,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
     <link rel="stylesheet" href="https://zhouqian0.github.io/css/blog.css" />
     
-  <link href="https://zhouqian0.github.io/archives/index.xml" rel="alternate" type="application/rss+xml" title="Let&#39;s finish what we started" />
-  <link href="https://zhouqian0.github.io/archives/index.xml" rel="feed" type="application/rss+xml" title="Let&#39;s finish what we started" />
-
 </head>
 <body>
 
@@ -32,7 +29,7 @@
                 <br>
                 <h1 class="title is-size-1">
                     
-                        Archive Archives
+                        js 中文排序
                     
                 </h1>
                 
@@ -45,11 +42,29 @@
     <div class="section">
     
 
-
 <div class="columns">
     <div class="column is-9">
         <div class="tile is-child box">
             <div class="content">
+                
+
+<h3 id="中文排序">中文排序</h3>
+
+<ol>
+<li><p>如果直接是中文数组，可以采用 arr.sort() 排序。</p></li>
+
+<li><p>如果对对象数组中的某个属性进行中文排序，可用 js 的 localeCompare() 对中文排序。</p>
+
+<pre><code>corps.sort((a, b) =&gt; {
+  return a.shortName.localeCompare(b.shortName, 'zh-Hans-CN',{sensitivity:'accent'});
+});
+</code></pre>
+
+<ul>
+<li>不同浏览器可能会出现不同结果</li>
+<li>无法识别多音字</li>
+</ul></li>
+</ol>
 
             </div>
         </div>
@@ -93,6 +108,30 @@
     </div>
 </div>
     <br>
+                
+  
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Related posts</h1>
+      
+      
+            <h1><a href="https://zhouqian0.github.io/2019/js-first/">异步方法中的同步</a></h1>
+            <time class="has-text-grey-light is-size-7">21 March 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/js-second/">js Date 类型的比较</a></h1>
+            <time class="has-text-grey-light is-size-7">21 February 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/js-third/">隐藏/显示 网页滚动条</a></h1>
+            <time class="has-text-grey-light is-size-7">13 February 2019</time>
+      
+    </div>
+</div>
+
+    
+<br>
         <div class="card">
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
@@ -106,7 +145,6 @@
 
     </div>
 </div>
-
 
 
     </div>

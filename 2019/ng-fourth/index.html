@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Let&#39;s finish what we started  | Archives</title>
+    <title>Let&#39;s finish what we started  | angular 禁用/启用 鼠标滚轮事件</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -11,9 +11,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
     <link rel="stylesheet" href="https://zhouqian0.github.io/css/blog.css" />
     
-  <link href="https://zhouqian0.github.io/archives/index.xml" rel="alternate" type="application/rss+xml" title="Let&#39;s finish what we started" />
-  <link href="https://zhouqian0.github.io/archives/index.xml" rel="feed" type="application/rss+xml" title="Let&#39;s finish what we started" />
-
 </head>
 <body>
 
@@ -32,7 +29,7 @@
                 <br>
                 <h1 class="title is-size-1">
                     
-                        Archive Archives
+                        angular 禁用/启用 鼠标滚轮事件
                     
                 </h1>
                 
@@ -45,11 +42,53 @@
     <div class="section">
     
 
-
 <div class="columns">
     <div class="column is-9">
         <div class="tile is-child box">
             <div class="content">
+                
+
+<h3 id="禁用-启用-鼠标滚轮-event">禁用/启用 鼠标滚轮 event</h3>
+
+<pre><code>scrollFunc(event) {
+  event = event || window.event;
+  if (event.preventDefault) {
+    // Firefox
+    event.preventDefault();
+    event.stopPropagation();
+  } else {
+    // IE
+    event.cancelBubble = true;
+    event.returnValue = false;
+  }
+  return false;
+}
+</code></pre>
+
+<pre><code>// 禁用鼠标滚轮事件
+const html = document.querySelector('html');
+if (html.addEventListener) { 
+  html.addEventListener('DOMMouseScroll', this.scrollFunc, false); //添加事件监听
+} //firefox
+html.onmousewheel = html.onmousewheel = this.scrollFunc; //ie/opera/chrome
+</code></pre>
+
+<pre><code>// 启用鼠标滚轮事件
+const html = document.querySelector('html');
+if (html.removeEventListener) {
+  html.removeEventListener('DOMMouseScroll', this.scrollFunc, false); //解绑事件监听
+} //firefox
+html.onmousewheel = html.onmousewheel = null; //ie/opera/chrome
+</code></pre>
+
+<ol>
+<li>refer:
+
+<ul>
+<li><a href="https://blog.csdn.net/ouyangxie/article/details/79005423">https://blog.csdn.net/ouyangxie/article/details/79005423</a></li>
+<li><a href="http://www.cnblogs.com/yangwenbin/p/4565541.html">http://www.cnblogs.com/yangwenbin/p/4565541.html</a></li>
+</ul></li>
+</ol>
 
             </div>
         </div>
@@ -93,6 +132,36 @@
     </div>
 </div>
     <br>
+                
+  
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Related posts</h1>
+      
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ng-first/">angular 项目编译成的网页源码中的注释</a></h1>
+            <time class="has-text-grey-light is-size-7">25 March 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ng-second/">关于主动触发 angular 的表单验证机制</a></h1>
+            <time class="has-text-grey-light is-size-7">27 February 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ng-sixth/">Cannot read property &#39;subscribe&#39; of undefined</a></h1>
+            <time class="has-text-grey-light is-size-7">21 February 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ng-third/">angular form 中的 disable() 导致 form valid 结果为 false</a></h1>
+            <time class="has-text-grey-light is-size-7">21 February 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ng-fifth/">angular datepicker 使用建议</a></h1>
+            <time class="has-text-grey-light is-size-7">13 February 2019</time>
+      
+    </div>
+</div>
+
+    
+<br>
         <div class="card">
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
@@ -106,7 +175,6 @@
 
     </div>
 </div>
-
 
 
     </div>

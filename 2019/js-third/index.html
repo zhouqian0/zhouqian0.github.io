@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Let&#39;s finish what we started  | Archives</title>
+    <title>Let&#39;s finish what we started  | 隐藏/显示 网页滚动条</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -11,9 +11,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
     <link rel="stylesheet" href="https://zhouqian0.github.io/css/blog.css" />
     
-  <link href="https://zhouqian0.github.io/archives/index.xml" rel="alternate" type="application/rss+xml" title="Let&#39;s finish what we started" />
-  <link href="https://zhouqian0.github.io/archives/index.xml" rel="feed" type="application/rss+xml" title="Let&#39;s finish what we started" />
-
 </head>
 <body>
 
@@ -32,7 +29,7 @@
                 <br>
                 <h1 class="title is-size-1">
                     
-                        Archive Archives
+                        隐藏/显示 网页滚动条
                     
                 </h1>
                 
@@ -45,11 +42,25 @@
     <div class="section">
     
 
-
 <div class="columns">
     <div class="column is-9">
         <div class="tile is-child box">
             <div class="content">
+                
+
+<h3 id="js-隐藏-显示-网页滚动条">js 隐藏/显示 网页滚动条</h3>
+
+<ol>
+<li><p>隐藏：</p>
+
+<pre><code>document.querySelector('html').style.overflow = 'hidden';
+</code></pre></li>
+
+<li><p>显示：</p>
+
+<pre><code>document.querySelector('html').style.overflow = 'scroll';
+</code></pre></li>
+</ol>
 
             </div>
         </div>
@@ -93,6 +104,30 @@
     </div>
 </div>
     <br>
+                
+  
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Related posts</h1>
+      
+      
+            <h1><a href="https://zhouqian0.github.io/2019/js-first/">异步方法中的同步</a></h1>
+            <time class="has-text-grey-light is-size-7">21 March 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/js-second/">js Date 类型的比较</a></h1>
+            <time class="has-text-grey-light is-size-7">21 February 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2018/js-fourth/">js 中文排序</a></h1>
+            <time class="has-text-grey-light is-size-7">7 December 2018</time>
+      
+    </div>
+</div>
+
+    
+<br>
         <div class="card">
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
@@ -106,7 +141,6 @@
 
     </div>
 </div>
-
 
 
     </div>

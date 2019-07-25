@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Let&#39;s finish what we started  | Archives</title>
+    <title>Let&#39;s finish what we started  | TS文档阅读小结1 基础类型</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -11,9 +11,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
     <link rel="stylesheet" href="https://zhouqian0.github.io/css/blog.css" />
     
-  <link href="https://zhouqian0.github.io/archives/index.xml" rel="alternate" type="application/rss+xml" title="Let&#39;s finish what we started" />
-  <link href="https://zhouqian0.github.io/archives/index.xml" rel="feed" type="application/rss+xml" title="Let&#39;s finish what we started" />
-
 </head>
 <body>
 
@@ -32,7 +29,7 @@
                 <br>
                 <h1 class="title is-size-1">
                     
-                        Archive Archives
+                        TS文档阅读小结1 基础类型
                     
                 </h1>
                 
@@ -45,11 +42,49 @@
     <div class="section">
     
 
-
 <div class="columns">
     <div class="column is-9">
         <div class="tile is-child box">
             <div class="content">
+                
+
+<h3 id="基础类型">基础类型</h3>
+
+<ol>
+<li><a href="https://typescript.bootcss.com/basic-types.html">https://typescript.bootcss.com/basic-types.html</a></li>
+<li>TypeScript 里的所有数字都是浮点数。</li>
+<li>模版字符串，可以定义多行文本和内嵌表达式。 其被反引号包围（ `），并且以 ${ expr } 这种形式嵌入表达式。</li>
+<li>数组，使用后跟[]元素的类型来表示该元素类型的数组或者使用通用数组类型Array<elemType>。</li>
+
+<li><p>元组类型( Tuple )允许表示一个已知元素数量和类型的数组，各元素的类型不必相同。</p>
+
+<ol>
+<li>eg: let x: [string, number];    x = [&lsquo;hello&rsquo;, 10]; // 必须要按照定义类型的顺序赋值</li>
+
+<li><p>访问越界元素会出现错误提示:</p>
+
+<pre><code>x[3] = &quot;world&quot;; // Error, Property '3' does not exist on type '[string, number]'.
+        
+console.log(x[5].toString()); // Error, Property '5' does not exist on type '[string, number]'.
+</code></pre></li>
+</ol></li>
+
+<li><p>枚举类型提供的一个便利是你可以由枚举的值得到它的名字。</p></li>
+
+<li><p>类型检查器不对 any 类型的值进行检查而是直接让它们通过编译阶段的检查。Object 类型的变量只允许给它赋任意值 ，但是却不能够在它上面调用任意的方法，即便它真的有这些方法。</p></li>
+
+<li><p>指定了 &ndash;strictNullChecks 标记(编译选项)，null 和 undefined 只能赋值给 void 和它们各自。</p></li>
+
+<li><p>never 类型表示的是那些永不存在的值的类型，即使 any 也不能赋值给 never。</p>
+
+<ol>
+<li>可作为 error 函数 (return Error()) 的返回值</li>
+</ol></li>
+
+<li><p>类型断言( as , 尖括号 (&lt;String&gt;)) 类似 JAVA 中的类型转换，但是不进行特殊的数据检查和解构。不影响运行，只干预编译阶段。</p></li>
+
+<li><p>推荐使用 let 代替 var（和作用域有关）</p></li>
+</ol>
 
             </div>
         </div>
@@ -93,6 +128,42 @@
     </div>
 </div>
     <br>
+                
+  
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Related posts</h1>
+      
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ts-tenth/">TS文档阅读小结10 高级类型</a></h1>
+            <time class="has-text-grey-light is-size-7">17 July 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ts-ninth/">TS文档阅读小结9 类型兼容性</a></h1>
+            <time class="has-text-grey-light is-size-7">16 July 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ts-eighth/">TS文档阅读小结8 类型推论</a></h1>
+            <time class="has-text-grey-light is-size-7">15 July 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ts-seventh/">TS文档阅读小结7 枚举</a></h1>
+            <time class="has-text-grey-light is-size-7">14 July 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ts-sixth/">TS文档阅读小结6 泛型</a></h1>
+            <time class="has-text-grey-light is-size-7">13 July 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ts-fifth/">TS文档阅读小结5 函数</a></h1>
+            <time class="has-text-grey-light is-size-7">12 July 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ts-fourth/">TS文档阅读小结4 类</a></h1>
+            <time class="has-text-grey-light is-size-7">11 July 2019</time>
+      
+    </div>
+</div>
+
+    
+<br>
         <div class="card">
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
@@ -106,7 +177,6 @@
 
     </div>
 </div>
-
 
 
     </div>

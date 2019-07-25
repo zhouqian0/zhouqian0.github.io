@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Let&#39;s finish what we started  | TS文档阅读小结5 函数</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://zhouqian0.github.io/css/blog.css" />
+    
+</head>
+<body>
+
+    
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://zhouqian0.github.io/">Home</a>
+        </div>
+    </nav>
+    
+
+    
+    <section class="hero is-info is-medium">
+        <div class="hero-body" style="background-image: url(https://zhouqian0.github.io/img/bg-blog.jpg);">
+            <div class="container has-text-centered">
+                <br>
+                <h1 class="title is-size-1">
+                    
+                        TS文档阅读小结5 函数
+                    
+                </h1>
+                
+            </div>
+        </div>
+    </section>
+
+
+<div class="container">
+    <div class="section">
+    
+
+<div class="columns">
+    <div class="column is-9">
+        <div class="tile is-child box">
+            <div class="content">
+                
+
+<h3 id="函数">函数</h3>
+
+<ol>
+<li><a href="https://typescript.bootcss.com/functions.html">https://typescript.bootcss.com/functions.html</a></li>
+
+<li><p>完整函数类型，包含参数类型和返回值类型。</p>
+
+<pre><code>let myAdd: (x:number, y:number) =&gt; number =
+    function(x: number, y: number): number { return x + y; };
+</code></pre>
+
+<ol>
+<li>以参数列表的形式写出参数类型，为每个参数指定一个名字和类型。名字只是为了增加可读性，只要参数类型是匹配即有效</li>
+<li>在函数和返回值类型之前使用（=&gt;）符号，返回值类型是函数类型的必要部分，即使函数没有返回任何值也必须指定返回值类型为 void</li>
+</ol></li>
+
+<li><p>TypeScript 编译器会检查用户是否为每个参数都传入了值，所以每个函数参数都是必须的（可输入 null or undefined）。</p>
+
+<ol>
+<li><em>可选参数（?）</em> 必须跟在必须参数后面</li>
+
+<li><p><em>有默认初始化值的参数，</em> 在所有必须参数后面的带默认初始化的参数都是可选的。共享同样的类型</p>
+
+<pre><code>function buildName(firstName: string, lastName = &quot;Smith&quot;) {
+    return firstName + &quot; &quot; + lastName;
+}
+</code></pre></li>
+
+<li><p>带默认值的参数不需要放在必须参数的后面。如果带默认值的参数出现在必须参数前面，用户必须明确的传入 undefined 值来获得默认值。</p></li>
+
+<li><p><em>剩余参数</em> 会被当做个数不限的可选参数。编译器创建参数数组，名字是你在省略号（&hellip;）后面给定的名字，你可以在函数体内使用这个数组。</p></li>
+</ol></li>
+
+<li><p>JavaScript 里 this 的<a href="https://yehudakatz.com/2011/08/11/understanding-javascript-function-invocation-and-this/">工作原理</a>，它的值在函数被调用的时候才会指定。</p>
+
+<ol>
+<li>顶级的非方法式调用会将 this 视为 window。（在严格模式下，this 为 undefined 而不是 window）</li>
+<li>ECMAScript 6 箭头语法能保存函数创建时的 this 值，而不是调用时的值。</li>
+<li>this 来自对象字面量里的函数表达式(this 为 any 类型)。</li>
+
+<li><p>显式调用 this，指定 this 类型。</p>
+
+<pre><code> interface Card {
+     suit: string;
+     card: number;
+ }
+ interface Deck {
+     suits: string[];
+     cards: number[];
+     createCardPicker(this: Deck): () =&gt; Card;
+ }
+ let deck: Deck = {
+     suits: [&quot;hearts&quot;, &quot;spades&quot;, &quot;clubs&quot;, &quot;diamonds&quot;],
+     cards: Array(52),
+     // NOTE: The function now explicitly specifies that its callee must be of type Deck
+     createCardPicker: function(this: Deck) {
+         return () =&gt; {
+             let pickedCard = Math.floor(Math.random() * 52);
+             let pickedSuit = Math.floor(pickedCard / 13);
+         
+             return {suit: this.suits[pickedSuit], card: pickedCard % 13};
+         }
+     }
+ }
+         
+ let cardPicker = deck.createCardPicker();
+ let pickedCard = cardPicker();
+         
+ alert(&quot;card: &quot; + pickedCard.card + &quot; of &quot; + pickedCard.suit);
+</code></pre></li>
+
+<li><p>将 this: void 作为函数参数意味着函数不需要一个 this 类型。</p></li>
+
+<li><p>箭头函数不会捕获 this，所以你总是可以把它们传给期望 this: void 的函数。 缺点是每个 Handler 对象都会创建一个箭头函数。
+另一方面，方法只会被创建一次，添加到 Handler 的原型链上。 它们在不同 Handler 对象间是共享的。</p>
+
+<pre><code>class Handler {
+    info: string;
+    onClickGood = (e: Event) =&gt; { this.info = e.message }
+}
+</code></pre></li>
+</ol></li>
+
+<li><p>方法是为同一个函数提供多个函数类型定义来进行函数重载。编译器会根据这个列表去处理函数的调用。</p>
+
+<p>它与 JavaScript 里的处理流程相似，它查找重载列表，尝试使用第一个重载定义，因此，一定要把最精确的定义放在最前面。</p>
+
+<pre><code>let suits = [&quot;hearts&quot;, &quot;spades&quot;, &quot;clubs&quot;, &quot;diamonds&quot;];
+   
+function pickCard(x: {suit: string; card: number; }[]): number;
+function pickCard(x: number): {suit: string; card: number; };
+function pickCard(x): any {
+   // Check to see if we're working with an object/array
+   // if so, they gave us the deck and we'll pick the card
+   if (typeof x == &quot;object&quot;) {
+       let pickedCard = Math.floor(Math.random() * x.length);
+       return pickedCard;
+   }
+   // Otherwise just let them pick the card
+   else if (typeof x == &quot;number&quot;) {
+       let pickedSuit = Math.floor(x / 13);
+       return { suit: suits[pickedSuit], card: x % 13 };
+   }
+}
+   
+let myDeck = [{ suit: &quot;diamonds&quot;, card: 2 }, { suit: &quot;spades&quot;, card: 10 }, { suit: &quot;hearts&quot;, card: 4 }];
+let pickedCard1 = myDeck[pickCard(myDeck)];
+alert(&quot;card: &quot; + pickedCard1.card + &quot; of &quot; + pickedCard1.suit);
+   
+let pickedCard2 = pickCard(15);
+alert(&quot;card: &quot; + pickedCard2.card + &quot; of &quot; + pickedCard2.suit);
+</code></pre></li>
+</ol>
+
+            </div>
+        </div>
+    </div>
+    <div class="column is-3">
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Tags</h1>
+        <div class="tags">
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/angular">angular</a></span>
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/javascript">javascript</a></span>
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/journal">journal</a></span>
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/typescript">typescript</a></span>
+        
+        </div>          
+    </div>
+</div><br>
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Recent posts</h1>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/ts-tenth/">TS文档阅读小结10 高级类型</a></h1>
+            <time class="has-text-grey-light is-size-7">17 July 2019</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/ts-ninth/">TS文档阅读小结9 类型兼容性</a></h1>
+            <time class="has-text-grey-light is-size-7">16 July 2019</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/ts-eighth/">TS文档阅读小结8 类型推论</a></h1>
+            <time class="has-text-grey-light is-size-7">15 July 2019</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/ts-seventh/">TS文档阅读小结7 枚举</a></h1>
+            <time class="has-text-grey-light is-size-7">14 July 2019</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/ts-sixth/">TS文档阅读小结6 泛型</a></h1>
+            <time class="has-text-grey-light is-size-7">13 July 2019</time>
+        
+    </div>
+</div>
+    <br>
+                
+  
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Related posts</h1>
+      
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ts-tenth/">TS文档阅读小结10 高级类型</a></h1>
+            <time class="has-text-grey-light is-size-7">17 July 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ts-ninth/">TS文档阅读小结9 类型兼容性</a></h1>
+            <time class="has-text-grey-light is-size-7">16 July 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ts-eighth/">TS文档阅读小结8 类型推论</a></h1>
+            <time class="has-text-grey-light is-size-7">15 July 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ts-seventh/">TS文档阅读小结7 枚举</a></h1>
+            <time class="has-text-grey-light is-size-7">14 July 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ts-sixth/">TS文档阅读小结6 泛型</a></h1>
+            <time class="has-text-grey-light is-size-7">13 July 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ts-fourth/">TS文档阅读小结4 类</a></h1>
+            <time class="has-text-grey-light is-size-7">11 July 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ts-third/">TS文档阅读小结3 接口</a></h1>
+            <time class="has-text-grey-light is-size-7">10 July 2019</time>
+      
+    </div>
+</div>
+
+    
+<br>
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Archives</h1>
+        
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (20)<br>
+        
+            <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
+        
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+    </div>
+</div>
+
+<footer class="footer has-background-grey-darker has-text-white">
+    <div class="content has-text-centered">
+        <p>
+            <span class="icon is-large"><a href="https://twitter.com/" class="mysocial" rel="me"><i class="fab fa-twitter fa-3x"></i></a></span>&nbsp;&nbsp;
+            <span class="icon is-large"><a href="https://www.youtube.com/" class="mysocial" rel="me"><i class="fab fa-youtube fa-3x"></i></a></span>&nbsp;&nbsp;
+            <span class="icon is-large"><a href="https://github.com/" class="mysocial" rel="me"><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;
+            <br><br>
+            Copyright &copy; Let&#39;s finish what we started 2019 - Theme by <a href="https://jeffprod.com" class="mysocial">JeffProd.com</a>
+            - <a class="mysocial" href="https://zhouqian0.github.io/about">About</a>
+        </p>
+    </div>
+</footer>
+
+<script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+</body>
+</html>

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Let&#39;s finish what we started  | TS文档阅读小结2 变量声明</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://zhouqian0.github.io/css/blog.css" />
+    
+</head>
+<body>
+
+    
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://zhouqian0.github.io/">Home</a>
+        </div>
+    </nav>
+    
+
+    
+    <section class="hero is-info is-medium">
+        <div class="hero-body" style="background-image: url(https://zhouqian0.github.io/img/bg-blog.jpg);">
+            <div class="container has-text-centered">
+                <br>
+                <h1 class="title is-size-1">
+                    
+                        TS文档阅读小结2 变量声明
+                    
+                </h1>
+                
+            </div>
+        </div>
+    </section>
+
+
+<div class="container">
+    <div class="section">
+    
+
+<div class="columns">
+    <div class="column is-9">
+        <div class="tile is-child box">
+            <div class="content">
+                
+
+<h3 id="变量声明">变量声明</h3>
+
+<ol>
+<li><a href="https://typescript.bootcss.com/variable-declarations.html">https://typescript.bootcss.com/variable-declarations.html</a></li>
+<li>var 声明可以在包含它的函数，模块，命名空间或全局作用域内部任何位置被访问。
+
+<ol>
+<li>多次声明同一个变量并不会报错</li>
+<li>声明的变量可以在包含它们的函数外访问</li>
+</ol></li>
+<li>let 声明的变量使用的是词法作用域或块作用域。
+
+<ol>
+<li>块作用域变量在包含它们的块或 for 循环之外无法访问</li>
+<li>不能在被声明之前读或写(仍可在一个拥有块作用域变量被声明前获取它，只是我们不能在变量声明前去调用此函数)</li>
+<li>在同一作用域只能声明一次</li>
+<li>每进入一个作用域就会创建一个变量的环境，就算作用域内代码已经执行完毕，这个环境与其捕获的变量依然存在</li>
+</ol></li>
+<li>const 拥有与 let 相同的作用域规则，但不能对它们重新赋值。
+
+<ol>
+<li>变量内部状态可修改(可通过设置对象成员为只读改变)</li>
+</ol></li>
+<li>使用<a href="https://en.wikipedia.org/wiki/Principle_of_least_privilege">最小特权原则</a>，所有变量除了计划去修改的都应使用const。
+
+<ol>
+<li>基本原则：如果一个变量不需要对它写入，那么其它使用这些代码的人也不能够写入它们，并且要思考为什么会需要对这些变量重新赋值。</li>
+<li>使用 const 可更容易推测数据的流动。</li>
+</ol></li>
+<li>解构数组：
+
+<ol>
+<li><code>let input = [1, 2]; let [first, second] = input;</code></li>
+<li><code>[first, second] = [second, first]; // wap variavle</code></li>
+<li><code>function f([first, second]: [number, number])</code></li>
+<li><code>let [, second, , fourth] = [1, 2, 3, 4];</code></li>
+<li>可用作在一行内声明多个数组变量，用作自解释</li>
+</ol></li>
+<li>元组解构
+
+<ol>
+<li><code>let tuple: [number, string, boolean] = [7, &quot;hello&quot;, true];</code></li>
+<li><code>let [a, ...bc] = tuple; // bc: [&quot;hello&quot;, true]</code></li>
+<li><code>let [a, b, c, ...d] = tuple; // d: [], the empty tuple, only have three emlements</code></li>
+<li><code>let [, b] = tuple; // b: string = 7</code></li>
+</ol></li>
+<li>对象解构：
+
+<ol>
+<li><code>let o = {
+    a: &quot;foo&quot;,
+    b: 12,
+    c: &quot;bar&quot;
+};
+let { a, b } = o;</code></li>
+<li><code>({ a, b } = { a: &quot;baz&quot;, b: 101 }); // 是用括号是因为 js 通常以 { 起始的语句解析块</code></li>
+<li><code>let { a, ...passthrough } = o;let total = passthrough.b + passthrough.c.length; // 在对象里使用...语法创建剩余变量</code></li>
+</ol></li>
+<li>属性重命名：
+
+<ol>
+<li><code>let { a: newName1, b: newName2 } = o;</code></li>
+<li><code>let {a, b}: {a: string, b: number} = o; // 指定类型</code></li>
+</ol></li>
+<li>函数声明:
+
+<ol>
+<li><code>function f({ a, b } = { a: &quot;&quot;, b: 0 }): void {
+    // ...
+} // default to { a: &quot;&quot;, b: 0 }</code></li>
+<li>解构表达式要尽量保持小而简单</li>
+</ol></li>
+<li>展开(Spread)操作符正与解构相反。 它允许你将一个数组展开为另一个数组，或将一个对象展开为另一个对象。
+
+<ol>
+<li><code>let first = [1, 2];
+let second = [3, 4];
+let bothPlus = [0, ...first, ...second, 5]; // [0, 1, 2, 3, 4, 5]</code>
+展开操作创建了 first 和 second 的浅拷贝，它们不会被展开操作所改变</li>
+<li><code>let defaults = { food: &quot;spicy&quot;, price: &quot;$$&quot;, ambiance: &quot;noisy&quot; };
+let search = { food: &quot;rich&quot;, ...defaults };</code>展开对象后面的属性会覆盖前面的属性</li>
+<li>展开仅包含对象<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Enumerability_and_ownership_of_properties">自身的可枚举属性</a>，也就是说展开的对象只能有其属性值，不能调用其原来有的方法</li>
+<li><code>let c = new C();
+let clone = { ...c };</code> <strong>可用作对象的简单浅拷贝，解除双向绑定</strong></li>
+<li>TypeScript编译器不允许展开泛型函数上的类型参数。</li>
+</ol></li>
+</ol>
+
+            </div>
+        </div>
+    </div>
+    <div class="column is-3">
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Tags</h1>
+        <div class="tags">
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/angular">angular</a></span>
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/javascript">javascript</a></span>
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/journal">journal</a></span>
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/typescript">typescript</a></span>
+        
+        </div>          
+    </div>
+</div><br>
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Recent posts</h1>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/ts-tenth/">TS文档阅读小结10 高级类型</a></h1>
+            <time class="has-text-grey-light is-size-7">17 July 2019</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/ts-ninth/">TS文档阅读小结9 类型兼容性</a></h1>
+            <time class="has-text-grey-light is-size-7">16 July 2019</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/ts-eighth/">TS文档阅读小结8 类型推论</a></h1>
+            <time class="has-text-grey-light is-size-7">15 July 2019</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/ts-seventh/">TS文档阅读小结7 枚举</a></h1>
+            <time class="has-text-grey-light is-size-7">14 July 2019</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/ts-sixth/">TS文档阅读小结6 泛型</a></h1>
+            <time class="has-text-grey-light is-size-7">13 July 2019</time>
+        
+    </div>
+</div>
+    <br>
+                
+  
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Related posts</h1>
+      
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ts-tenth/">TS文档阅读小结10 高级类型</a></h1>
+            <time class="has-text-grey-light is-size-7">17 July 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ts-ninth/">TS文档阅读小结9 类型兼容性</a></h1>
+            <time class="has-text-grey-light is-size-7">16 July 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ts-eighth/">TS文档阅读小结8 类型推论</a></h1>
+            <time class="has-text-grey-light is-size-7">15 July 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ts-seventh/">TS文档阅读小结7 枚举</a></h1>
+            <time class="has-text-grey-light is-size-7">14 July 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ts-sixth/">TS文档阅读小结6 泛型</a></h1>
+            <time class="has-text-grey-light is-size-7">13 July 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ts-fifth/">TS文档阅读小结5 函数</a></h1>
+            <time class="has-text-grey-light is-size-7">12 July 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ts-fourth/">TS文档阅读小结4 类</a></h1>
+            <time class="has-text-grey-light is-size-7">11 July 2019</time>
+      
+    </div>
+</div>
+
+    
+<br>
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Archives</h1>
+        
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (20)<br>
+        
+            <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
+        
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+    </div>
+</div>
+
+<footer class="footer has-background-grey-darker has-text-white">
+    <div class="content has-text-centered">
+        <p>
+            <span class="icon is-large"><a href="https://twitter.com/" class="mysocial" rel="me"><i class="fab fa-twitter fa-3x"></i></a></span>&nbsp;&nbsp;
+            <span class="icon is-large"><a href="https://www.youtube.com/" class="mysocial" rel="me"><i class="fab fa-youtube fa-3x"></i></a></span>&nbsp;&nbsp;
+            <span class="icon is-large"><a href="https://github.com/" class="mysocial" rel="me"><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;
+            <br><br>
+            Copyright &copy; Let&#39;s finish what we started 2019 - Theme by <a href="https://jeffprod.com" class="mysocial">JeffProd.com</a>
+            - <a class="mysocial" href="https://zhouqian0.github.io/about">About</a>
+        </p>
+    </div>
+</footer>
+
+<script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+</body>
+</html>

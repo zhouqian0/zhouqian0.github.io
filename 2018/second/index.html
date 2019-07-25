@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Let&#39;s finish what we started  | Archives</title>
+    <title>Let&#39;s finish what we started  | 无顺序优先级的比较表达式优化</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -11,9 +11,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
     <link rel="stylesheet" href="https://zhouqian0.github.io/css/blog.css" />
     
-  <link href="https://zhouqian0.github.io/archives/index.xml" rel="alternate" type="application/rss+xml" title="Let&#39;s finish what we started" />
-  <link href="https://zhouqian0.github.io/archives/index.xml" rel="feed" type="application/rss+xml" title="Let&#39;s finish what we started" />
-
 </head>
 <body>
 
@@ -32,7 +29,7 @@
                 <br>
                 <h1 class="title is-size-1">
                     
-                        Archive Archives
+                        无顺序优先级的比较表达式优化
                     
                 </h1>
                 
@@ -45,11 +42,21 @@
     <div class="section">
     
 
-
 <div class="columns">
     <div class="column is-9">
         <div class="tile is-child box">
             <div class="content">
+                
+
+<h3 id="比较表达式">比较表达式</h3>
+
+<ol>
+<li>当需要判断多个变量来获取结果，并且这些判断是没有判断先后顺序的优先级时，可以考虑将这些要判断的变量的值转换为数字，通过判断数字的大于小于来获取结果。
+
+<ul>
+<li>例如，权限系统会将权限等级用数字来表示，通过判断数字属于那个区间来判断具体权限。如判断权限 x &gt;= 400 &amp;&amp; x &lt;= 500。</li>
+</ul></li>
+</ol>
 
             </div>
         </div>
@@ -93,6 +100,27 @@
     </div>
 </div>
     <br>
+                
+  
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Related posts</h1>
+      
+      
+            <h1><a href="https://zhouqian0.github.io/2019/first/">条件判断语句优化</a></h1>
+            <time class="has-text-grey-light is-size-7">27 February 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2018/third/">由于滚动条引起的页面抖动</a></h1>
+            <time class="has-text-grey-light is-size-7">14 December 2018</time>
+      
+    </div>
+</div>
+
+    
+<br>
         <div class="card">
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
@@ -106,7 +134,6 @@
 
     </div>
 </div>
-
 
 
     </div>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Let&#39;s finish what we started  | Archives</title>
+    <title>Let&#39;s finish what we started  | 关于主动触发 angular 的表单验证机制</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -11,9 +11,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
     <link rel="stylesheet" href="https://zhouqian0.github.io/css/blog.css" />
     
-  <link href="https://zhouqian0.github.io/archives/index.xml" rel="alternate" type="application/rss+xml" title="Let&#39;s finish what we started" />
-  <link href="https://zhouqian0.github.io/archives/index.xml" rel="feed" type="application/rss+xml" title="Let&#39;s finish what we started" />
-
 </head>
 <body>
 
@@ -32,7 +29,7 @@
                 <br>
                 <h1 class="title is-size-1">
                     
-                        Archive Archives
+                        关于主动触发 angular 的表单验证机制
                     
                 </h1>
                 
@@ -45,11 +42,31 @@
     <div class="section">
     
 
-
 <div class="columns">
     <div class="column is-9">
         <div class="tile is-child box">
             <div class="content">
+                
+
+<h3 id="errorstatematcher">errorStateMatcher</h3>
+
+<p>在某些情况下，submit 的操作并不能出发整个 form 的验证机制。</p>
+
+<ol>
+<li>可以为所有不能通过 submit 触发验证的表单组件添加 [errorStateMatcher]=&ldquo;matcher&rdquo; ，主动设置它的错误校验机制。</li>
+
+<li><p>将 matcher 声明为 ErrorStateMatcher，不初始化，在需要触发验证的时候将其变为 this.matcher = new MyErrorStateMatcher(); 即可主动触发所有表单组件的验证状态。</p>
+
+<pre><code>import {ErrorStateMatcher} from '@angular/material';
+import {FormControl, FormGroupDirective, NgForm} from '@angular/forms';
+    
+export class FormErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    return !!(control &amp;&amp; control.invalid &amp;&amp; !control.touched || (control &amp;&amp; (control.errors !== null)));
+  }
+}
+</code></pre></li>
+</ol>
 
             </div>
         </div>
@@ -93,6 +110,36 @@
     </div>
 </div>
     <br>
+                
+  
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Related posts</h1>
+      
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ng-first/">angular 项目编译成的网页源码中的注释</a></h1>
+            <time class="has-text-grey-light is-size-7">25 March 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ng-sixth/">Cannot read property &#39;subscribe&#39; of undefined</a></h1>
+            <time class="has-text-grey-light is-size-7">21 February 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ng-third/">angular form 中的 disable() 导致 form valid 结果为 false</a></h1>
+            <time class="has-text-grey-light is-size-7">21 February 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ng-fifth/">angular datepicker 使用建议</a></h1>
+            <time class="has-text-grey-light is-size-7">13 February 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ng-fourth/">angular 禁用/启用 鼠标滚轮事件</a></h1>
+            <time class="has-text-grey-light is-size-7">13 February 2019</time>
+      
+    </div>
+</div>
+
+    
+<br>
         <div class="card">
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
@@ -106,7 +153,6 @@
 
     </div>
 </div>
-
 
 
     </div>
