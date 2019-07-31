@@ -57,6 +57,22 @@
                     <article class="media">
                         <div class="media-content">
                             <div class="content">
+                                <p class="title is-4"><a href="https://zhouqian0.github.io/2019/ts-third/">TS文档阅读小结3 接口</a></p>
+                                <p class="subtitle is-size-6 has-text-grey-light">
+                                    Published at July 10, 2019 &middot;
+                                    <i class="far fa-clock"></i>&nbsp;2 min read
+                                </p>
+                                <p>接口  https://typescript.bootcss.com/interfaces.html 在 TypeScript 里，接口的作用就是定义结构。 可选属性名字( ? ), 可以对可能存在的属性进行预定义，以及捕获引用了不存在的属性时的错误。 可以将接口属性定义为 readonly，定义后只能在初始化时接口对象时赋值。 ReadonlyArray，只读数组，定义后不可更改，同时也不可将其复制给普通数组。 变量使用 const，属性使用 readonly。 对象字面量会被特殊对待且会额外属性检查，当将其赋值给变量或作为参数传递的时候。 如果一个对象字面量存在任何“目标类型”不包含的属性时，会报错，可以用以下方法规避：
+ 类型断言（使用类型断言可以绕开类型检查） 字符串索引签名（eg: man[&lsquo;canRead&rsquo;]） 将该对象赋值给一个另一个变量
+interface SquareConfig { color?: string; width?: number; } function createSquare(config: SquareConfig): { color: string; area: number } { // ... } let squareOptions = { colour: &quot;red&quot;, width: 100 }; let mySquare = createSquare(squareOptions);   接口表示函数类型，需给接口定义一个调用签名。
+interface SearchFunc { (source: string, subString: string): boolean; } let mySearch: SearchFunc; mySearch = function(source: string, subString: string) { let result = source....</p>
+                            </div>
+                        </div>
+                    </article>
+                
+                    <article class="media">
+                        <div class="media-content">
+                            <div class="content">
                                 <p class="title is-4"><a href="https://zhouqian0.github.io/2019/ts-second/">TS文档阅读小结2 变量声明</a></p>
                                 <p class="subtitle is-size-6 has-text-grey-light">
                                     Published at July 5, 2019 &middot;
@@ -182,20 +198,6 @@ import {Component, OnInit} from '@angular/core'; import {FormGroup, FormControl,
                         </div>
                     </article>
                 
-                    <article class="media">
-                        <div class="media-content">
-                            <div class="content">
-                                <p class="title is-4"><a href="https://zhouqian0.github.io/2019/ng-fifth/">angular datepicker 使用建议</a></p>
-                                <p class="subtitle is-size-6 has-text-grey-light">
-                                    Published at February 13, 2019 &middot;
-                                    <i class="far fa-clock"></i>&nbsp;1 min read
-                                </p>
-                                <p> datepicker 实现点击 input 后会打开日期选择器：由于input标签可点击，可能会触发浏览器的自动联想（autocomplete）,会出现： 先打开可自动联想的下拉框，然后该下拉框消失，出现日期选择 。针对于此，现解决方案为禁用日期选择器的 input 标签的 autocomplete 属性（autocomplete=&lsquo;off&rsquo;）,然后添加 click 事件 (click)=&ldquo;picker.open()&ldquo;。
-&lt;mat-form-field&gt; &lt;label&gt; &lt;input matInput [matDatepicker]=&quot;picker&quot; autocomplete=&quot;off&quot; required formControlName=&quot;date&quot; placeholder=&quot;选择日期&quot; (click)=&quot;picker.open()&quot; [errorStateMatcher]=&quot;matcher&quot;&gt; &lt;/label&gt; &lt;mat-datepicker-toggle matSuffix [for]=&quot;picker&quot;&gt;&lt;/mat-datepicker-toggle&gt; &lt;mat-datepicker #picker&gt;&lt;/mat-datepicker&gt; &lt;/mat-form-field&gt;  ...</p>
-                            </div>
-                        </div>
-                    </article>
-                
             </div>
         </div>
     </div>
@@ -220,6 +222,9 @@ import {Component, OnInit} from '@angular/core'; import {FormGroup, FormControl,
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2019/ts-thirteenth/">TS文档阅读小结13 模块</a></h1>
+            <time class="has-text-grey-light is-size-7">31 July 2019</time>
+        
             <h1><a href="https://zhouqian0.github.io/2019/ts-twelfth/">TS文档阅读小结12 迭代器和生成器</a></h1>
             <time class="has-text-grey-light is-size-7">31 July 2019</time>
         
@@ -232,9 +237,6 @@ import {Component, OnInit} from '@angular/core'; import {FormGroup, FormControl,
             <h1><a href="https://zhouqian0.github.io/2019/ts-ninth/">TS文档阅读小结9 类型兼容性</a></h1>
             <time class="has-text-grey-light is-size-7">16 July 2019</time>
         
-            <h1><a href="https://zhouqian0.github.io/2019/ts-eighth/">TS文档阅读小结8 类型推论</a></h1>
-            <time class="has-text-grey-light is-size-7">15 July 2019</time>
-        
     </div>
 </div>
     <br>
@@ -242,7 +244,7 @@ import {Component, OnInit} from '@angular/core'; import {FormGroup, FormControl,
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (22)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (23)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         

@@ -5,10 +5,21 @@
     <description>Recent content in 2019 on Let&#39;s finish what we started</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 31 Jul 2019 10:57:23 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 31 Jul 2019 14:28:43 +0800</lastBuildDate>
     
         <atom:link href="https://zhouqian0.github.io/archives/2019/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>TS文档阅读小结13 模块</title>
+      <link>https://zhouqian0.github.io/2019/ts-thirteenth/</link>
+      <pubDate>Wed, 31 Jul 2019 14:28:43 +0800</pubDate>
+      
+      <guid>https://zhouqian0.github.io/2019/ts-thirteenth/</guid>
+      <description>模块  https://www.tslang.cn/docs/handbook/modules.html TypeScript 与 ECMAScript 2015 一样，任何包含顶级 import 或者 export 的文件都被当成一个模块。 相反地，如果一个文件不带有顶级的 import 或者 export 声明，那么它的内容被视为全局可见的（因此对模块也是可见的）。 任何声明（比如变量，函数，类，类型别名或接口）都能够通过添加 export 关键字来导出。
+// Validation.ts export interface StringValidator { isAcceptable(s: string): boolean; }  // ZipCodeValidator.ts export const numberRegexp = /^[0-9]+$/; export class ZipCodeValidator implements StringValidator { isAcceptable(s: string) { return s.length === 5 &amp;amp;&amp;amp; numberRegexp.test(s); } }  导出语句，可能需要对导出的部分重命名
+class ZipCodeValidator implements StringValidator { isAcceptable(s: string) { return s.length === 5 &amp;amp;&amp;amp; numberRegexp.</description>
+    </item>
     
     <item>
       <title>TS文档阅读小结12 迭代器和生成器</title>

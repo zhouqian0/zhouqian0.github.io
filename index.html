@@ -57,6 +57,21 @@
                     <article class="media">
                         <div class="media-content">
                             <div class="content">
+                                <p class="title is-4"><a href="https://zhouqian0.github.io/2019/ts-thirteenth/">TS文档阅读小结13 模块</a></p>
+                                <p class="subtitle is-size-6 has-text-grey-light">
+                                    Published at July 31, 2019 &middot;
+                                    <i class="far fa-clock"></i>&nbsp;3 min read
+                                </p>
+                                <p>模块  https://www.tslang.cn/docs/handbook/modules.html TypeScript 与 ECMAScript 2015 一样，任何包含顶级 import 或者 export 的文件都被当成一个模块。 相反地，如果一个文件不带有顶级的 import 或者 export 声明，那么它的内容被视为全局可见的（因此对模块也是可见的）。 任何声明（比如变量，函数，类，类型别名或接口）都能够通过添加 export 关键字来导出。
+// Validation.ts export interface StringValidator { isAcceptable(s: string): boolean; }  // ZipCodeValidator.ts export const numberRegexp = /^[0-9]+$/; export class ZipCodeValidator implements StringValidator { isAcceptable(s: string) { return s.length === 5 &amp;&amp; numberRegexp.test(s); } }  导出语句，可能需要对导出的部分重命名
+class ZipCodeValidator implements StringValidator { isAcceptable(s: string) { return s.length === 5 &amp;&amp; numberRegexp....</p>
+                            </div>
+                        </div>
+                    </article>
+                
+                    <article class="media">
+                        <div class="media-content">
+                            <div class="content">
                                 <p class="title is-4"><a href="https://zhouqian0.github.io/2019/ts-twelfth/">TS文档阅读小结12 迭代器和生成器</a></p>
                                 <p class="subtitle is-size-6 has-text-grey-light">
                                     Published at July 31, 2019 &middot;
@@ -203,22 +218,6 @@ function buildName(firstName: string, lastName = &quot;Smith&quot;) { return fir
                         </div>
                     </article>
                 
-                    <article class="media">
-                        <div class="media-content">
-                            <div class="content">
-                                <p class="title is-4"><a href="https://zhouqian0.github.io/2019/ts-third/">TS文档阅读小结3 接口</a></p>
-                                <p class="subtitle is-size-6 has-text-grey-light">
-                                    Published at July 10, 2019 &middot;
-                                    <i class="far fa-clock"></i>&nbsp;2 min read
-                                </p>
-                                <p>接口  https://typescript.bootcss.com/interfaces.html 在 TypeScript 里，接口的作用就是定义结构。 可选属性名字( ? ), 可以对可能存在的属性进行预定义，以及捕获引用了不存在的属性时的错误。 可以将接口属性定义为 readonly，定义后只能在初始化时接口对象时赋值。 ReadonlyArray，只读数组，定义后不可更改，同时也不可将其复制给普通数组。 变量使用 const，属性使用 readonly。 对象字面量会被特殊对待且会额外属性检查，当将其赋值给变量或作为参数传递的时候。 如果一个对象字面量存在任何“目标类型”不包含的属性时，会报错，可以用以下方法规避：
- 类型断言（使用类型断言可以绕开类型检查） 字符串索引签名（eg: man[&lsquo;canRead&rsquo;]） 将该对象赋值给一个另一个变量
-interface SquareConfig { color?: string; width?: number; } function createSquare(config: SquareConfig): { color: string; area: number } { // ... } let squareOptions = { colour: &quot;red&quot;, width: 100 }; let mySquare = createSquare(squareOptions);   接口表示函数类型，需给接口定义一个调用签名。
-interface SearchFunc { (source: string, subString: string): boolean; } let mySearch: SearchFunc; mySearch = function(source: string, subString: string) { let result = source....</p>
-                            </div>
-                        </div>
-                    </article>
-                
             </div>
         </div>
     </div>
@@ -243,6 +242,9 @@ interface SearchFunc { (source: string, subString: string): boolean; } let mySea
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2019/ts-thirteenth/">TS文档阅读小结13 模块</a></h1>
+            <time class="has-text-grey-light is-size-7">31 July 2019</time>
+        
             <h1><a href="https://zhouqian0.github.io/2019/ts-twelfth/">TS文档阅读小结12 迭代器和生成器</a></h1>
             <time class="has-text-grey-light is-size-7">31 July 2019</time>
         
@@ -255,9 +257,6 @@ interface SearchFunc { (source: string, subString: string): boolean; } let mySea
             <h1><a href="https://zhouqian0.github.io/2019/ts-ninth/">TS文档阅读小结9 类型兼容性</a></h1>
             <time class="has-text-grey-light is-size-7">16 July 2019</time>
         
-            <h1><a href="https://zhouqian0.github.io/2019/ts-eighth/">TS文档阅读小结8 类型推论</a></h1>
-            <time class="has-text-grey-light is-size-7">15 July 2019</time>
-        
     </div>
 </div>
     <br>
@@ -265,7 +264,7 @@ interface SearchFunc { (source: string, subString: string): boolean; } let mySea
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (22)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (23)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         
