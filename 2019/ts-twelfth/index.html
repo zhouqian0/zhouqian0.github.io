@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Let&#39;s finish what we started  | angular form 中的 disable() 导致 form valid 结果为 false</title>
+    <title>Let&#39;s finish what we started  | TS文档阅读小结12 迭代器和生成器</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -29,7 +29,7 @@
                 <br>
                 <h1 class="title is-size-1">
                     
-                        angular form 中的 disable() 导致 form valid 结果为 false
+                        TS文档阅读小结12 迭代器和生成器
                     
                 </h1>
                 
@@ -48,31 +48,87 @@
             <div class="content">
                 
 
-<h3 id="form-的-disable">form 的 disable（）</h3>
+<h3 id="迭代器和生成器">迭代器和生成器</h3>
 
-<p>在angular 的 form 中，如果整个 form 的状态变为 disabled，会使 form.valid 返回的值会变为 false，表单校验不通过（哪怕 form 的所有组件都是验证通过的）。</p>
+<ol>
+<li><a href="https://www.tslang.cn/docs/handbook/iterators-and-generators.html">https://www.tslang.cn/docs/handbook/iterators-and-generators.html</a></li>
+<li>可迭代性: 当一个对象实现了 Symbol.iterator 属性时，我们认为它是可迭代的。 一些内置的类型如 Array，Map，Set，String，Int32Array，Uint32Array 等都已经实现了各自的 Symbol.iterator。 对象上的 Symbol.iterator函数负责返回供迭代的值。
 
-<pre><code>import {Component, OnInit} from '@angular/core';
-import {FormGroup, FormControl, Validators} from '@angular/forms';
-@Component({
-  selector: 'my-app',
-  templateUrl: './app.component.html',
-  styleUrls: [ './app.component.css' ]
-})
-export class AppComponent implements OnInit{
-  name = 'Angular';
+<ul>
+<li>Symbol.iterator, A method that returns the default iterator for an object. Called by the semantics of the for-of statement.</li>
+</ul></li>
 
-  form = new FormGroup({
-    'test':new FormControl('',Validators.required)
-  });
+<li><p>for..of 会遍历可迭代的对象，调用对象上的 Symbol.iterator 方法。</p>
 
-  ngOnInit(){
-    this.form.get('test').setValue('2');
-    // this.form.disable();
-    console.log(this.form.valid);
-  }
+<pre><code>let someArray = [1, &quot;string&quot;, false];
+   
+for (let entry of someArray) {
+   console.log(entry); // 1, &quot;string&quot;, false
+}
+</code></pre></li>
+
+<li><p>for..of 和 for..in 均可迭代一个列表；
+但是用于迭代的值却不同，for..in 迭代的是对象的 <em>键</em> 的列表，而 for..of 则迭代对象的键对应的 <em>值</em> 。</p>
+
+<pre><code>let list = [4, 5, 6];
+   
+for (let i in list) {
+   console.log(i); // &quot;0&quot;, &quot;1&quot;, &quot;2&quot;,
+}
+   
+for (let i of list) {
+   console.log(i); // 4, 5, 6
 }
 </code></pre>
+
+<p>另一个区别是 for..in 可以操作任何对象；它提供了查看对象属性的一种方法。
+但是 for..of 关注于迭代对象的值。内置对象 Map 和 Set 已经实现了 Symbol.iterator 方法，让我们可以访问它们保存的值。</p>
+
+<pre><code>let pets = new Set([&quot;Cat&quot;, &quot;Dog&quot;, &quot;Hamster&quot;]);
+pets[&quot;species&quot;] = &quot;mammals&quot;;
+   
+for (let pet in pets) {
+   console.log(pet); // &quot;species&quot;
+}
+   
+for (let pet of pets) {
+   console.log(pet); // no output
+}
+</code></pre>
+
+<pre><code>const map = new Map;
+map.set('first', 1);
+map.set('second', 2);   
+map[&quot;species&quot;] = &quot;mammals&quot;;
+   
+for(let a in map){
+    console.log(a); // &quot;species&quot;
+}
+   
+for(let a of map){
+    console.log(a); // no output
+}
+</code></pre></li>
+
+<li><p>当生成目标为 ES5 或 ES3，迭代器 <em>只允许在 Array 类型</em> 上使用。 在非数组值上使用 for..of 语句会得到一个错误，就算这些非数组值已经实现了 Symbol.iterator 属性。</p>
+
+<pre><code>let numbers = [1, 2, 3];
+for (let num of numbers) {
+   console.log(num);
+}
+</code></pre>
+
+<p>会编译成</p>
+
+<pre><code>var numbers = [1, 2, 3];
+for (var _i = 0; _i &lt; numbers.length; _i++) {
+   var num = numbers[_i];
+   console.log(num);
+}
+</code></pre></li>
+
+<li><p>当目标为兼容 ES 2015 的引擎时，编译器会生成相应引擎的 for..of 内置迭代器实现方式。</p></li>
+</ol>
 
             </div>
         </div>
@@ -126,20 +182,26 @@ export class AppComponent implements OnInit{
         <h1 class="title is-5">Related posts</h1>
       
       
-            <h1><a href="https://zhouqian0.github.io/2019/ng-first/">angular 项目编译成的网页源码中的注释</a></h1>
-            <time class="has-text-grey-light is-size-7">25 March 2019</time>
+            <h1><a href="https://zhouqian0.github.io/2019/ts-eleventh/">TS文档阅读小结11 Symbols</a></h1>
+            <time class="has-text-grey-light is-size-7">30 July 2019</time>
       
-            <h1><a href="https://zhouqian0.github.io/2019/ng-second/">关于主动触发 angular 的表单验证机制</a></h1>
-            <time class="has-text-grey-light is-size-7">27 February 2019</time>
+            <h1><a href="https://zhouqian0.github.io/2019/ts-tenth/">TS文档阅读小结10 高级类型</a></h1>
+            <time class="has-text-grey-light is-size-7">17 July 2019</time>
       
-            <h1><a href="https://zhouqian0.github.io/2019/ng-sixth/">Cannot read property &#39;subscribe&#39; of undefined</a></h1>
-            <time class="has-text-grey-light is-size-7">21 February 2019</time>
+            <h1><a href="https://zhouqian0.github.io/2019/ts-ninth/">TS文档阅读小结9 类型兼容性</a></h1>
+            <time class="has-text-grey-light is-size-7">16 July 2019</time>
       
-            <h1><a href="https://zhouqian0.github.io/2019/ng-fifth/">angular datepicker 使用建议</a></h1>
-            <time class="has-text-grey-light is-size-7">13 February 2019</time>
+            <h1><a href="https://zhouqian0.github.io/2019/ts-eighth/">TS文档阅读小结8 类型推论</a></h1>
+            <time class="has-text-grey-light is-size-7">15 July 2019</time>
       
-            <h1><a href="https://zhouqian0.github.io/2019/ng-fourth/">angular 禁用/启用 鼠标滚轮事件</a></h1>
-            <time class="has-text-grey-light is-size-7">13 February 2019</time>
+            <h1><a href="https://zhouqian0.github.io/2019/ts-seventh/">TS文档阅读小结7 枚举</a></h1>
+            <time class="has-text-grey-light is-size-7">14 July 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ts-sixth/">TS文档阅读小结6 泛型</a></h1>
+            <time class="has-text-grey-light is-size-7">13 July 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ts-fifth/">TS文档阅读小结5 函数</a></h1>
+            <time class="has-text-grey-light is-size-7">12 July 2019</time>
       
     </div>
 </div>

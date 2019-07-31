@@ -5,10 +5,20 @@
     <description>Recent content in Posts on Let&#39;s finish what we started</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 30 Jul 2019 10:10:35 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 31 Jul 2019 10:57:23 +0800</lastBuildDate>
     
         <atom:link href="https://zhouqian0.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>TS文档阅读小结12 迭代器和生成器</title>
+      <link>https://zhouqian0.github.io/2019/ts-twelfth/</link>
+      <pubDate>Wed, 31 Jul 2019 10:57:23 +0800</pubDate>
+      
+      <guid>https://zhouqian0.github.io/2019/ts-twelfth/</guid>
+      <description>迭代器和生成器  https://www.tslang.cn/docs/handbook/iterators-and-generators.html 可迭代性: 当一个对象实现了 Symbol.iterator 属性时，我们认为它是可迭代的。 一些内置的类型如 Array，Map，Set，String，Int32Array，Uint32Array 等都已经实现了各自的 Symbol.iterator。 对象上的 Symbol.iterator函数负责返回供迭代的值。  Symbol.iterator, A method that returns the default iterator for an object. Called by the semantics of the for-of statement.  for..of 会遍历可迭代的对象，调用对象上的 Symbol.iterator 方法。
+let someArray = [1, &amp;quot;string&amp;quot;, false]; for (let entry of someArray) { console.log(entry); // 1, &amp;quot;string&amp;quot;, false }  for..of 和 for..in 均可迭代一个列表； 但是用于迭代的值却不同，for..in 迭代的是对象的 键 的列表，而 for..of 则迭代对象的键对应的 值 。</description>
+    </item>
     
     <item>
       <title>TS文档阅读小结11 Symbols</title>
