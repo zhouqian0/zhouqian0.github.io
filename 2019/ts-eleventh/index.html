@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Let&#39;s finish what we started  | TS文档阅读小结6 泛型</title>
+    <title>Let&#39;s finish what we started  | TS文档阅读小结11 Symbols</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -29,7 +29,7 @@
                 <br>
                 <h1 class="title is-size-1">
                     
-                        TS文档阅读小结6 泛型
+                        TS文档阅读小结11 Symbols
                     
                 </h1>
                 
@@ -48,135 +48,174 @@
             <div class="content">
                 
 
-<h3 id="泛型">泛型</h3>
+<h3 id="symbols">Symbols</h3>
 
 <ol>
-<li><a href="https://typescript.bootcss.com/generics.html">https://typescript.bootcss.com/generics.html</a></li>
-<li>泛型，类型变量，是一种特殊的变量，只用于表示类型而不是值。</li>
+<li><a href="https://www.tslang.cn/docs/handbook/symbols.html">https://www.tslang.cn/docs/handbook/symbols.html</a></li>
+<li><a href="https://www.keithcirkel.co.uk/metaprogramming-in-es6-symbols/">https://www.keithcirkel.co.uk/metaprogramming-in-es6-symbols/</a></li>
+<li><a href="http://es6.ruanyifeng.com/#docs/symbol">http://es6.ruanyifeng.com/#docs/symbol</a></li>
 
-<li><p>定义了泛型函数后，可以用两种方法使用。</p>
+<li><p>自 ECMAScript 2015 起，symbol 成为了一种新的原生类型，是 JavaScript 的第七种原始类型。很适合做标识符。</p>
 
-<ol>
-<li><p>第一种是，传入所有的参数，包含类型参数</p>
-
-<pre><code>let output = identity&lt;string&gt;(&quot;myString&quot;);  // type of output will be 'string'
+<pre><code>assert(typeof Symbol() === 'symbol')
 </code></pre></li>
 
-<li><p>利用类型推论 – 即编译器会根据传入的参数自动地帮助我们确定 T 的类型</p>
+<li><p>symbol 类型的值是通过 Symbol 构造函数创建的，无法通过 new 创建</p>
 
-<pre><code>let output = identity(&quot;myString&quot;);  // type of output will be 'string'
-</code></pre></li>
-</ol></li>
-
-<li><p>编译器要求你在泛型函数的函数体必须正确的使用这个通用的类型。 换句话说，你必须把这些参数当做是任意或所有类型。<br />
-否则可能将 T 类型定义为 number， 然后去调用 T 的 length 属性，但是 number 类型是没有 length 属性。</p>
-
-<pre><code>function loggingIdentity&lt;T&gt;(arg: T): T {
-    console.log(arg.length);  // Error: T doesn't have .length
-    return arg;
-} // 这里可以将 arg 定义为 T[] 或 Array&lt;T&gt; 类型， 这样就可以使用 length 属性了
+<pre><code>let sym1 = Symbol();      // Ok
+let sym2 = Symbol(&quot;key&quot;); // 可选的字符串key
+let sym3 = new Symbol();  // TypeError
 </code></pre></li>
 
-<li><p>泛型函数的类型与非泛型函数的类型</p>
+<li><p>Symbols 是不可改变且唯一的。</p>
 
-<pre><code>function identity&lt;T&gt;(arg: T): T {
-    return arg;
-}
-    
-let myIdentity: &lt;T&gt;(arg: T) =&gt; T = identity;
-// let myIdentity: &lt;U&gt;(arg: U) =&gt; U = identity;
-// let myIdentity: {&lt;T&gt;(arg: T): T} = identity;
+<pre><code>let sym2 = Symbol(&quot;key&quot;);
+let sym3 = Symbol(&quot;key&quot;);
+sym2 === sym3; // false, symbols是唯一的
 </code></pre></li>
 
-<li><p>泛型接口</p>
+<li><p>symbols 也可以被用做对象属性的键。
+它能避免命名冲突的风险。
+这对于一个对象由多个模块构成的情况非常有用，能防止某一个键被不小心改写或覆盖。</p>
 
-<pre><code>interface GenericIdentityFn&lt;T&gt; {
-    (arg: T): T;
-}
+<pre><code>let sym = Symbol();
    
-function identity&lt;T&gt;(arg: T): T {
-    return arg;
-}
+let obj = {
+   [sym]: &quot;value&quot;
+};
    
-let myIdentity: GenericIdentityFn&lt;number&gt; = identity;
-</code></pre></li>
-
-<li><p>泛型类</p>
-
-<pre><code>class GenericNumber&lt;T&gt; {
-    zeroValue: T;
-    add: (x: T, y: T) =&gt; T;
-}
-   
-let myGenericNumber = new GenericNumber&lt;number&gt;();
-myGenericNumber.zeroValue = 0;
-myGenericNumber.add = function(x, y) { return x + y; }; 
+console.log(obj, obj[sym]); // {}, &quot;value&quot;
 </code></pre>
 
-<p>类有静态部分和实例部分。泛型类指的是实例部分的类型，所以 <em>类的静态属性不能使用这个泛型类型</em> 。</p></li>
+<p>Symbols key 无法通过 for in、for of 或者 Object.getOwnPropertyNames 获得，获得它们的唯一方式是 Object.getOwnPropertySymbols</p></li>
 
-<li><p>可以创建泛型接口、泛型类，但 <em>无法创建泛型枚举和泛型命名空间</em> 。</p></li>
+<li><p>Symbols 也可以与计算出的属性名声明相结合来声明对象的属性和类成员。</p>
 
-<li><p>泛型约束，约束传入的 T 的类型</p>
-
-<pre><code>interface Lengthwise {
-    length: number;
+<pre><code>const getClassNameSymbol = Symbol();
+   
+class C {
+   [getClassNameSymbol](){
+      return &quot;C&quot;;
+   }
 }
-    
-function loggingIdentity&lt;T extends Lengthwise&gt;(arg: T): T {
-    console.log(arg.length);  // Now we know it has a .length property, so no more error
-    return arg;
-}
-loggingIdentity(3);  // Error, number doesn't have a .length property
-loggingIdentity({length: 10, value: 3}); // Ok， this object have .length property
+   
+let c = new C();
+let className = c[getClassNameSymbol](); // &quot;C&quot;
 </code></pre></li>
 
-<li><p>在泛型约束中使用类型参数（keyof），可声明一个类型参数，且它被另一个类型参数所约束。</p>
+<li><p>Symbol 作为属性名，该属性不会出现在 for&hellip;in、for&hellip;of 循环中，也不会被 Object.keys()、Object.getOwnPropertyNames()、JSON.stringify() 返回。
+但是，它也不是私有属性，有一个 Object.getOwnPropertySymbols 方法，可以获取指定对象的所有 Symbol 属性名的数组。</p>
 
-<pre><code>function getProperty&lt;T, K extends keyof T&gt;(obj: T, key: K) {
-    return obj[key];
+<pre><code>const sym1 = Symbol('1');
+const sym2 = Symbol('2');
+const obj = {
+ name: 'objName',
+ [sym1]: 'syj',
+ [sym2]: 'fy'
 }
-    
-let x = { a: 1, b: 2, c: 3, d: 4 };
-    
-getProperty(x, &quot;a&quot;); // okay
-getProperty(x, &quot;m&quot;); // error: Argument of type 'm' isn't assignable to 'a' | 'b' | 'c' | 'd'.
-</code></pre></li>
-
-<li><p>在泛型里使用类类型</p>
-
-<pre><code>function create&lt;T&gt;(c: {new(): T; }): T {
-    return new c();
-}
+const ary = Object.getOwnPropertySymbols(obj);
+console.log(ary); //[ Symbol(1), Symbol(2) ]
 </code></pre>
 
-<pre><code>class BeeKeeper {
-    hasMask: boolean;
-}
-    
-class ZooKeeper {
-    nametag: string;
-}
-    
-class Animal {
-    numLegs: number;
-}
-    
-class Bee extends Animal {
-    keeper: BeeKeeper;
-}
-    
-class Lion extends Animal {
-    keeper: ZooKeeper;
-}
-    
-function createInstance&lt;A extends Animal&gt;(c: new () =&gt; A): A {
-    return new c();
-}
-    
-createInstance(Lion).keeper.nametag;  // typechecks!
-createInstance(Bee).keeper.hasMask;   // typechecks!
+<p>这意味着 Symbols 能够给对象提供一个隐藏层，帮助对象实现了一种全新的目的 —— 属性不可迭代，也不能够通过现有的反射工具获得，并且能被保证不会和对象任何已有属性冲突。</p></li>
+
+<li><p>Symbol.for() 与Symbol()，都会生成新的 Symbol。
+它们的区别是，前者会被登记在全局环境中供搜索，后者不会。
+Symbol.for() 不会每次调用就返回一个新的 Symbol 类型的值，而是会先检查给定的 key 是否已经存在，如果不存在才会新建一个值。
+比如，如果你调用 Symbol.for(&ldquo;cat&rdquo;)30 次，每次都会返回同一个 Symbol 值，但是调用 Symbol(&ldquo;cat&rdquo;)30 次，会返回 30 个不同的 Symbol 值。</p>
+
+<pre><code>var fooSym = Symbol.for('foo');
+var otherSym = Symbol.for('foo');
+console.log(fooSym === otherSym); // true
 </code></pre></li>
+
+<li><p>Symbol.keyFor 方法返回一个已登记的 Symbol 类型值的 key。
+Symbol.for 为 Symbol 值登记的名字，是全局环境的，可以在不同的 iframe 或 service worker 中取到同一个值。</p>
+
+<pre><code>var localFooSymbol = Symbol('foo');
+var globalFooSymbol = Symbol.for('foo');
+   
+assert(Symbol.keyFor(localFooSymbol) === undefined); // localFooSymbol 属于未登记的 Symbol 值，所以返回undefined。
+assert(Symbol.keyFor(globalFooSymbol) === 'foo');
+assert(Symbol.for(Symbol.keyFor(globalFooSymbol)) === Symbol.for('foo'));
+</code></pre></li>
+
+<li><p>Symbol 值可以显式转为字符串，也可以转为布尔值，但是不能转为数值。</p>
+
+<pre><code>let sym = Symbol('My symbol');
+   
+'Symbol(My symbol)'
+'Symbol(My symbol)'
+Boolean(sym) // true
+!sym  // false
+   
+if (sym) {
+ // ...
+}
+   
+Number(sym) // TypeError
+sym + 2 // TypeError
+
+</code></pre></li>
+
+<li><p>Symbol 值作为对象属性名时，不能用点运算符。</p>
+
+<pre><code>const mySymbol = Symbol();
+const a = {};
+   
+a.mySymbol = 'Hello!';
+a[mySymbol] // undefined
+a['mySymbol'] // &quot;Hello!&quot;
+</code></pre>
+
+<p>因为点运算符后面总是字符串，所以不会读取 mySymbol 作为标识名所指代的那个值，导致 a 的属性名实际上是一个字符串，而不是一个 Symbol 值。</p></li>
+
+<li><pre><code>const COLOR_RED    = Symbol('red');
+const COLOR_GREEN  = Symbol('green');
+   
+function getComplement(color) {
+ switch (color) {
+   case COLOR_RED:
+     return COLOR_RED.toString();
+   case COLOR_GREEN:
+     return COLOR_GREEN.toString();
+   default:
+     throw new Error('Undefined color');
+   }
+}
+</code></pre></li>
+
+<li><pre><code>const shapeType = {
+   triangle: Symbol()
+};
+   
+function getArea(shape, options) {
+ let area = 0;
+ switch (shape) {
+   case shapeType.triangle:
+     area = .5 * options.width * options.height;
+     break;
+ }
+ return area;
+}
+   
+getArea(shapeType.triangle, { width: 100, height: 100 });
+</code></pre>
+
+<p>shapeType.triangle 等于哪个值并不重要，只要确保不会跟其他 shapeType 属性的值冲突即可。因此，这里就很适合改用 Symbol 值。</p></li>
+
+<li><p>Reflect.ownKeys 方法可以返回所有类型的键名，包括常规键名和 Symbol 键名。</p>
+
+<pre><code>let obj = {
+ [Symbol('my_key')]: 1,
+ enum: 2,
+ nonEnum: 3
+};
+   
+console.log(Reflect.ownKeys(obj)) //  [&quot;enum&quot;, &quot;nonEnum&quot;, Symbol]
+</code></pre></li>
+
+<li><p>如果键名使用 Symbol 方法生成，那么外部将无法引用这个值，当然也就无法改写。</p></li>
 </ol>
 
             </div>
@@ -231,9 +270,6 @@ createInstance(Bee).keeper.hasMask;   // typechecks!
         <h1 class="title is-5">Related posts</h1>
       
       
-            <h1><a href="https://zhouqian0.github.io/2019/ts-eleventh/">TS文档阅读小结11 Symbols</a></h1>
-            <time class="has-text-grey-light is-size-7">30 July 2019</time>
-      
             <h1><a href="https://zhouqian0.github.io/2019/ts-tenth/">TS文档阅读小结10 高级类型</a></h1>
             <time class="has-text-grey-light is-size-7">17 July 2019</time>
       
@@ -245,6 +281,9 @@ createInstance(Bee).keeper.hasMask;   // typechecks!
       
             <h1><a href="https://zhouqian0.github.io/2019/ts-seventh/">TS文档阅读小结7 枚举</a></h1>
             <time class="has-text-grey-light is-size-7">14 July 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ts-sixth/">TS文档阅读小结6 泛型</a></h1>
+            <time class="has-text-grey-light is-size-7">13 July 2019</time>
       
             <h1><a href="https://zhouqian0.github.io/2019/ts-fifth/">TS文档阅读小结5 函数</a></h1>
             <time class="has-text-grey-light is-size-7">12 July 2019</time>

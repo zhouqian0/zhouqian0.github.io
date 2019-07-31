@@ -150,7 +150,7 @@ else {
 <br /></li>
 </ul>
 
-<p>typeof 类型保护只有两种形式能被识别：typeof v === &ldquo;typename&rdquo; 和 typeof v !== &ldquo;typename&rdquo;， &ldquo;typename&rdquo;必须是 &ldquo;number&rdquo;， &ldquo;string&rdquo;， &ldquo;boolean&rdquo; 或 &ldquo;symbol&rdquo;。
+<p>typeof 类型保护只有两种形式能被识别：typeof v === &ldquo;typename&rdquo; 和 typeof v !== &ldquo;typename&rdquo;， &ldquo;typename&rdquo; 必须是 &ldquo;number&rdquo;， &ldquo;string&rdquo;， &ldquo;boolean&rdquo; 或 &ldquo;symbol&rdquo;。
 但是 TypeScript 并不会阻止你与其它字符串比较，语言不会把那些表达式识别为类型保护。</p>
 
 <pre><code>function padLeft(value: string, padding: string | number) {
@@ -268,7 +268,7 @@ function getName(n: NameOrResolver): Name {
 
 <ol>
 <li>接口创建了一个新的名字，可以在其它任何地方使用。 类型别名并不创建新名字—比如，错误信息就不会使用别名。</li>
-<li>类型别名不能被 extends 和 implements（自己也不能 extends和 implements其它类型, <a href="https://en.wikipedia.org/wiki/Open%E2%80%93closed_principle">Open–closed principle</a>）, 应尽量使用接口代替类型别名。</li>
+<li>类型别名不能被 extends 和 implements（自己也不能 extends 和 implements 其它类型, <a href="https://en.wikipedia.org/wiki/Open%E2%80%93closed_principle">Open–closed principle</a>）, 应尽量使用接口代替类型别名。</li>
 
 <li><p>如果无法通过接口来描述一个类型并且需要使用联合类型或元组类型，这时通常会使用类型别名。</p>
 
@@ -509,7 +509,7 @@ type T23 = InstanceType&lt;string&gt;;  // Error
 type T24 = InstanceType&lt;Function&gt;;  // Error
 </code></pre>
 
-<p><em>Exclude类型是建议的Diff类型的一种实现。我们使用Exclude这个名字是为了避免破坏已经定义了Diff的代码，并且我们感觉这个名字能更好地表达类型的语义。我们没有增加Omit<T, K>类型，因为它可以很容易的用Pick<T, Exclude<keyof T, K>&gt;来表示。</em></p></li>
+<p><em>Exclude 类型是建议的 Diff 类型的一种实现。我们使用 Exclude 这个名字是为了避免破坏已经定义了 Diff 的代码，并且我们感觉这个名字能更好地表达类型的语义。我们没有增加 Omit<T, K> 类型，因为它可以很容易的用 Pick<T, Exclude<keyof T, K>&gt; 来表示。</em></p></li>
 
 <li><p>检查类型是裸类型参数的条件类型称为分布式条件类型。分布式条件类型在实例化期间自动分布在联合类型上。</p>
 
@@ -575,7 +575,7 @@ type T43 = NonFunctionProperties&lt;Part&gt;;  // { id: number, name: string, su
 </code></pre></li>
 
 <li><p>条件类型中的类型推断
-在extends条件类型的子句中，现在可以具有infer（infer 可用来推断函数参数或返回值）引入要推断的类型变量的声明。可以在条件类型的真分支中引用这样的推断类型变量。可以infer为同一类型变量设置多个位置。</p>
+在 extends 条件类型的子句中，现在可以具有 infer（infer 可用来推断函数参数或返回值）引入要推断的类型变量的声明。可以在条件类型的真分支中引用这样的推断类型变量。infer 可以为同一类型变量设置多个位置。</p>
 
 <pre><code>type Unpacked&lt;T&gt; =
     T extends (infer U)[] ? U :
@@ -617,7 +617,7 @@ declare function foo(x: string | number): string | number;
 type T30 = ReturnType&lt;typeof foo&gt;;  // string | number
 </code></pre>
 
-<p>infer对于常规类型参数，不可能在约束子句中使用声明,但通过擦除约束中的类型变量并改为指定条件类型，可以获得大致相同的效果：</p>
+<p>infer 对于常规类型参数，不可能在约束子句中使用声明,但通过擦除约束中的类型变量并改为指定条件类型，可以获得大致相同的效果：</p>
 
 <pre><code>type ReturnType&lt;T extends (...args: any[]) =&gt; infer R&gt; = R;  // Error, not supported
 
@@ -650,6 +650,9 @@ type ReturnType&lt;T extends AnyFunction&gt; = T extends (...args: any[]) =&gt; 
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2019/ts-eleventh/">TS文档阅读小结11 Symbols</a></h1>
+            <time class="has-text-grey-light is-size-7">30 July 2019</time>
+        
             <h1><a href="https://zhouqian0.github.io/2019/ts-tenth/">TS文档阅读小结10 高级类型</a></h1>
             <time class="has-text-grey-light is-size-7">17 July 2019</time>
         
@@ -661,9 +664,6 @@ type ReturnType&lt;T extends AnyFunction&gt; = T extends (...args: any[]) =&gt; 
         
             <h1><a href="https://zhouqian0.github.io/2019/ts-seventh/">TS文档阅读小结7 枚举</a></h1>
             <time class="has-text-grey-light is-size-7">14 July 2019</time>
-        
-            <h1><a href="https://zhouqian0.github.io/2019/ts-sixth/">TS文档阅读小结6 泛型</a></h1>
-            <time class="has-text-grey-light is-size-7">13 July 2019</time>
         
     </div>
 </div>
@@ -677,6 +677,9 @@ type ReturnType&lt;T extends AnyFunction&gt; = T extends (...args: any[]) =&gt; 
     <div class="card-content">
         <h1 class="title is-5">Related posts</h1>
       
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ts-eleventh/">TS文档阅读小结11 Symbols</a></h1>
+            <time class="has-text-grey-light is-size-7">30 July 2019</time>
       
             <h1><a href="https://zhouqian0.github.io/2019/ts-ninth/">TS文档阅读小结9 类型兼容性</a></h1>
             <time class="has-text-grey-light is-size-7">16 July 2019</time>
@@ -696,9 +699,6 @@ type ReturnType&lt;T extends AnyFunction&gt; = T extends (...args: any[]) =&gt; 
             <h1><a href="https://zhouqian0.github.io/2019/ts-fourth/">TS文档阅读小结4 类</a></h1>
             <time class="has-text-grey-light is-size-7">11 July 2019</time>
       
-            <h1><a href="https://zhouqian0.github.io/2019/ts-third/">TS文档阅读小结3 接口</a></h1>
-            <time class="has-text-grey-light is-size-7">10 July 2019</time>
-      
     </div>
 </div>
 
@@ -708,7 +708,7 @@ type ReturnType&lt;T extends AnyFunction&gt; = T extends (...args: any[]) =&gt; 
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (20)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (21)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         

@@ -5,10 +5,23 @@
     <description>Recent content on Let&#39;s finish what we started</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 17 Jul 2019 14:10:34 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 30 Jul 2019 10:10:35 +0800</lastBuildDate>
     
         <atom:link href="https://zhouqian0.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>TS文档阅读小结11 Symbols</title>
+      <link>https://zhouqian0.github.io/2019/ts-eleventh/</link>
+      <pubDate>Tue, 30 Jul 2019 10:10:35 +0800</pubDate>
+      
+      <guid>https://zhouqian0.github.io/2019/ts-eleventh/</guid>
+      <description>Symbols  https://www.tslang.cn/docs/handbook/symbols.html https://www.keithcirkel.co.uk/metaprogramming-in-es6-symbols/ http://es6.ruanyifeng.com/#docs/symbol 自 ECMAScript 2015 起，symbol 成为了一种新的原生类型，是 JavaScript 的第七种原始类型。很适合做标识符。
+assert(typeof Symbol() === &#39;symbol&#39;)  symbol 类型的值是通过 Symbol 构造函数创建的，无法通过 new 创建
+let sym1 = Symbol(); // Ok let sym2 = Symbol(&amp;quot;key&amp;quot;); // 可选的字符串key let sym3 = new Symbol(); // TypeError  Symbols 是不可改变且唯一的。
+let sym2 = Symbol(&amp;quot;key&amp;quot;); let sym3 = Symbol(&amp;quot;key&amp;quot;); sym2 === sym3; // false, symbols是唯一的  symbols 也可以被用做对象属性的键。 它能避免命名冲突的风险。 这对于一个对象由多个模块构成的情况非常有用，能防止某一个键被不小心改写或覆盖。
+let sym = Symbol(); let obj = { [sym]: &amp;quot;value&amp;quot; }; console.</description>
+    </item>
     
     <item>
       <title>TS文档阅读小结10 高级类型</title>
