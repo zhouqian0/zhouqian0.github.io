@@ -57,6 +57,25 @@
                     <article class="media">
                         <div class="media-content">
                             <div class="content">
+                                <p class="title is-4"><a href="https://zhouqian0.github.io/2019/ts-fifth/">TS文档阅读小结5 函数</a></p>
+                                <p class="subtitle is-size-6 has-text-grey-light">
+                                    Published at July 12, 2019 &middot;
+                                    <i class="far fa-clock"></i>&nbsp;2 min read
+                                </p>
+                                <p>函数  https://typescript.bootcss.com/functions.html 完整函数类型，包含参数类型和返回值类型。
+let myAdd: (x:number, y:number) =&gt; number = function(x: number, y: number): number { return x + y; };   以参数列表的形式写出参数类型，为每个参数指定一个名字和类型。名字只是为了增加可读性，只要参数类型是匹配即有效 在函数和返回值类型之前使用（=&gt;）符号，返回值类型是函数类型的必要部分，即使函数没有返回任何值也必须指定返回值类型为 void  TypeScript 编译器会检查用户是否为每个参数都传入了值，所以每个函数参数都是必须的（可输入 null or undefined）。
+ 可选参数（?） 必须跟在必须参数后面 有默认初始化值的参数， 在所有必须参数后面的带默认初始化的参数都是可选的。共享同样的类型
+function buildName(firstName: string, lastName = &quot;Smith&quot;) { return firstName + &quot; &quot; + lastName; }  带默认值的参数不需要放在必须参数的后面。如果带默认值的参数出现在必须参数前面，用户必须明确的传入 undefined 值来获得默认值。
+ 剩余参数 会被当做个数不限的可选参数。编译器创建参数数组，名字是你在省略号（&hellip;）后面给定的名字，你可以在函数体内使用这个数组。
+  JavaScript 里 this 的工作原理，它的值在函数被调用的时候才会指定。
+ 顶级的非方法式调用会将 this 视为 window。（在严格模式下，this 为 undefined 而不是 window） ECMAScript 6 箭头语法能保存函数创建时的 this 值，而不是调用时的值。 this 来自对象字面量里的函数表达式(this 为 any 类型)。 显式调用 this，指定 this 类型。...</p>
+                            </div>
+                        </div>
+                    </article>
+                
+                    <article class="media">
+                        <div class="media-content">
+                            <div class="content">
                                 <p class="title is-4"><a href="https://zhouqian0.github.io/2019/ts-fourth/">TS文档阅读小结4 类</a></p>
                                 <p class="subtitle is-size-6 has-text-grey-light">
                                     Published at July 11, 2019 &middot;
@@ -183,20 +202,6 @@ import {Component, OnInit} from '@angular/core'; import {FormGroup, FormControl,
                         </div>
                     </article>
                 
-                    <article class="media">
-                        <div class="media-content">
-                            <div class="content">
-                                <p class="title is-4"><a href="https://zhouqian0.github.io/2019/ng-sixth/">Cannot read property &#39;subscribe&#39; of undefined</a></p>
-                                <p class="subtitle is-size-6 has-text-grey-light">
-                                    Published at February 21, 2019 &middot;
-                                    <i class="far fa-clock"></i>&nbsp;1 min read
-                                </p>
-                                <p> EventEmitter 在 angular 中如果没有对 @Output 的 EventEmitter 变量进行初始化就会报错 Cannot read property ‘subscribe’ of undefined ，并且不会有报错行信息。 （初始化放在 onInit 中也会报错, 必须在声明变量时或者在构造函数中初始化）
-@Output() eventEmit = new EventEmitter();  ...</p>
-                            </div>
-                        </div>
-                    </article>
-                
             </div>
         </div>
     </div>
@@ -221,6 +226,9 @@ import {Component, OnInit} from '@angular/core'; import {FormGroup, FormControl,
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2019/ts-fifteenth/">TS文档阅读小结15 命名空间和模块</a></h1>
+            <time class="has-text-grey-light is-size-7">1 August 2019</time>
+        
             <h1><a href="https://zhouqian0.github.io/2019/ts-fourteenth/">TS文档阅读小结14 命名空间</a></h1>
             <time class="has-text-grey-light is-size-7">1 August 2019</time>
         
@@ -233,9 +241,6 @@ import {Component, OnInit} from '@angular/core'; import {FormGroup, FormControl,
             <h1><a href="https://zhouqian0.github.io/2019/ts-eleventh/">TS文档阅读小结11 Symbols</a></h1>
             <time class="has-text-grey-light is-size-7">30 July 2019</time>
         
-            <h1><a href="https://zhouqian0.github.io/2019/ts-tenth/">TS文档阅读小结10 高级类型</a></h1>
-            <time class="has-text-grey-light is-size-7">17 July 2019</time>
-        
     </div>
 </div>
     <br>
@@ -243,7 +248,7 @@ import {Component, OnInit} from '@angular/core'; import {FormGroup, FormControl,
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (24)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (25)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         
