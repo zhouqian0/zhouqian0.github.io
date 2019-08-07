@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
-	<meta name="generator" content="Hugo 0.56.0" />
+	<meta name="generator" content="Hugo 0.56.3" />
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Let&#39;s finish what we started  | Let&#39;s finish what we started</title>
@@ -53,6 +53,24 @@
             <div class="content">
                 <h3>Welcome to my blog !</h3>
                 <hr>
+                
+                    <article class="media">
+                        <div class="media-content">
+                            <div class="content">
+                                <p class="title is-4"><a href="https://zhouqian0.github.io/2019/ts-sixth/">TS文档阅读小结6 泛型</a></p>
+                                <p class="subtitle is-size-6 has-text-grey-light">
+                                    Published at July 13, 2019 &middot;
+                                    <i class="far fa-clock"></i>&nbsp;2 min read
+                                </p>
+                                <p>泛型  https://typescript.bootcss.com/generics.html 泛型，类型变量，是一种特殊的变量，只用于表示类型而不是值。 定义了泛型函数后，可以用两种方法使用。
+ 第一种是，传入所有的参数，包含类型参数
+let output = identity&lt;string&gt;(&quot;myString&quot;); // type of output will be 'string'  利用类型推论 – 即编译器会根据传入的参数自动地帮助我们确定 T 的类型
+let output = identity(&quot;myString&quot;); // type of output will be 'string'   编译器要求你在泛型函数的函数体必须正确的使用这个通用的类型。 换句话说，你必须把这些参数当做是任意或所有类型。
+否则可能将 T 类型定义为 number， 然后去调用 T 的 length 属性，但是 number 类型是没有 length 属性。
+function loggingIdentity&lt;T&gt;(arg: T): T { console.log(arg.length); // Error: T doesn't have .length return arg; } // 这里可以将 arg 定义为 T[] 或 Array&lt;T&gt; 类型， 这样就可以使用 length 属性了  泛型函数的类型与非泛型函数的类型...</p>
+                            </div>
+                        </div>
+                    </article>
                 
                     <article class="media">
                         <div class="media-content">
@@ -188,20 +206,6 @@ import {ErrorStateMatcher} from '@angular/material'; import {FormControl, FormGr
                         </div>
                     </article>
                 
-                    <article class="media">
-                        <div class="media-content">
-                            <div class="content">
-                                <p class="title is-4"><a href="https://zhouqian0.github.io/2019/ng-third/">angular form 中的 disable() 导致 form valid 结果为 false</a></p>
-                                <p class="subtitle is-size-6 has-text-grey-light">
-                                    Published at February 21, 2019 &middot;
-                                    <i class="far fa-clock"></i>&nbsp;1 min read
-                                </p>
-                                <p> form 的 disable（） 在angular 的 form 中，如果整个 form 的状态变为 disabled，会使 form.valid 返回的值会变为 false，表单校验不通过（哪怕 form 的所有组件都是验证通过的）。
-import {Component, OnInit} from '@angular/core'; import {FormGroup, FormControl, Validators} from '@angular/forms'; @Component({ selector: 'my-app', templateUrl: './app.component.html', styleUrls: [ './app.component.css' ] }) export class AppComponent implements OnInit{ name = 'Angular'; form = new FormGroup({ 'test':new FormControl('',Validators.required) }); ngOnInit(){ this.form.get('test').setValue('2'); // this.form.disable(); console.log(this.form.valid); } }  ...</p>
-                            </div>
-                        </div>
-                    </article>
-                
             </div>
         </div>
     </div>
@@ -226,6 +230,9 @@ import {Component, OnInit} from '@angular/core'; import {FormGroup, FormControl,
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2019/ts-sixteen/">TS文档阅读小结16 模块解析</a></h1>
+            <time class="has-text-grey-light is-size-7">7 August 2019</time>
+        
             <h1><a href="https://zhouqian0.github.io/2019/ts-fifteenth/">TS文档阅读小结15 命名空间和模块</a></h1>
             <time class="has-text-grey-light is-size-7">1 August 2019</time>
         
@@ -238,9 +245,6 @@ import {Component, OnInit} from '@angular/core'; import {FormGroup, FormControl,
             <h1><a href="https://zhouqian0.github.io/2019/ts-twelfth/">TS文档阅读小结12 迭代器和生成器</a></h1>
             <time class="has-text-grey-light is-size-7">31 July 2019</time>
         
-            <h1><a href="https://zhouqian0.github.io/2019/ts-eleventh/">TS文档阅读小结11 Symbols</a></h1>
-            <time class="has-text-grey-light is-size-7">30 July 2019</time>
-        
     </div>
 </div>
     <br>
@@ -248,7 +252,7 @@ import {Component, OnInit} from '@angular/core'; import {FormGroup, FormControl,
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (25)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (26)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         

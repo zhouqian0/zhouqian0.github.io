@@ -5,10 +5,33 @@
     <description>Recent content on Let&#39;s finish what we started</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 01 Aug 2019 16:40:14 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 07 Aug 2019 16:00:11 +0800</lastBuildDate>
     
         <atom:link href="https://zhouqian0.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>TS文档阅读小结16 模块解析</title>
+      <link>https://zhouqian0.github.io/2019/ts-sixteen/</link>
+      <pubDate>Wed, 07 Aug 2019 16:00:11 +0800</pubDate>
+      
+      <guid>https://zhouqian0.github.io/2019/ts-sixteen/</guid>
+      <description>模块解析  https://typescript.bootcss.com/module-resolution.html 模块解析就是指编译器所要依据的一个流程，用它来找出某个导入操作所引用的具体值。
+假设有一个导入语句 import { a } from &amp;ldquo;moduleA&amp;rdquo;; 为了去检查任何对 a 的使用，编译器需要准确的知道它表示什么，并且会需要检查它的定义 moduleA。
+ 根据模块引用是相对的还是非相对的，模块导入会以不同的方式解析。
+ 相对导入是以/，./或../开头的。
+相对导入解析时是相对于导入它的文件来的，并且不能解析为一个外部模块声明。 你应该为你自己写的模块使用相对导入，这样能确保它们在运行时的相对位置。
+ 所有其它形式的导入被当作非相对的。
+非相对模块的导入可以相对于baseUrl或通过下文会讲到的路径映射来进行解析。 它们还可以被解析能外部模块声明。 使用非相对路径来导入你的外部依赖。
+  共有两种可用的模块解析策略：Node 和 Classic。
+可以使用 &amp;ndash;moduleResolution 标记指定使用哪种模块解析策略。 若未指定，那么在使用了 &amp;ndash;module AMD | System | ES2015 时的默认值为 Classic，其它情况时则为 Node。
+ Classic
+以前是 TypeScript 默认的解析策略。 现在，它存在的理由主要是为了向后兼容。
+ 相对导入
+eg: 查找 /root/src/folder/A.ts 文件里的 import { b } from &amp;ldquo;./moduleB&amp;rdquo; 的流程
+ /root/src/folder/moduleB.ts /root/src/folder/moduleB.d.ts  非相对模块的导入
+eg: 查找 /root/src/folder/A.</description>
+    </item>
     
     <item>
       <title>TS文档阅读小结15 命名空间和模块</title>
