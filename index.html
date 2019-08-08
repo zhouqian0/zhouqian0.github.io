@@ -57,7 +57,20 @@
                     <article class="media">
                         <div class="media-content">
                             <div class="content">
-                                <p class="title is-4"><a href="https://zhouqian0.github.io/2019/ts-sixteen/">TS文档阅读小结16 模块解析</a></p>
+                                <p class="title is-4"><a href="https://zhouqian0.github.io/2019/js-fifth/">Safari Date 处理</a></p>
+                                <p class="subtitle is-size-6 has-text-grey-light">
+                                    Published at August 7, 2019 &middot;
+                                    <i class="far fa-clock"></i>&nbsp;1 min read
+                                </p>
+                                <p> Safari Date Invalid  safari 浏览器在对 js Date 函数的支持与 Chrome 和 Firefox 不同，  在 Safari 中，如果日期格式为 YYYY-MM-DD HH:mm:ss，那么对该时间的 string 使用 new Date(timeString) 时，返回的结果将是 invalid。 但此现象在其他两种浏览器中并未出现。 如果日期格式为 YYYY-MM-DD（无时分秒信息）， 此时 new Date(timeString) 返回的结果值也正常。  改进：将日期格式改为 YYYY/MM/DD HH:mm:ss，此时 new Date(timeString) 返回的时间结果正常。  ...</p>
+                            </div>
+                        </div>
+                    </article>
+                
+                    <article class="media">
+                        <div class="media-content">
+                            <div class="content">
+                                <p class="title is-4"><a href="https://zhouqian0.github.io/2019/ts-sixteenth/">TS文档阅读小结16 模块解析</a></p>
                                 <p class="subtitle is-size-6 has-text-grey-light">
                                     Published at August 7, 2019 &middot;
                                     <i class="far fa-clock"></i>&nbsp;3 min read
@@ -211,22 +224,6 @@ interface Named { name: string; } let x: Named; let y = { name: 'Alice', locatio
                         </div>
                     </article>
                 
-                    <article class="media">
-                        <div class="media-content">
-                            <div class="content">
-                                <p class="title is-4"><a href="https://zhouqian0.github.io/2019/ts-seventh/">TS文档阅读小结7 枚举</a></p>
-                                <p class="subtitle is-size-6 has-text-grey-light">
-                                    Published at July 14, 2019 &middot;
-                                    <i class="far fa-clock"></i>&nbsp;2 min read
-                                </p>
-                                <p>枚举  https://www.tslang.cn/docs/handbook/enums.html 使用枚举（enum）我们可以定义一些有名字的数字常量。 数字枚举可以混入函数的和常量成员。
-不带初始化器的枚举或者被放在第一的位置，或者被放在使用了数字常量或其它常量初始化了的枚举后面。
-enum E { A = getSomeValue(), B, // error! 'A' is not constant-initialized, so 'B' needs an initializer }  enum E { A, // A = 1 is also possible B = getSomeValue(); // ok! }  字符串枚举，每个成员都必须用字符串字面量，或另外一个字符串枚举成员进行初始化。
-enum Direction { Up = &quot;UP&quot;, Down = &quot;DOWN&quot;, Left = &quot;LEFT&quot;, // Left = 1 is also possible Right = &quot;RIGHT&quot;, }  异构枚举，就是上个例子中 Left = 1 的情景，可以混合字符串和数字成员，一般不建议 。...</p>
-                            </div>
-                        </div>
-                    </article>
-                
             </div>
         </div>
     </div>
@@ -251,7 +248,10 @@ enum Direction { Up = &quot;UP&quot;, Down = &quot;DOWN&quot;, Left = &quot;LEFT
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
-            <h1><a href="https://zhouqian0.github.io/2019/ts-sixteen/">TS文档阅读小结16 模块解析</a></h1>
+            <h1><a href="https://zhouqian0.github.io/2019/js-fifth/">Safari Date 处理</a></h1>
+            <time class="has-text-grey-light is-size-7">7 August 2019</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/ts-sixteenth/">TS文档阅读小结16 模块解析</a></h1>
             <time class="has-text-grey-light is-size-7">7 August 2019</time>
         
             <h1><a href="https://zhouqian0.github.io/2019/ts-fifteenth/">TS文档阅读小结15 命名空间和模块</a></h1>
@@ -263,9 +263,6 @@ enum Direction { Up = &quot;UP&quot;, Down = &quot;DOWN&quot;, Left = &quot;LEFT
             <h1><a href="https://zhouqian0.github.io/2019/ts-thirteenth/">TS文档阅读小结13 模块</a></h1>
             <time class="has-text-grey-light is-size-7">31 July 2019</time>
         
-            <h1><a href="https://zhouqian0.github.io/2019/ts-twelfth/">TS文档阅读小结12 迭代器和生成器</a></h1>
-            <time class="has-text-grey-light is-size-7">31 July 2019</time>
-        
     </div>
 </div>
     <br>
@@ -273,7 +270,7 @@ enum Direction { Up = &quot;UP&quot;, Down = &quot;DOWN&quot;, Left = &quot;LEFT
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (26)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (27)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         

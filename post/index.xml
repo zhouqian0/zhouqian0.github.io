@@ -5,17 +5,26 @@
     <description>Recent content in Posts on Let&#39;s finish what we started</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 07 Aug 2019 16:00:11 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 07 Aug 2019 18:22:23 +0800</lastBuildDate>
     
         <atom:link href="https://zhouqian0.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>Safari Date 处理</title>
+      <link>https://zhouqian0.github.io/2019/js-fifth/</link>
+      <pubDate>Wed, 07 Aug 2019 18:22:23 +0800</pubDate>
+      
+      <guid>https://zhouqian0.github.io/2019/js-fifth/</guid>
+      <description> Safari Date Invalid  safari 浏览器在对 js Date 函数的支持与 Chrome 和 Firefox 不同，  在 Safari 中，如果日期格式为 YYYY-MM-DD HH:mm:ss，那么对该时间的 string 使用 new Date(timeString) 时，返回的结果将是 invalid。 但此现象在其他两种浏览器中并未出现。 如果日期格式为 YYYY-MM-DD（无时分秒信息）， 此时 new Date(timeString) 返回的结果值也正常。  改进：将日期格式改为 YYYY/MM/DD HH:mm:ss，此时 new Date(timeString) 返回的时间结果正常。  </description>
+    </item>
+    
+    <item>
       <title>TS文档阅读小结16 模块解析</title>
-      <link>https://zhouqian0.github.io/2019/ts-sixteen/</link>
+      <link>https://zhouqian0.github.io/2019/ts-sixteenth/</link>
       <pubDate>Wed, 07 Aug 2019 16:00:11 +0800</pubDate>
       
-      <guid>https://zhouqian0.github.io/2019/ts-sixteen/</guid>
+      <guid>https://zhouqian0.github.io/2019/ts-sixteenth/</guid>
       <description>模块解析  https://typescript.bootcss.com/module-resolution.html 模块解析就是指编译器所要依据的一个流程，用它来找出某个导入操作所引用的具体值。
 假设有一个导入语句 import { a } from &amp;ldquo;moduleA&amp;rdquo;; 为了去检查任何对 a 的使用，编译器需要准确的知道它表示什么，并且会需要检查它的定义 moduleA。
  根据模块引用是相对的还是非相对的，模块导入会以不同的方式解析。

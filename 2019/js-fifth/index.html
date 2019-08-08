@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Let&#39;s finish what we started  | TS文档阅读小结15 命名空间和模块</title>
+    <title>Let&#39;s finish what we started  | Safari Date 处理</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -29,7 +29,7 @@
                 <br>
                 <h1 class="title is-size-1">
                     
-                        TS文档阅读小结15 命名空间和模块
+                        Safari Date 处理
                     
                 </h1>
                 
@@ -48,83 +48,17 @@
             <div class="content">
                 
 
-<h3 id="命名空间和模块">命名空间和模块</h3>
+<h3 id="safari-date-invalid">Safari Date Invalid</h3>
 
 <ol>
-<li><a href="https://www.tslang.cn/docs/handbook/namespaces-and-modules.html">https://www.tslang.cn/docs/handbook/namespaces-and-modules.html</a></li>
-<li>命名空间是位于全局命名空间下的一个普通的带有名字的 JavaScript 对象。
-
-<ol>
-<li>可以在多文件中同时使用，并通过 &ndash;outFile 结合在一起。 命名空间是组织 Web 应用不错的方式，你可以把所有依赖都放在 HTML 页面的 &lt;script&gt; 标签里。</li>
-<li>但就像其它的全局命名空间污染一样，它很难去识别组件之间的依赖关系，尤其是在大型的应用中。</li>
-</ol></li>
-
-<li><p>模块可以包含代码和声明。不同的是模块可以 <em>声明它的依赖</em> 。</p>
+<li>safari 浏览器在对 js Date 函数的支持与 Chrome 和 Firefox 不同，
 
 <ul>
-<li><p>模块会把依赖添加到模块加载器上（例如 CommonJs / Require.js）。</p>
-
-<p>对于大型应用，这一点点的花费会带来长久的模块化和可维护性上的便利。
-模块也提供了更好的代码重用，更强的封闭性以及更好的使用工具进行优化。</p></li>
+<li>在 Safari 中，如果日期格式为 YYYY-MM-DD HH:mm:ss，那么对该时间的 string 使用 new Date(timeString) 时，返回的结果将是 invalid。
+但此现象在其他两种浏览器中并未出现。</li>
+<li>如果日期格式为 YYYY-MM-DD（无时分秒信息）， 此时 new Date(timeString) 返回的结果值也正常。</li>
 </ul></li>
-
-<li><p>对于新项目来说推荐使用模块做为组织代码的方式。</p></li>
-
-<li><p>引用模块文件应该使用 import，而不是 /// &lt;reference&gt;。</p>
-
-<p>编译器首先尝试去查找相应路径下的 .ts，.tsx 再或者 .d.ts。 如果这些文件都找不到，编译器会查找 外部模块声明。</p>
-
-<ul>
-<li><p>myModules.d.ts</p>
-
-<pre><code>// In a .d.ts file or .ts file that is not a module:
-declare module &quot;SomeModule&quot; {
-   export function fn(): string;
-}
-</code></pre></li>
-
-<li><p>myOtherModule.ts</p>
-
-<pre><code>/// &lt;reference path=&quot;myModules.d.ts&quot; /&gt;
-import * as m from &quot;SomeModule&quot;;
-</code></pre></li>
-</ul></li>
-
-<li><p>TypeScript 里模块的一个特点是不同的模块永远也不会在相同的作用域内使用相同的名字。 因为使用模块的人会为它们命名，所以完全没有必要把导出的符号包裹在一个命名空间里。</p>
-
-<ul>
-<li><p>shapes.ts</p>
-
-<pre><code>export namespace Shapes {
-   export class Triangle { /* ... */ }
-   export class Square { /* ... */ }
-}
-</code></pre></li>
-
-<li><p>shapeConsumer.ts</p>
-
-<pre><code>import * as shapes from &quot;./shapes&quot;;
-let t = new shapes.Shapes.Triangle(); // shapes.Shapes?
-</code></pre>
-
-<p><em>不应该对模块使用命名空间，使用命名空间是为了提供逻辑分组和避免命名冲突。 模块文件本身已经是一个逻辑分组，并且它的名字是由导入这个模块的代码指定，所以没有必要为导出的对象增加额外的模块层。</em></p>
-
-<pre><code>// shapes.ts
-   
-export class Triangle { /* ... */ }
-export class Square { /* ... */ }
-</code></pre>
-
-<pre><code>// shapeConsumer.ts
-   
-import * as shapes from &quot;./shapes&quot;;
-let t = new shapes.Triangle();
-</code></pre></li>
-</ul></li>
-
-<li><p>TypeScript 里模块文件与生成的 JS 文件是一一对应的。<br />
-根据指定的目标模块系统的不同，可能会无法连接多个模块源文件。
-例如当目标模块系统为 commonjs 或 umd 时，无法使用 outFile 选项（TypeScript 1.8 以上版本已解决）。</p></li>
+<li>改进：将日期格式改为 YYYY/MM/DD HH:mm:ss，此时 new Date(timeString) 返回的时间结果正常。</li>
 </ol>
 
             </div>
@@ -179,26 +113,17 @@ let t = new shapes.Triangle();
         <h1 class="title is-5">Related posts</h1>
       
       
-            <h1><a href="https://zhouqian0.github.io/2019/ts-fourteenth/">TS文档阅读小结14 命名空间</a></h1>
-            <time class="has-text-grey-light is-size-7">1 August 2019</time>
+            <h1><a href="https://zhouqian0.github.io/2019/js-first/">异步方法中的同步</a></h1>
+            <time class="has-text-grey-light is-size-7">21 March 2019</time>
       
-            <h1><a href="https://zhouqian0.github.io/2019/ts-thirteenth/">TS文档阅读小结13 模块</a></h1>
-            <time class="has-text-grey-light is-size-7">31 July 2019</time>
+            <h1><a href="https://zhouqian0.github.io/2019/js-second/">js Date 类型的比较</a></h1>
+            <time class="has-text-grey-light is-size-7">21 February 2019</time>
       
-            <h1><a href="https://zhouqian0.github.io/2019/ts-twelfth/">TS文档阅读小结12 迭代器和生成器</a></h1>
-            <time class="has-text-grey-light is-size-7">31 July 2019</time>
+            <h1><a href="https://zhouqian0.github.io/2019/js-third/">隐藏/显示 网页滚动条</a></h1>
+            <time class="has-text-grey-light is-size-7">13 February 2019</time>
       
-            <h1><a href="https://zhouqian0.github.io/2019/ts-eleventh/">TS文档阅读小结11 Symbols</a></h1>
-            <time class="has-text-grey-light is-size-7">30 July 2019</time>
-      
-            <h1><a href="https://zhouqian0.github.io/2019/ts-tenth/">TS文档阅读小结10 高级类型</a></h1>
-            <time class="has-text-grey-light is-size-7">17 July 2019</time>
-      
-            <h1><a href="https://zhouqian0.github.io/2019/ts-ninth/">TS文档阅读小结9 类型兼容性</a></h1>
-            <time class="has-text-grey-light is-size-7">16 July 2019</time>
-      
-            <h1><a href="https://zhouqian0.github.io/2019/ts-eighth/">TS文档阅读小结8 类型推论</a></h1>
-            <time class="has-text-grey-light is-size-7">15 July 2019</time>
+            <h1><a href="https://zhouqian0.github.io/2018/js-fourth/">js 中文排序</a></h1>
+            <time class="has-text-grey-light is-size-7">7 December 2018</time>
       
     </div>
 </div>

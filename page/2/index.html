@@ -57,6 +57,22 @@
                     <article class="media">
                         <div class="media-content">
                             <div class="content">
+                                <p class="title is-4"><a href="https://zhouqian0.github.io/2019/ts-seventh/">TS文档阅读小结7 枚举</a></p>
+                                <p class="subtitle is-size-6 has-text-grey-light">
+                                    Published at July 14, 2019 &middot;
+                                    <i class="far fa-clock"></i>&nbsp;2 min read
+                                </p>
+                                <p>枚举  https://www.tslang.cn/docs/handbook/enums.html 使用枚举（enum）我们可以定义一些有名字的数字常量。 数字枚举可以混入函数的和常量成员。
+不带初始化器的枚举或者被放在第一的位置，或者被放在使用了数字常量或其它常量初始化了的枚举后面。
+enum E { A = getSomeValue(), B, // error! 'A' is not constant-initialized, so 'B' needs an initializer }  enum E { A, // A = 1 is also possible B = getSomeValue(); // ok! }  字符串枚举，每个成员都必须用字符串字面量，或另外一个字符串枚举成员进行初始化。
+enum Direction { Up = &quot;UP&quot;, Down = &quot;DOWN&quot;, Left = &quot;LEFT&quot;, // Left = 1 is also possible Right = &quot;RIGHT&quot;, }  异构枚举，就是上个例子中 Left = 1 的情景，可以混合字符串和数字成员，一般不建议 。...</p>
+                            </div>
+                        </div>
+                    </article>
+                
+                    <article class="media">
+                        <div class="media-content">
+                            <div class="content">
                                 <p class="title is-4"><a href="https://zhouqian0.github.io/2019/ts-sixth/">TS文档阅读小结6 泛型</a></p>
                                 <p class="subtitle is-size-6 has-text-grey-light">
                                     Published at July 13, 2019 &middot;
@@ -191,21 +207,6 @@ getALLReportData() { return (this.reportService.getReportBlockData() as Observab
                         </div>
                     </article>
                 
-                    <article class="media">
-                        <div class="media-content">
-                            <div class="content">
-                                <p class="title is-4"><a href="https://zhouqian0.github.io/2019/ng-second/">关于主动触发 angular 的表单验证机制</a></p>
-                                <p class="subtitle is-size-6 has-text-grey-light">
-                                    Published at February 27, 2019 &middot;
-                                    <i class="far fa-clock"></i>&nbsp;1 min read
-                                </p>
-                                <p> errorStateMatcher 在某些情况下，submit 的操作并不能出发整个 form 的验证机制。
- 可以为所有不能通过 submit 触发验证的表单组件添加 [errorStateMatcher]=&ldquo;matcher&rdquo; ，主动设置它的错误校验机制。 将 matcher 声明为 ErrorStateMatcher，不初始化，在需要触发验证的时候将其变为 this.matcher = new MyErrorStateMatcher(); 即可主动触发所有表单组件的验证状态。
-import {ErrorStateMatcher} from '@angular/material'; import {FormControl, FormGroupDirective, NgForm} from '@angular/forms'; export class FormErrorStateMatcher implements ErrorStateMatcher { isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean { return !!(control &amp;&amp; control.invalid &amp;&amp; !control.touched || (control &amp;&amp; (control.errors !== null))); } }   ...</p>
-                            </div>
-                        </div>
-                    </article>
-                
             </div>
         </div>
     </div>
@@ -230,7 +231,10 @@ import {ErrorStateMatcher} from '@angular/material'; import {FormControl, FormGr
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
-            <h1><a href="https://zhouqian0.github.io/2019/ts-sixteen/">TS文档阅读小结16 模块解析</a></h1>
+            <h1><a href="https://zhouqian0.github.io/2019/js-fifth/">Safari Date 处理</a></h1>
+            <time class="has-text-grey-light is-size-7">7 August 2019</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/ts-sixteenth/">TS文档阅读小结16 模块解析</a></h1>
             <time class="has-text-grey-light is-size-7">7 August 2019</time>
         
             <h1><a href="https://zhouqian0.github.io/2019/ts-fifteenth/">TS文档阅读小结15 命名空间和模块</a></h1>
@@ -242,9 +246,6 @@ import {ErrorStateMatcher} from '@angular/material'; import {FormControl, FormGr
             <h1><a href="https://zhouqian0.github.io/2019/ts-thirteenth/">TS文档阅读小结13 模块</a></h1>
             <time class="has-text-grey-light is-size-7">31 July 2019</time>
         
-            <h1><a href="https://zhouqian0.github.io/2019/ts-twelfth/">TS文档阅读小结12 迭代器和生成器</a></h1>
-            <time class="has-text-grey-light is-size-7">31 July 2019</time>
-        
     </div>
 </div>
     <br>
@@ -252,7 +253,7 @@ import {ErrorStateMatcher} from '@angular/material'; import {FormControl, FormGr
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (26)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (27)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         

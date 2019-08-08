@@ -12,10 +12,10 @@
     
     <item>
       <title>TS文档阅读小结16 模块解析</title>
-      <link>https://zhouqian0.github.io/2019/ts-sixteen/</link>
+      <link>https://zhouqian0.github.io/2019/ts-sixteenth/</link>
       <pubDate>Wed, 07 Aug 2019 16:00:11 +0800</pubDate>
       
-      <guid>https://zhouqian0.github.io/2019/ts-sixteen/</guid>
+      <guid>https://zhouqian0.github.io/2019/ts-sixteenth/</guid>
       <description>模块解析  https://typescript.bootcss.com/module-resolution.html 模块解析就是指编译器所要依据的一个流程，用它来找出某个导入操作所引用的具体值。
 假设有一个导入语句 import { a } from &amp;ldquo;moduleA&amp;rdquo;; 为了去检查任何对 a 的使用，编译器需要准确的知道它表示什么，并且会需要检查它的定义 moduleA。
  根据模块引用是相对的还是非相对的，模块导入会以不同的方式解析。
