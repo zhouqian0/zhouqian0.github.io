@@ -57,6 +57,26 @@
                     <article class="media">
                         <div class="media-content">
                             <div class="content">
+                                <p class="title is-4"><a href="https://zhouqian0.github.io/2019/ts-eighth/">TS文档阅读小结8 类型推论</a></p>
+                                <p class="subtitle is-size-6 has-text-grey-light">
+                                    Published at July 15, 2019 &middot;
+                                    <i class="far fa-clock"></i>&nbsp;1 min read
+                                </p>
+                                <p>类型推论  https://www.tslang.cn/docs/handbook/type-inference.html let x = 3;  变量 x 的类型被推断为 number。 这种推断发生在初始化变量和成员，设置默认参数值和决定函数返回值时。
+ 最佳通用类型
+ let x = [0, 1, null];  推断 x 的类型需要考虑其中所有元素的类型，当前包括 number 和 null。 计算通用类型算法会考虑所有的候选类型，并给出一个兼容所有候选类型的类型（最终的通用类型取自候选类型）。
+当前例子中， number 兼容 null（Null、Undefined 和 Never 是其它类型的子类型），故而 x 的类型 应为 number[]。
+ let zoo = [new Rhino(), new Elephant(), new Snake()];  zoo 中元素都继承自 Animal 类型，但是 zoo 里的元素没有是Animal类型的，因此不能推断出这个结果。
+当候选类型不能使用时需要明确的指出类型：let zoo: Animal[]，否则系统进行类型推断的结果将为联合数组类型：(Rhino | Elephant | Snake)[]。
+  上下文类型，按上下文归类会发生在表达式的类型与所处的位置相关时。
+ window....</p>
+                            </div>
+                        </div>
+                    </article>
+                
+                    <article class="media">
+                        <div class="media-content">
+                            <div class="content">
                                 <p class="title is-4"><a href="https://zhouqian0.github.io/2019/ts-seventh/">TS文档阅读小结7 枚举</a></p>
                                 <p class="subtitle is-size-6 has-text-grey-light">
                                     Published at July 14, 2019 &middot;
@@ -194,19 +214,6 @@ getALLReportData() { return (this.reportService.getReportBlockData() as Observab
                         </div>
                     </article>
                 
-                    <article class="media">
-                        <div class="media-content">
-                            <div class="content">
-                                <p class="title is-4"><a href="https://zhouqian0.github.io/2019/first/">条件判断语句优化</a></p>
-                                <p class="subtitle is-size-6 has-text-grey-light">
-                                    Published at February 27, 2019 &middot;
-                                    <i class="far fa-clock"></i>&nbsp;1 min read
-                                </p>
-                                <p>判断语句 在对变量进行判断的时候，尽量将变量置于左侧，统一方向。...</p>
-                            </div>
-                        </div>
-                    </article>
-                
             </div>
         </div>
     </div>
@@ -231,6 +238,9 @@ getALLReportData() { return (this.reportService.getReportBlockData() as Observab
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2019/ts-seventeenth/">TS文档阅读小结17 声明合并</a></h1>
+            <time class="has-text-grey-light is-size-7">8 August 2019</time>
+        
             <h1><a href="https://zhouqian0.github.io/2019/js-fifth/">Safari Date 处理</a></h1>
             <time class="has-text-grey-light is-size-7">7 August 2019</time>
         
@@ -243,9 +253,6 @@ getALLReportData() { return (this.reportService.getReportBlockData() as Observab
             <h1><a href="https://zhouqian0.github.io/2019/ts-fourteenth/">TS文档阅读小结14 命名空间</a></h1>
             <time class="has-text-grey-light is-size-7">1 August 2019</time>
         
-            <h1><a href="https://zhouqian0.github.io/2019/ts-thirteenth/">TS文档阅读小结13 模块</a></h1>
-            <time class="has-text-grey-light is-size-7">31 July 2019</time>
-        
     </div>
 </div>
     <br>
@@ -253,7 +260,7 @@ getALLReportData() { return (this.reportService.getReportBlockData() as Observab
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (27)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (28)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         
@@ -279,6 +286,10 @@ getALLReportData() { return (this.reportService.getReportBlockData() as Observab
                 
                 <li class="pagination__item">
                     <a class="pagination-link" aria-label="Goto page 3" href="/page/3/">3</a>
+                </li>
+                
+                <li class="pagination__item">
+                    <a class="pagination-link" aria-label="Goto page 4" href="/page/4/">4</a>
                 </li>
                 
             </ul>
