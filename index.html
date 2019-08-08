@@ -62,7 +62,7 @@
                                     Published at August 8, 2019 &middot;
                                     <i class="far fa-clock"></i>&nbsp;3 min read
                                 </p>
-                                <p>声明合并  “声明合并”是指编译器将针对同一个名字的两个独立声明合并为单一声明。 合并后的声明同时拥有原先两个声明的特性。 任何数量的声明都可被合并；不局限于两个声明。 接口合并
+                                <p>声明合并  https://typescript.bootcss.com/declaration-merging.html “声明合并”是指编译器将针对同一个名字的两个独立声明合并为单一声明。 合并后的声明同时拥有原先两个声明的特性。 任何数量的声明都可被合并；不局限于两个声明。 接口合并
 interface Box { height: number; width: number; } interface Box { scale: number; width: string; // error, property 'width' must be of type 'number' } let box: Box = {height: 5, width: 6, scale: 10};   合并的机制是把双方的成员放到一个同名的接口里。 接口的非函数的成员应该是唯一的。 如果它们不是唯一的，那么它们必须是相同的类型。
 interface Cloner { clone(animal: Animal): Animal; } interface Cloner { clone(animal: Sheep): Sheep; } interface Cloner { clone(animal: Dog): Dog; clone(animal: Cat): Cat; } // ---------------------- interface Cloner { clone(animal: Dog): Dog; clone(animal: Cat): Cat; clone(animal: Sheep): Sheep; clone(animal: Animal): Animal; }  对于函数成员，每个同名函数声明都会被当成这个函数的一个重载。后面的接口具有更高的优先级。...</p>
                             </div>
