@@ -5,7 +5,7 @@
     <description>Recent content on Let&#39;s finish what we started</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 14 Aug 2019 14:54:29 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 15 Aug 2019 14:54:29 +0800</lastBuildDate>
     
         <atom:link href="https://zhouqian0.github.io/index.xml" rel="self" type="application/rss+xml" />
     
@@ -13,7 +13,7 @@
     <item>
       <title>TS文档阅读小结21 实用类型</title>
       <link>https://zhouqian0.github.io/2019/ts-twenty-first/</link>
-      <pubDate>Wed, 14 Aug 2019 14:54:29 +0800</pubDate>
+      <pubDate>Thu, 15 Aug 2019 14:54:29 +0800</pubDate>
       
       <guid>https://zhouqian0.github.io/2019/ts-twenty-first/</guid>
       <description>实用类型  https://www.typescriptlang.org/docs/handbook/utility-types.html Partial&amp;lt;T&amp;gt;
