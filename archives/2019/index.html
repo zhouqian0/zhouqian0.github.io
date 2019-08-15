@@ -54,6 +54,23 @@
                 <article class="media">
                     <div class="media-content">
                         <div class="content">
+                            <p class="title is-4"><a href="/2019/ts-twenty-first/">TS文档阅读小结21 实用类型</a></p>
+                            <p class="subtitle is-size-6 has-text-grey-light">
+                                Published at August 14, 2019 &middot;
+                                <i class="far fa-clock"></i>&nbsp;5 min read
+                            </p>
+                            <p>实用类型  https://www.typescriptlang.org/docs/handbook/utility-types.html Partial&lt;T&gt;
+构造一个类型，其所有属性 T 都设置为 optional。此实用程序将返回表示给定类型的所有子集的类型。
+interface Todo { title: string; description: string; } function updateTodo(todo: Todo, fieldsToUpdate: Partial&lt;Todo&gt;) { // T: Todo return { ...todo, ...fieldsToUpdate }; } const todo1 = { title: 'organize desk', description: 'clear clutter', }; const todo2 = updateTodo(todo1, { description: 'throw out trash', }); console.log(todo2); // { title: 'organize desk', description: 'throw out trash' }  Readonly&lt;T&gt;
+构造一个所有属性 T 都设置为的类型 readonly，这意味着无法重新分配构造类型的属性。...</p>
+                        </div>
+                    </div>
+                </article>
+                <br>
+
+                <article class="media">
+                    <div class="media-content">
+                        <div class="content">
                             <p class="title is-4"><a href="/2019/ts-twenty/">TS文档阅读小结20 三斜线指令</a></p>
                             <p class="subtitle is-size-6 has-text-grey-light">
                                 Published at August 14, 2019 &middot;
@@ -591,6 +608,9 @@ document.querySelector('html').style.overflow = 'scroll';   ...</p>
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2019/ts-twenty-first/">TS文档阅读小结21 实用类型</a></h1>
+            <time class="has-text-grey-light is-size-7">14 August 2019</time>
+        
             <h1><a href="https://zhouqian0.github.io/2019/ts-twenty/">TS文档阅读小结20 三斜线指令</a></h1>
             <time class="has-text-grey-light is-size-7">14 August 2019</time>
         
@@ -603,9 +623,6 @@ document.querySelector('html').style.overflow = 'scroll';   ...</p>
             <h1><a href="https://zhouqian0.github.io/2019/ts-seventeenth/">TS文档阅读小结17 声明合并</a></h1>
             <time class="has-text-grey-light is-size-7">8 August 2019</time>
         
-            <h1><a href="https://zhouqian0.github.io/2019/js-fifth/">Safari Date 处理</a></h1>
-            <time class="has-text-grey-light is-size-7">7 August 2019</time>
-        
     </div>
 </div>
     <br>
@@ -613,7 +630,7 @@ document.querySelector('html').style.overflow = 'scroll';   ...</p>
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (31)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (32)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         
