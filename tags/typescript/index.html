@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Let&#39;s finish what we started  | typescript</title>
+    <title>Let&#39;s finish what we started  | typeScript</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -32,7 +32,7 @@
                 <br>
                 <h1 class="title is-size-1">
                     
-                        #typescript
+                        #typeScript
                     
                 </h1>
                 
@@ -51,6 +51,20 @@
     <div class="column is-9">
         <div class="tile is-child box">
             <div class="content">
+
+                <article class="media">
+                    <div class="media-content">
+                        <div class="content">
+                            <p class="title is-4"><a href="/2019/ts-nineteenth/">TS文档阅读小结19 混入</a></p>
+                            <p class="subtitle is-size-6 has-text-grey-light">
+                                Published at August 14, 2019 &middot;
+                                <i class="far fa-clock"></i>&nbsp;3 min read
+                            </p>
+                            <p>混入（Mixins）  https://www.typescriptlang.org/docs/handbook/mixins.html https://mariusschulz.com/blog/mixin-classes-in-typescript Mixins 提供了一种基于组合行为的代码重用形式。  // Disposable Mixin class Disposable { isDisposed: boolean; dispose() { this.isDisposed = true; } } // Activatable Mixin class Activatable { isActive: boolean; activate() { this.isActive = true; } deactivate() { this.isActive = false; } } class SmartObject { constructor() { setInterval(() =&gt; console.log(this.isActive + &quot; : &quot; + this.isDisposed), 500); } interact() { this.activate(); } } interface SmartObject extends Disposable, Activatable {} applyMixins(SmartObject, [Disposable, Activatable]); let smartObj = new SmartObject(); setTimeout(() =&gt; smartObj....</p>
+                        </div>
+                    </div>
+                </article>
+                <br>
 
                 <article class="media">
                     <div class="media-content">
@@ -395,6 +409,9 @@ x[3] = &quot;world&quot;; // Error, Property '3' does not exist on type '[string
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2019/ts-nineteenth/">TS文档阅读小结19 混入</a></h1>
+            <time class="has-text-grey-light is-size-7">14 August 2019</time>
+        
             <h1><a href="https://zhouqian0.github.io/2019/ts-eighteenth/">TS文档阅读小结18 装饰器</a></h1>
             <time class="has-text-grey-light is-size-7">8 August 2019</time>
         
@@ -407,9 +424,6 @@ x[3] = &quot;world&quot;; // Error, Property '3' does not exist on type '[string
             <h1><a href="https://zhouqian0.github.io/2019/ts-sixteenth/">TS文档阅读小结16 模块解析</a></h1>
             <time class="has-text-grey-light is-size-7">7 August 2019</time>
         
-            <h1><a href="https://zhouqian0.github.io/2019/ts-fifteenth/">TS文档阅读小结15 命名空间和模块</a></h1>
-            <time class="has-text-grey-light is-size-7">1 August 2019</time>
-        
     </div>
 </div>
     <br>
@@ -417,7 +431,7 @@ x[3] = &quot;world&quot;; // Error, Property '3' does not exist on type '[string
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (29)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (30)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         

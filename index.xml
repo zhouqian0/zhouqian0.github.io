@@ -5,10 +5,19 @@
     <description>Recent content on Let&#39;s finish what we started</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 08 Aug 2019 16:27:08 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 14 Aug 2019 10:34:01 +0800</lastBuildDate>
     
         <atom:link href="https://zhouqian0.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>TS文档阅读小结19 混入</title>
+      <link>https://zhouqian0.github.io/2019/ts-nineteenth/</link>
+      <pubDate>Wed, 14 Aug 2019 10:34:01 +0800</pubDate>
+      
+      <guid>https://zhouqian0.github.io/2019/ts-nineteenth/</guid>
+      <description>混入（Mixins）  https://www.typescriptlang.org/docs/handbook/mixins.html https://mariusschulz.com/blog/mixin-classes-in-typescript Mixins 提供了一种基于组合行为的代码重用形式。  // Disposable Mixin class Disposable { isDisposed: boolean; dispose() { this.isDisposed = true; } } // Activatable Mixin class Activatable { isActive: boolean; activate() { this.isActive = true; } deactivate() { this.isActive = false; } } class SmartObject { constructor() { setInterval(() =&amp;gt; console.log(this.isActive + &amp;quot; : &amp;quot; + this.isDisposed), 500); } interact() { this.activate(); } } interface SmartObject extends Disposable, Activatable {} applyMixins(SmartObject, [Disposable, Activatable]); let smartObj = new SmartObject(); setTimeout(() =&amp;gt; smartObj.</description>
+    </item>
     
     <item>
       <title>TS文档阅读小结18 装饰器</title>

@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Let&#39;s finish what we started  | TS文档阅读小结19 混入</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://zhouqian0.github.io/css/blog.css" />
+    
+</head>
+<body>
+
+    
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://zhouqian0.github.io/">Home</a>
+        </div>
+    </nav>
+    
+
+    
+    <section class="hero is-info is-medium">
+        <div class="hero-body" style="background-image: url(https://zhouqian0.github.io/img/bg-blog.jpg);">
+            <div class="container has-text-centered">
+                <br>
+                <h1 class="title is-size-1">
+                    
+                        TS文档阅读小结19 混入
+                    
+                </h1>
+                
+            </div>
+        </div>
+    </section>
+
+
+<div class="container">
+    <div class="section">
+    
+
+<div class="columns">
+    <div class="column is-9">
+        <div class="tile is-child box">
+            <div class="content">
+                
+
+<h3 id="混入-mixins">混入（Mixins）</h3>
+
+<ol>
+<li><a href="https://www.typescriptlang.org/docs/handbook/mixins.html">https://www.typescriptlang.org/docs/handbook/mixins.html</a></li>
+<li><a href="https://mariusschulz.com/blog/mixin-classes-in-typescript">https://mariusschulz.com/blog/mixin-classes-in-typescript</a></li>
+<li>Mixins 提供了一种基于组合行为的代码重用形式。</li>
+
+<li><pre><code>  // Disposable Mixin
+  class Disposable {
+      isDisposed: boolean;
+      dispose() {
+          this.isDisposed = true;
+      }
+      
+  }
+      
+  // Activatable Mixin
+  class Activatable {
+      isActive: boolean;
+      activate() {
+          this.isActive = true;
+      }
+      deactivate() {
+          this.isActive = false;
+      }
+  }
+      
+  class SmartObject {
+      constructor() {
+          setInterval(() =&gt; console.log(this.isActive + &quot; : &quot; + this.isDisposed), 500);
+      }
+      
+      interact() {
+          this.activate();
+      }
+  }
+      
+  interface SmartObject extends Disposable, Activatable {}
+  applyMixins(SmartObject, [Disposable, Activatable]);
+      
+  let smartObj = new SmartObject();
+  setTimeout(() =&gt; smartObj.interact(), 1000);
+      
+  ////////////////////////////////////////
+  // In your runtime library somewhere
+  ////////////////////////////////////////
+      
+  function applyMixins(derivedCtor: any, baseCtors: any[]) {
+      baseCtors.forEach(baseCtor =&gt; {
+          Object.getOwnPropertyNames(baseCtor.prototype).forEach(name =&gt; {
+              Object.defineProperty(derivedCtor.prototype, name, Object.getOwnPropertyDescriptor(baseCtor.prototype, name));
+          });
+      });
+  }
+</code></pre>
+
+<ul>
+<li>使用 extends 扩展了 SmartObject 接口。</li>
+<li>由于声明合并，SmartObject 接口将被混合到 SmartObject 类中。</li>
+<li>applyMixins 函数运行后会将 baseCtors 中的属性都混入 derivedCtor 类型中。</li>
+</ul></li>
+
+<li><pre><code>type Constructor&lt;T = {}&gt; = new (...args: any[]) =&gt; T;
+   
+function Timestamped&lt;TBase extends Constructor&gt;(Base: TBase) {
+ return class Timestamped extends Base {
+   timestamp = Date.now();
+ };
+}
+
+class User {
+ name: string;
+   
+ constructor(name: string) {
+   this.name = name;
+ }
+}
+   
+// Create a new class by mixing &quot;Timestamped&quot; into &quot;User&quot;
+const TimestampedUser = Timestamped(User);
+   
+// Instantiate the new &quot;TimestampedUser&quot; class
+const user = new TimestampedUser(&quot;John Doe&quot;);
+   
+// We can now access properties from both the &quot;User&quot; class
+// and our &quot;Timestamped&quot; mixin in a type-safe manner
+console.log(user.name);  // John Doe
+console.log(user.timestamp); // 1565752687614
+</code></pre></li>
+
+<li><p>Mixins with a Constructor</p>
+
+<pre><code>   type Constructor&lt;T = {}&gt; = new (...args: any[]) =&gt; T;
+       
+   function Tagged&lt;TBase extends Constructor&gt;(Base: TBase) {
+     return class extends Base {
+       tag: string | null;
+       
+       constructor(...args: any[]) {
+         super(...args);
+         this.tag = null;
+       }
+     };
+   }
+   
+   class User {
+    name: string;
+          
+    constructor(name: string) {
+      this.name = name;
+    }
+   }
+</code></pre>
+
+<pre><code>   // Create a new class by mixing &quot;Tagged&quot; into &quot;User&quot;
+   const TaggedUser = Tagged(User);
+       
+   // Instantiate the new &quot;TaggedUser&quot; class
+   const user = new TaggedUser(&quot;John Doe&quot;);
+       
+   // We can now access properties from both the &quot;User&quot; class
+   // and our &quot;Tagged&quot; mixin in a type-safe manner
+   user.name = &quot;Jane Doe&quot;;
+   user.tag = &quot;janedoe&quot;;
+</code></pre></li>
+
+<li><p>Mixins with Methods</p>
+
+<pre><code>   type Constructor&lt;T = {}&gt; = new (...args: any[]) =&gt; T;
+
+   function Activatable&lt;TBase extends Constructor&gt;(Base: TBase) {
+     return class extends Base {
+       isActivated = false;
+       
+       activate() {
+         this.isActivated = true;
+       }
+       
+       deactivate() {
+         this.isActivated = false;
+       }
+     };
+   }
+   
+   class User {
+     name: string;
+              
+     constructor(name: string) {
+       this.name = name;
+     }
+   }
+</code></pre>
+
+<pre><code>   const ActivatableUser = Activatable(User);
+       
+   // Instantiate the new &quot;ActivatableUser&quot; class
+   const user = new ActivatableUser(&quot;John Doe&quot;);
+       
+   // Initially, the &quot;isActivated&quot; property is false
+   console.log(user.isActivated);
+       
+   // Activate the user
+   user.activate();
+       
+   // Now, &quot;isActivated&quot; is true
+   console.log(user.isActivated);
+</code></pre></li>
+
+<li><p>Composing Multiple Mixins</p>
+
+<pre><code>const SpecialUser = Activatable(Tagged(Timestamped(User)));
+const user = new SpecialUser(&quot;John Doe&quot;);
+</code></pre>
+
+<ul>
+<li>TypeScript 可以静态地理解这种 mixin 组合。
+编译器可以对自动完成列表中的所有用法进行类型检查并建议可用成员。</li>
+<li>将此与类继承进行对比，类只能有一个基类，mixin 可以混合多个类。</li>
+</ul></li>
+</ol>
+
+            </div>
+        </div>
+    </div>
+    <div class="column is-3">
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Tags</h1>
+        <div class="tags">
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/angular">angular</a></span>
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/javascript">javascript</a></span>
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/journal">journal</a></span>
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/typescript">typescript</a></span>
+        
+        </div>          
+    </div>
+</div><br>
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Recent posts</h1>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/ts-nineteenth/">TS文档阅读小结19 混入</a></h1>
+            <time class="has-text-grey-light is-size-7">14 August 2019</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/ts-eighteenth/">TS文档阅读小结18 装饰器</a></h1>
+            <time class="has-text-grey-light is-size-7">8 August 2019</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/ts-seventeenth/">TS文档阅读小结17 声明合并</a></h1>
+            <time class="has-text-grey-light is-size-7">8 August 2019</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/js-fifth/">Safari Date 处理</a></h1>
+            <time class="has-text-grey-light is-size-7">7 August 2019</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/ts-sixteenth/">TS文档阅读小结16 模块解析</a></h1>
+            <time class="has-text-grey-light is-size-7">7 August 2019</time>
+        
+    </div>
+</div>
+    <br>
+                
+  
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Related posts</h1>
+      
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ts-eighteenth/">TS文档阅读小结18 装饰器</a></h1>
+            <time class="has-text-grey-light is-size-7">8 August 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ts-seventeenth/">TS文档阅读小结17 声明合并</a></h1>
+            <time class="has-text-grey-light is-size-7">8 August 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ts-sixteenth/">TS文档阅读小结16 模块解析</a></h1>
+            <time class="has-text-grey-light is-size-7">7 August 2019</time>
+      
+    </div>
+</div>
+
+    
+<br>
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Archives</h1>
+        
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (30)<br>
+        
+            <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
+        
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+    </div>
+</div>
+
+<footer class="footer has-background-grey-darker has-text-white">
+    <div class="content has-text-centered">
+        <p>
+            <span class="icon is-large"><a href="https://twitter.com/" class="mysocial" rel="me"><i class="fab fa-twitter fa-3x"></i></a></span>&nbsp;&nbsp;
+            <span class="icon is-large"><a href="https://www.youtube.com/" class="mysocial" rel="me"><i class="fab fa-youtube fa-3x"></i></a></span>&nbsp;&nbsp;
+            <span class="icon is-large"><a href="https://github.com/" class="mysocial" rel="me"><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;
+            <br><br>
+            Copyright &copy; Let&#39;s finish what we started 2019 - Theme by <a href="https://jeffprod.com" class="mysocial">JeffProd.com</a>
+            - <a class="mysocial" href="https://zhouqian0.github.io/about">About</a>
+        </p>
+    </div>
+</footer>
+
+<script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+</body>
+</html>
