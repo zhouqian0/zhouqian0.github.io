@@ -55,6 +55,25 @@
                 <article class="media">
                     <div class="media-content">
                         <div class="content">
+                            <p class="title is-4"><a href="/2019/ts-twenty/">TS文档阅读小结20 三斜线指令</a></p>
+                            <p class="subtitle is-size-6 has-text-grey-light">
+                                Published at August 14, 2019 &middot;
+                                <i class="far fa-clock"></i>&nbsp;1 min read
+                            </p>
+                            <p>三斜线指令（triple-slash-directives）  https://www.tslang.cn/docs/handbook/triple-slash-directives.html 三斜线指令是包含单个 XML 标签的单行注释。 注释的内容会做为编译器指令使用。 三斜线指令仅可放在包含它的文件的最顶端。 一个三斜线指令的前面只能出现单行或多行注释，这包括其它的三斜线指令。 如果它们出现在一个语句或声明之后，那么它们会被当做普通的单行注释，并且不具有特殊的涵义。 /// &lt;reference path=&quot;...&quot; /&gt; 指令是三斜线指令中最常见的一种。 用于声明文件间的 依赖。 预处理输入文件  编译器会对输入文件进行预处理来解析所有三斜线引用指令。 在这个过程中，额外的文件会加到编译过程中。 这个过程会以一些根文件开始； 它们是在命令行中指定的文件或是在 tsconfig.json 中的 &ldquo;files&rdquo; 列表里的文件。 这些根文件按指定的顺序进行预处理。 在一个文件被加入列表前，它包含的所有三斜线引用都要被处理，还有它们包含的目标。 三斜线引用以它们在文件里出现的顺序，使用深度优先的方式解析。 一个三斜线引用路径是相对于包含它的文件的，如果不是根文件。  引用不存在的文件会报错。 一个文件用三斜线指令引用自己会报错。 如果指定了--noResolve 编译选项，三斜线引用会被忽略（它们不会增加新文件，也不会改变给定文件的顺序）。 /// &lt;reference types=&quot;...&quot; /&gt;
+ 该指令则声明了对某个包的依赖（可以简单地把三斜线类型引用指令当做 import 声明的包）。
+eg：把 /// &lt;reference types=&quot;node&quot; /&gt; 引入到声明文件，表明这个文件使用了 @types/node/index.d.ts 里面声明的名字； 并且，这个包需要在编译阶段与声明文件一起被包含进来。
+ 仅当在需要写一个 d.ts 文件时才使用这个指令。
+ 对于那些在编译阶段生成的声明文件，编译器会自动地添加/// &lt;reference types=&quot;...&quot; /&gt;； 当且仅当结果文件中使用了引用的包里的声明时才会在生成的声明文件里添加/// &lt;reference types=&quot;...&quot; /&gt;语句。
+ 若要在 .ts 文件里声明一个对 @types 包的依赖，使用 &ndash;types 命令行选项或在 tsconfig....</p>
+                        </div>
+                    </div>
+                </article>
+                <br>
+
+                <article class="media">
+                    <div class="media-content">
+                        <div class="content">
                             <p class="title is-4"><a href="/2019/ts-nineteenth/">TS文档阅读小结19 混入</a></p>
                             <p class="subtitle is-size-6 has-text-grey-light">
                                 Published at August 14, 2019 &middot;
@@ -409,6 +428,9 @@ x[3] = &quot;world&quot;; // Error, Property '3' does not exist on type '[string
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2019/ts-twenty/">TS文档阅读小结20 三斜线指令</a></h1>
+            <time class="has-text-grey-light is-size-7">14 August 2019</time>
+        
             <h1><a href="https://zhouqian0.github.io/2019/ts-nineteenth/">TS文档阅读小结19 混入</a></h1>
             <time class="has-text-grey-light is-size-7">14 August 2019</time>
         
@@ -421,9 +443,6 @@ x[3] = &quot;world&quot;; // Error, Property '3' does not exist on type '[string
             <h1><a href="https://zhouqian0.github.io/2019/js-fifth/">Safari Date 处理</a></h1>
             <time class="has-text-grey-light is-size-7">7 August 2019</time>
         
-            <h1><a href="https://zhouqian0.github.io/2019/ts-sixteenth/">TS文档阅读小结16 模块解析</a></h1>
-            <time class="has-text-grey-light is-size-7">7 August 2019</time>
-        
     </div>
 </div>
     <br>
@@ -431,7 +450,7 @@ x[3] = &quot;world&quot;; // Error, Property '3' does not exist on type '[string
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (30)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (31)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         

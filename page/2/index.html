@@ -57,6 +57,23 @@
                     <article class="media">
                         <div class="media-content">
                             <div class="content">
+                                <p class="title is-4"><a href="https://zhouqian0.github.io/2019/ts-eleventh/">TS文档阅读小结11 Symbols</a></p>
+                                <p class="subtitle is-size-6 has-text-grey-light">
+                                    Published at July 30, 2019 &middot;
+                                    <i class="far fa-clock"></i>&nbsp;2 min read
+                                </p>
+                                <p>Symbols  https://www.tslang.cn/docs/handbook/symbols.html https://www.keithcirkel.co.uk/metaprogramming-in-es6-symbols/ http://es6.ruanyifeng.com/#docs/symbol 自 ECMAScript 2015 起，symbol 成为了一种新的原生类型，是 JavaScript 的第七种原始类型。很适合做标识符。
+assert(typeof Symbol() === 'symbol')  symbol 类型的值是通过 Symbol 构造函数创建的，无法通过 new 创建
+let sym1 = Symbol(); // Ok let sym2 = Symbol(&quot;key&quot;); // 可选的字符串key let sym3 = new Symbol(); // TypeError  Symbols 是不可改变且唯一的。
+let sym2 = Symbol(&quot;key&quot;); let sym3 = Symbol(&quot;key&quot;); sym2 === sym3; // false, symbols是唯一的  symbols 也可以被用做对象属性的键。 它能避免命名冲突的风险。 这对于一个对象由多个模块构成的情况非常有用，能防止某一个键被不小心改写或覆盖。
+let sym = Symbol(); let obj = { [sym]: &quot;value&quot; }; console....</p>
+                            </div>
+                        </div>
+                    </article>
+                
+                    <article class="media">
+                        <div class="media-content">
+                            <div class="content">
                                 <p class="title is-4"><a href="https://zhouqian0.github.io/2019/ts-tenth/">TS文档阅读小结10 高级类型</a></p>
                                 <p class="subtitle is-size-6 has-text-grey-light">
                                     Published at July 17, 2019 &middot;
@@ -201,23 +218,6 @@ interface SearchFunc { (source: string, subString: string): boolean; } let mySea
                         </div>
                     </article>
                 
-                    <article class="media">
-                        <div class="media-content">
-                            <div class="content">
-                                <p class="title is-4"><a href="https://zhouqian0.github.io/2019/ts-first/">TS文档阅读小结1 基础类型</a></p>
-                                <p class="subtitle is-size-6 has-text-grey-light">
-                                    Published at June 24, 2019 &middot;
-                                    <i class="far fa-clock"></i>&nbsp;1 min read
-                                </p>
-                                <p>基础类型  https://typescript.bootcss.com/basic-types.html TypeScript 里的所有数字都是浮点数。 模版字符串，可以定义多行文本和内嵌表达式。 其被反引号包围（ `），并且以 ${ expr } 这种形式嵌入表达式。 数组，使用后跟[]元素的类型来表示该元素类型的数组或者使用通用数组类型Array。 元组类型( Tuple )允许表示一个已知元素数量和类型的数组，各元素的类型不必相同。
- eg: let x: [string, number]; x = [&lsquo;hello&rsquo;, 10]; // 必须要按照定义类型的顺序赋值 访问越界元素会出现错误提示:
-x[3] = &quot;world&quot;; // Error, Property '3' does not exist on type '[string, number]'. console.log(x[5].toString()); // Error, Property '5' does not exist on type '[string, number]'.   枚举类型提供的一个便利是你可以由枚举的值得到它的名字。
- 类型检查器不对 any 类型的值进行检查而是直接让它们通过编译阶段的检查。Object 类型的变量只允许给它赋任意值 ，但是却不能够在它上面调用任意的方法，即便它真的有这些方法。
- 指定了 &ndash;strictNullChecks 标记(编译选项)，null 和 undefined 只能赋值给 void 和它们各自。...</p>
-                            </div>
-                        </div>
-                    </article>
-                
             </div>
         </div>
     </div>
@@ -242,6 +242,9 @@ x[3] = &quot;world&quot;; // Error, Property '3' does not exist on type '[string
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2019/ts-twenty/">TS文档阅读小结20 三斜线指令</a></h1>
+            <time class="has-text-grey-light is-size-7">14 August 2019</time>
+        
             <h1><a href="https://zhouqian0.github.io/2019/ts-nineteenth/">TS文档阅读小结19 混入</a></h1>
             <time class="has-text-grey-light is-size-7">14 August 2019</time>
         
@@ -254,9 +257,6 @@ x[3] = &quot;world&quot;; // Error, Property '3' does not exist on type '[string
             <h1><a href="https://zhouqian0.github.io/2019/js-fifth/">Safari Date 处理</a></h1>
             <time class="has-text-grey-light is-size-7">7 August 2019</time>
         
-            <h1><a href="https://zhouqian0.github.io/2019/ts-sixteenth/">TS文档阅读小结16 模块解析</a></h1>
-            <time class="has-text-grey-light is-size-7">7 August 2019</time>
-        
     </div>
 </div>
     <br>
@@ -264,7 +264,7 @@ x[3] = &quot;world&quot;; // Error, Property '3' does not exist on type '[string
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (30)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (31)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         
