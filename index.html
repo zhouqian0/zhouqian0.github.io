@@ -57,6 +57,52 @@
                     <article class="media">
                         <div class="media-content">
                             <div class="content">
+                                <p class="title is-4"><a href="https://zhouqian0.github.io/2019/go-third/">Go 指南阅读心得3 更多类型</a></p>
+                                <p class="subtitle is-size-6 has-text-grey-light">
+                                    Published at August 16, 2019 &middot;
+                                    <i class="far fa-clock"></i>&nbsp;3 min read
+                                </p>
+                                <p>指针，Struct，Slice 和 Map  Go 拥有指针。指针保存了值的内存地址。
+ package main import &quot;fmt&quot; func main() { i, j := 42, 2701 p := &amp;i // 指向 i fmt.Println(*p) // 通过指针读取 i 的值, 42 *p = 21 // 通过指针设置 i 的值 fmt.Println(i) // 查看 i 的值, 21 p = &amp;j // 指向 j *p = *p / 37 // 通过指针对 j 进行除法运算, 73 fmt.Println(j) // 查看 j 的值 }   类型 *T 是指向 T 类型值的指针。其零值为 nil。 &amp; 操作符会生成一个指向其操作数的指针。 * 操作符表示指针指向的底层值。 与 C 不同，Go 没有指针运算。...</p>
+                            </div>
+                        </div>
+                    </article>
+                
+                    <article class="media">
+                        <div class="media-content">
+                            <div class="content">
+                                <p class="title is-4"><a href="https://zhouqian0.github.io/2019/go-second/">Go 指南阅读心得2 流程控制语句</a></p>
+                                <p class="subtitle is-size-6 has-text-grey-light">
+                                    Published at August 15, 2019 &middot;
+                                    <i class="far fa-clock"></i>&nbsp;1 min read
+                                </p>
+                                <p>流程控制语句  Go 只有一种循环结构：for 循环。 Go 的 for 语句后面的三个构成部分外没有小括号， 大括号 { } 则是必须的。
+package main import &quot;fmt&quot; func main() { sum := 0 for i := 0; i &lt; 10; i++ { sum += i } fmt.Println(sum) }   初始化语句和后置语句是可选的。  Go 的 if 语句与 for 循环类似，表达式外无需小括号 ( ) ，而大括号 { } 则是必须的。
+ if 语句可以在条件表达式前执行一个简单的语句( 该语句声明的变量作用域仅在 if 之内 )。
+ if v := math.Pow(x, n); v &lt; lim { }  switch 是编写一连串 if - else 语句的简便方法。它运行第一个值等于条件表达式的 case 语句。...</p>
+                            </div>
+                        </div>
+                    </article>
+                
+                    <article class="media">
+                        <div class="media-content">
+                            <div class="content">
+                                <p class="title is-4"><a href="https://zhouqian0.github.io/2019/go-first/">Go 指南阅读心得1 基础</a></p>
+                                <p class="subtitle is-size-6 has-text-grey-light">
+                                    Published at August 15, 2019 &middot;
+                                    <i class="far fa-clock"></i>&nbsp;2 min read
+                                </p>
+                                <p>基础  https://tour.go-zh.org/basics/1 在 Go 中，如果一个名字以大写字母开头，那么它就是已导出的。例如 math.Pi
+ package main import ( &quot;fmt&quot; &quot;math&quot; ) func main() { fmt.Println(math.Pi) // 3.14.... }  函数可以没有参数或接受多个参数(类型在变量名 之后)。
+ package main import &quot;fmt&quot; func add(x int, y int) int { return x + y } func main() { fmt.Println(add(42, 13)) // 55 }   函数可以返回任意数量的返回值。
+package main import &quot;fmt&quot; func swap(x, y string) (string, string) { return y, x } func main() { a, b := swap(&quot;hello&quot;, &quot;world&quot;) fmt....</p>
+                            </div>
+                        </div>
+                    </article>
+                
+                    <article class="media">
+                        <div class="media-content">
+                            <div class="content">
                                 <p class="title is-4"><a href="https://zhouqian0.github.io/2019/ts-twenty-first/">TS文档阅读小结21 实用类型</a></p>
                                 <p class="subtitle is-size-6 has-text-grey-light">
                                     Published at August 15, 2019 &middot;
@@ -172,54 +218,6 @@ eg: 查找 /root/src/folder/A....</p>
                         </div>
                     </article>
                 
-                    <article class="media">
-                        <div class="media-content">
-                            <div class="content">
-                                <p class="title is-4"><a href="https://zhouqian0.github.io/2019/ts-fifteenth/">TS文档阅读小结15 命名空间和模块</a></p>
-                                <p class="subtitle is-size-6 has-text-grey-light">
-                                    Published at August 1, 2019 &middot;
-                                    <i class="far fa-clock"></i>&nbsp;1 min read
-                                </p>
-                                <p>命名空间和模块  https://www.tslang.cn/docs/handbook/namespaces-and-modules.html 命名空间是位于全局命名空间下的一个普通的带有名字的 JavaScript 对象。  可以在多文件中同时使用，并通过 &ndash;outFile 结合在一起。 命名空间是组织 Web 应用不错的方式，你可以把所有依赖都放在 HTML 页面的 &lt;script&gt; 标签里。 但就像其它的全局命名空间污染一样，它很难去识别组件之间的依赖关系，尤其是在大型的应用中。  模块可以包含代码和声明。不同的是模块可以 声明它的依赖 。
- 模块会把依赖添加到模块加载器上（例如 CommonJs / Require.js）。
-对于大型应用，这一点点的花费会带来长久的模块化和可维护性上的便利。 模块也提供了更好的代码重用，更强的封闭性以及更好的使用工具进行优化。
-  对于新项目来说推荐使用模块做为组织代码的方式。
- 引用模块文件应该使用 import，而不是 /// &lt;reference&gt;。
-编译器首先尝试去查找相应路径下的 .ts，.tsx 再或者 .d.ts。 如果这些文件都找不到，编译器会查找 外部模块声明。
- myModules.d.ts
-// In a .d.ts file or .ts file that is not a module: declare module &quot;SomeModule&quot; { export function fn(): string; }  myOtherModule.ts...</p>
-                            </div>
-                        </div>
-                    </article>
-                
-                    <article class="media">
-                        <div class="media-content">
-                            <div class="content">
-                                <p class="title is-4"><a href="https://zhouqian0.github.io/2019/ts-fourteenth/">TS文档阅读小结14 命名空间</a></p>
-                                <p class="subtitle is-size-6 has-text-grey-light">
-                                    Published at August 1, 2019 &middot;
-                                    <i class="far fa-clock"></i>&nbsp;3 min read
-                                </p>
-                                <p>命名空间  https://www.tslang.cn/docs/handbook/namespaces.html   命名空间可以组织代码，以便于在记录它们类型的同时还不用担心与其它对象产生命名冲突。 把类型归集到一个命名空间内，而不是把它们放在全局命名空间下。 当应用变得越来越大时，我们需要将代码分离到不同的文件中以便于维护。  // single file interface StringValidator { isAcceptable(s: string): boolean; } let lettersRegexp = /^[A-Za-z]+$/; let numberRegexp = /^[0-9]+$/; class LettersOnlyValidator implements StringValidator { isAcceptable(s: string) { return lettersRegexp.test(s); } } class ZipCodeValidator implements StringValidator { isAcceptable(s: string) { return s.length === 5 &amp;&amp; numberRegexp.test(s); } } // Some samples to try let strings = [&quot;Hello&quot;, &quot;98052&quot;, &quot;101&quot;]; // Validators to use let validators: { [s: string]: StringValidator; } = {}; validators[&quot;ZIP code&quot;] = new ZipCodeValidator(); validators[&quot;Letters only&quot;] = new LettersOnlyValidator(); // Show whether each string passed each validator for (let s of strings) { for (let name in validators) { let isMatch = validators[name]....</p>
-                            </div>
-                        </div>
-                    </article>
-                
-                    <article class="media">
-                        <div class="media-content">
-                            <div class="content">
-                                <p class="title is-4"><a href="https://zhouqian0.github.io/2019/ts-thirteenth/">TS文档阅读小结13 模块</a></p>
-                                <p class="subtitle is-size-6 has-text-grey-light">
-                                    Published at July 31, 2019 &middot;
-                                    <i class="far fa-clock"></i>&nbsp;3 min read
-                                </p>
-                                <p>模块  https://www.tslang.cn/docs/handbook/modules.html TypeScript 与 ECMAScript 2015 一样，任何包含顶级 import 或者 export 的文件都被当成一个模块。 相反地，如果一个文件不带有顶级的 import 或者 export 声明，那么它的内容被视为全局可见的（因此对模块也是可见的）。 任何声明（比如变量，函数，类，类型别名或接口）都能够通过添加 export 关键字来导出。
-// Validation.ts export interface StringValidator { isAcceptable(s: string): boolean; }  // ZipCodeValidator.ts export const numberRegexp = /^[0-9]+$/; export class ZipCodeValidator implements StringValidator { isAcceptable(s: string) { return s.length === 5 &amp;&amp; numberRegexp.test(s); } }  导出语句，可能需要对导出的部分重命名
-class ZipCodeValidator implements StringValidator { isAcceptable(s: string) { return s.length === 5 &amp;&amp; numberRegexp....</p>
-                            </div>
-                        </div>
-                    </article>
-                
             </div>
         </div>
     </div>
@@ -230,6 +228,8 @@ class ZipCodeValidator implements StringValidator { isAcceptable(s: string) { re
         <div class="tags">
         
             <span class="tag"><a href="https://zhouqian0.github.io/tags/angular">angular</a></span>
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/go">go</a></span>
         
             <span class="tag"><a href="https://zhouqian0.github.io/tags/javascript">javascript</a></span>
         
@@ -244,20 +244,20 @@ class ZipCodeValidator implements StringValidator { isAcceptable(s: string) { re
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2019/go-third/">Go 指南阅读心得3 更多类型</a></h1>
+            <time class="has-text-grey-light is-size-7">16 August 2019</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/go-second/">Go 指南阅读心得2 流程控制语句</a></h1>
+            <time class="has-text-grey-light is-size-7">15 August 2019</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/go-first/">Go 指南阅读心得1 基础</a></h1>
+            <time class="has-text-grey-light is-size-7">15 August 2019</time>
+        
             <h1><a href="https://zhouqian0.github.io/2019/ts-twenty-first/">TS文档阅读小结21 实用类型</a></h1>
             <time class="has-text-grey-light is-size-7">15 August 2019</time>
         
             <h1><a href="https://zhouqian0.github.io/2019/ts-twenty/">TS文档阅读小结20 三斜线指令</a></h1>
             <time class="has-text-grey-light is-size-7">14 August 2019</time>
-        
-            <h1><a href="https://zhouqian0.github.io/2019/ts-nineteenth/">TS文档阅读小结19 混入</a></h1>
-            <time class="has-text-grey-light is-size-7">14 August 2019</time>
-        
-            <h1><a href="https://zhouqian0.github.io/2019/ts-eighteenth/">TS文档阅读小结18 装饰器</a></h1>
-            <time class="has-text-grey-light is-size-7">8 August 2019</time>
-        
-            <h1><a href="https://zhouqian0.github.io/2019/ts-seventeenth/">TS文档阅读小结17 声明合并</a></h1>
-            <time class="has-text-grey-light is-size-7">8 August 2019</time>
         
     </div>
 </div>
@@ -266,7 +266,7 @@ class ZipCodeValidator implements StringValidator { isAcceptable(s: string) { re
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (32)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (35)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         

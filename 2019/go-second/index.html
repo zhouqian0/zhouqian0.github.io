@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Let&#39;s finish what we started  | TS文档阅读小结1 基础类型</title>
+    <title>Let&#39;s finish what we started  | Go 指南阅读心得2 流程控制语句</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -29,7 +29,7 @@
                 <br>
                 <h1 class="title is-size-1">
                     
-                        TS文档阅读小结1 基础类型
+                        Go 指南阅读心得2 流程控制语句
                     
                 </h1>
                 
@@ -48,42 +48,52 @@
             <div class="content">
                 
 
-<h3 id="基础类型">基础类型</h3>
+<h3 id="流程控制语句">流程控制语句</h3>
 
 <ol>
-<li><a href="https://typescript.bootcss.com/basic-types.html">https://typescript.bootcss.com/basic-types.html</a></li>
-<li>TypeScript 里的所有数字都是浮点数。</li>
-<li>模版字符串，可以定义多行文本和内嵌表达式。 其被反引号包围（ `），并且以 ${ expr } 这种形式嵌入表达式。</li>
-<li>数组，使用后跟[]元素的类型来表示该元素类型的数组或者使用通用数组类型Array<elemType>。</li>
+<li>Go 只有一种循环结构：for 循环。</li>
 
-<li><p>元组类型( Tuple )允许表示一个已知元素数量和类型的数组，各元素的类型不必相同。</p>
+<li><p>Go 的 for 语句后面的三个构成部分外没有小括号， 大括号 { } 则是必须的。</p>
 
-<ol>
-<li>eg: let x: [string, number];    x = [&lsquo;hello&rsquo;, 10]; // 必须要按照定义类型的顺序赋值</li>
+<pre><code>package main
+    
+import &quot;fmt&quot;
+    
+func main() {
+    sum := 0
+    for i := 0; i &lt; 10; i++ {
+        sum += i
+    }
+    fmt.Println(sum)
+}
+</code></pre>
 
-<li><p>访问越界元素会出现错误提示:</p>
+<ul>
+<li>初始化语句和后置语句是可选的。</li>
+</ul></li>
 
-<pre><code>x[3] = &quot;world&quot;; // Error, Property '3' does not exist on type '[string, number]'.
-        
-console.log(x[5].toString()); // Error, Property '5' does not exist on type '[string, number]'.
+<li><p>Go 的 if 语句与 for 循环类似，表达式外无需小括号 ( ) ，而大括号 { } 则是必须的。</p></li>
+
+<li><p>if 语句可以在条件表达式前执行一个简单的语句( 该语句声明的变量作用域仅在 if 之内 )。</p>
+
+<pre><code>    if v := math.Pow(x, n); v &lt; lim {
+    }
 </code></pre></li>
-</ol></li>
 
-<li><p>枚举类型提供的一个便利是你可以由枚举的值得到它的名字。</p></li>
+<li><p>switch 是编写一连串 if - else 语句的简便方法。它运行第一个值等于条件表达式的 case 语句。</p>
 
-<li><p>类型检查器不对 any 类型的值进行检查而是直接让它们通过编译阶段的检查。Object 类型的变量只允许给它赋任意值 ，但是却不能够在它上面调用任意的方法，即便它真的有这些方法。</p></li>
+<ul>
+<li>Go 自动提供了在这些语言中每个 case 后面所需的 break 语句。 除非以 fallthrough 语句结束，否则分支会自动终止。</li>
+<li>Go 的另一点重要的不同在于 switch 的 case 无需为常量，且取值不必为整数。</li>
+<li>没有条件的 switch 同 switch true 一样。该形式能将一长串 if-then-else 写得更加清晰。</li>
+</ul></li>
 
-<li><p>指定了 &ndash;strictNullChecks 标记(编译选项)，null 和 undefined 只能赋值给 void 和它们各自。</p></li>
+<li><p>defer 语句会将函数推迟到外层函数返回之后执行。(感觉有点类似 js 的 setTimeout)</p>
 
-<li><p>never 类型表示的是那些永不存在的值的类型，即使 any 也不能赋值给 never。</p>
-
-<ol>
-<li>可作为 error 函数 (return Error()) 的返回值</li>
-</ol></li>
-
-<li><p>类型断言( as , 尖括号 (&lt;String&gt;)) 类似 JAVA 中的类型转换，但是不进行特殊的数据检查和解构。不影响运行，只干预编译阶段。</p></li>
-
-<li><p>推荐使用 let 代替 var（和作用域有关）</p></li>
+<ul>
+<li>推迟调用的函数其参数会立即求值，但直到外层函数返回前该函数都不会被调用。</li>
+<li>推迟的函数调用会被压入一个栈中。当外层函数返回时，被推迟的函数会按照 <em><strong>后进先出</strong></em> 的顺序调用。</li>
+</ul></li>
 </ol>
 
             </div>
@@ -140,26 +150,11 @@ console.log(x[5].toString()); // Error, Property '5' does not exist on type '[st
         <h1 class="title is-5">Related posts</h1>
       
       
-            <h1><a href="https://zhouqian0.github.io/2019/ts-fifteenth/">TS文档阅读小结15 命名空间和模块</a></h1>
-            <time class="has-text-grey-light is-size-7">1 August 2019</time>
+            <h1><a href="https://zhouqian0.github.io/2019/go-third/">Go 指南阅读心得3 更多类型</a></h1>
+            <time class="has-text-grey-light is-size-7">16 August 2019</time>
       
-            <h1><a href="https://zhouqian0.github.io/2019/ts-fourteenth/">TS文档阅读小结14 命名空间</a></h1>
-            <time class="has-text-grey-light is-size-7">1 August 2019</time>
-      
-            <h1><a href="https://zhouqian0.github.io/2019/ts-thirteenth/">TS文档阅读小结13 模块</a></h1>
-            <time class="has-text-grey-light is-size-7">31 July 2019</time>
-      
-            <h1><a href="https://zhouqian0.github.io/2019/ts-twelfth/">TS文档阅读小结12 迭代器和生成器</a></h1>
-            <time class="has-text-grey-light is-size-7">31 July 2019</time>
-      
-            <h1><a href="https://zhouqian0.github.io/2019/ts-eleventh/">TS文档阅读小结11 Symbols</a></h1>
-            <time class="has-text-grey-light is-size-7">30 July 2019</time>
-      
-            <h1><a href="https://zhouqian0.github.io/2019/ts-tenth/">TS文档阅读小结10 高级类型</a></h1>
-            <time class="has-text-grey-light is-size-7">17 July 2019</time>
-      
-            <h1><a href="https://zhouqian0.github.io/2019/ts-ninth/">TS文档阅读小结9 类型兼容性</a></h1>
-            <time class="has-text-grey-light is-size-7">16 July 2019</time>
+            <h1><a href="https://zhouqian0.github.io/2019/go-first/">Go 指南阅读心得1 基础</a></h1>
+            <time class="has-text-grey-light is-size-7">15 August 2019</time>
       
     </div>
 </div>

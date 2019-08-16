@@ -57,6 +57,55 @@
                     <article class="media">
                         <div class="media-content">
                             <div class="content">
+                                <p class="title is-4"><a href="https://zhouqian0.github.io/2019/ts-fifth/">TS文档阅读小结5 函数</a></p>
+                                <p class="subtitle is-size-6 has-text-grey-light">
+                                    Published at July 12, 2019 &middot;
+                                    <i class="far fa-clock"></i>&nbsp;2 min read
+                                </p>
+                                <p>函数  https://typescript.bootcss.com/functions.html 完整函数类型，包含参数类型和返回值类型。
+let myAdd: (x:number, y:number) =&gt; number = function(x: number, y: number): number { return x + y; };   以参数列表的形式写出参数类型，为每个参数指定一个名字和类型。名字只是为了增加可读性，只要参数类型是匹配即有效 在函数和返回值类型之前使用（=&gt;）符号，返回值类型是函数类型的必要部分，即使函数没有返回任何值也必须指定返回值类型为 void  TypeScript 编译器会检查用户是否为每个参数都传入了值，所以每个函数参数都是必须的（可输入 null or undefined）。
+ 可选参数（?） 必须跟在必须参数后面 有默认初始化值的参数， 在所有必须参数后面的带默认初始化的参数都是可选的。共享同样的类型
+function buildName(firstName: string, lastName = &quot;Smith&quot;) { return firstName + &quot; &quot; + lastName; }  带默认值的参数不需要放在必须参数的后面。如果带默认值的参数出现在必须参数前面，用户必须明确的传入 undefined 值来获得默认值。
+ 剩余参数 会被当做个数不限的可选参数。编译器创建参数数组，名字是你在省略号（&hellip;）后面给定的名字，你可以在函数体内使用这个数组。
+  JavaScript 里 this 的工作原理，它的值在函数被调用的时候才会指定。
+ 顶级的非方法式调用会将 this 视为 window。（在严格模式下，this 为 undefined 而不是 window） ECMAScript 6 箭头语法能保存函数创建时的 this 值，而不是调用时的值。 this 来自对象字面量里的函数表达式(this 为 any 类型)。 显式调用 this，指定 this 类型。...</p>
+                            </div>
+                        </div>
+                    </article>
+                
+                    <article class="media">
+                        <div class="media-content">
+                            <div class="content">
+                                <p class="title is-4"><a href="https://zhouqian0.github.io/2019/ts-fourth/">TS文档阅读小结4 类</a></p>
+                                <p class="subtitle is-size-6 has-text-grey-light">
+                                    Published at July 11, 2019 &middot;
+                                    <i class="far fa-clock"></i>&nbsp;2 min read
+                                </p>
+                                <p>类  https://typescript.bootcss.com/classes.html 在 TypeScript 里，使用面向对象模式，允许使用继承来扩展现有的类。 派生类(子类)包含了一个构造函数，它必须调用 super() 方法（会执行基类的构造函数）。
+ class Animal { name: string; constructor(theName: string) { this.name = theName; } move(distanceInMeters: number = 0) { console.log(`${this.name} moved ${distanceInMeters}m.`); } } class Snake extends Animal { constructor(name: string) { super(name); } move(distanceInMeters = 5) { console.log(&quot;Slithering...&quot;); super.move(distanceInMeters); } } class Horse extends Animal { constructor(name: string) { super(name); } move(distanceInMeters = 45) { console.log(&quot;Galloping...&quot;); super.move(distanceInMeters); } } let sam = new Snake(&quot;Sammy the Python&quot;); let tom: Animal = new Horse(&quot;Tommy the Palomino&quot;); sam....</p>
+                            </div>
+                        </div>
+                    </article>
+                
+                    <article class="media">
+                        <div class="media-content">
+                            <div class="content">
+                                <p class="title is-4"><a href="https://zhouqian0.github.io/2019/ts-third/">TS文档阅读小结3 接口</a></p>
+                                <p class="subtitle is-size-6 has-text-grey-light">
+                                    Published at July 10, 2019 &middot;
+                                    <i class="far fa-clock"></i>&nbsp;2 min read
+                                </p>
+                                <p>接口  https://typescript.bootcss.com/interfaces.html 在 TypeScript 里，接口的作用就是定义结构。 可选属性名字( ? ), 可以对可能存在的属性进行预定义，以及捕获引用了不存在的属性时的错误。 可以将接口属性定义为 readonly，定义后只能在初始化时接口对象时赋值。 ReadonlyArray，只读数组，定义后不可更改，同时也不可将其复制给普通数组。 变量使用 const，属性使用 readonly。 对象字面量会被特殊对待且会额外属性检查，当将其赋值给变量或作为参数传递的时候。 如果一个对象字面量存在任何“目标类型”不包含的属性时，会报错，可以用以下方法规避：
+ 类型断言（使用类型断言可以绕开类型检查） 字符串索引签名（eg: man[&lsquo;canRead&rsquo;]） 将该对象赋值给一个另一个变量
+interface SquareConfig { color?: string; width?: number; } function createSquare(config: SquareConfig): { color: string; area: number } { // ... } let squareOptions = { colour: &quot;red&quot;, width: 100 }; let mySquare = createSquare(squareOptions);   接口表示函数类型，需给接口定义一个调用签名。
+interface SearchFunc { (source: string, subString: string): boolean; } let mySearch: SearchFunc; mySearch = function(source: string, subString: string) { let result = source....</p>
+                            </div>
+                        </div>
+                    </article>
+                
+                    <article class="media">
+                        <div class="media-content">
+                            <div class="content">
                                 <p class="title is-4"><a href="https://zhouqian0.github.io/2019/ts-second/">TS文档阅读小结2 变量声明</a></p>
                                 <p class="subtitle is-size-6 has-text-grey-light">
                                     Published at July 5, 2019 &middot;
@@ -153,49 +202,6 @@ import {Component, OnInit} from '@angular/core'; import {FormGroup, FormControl,
                         </div>
                     </article>
                 
-                    <article class="media">
-                        <div class="media-content">
-                            <div class="content">
-                                <p class="title is-4"><a href="https://zhouqian0.github.io/2019/ng-sixth/">Cannot read property &#39;subscribe&#39; of undefined</a></p>
-                                <p class="subtitle is-size-6 has-text-grey-light">
-                                    Published at February 21, 2019 &middot;
-                                    <i class="far fa-clock"></i>&nbsp;1 min read
-                                </p>
-                                <p> EventEmitter 在 angular 中如果没有对 @Output 的 EventEmitter 变量进行初始化就会报错 Cannot read property ‘subscribe’ of undefined ，并且不会有报错行信息。 （初始化放在 onInit 中也会报错, 必须在声明变量时或者在构造函数中初始化）
-@Output() eventEmit = new EventEmitter();  ...</p>
-                            </div>
-                        </div>
-                    </article>
-                
-                    <article class="media">
-                        <div class="media-content">
-                            <div class="content">
-                                <p class="title is-4"><a href="https://zhouqian0.github.io/2019/js-second/">js Date 类型的比较</a></p>
-                                <p class="subtitle is-size-6 has-text-grey-light">
-                                    Published at February 21, 2019 &middot;
-                                    <i class="far fa-clock"></i>&nbsp;1 min read
-                                </p>
-                                <p> 两个 Date 之间的相互对比  js 中 new Date() 得到的日期为当前日期时分秒。但是用 new Date(&ldquo;yy-mm-dd&rdquo;) 得到的日期却为 yy-mm-dd 那天的八点，非零点。
- 两个Date日期比较采用getTime()方法。
-  ...</p>
-                            </div>
-                        </div>
-                    </article>
-                
-                    <article class="media">
-                        <div class="media-content">
-                            <div class="content">
-                                <p class="title is-4"><a href="https://zhouqian0.github.io/2019/ng-fifth/">angular datepicker 使用建议</a></p>
-                                <p class="subtitle is-size-6 has-text-grey-light">
-                                    Published at February 13, 2019 &middot;
-                                    <i class="far fa-clock"></i>&nbsp;1 min read
-                                </p>
-                                <p> datepicker 实现点击 input 后会打开日期选择器：由于input标签可点击，可能会触发浏览器的自动联想（autocomplete）,会出现： 先打开可自动联想的下拉框，然后该下拉框消失，出现日期选择 。针对于此，现解决方案为禁用日期选择器的 input 标签的 autocomplete 属性（autocomplete=&lsquo;off&rsquo;）,然后添加 click 事件 (click)=&ldquo;picker.open()&ldquo;。
-&lt;mat-form-field&gt; &lt;label&gt; &lt;input matInput [matDatepicker]=&quot;picker&quot; autocomplete=&quot;off&quot; required formControlName=&quot;date&quot; placeholder=&quot;选择日期&quot; (click)=&quot;picker.open()&quot; [errorStateMatcher]=&quot;matcher&quot;&gt; &lt;/label&gt; &lt;mat-datepicker-toggle matSuffix [for]=&quot;picker&quot;&gt;&lt;/mat-datepicker-toggle&gt; &lt;mat-datepicker #picker&gt;&lt;/mat-datepicker&gt; &lt;/mat-form-field&gt;  ...</p>
-                            </div>
-                        </div>
-                    </article>
-                
             </div>
         </div>
     </div>
@@ -206,6 +212,8 @@ import {Component, OnInit} from '@angular/core'; import {FormGroup, FormControl,
         <div class="tags">
         
             <span class="tag"><a href="https://zhouqian0.github.io/tags/angular">angular</a></span>
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/go">go</a></span>
         
             <span class="tag"><a href="https://zhouqian0.github.io/tags/javascript">javascript</a></span>
         
@@ -220,20 +228,20 @@ import {Component, OnInit} from '@angular/core'; import {FormGroup, FormControl,
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2019/go-third/">Go 指南阅读心得3 更多类型</a></h1>
+            <time class="has-text-grey-light is-size-7">16 August 2019</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/go-second/">Go 指南阅读心得2 流程控制语句</a></h1>
+            <time class="has-text-grey-light is-size-7">15 August 2019</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/go-first/">Go 指南阅读心得1 基础</a></h1>
+            <time class="has-text-grey-light is-size-7">15 August 2019</time>
+        
             <h1><a href="https://zhouqian0.github.io/2019/ts-twenty-first/">TS文档阅读小结21 实用类型</a></h1>
             <time class="has-text-grey-light is-size-7">15 August 2019</time>
         
             <h1><a href="https://zhouqian0.github.io/2019/ts-twenty/">TS文档阅读小结20 三斜线指令</a></h1>
             <time class="has-text-grey-light is-size-7">14 August 2019</time>
-        
-            <h1><a href="https://zhouqian0.github.io/2019/ts-nineteenth/">TS文档阅读小结19 混入</a></h1>
-            <time class="has-text-grey-light is-size-7">14 August 2019</time>
-        
-            <h1><a href="https://zhouqian0.github.io/2019/ts-eighteenth/">TS文档阅读小结18 装饰器</a></h1>
-            <time class="has-text-grey-light is-size-7">8 August 2019</time>
-        
-            <h1><a href="https://zhouqian0.github.io/2019/ts-seventeenth/">TS文档阅读小结17 声明合并</a></h1>
-            <time class="has-text-grey-light is-size-7">8 August 2019</time>
         
     </div>
 </div>
@@ -242,7 +250,7 @@ import {Component, OnInit} from '@angular/core'; import {FormGroup, FormControl,
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (32)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (35)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         
