@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Let&#39;s finish what we started  | Go 指南阅读心得3 基础类型</title>
+    <title>Let&#39;s finish what we started  | Go 指南阅读笔记3 基础类型</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -29,7 +29,7 @@
                 <br>
                 <h1 class="title is-size-1">
                     
-                        Go 指南阅读心得3 基础类型
+                        Go 指南阅读笔记3 基础类型
                     
                 </h1>
                 
@@ -92,6 +92,10 @@
    func main() {
     fmt.Println(Vertex{1, 2})
    }
+</code></pre>
+
+<pre><code>    type ErrNegativeSqrt float64 //结构可以为基本数据类型
+    err := ErrNegativeSqrt(x)
 </code></pre>
 
 <ul>
@@ -165,24 +169,24 @@ a[1:4] // 包含 a 中下标从 1 到 3 的元素
 import &quot;fmt&quot;
       
 func main() {
-	s := []int{2, 3, 5, 7, 11, 13}
-	printSlice(s) // len=6 cap=6 [2 3 5 7 11 13]
+s := []int{2, 3, 5, 7, 11, 13}
+printSlice(s) // len=6 cap=6 [2 3 5 7 11 13]
       
-	// 截取切片使其长度为 0
-	s = s[:0]
-	printSlice(s) // len=0 cap=6 []
+// 截取切片使其长度为 0
+s = s[:0]
+printSlice(s) // len=0 cap=6 []
       
-	// 拓展其长度
-	s = s[:4]
-	printSlice(s) // len=4 cap=6 [2 3 5 7]
+// 拓展其长度
+s = s[:4]
+printSlice(s) // len=4 cap=6 [2 3 5 7]
       
-	// 舍弃前两个值
-	s = s[2:]
-	printSlice(s) // len=2 cap=4 [5 7], 容量应该是从切片最左边算起，到数组末尾
+// 舍弃前两个值
+s = s[2:]
+printSlice(s) // len=2 cap=4 [5 7], 容量应该是从切片最左边算起，到数组末尾
 }
       
 func printSlice(s []int) {
-	fmt.Printf(&quot;len=%d cap=%d %v\n&quot;, len(s), cap(s), s)
+fmt.Printf(&quot;len=%d cap=%d %v\n&quot;, len(s), cap(s), s)
 }
 </code></pre></li>
 
@@ -210,24 +214,24 @@ b := make([]int, 0, 5) // len(b)=0, cap(b)=5
 import &quot;fmt&quot;
       
 func main() {
-	var s []int
-	printSlice(s) // len=0 cap=0 []
+var s []int
+printSlice(s) // len=0 cap=0 []
       
-	// 添加一个空切片
-	s = append(s, 0)
-	printSlice(s) // len=1 cap=1 [0]
+// 添加一个空切片
+s = append(s, 0)
+printSlice(s) // len=1 cap=1 [0]
       
-	// 这个切片会按需增长
-	s = append(s, 1)
-	printSlice(s) // len=2 cap=2 [0 1]
+// 这个切片会按需增长
+s = append(s, 1)
+printSlice(s) // len=2 cap=2 [0 1]
       
-	// 可以一次性添加多个元素
-	s = append(s, 2, 3, 4)
-	printSlice(s) // len=5 cap=6 [0 1 2 3 4], 此时为添加一个 2 之后， 容量到 3 ； 再往里面添加一个 3 时， 容量翻倍变为 6， 因为 6 已经足够容纳所有元素，故不在变大
+// 可以一次性添加多个元素
+s = append(s, 2, 3, 4)
+printSlice(s) // len=5 cap=6 [0 1 2 3 4], 此时为添加一个 2 之后， 容量到 3 ； 再往里面添加一个 3 时， 容量翻倍变为 6， 因为 6 已经足够容纳所有元素，故不在变大
 }
       
 func printSlice(s []int) {
-	fmt.Printf(&quot;len=%d cap=%d %v\n&quot;, len(s), cap(s), s)
+fmt.Printf(&quot;len=%d cap=%d %v\n&quot;, len(s), cap(s), s)
 }
 </code></pre></li>
 </ul>
@@ -314,27 +318,25 @@ for _, value := range pow
 <ul>
 <li><p>Go 函数可以是一个闭包。闭包是一个函数值，它引用了其函数体之外的变量。该函数可以访问并赋予其引用的变量的值，换句话说，该函数被这些变量“绑定”在一起。</p>
 
-<pre><code>func adder() func(int) int {
-sum := 0
-return func(x int) int {
-    sum += x
-    return sum
-}
-}
-       
-func main() {
-pos, neg := adder(), adder()
-for i := 0; i &lt; 10; i++ {
-    fmt.Println(
-        pos(i),
-        neg(-2*i),
-    )
-}
-}
+<pre><code>   func adder() func(int) int {
+    sum := 0
+    return func(x int) int {
+        sum += x
+        return sum
+    }
+   }
+           
+   func main() {
+    pos, neg := adder(), adder()
+    for i := 0; i &lt; 10; i++ {
+        fmt.Println(
+            pos(i),
+            neg(-2*i),
+        )
+    }
+   }
 </code></pre></li>
 </ul></li>
-
-<li></li>
 </ol>
 
             </div>
@@ -363,20 +365,20 @@ for i := 0; i &lt; 10; i++ {
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
-            <h1><a href="https://zhouqian0.github.io/2019/go-third/">Go 指南阅读心得3 基础类型</a></h1>
+            <h1><a href="https://zhouqian0.github.io/2019/go-fourth/">Go 指南阅读笔记4 方法和接口</a></h1>
             <time class="has-text-grey-light is-size-7">16 August 2019</time>
         
-            <h1><a href="https://zhouqian0.github.io/2019/go-second/">Go 指南阅读心得2 流程控制语句</a></h1>
+            <h1><a href="https://zhouqian0.github.io/2019/go-third/">Go 指南阅读笔记3 基础类型</a></h1>
+            <time class="has-text-grey-light is-size-7">16 August 2019</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/go-second/">Go 指南阅读笔记2 流程控制语句</a></h1>
             <time class="has-text-grey-light is-size-7">15 August 2019</time>
         
-            <h1><a href="https://zhouqian0.github.io/2019/go-first/">Go 指南阅读心得1 基础</a></h1>
+            <h1><a href="https://zhouqian0.github.io/2019/go-first/">Go 指南阅读笔记1 基础</a></h1>
             <time class="has-text-grey-light is-size-7">15 August 2019</time>
         
             <h1><a href="https://zhouqian0.github.io/2019/ts-twenty-first/">TS文档阅读小结21 实用类型</a></h1>
             <time class="has-text-grey-light is-size-7">15 August 2019</time>
-        
-            <h1><a href="https://zhouqian0.github.io/2019/ts-twenty/">TS文档阅读小结20 三斜线指令</a></h1>
-            <time class="has-text-grey-light is-size-7">14 August 2019</time>
         
     </div>
 </div>
@@ -391,10 +393,13 @@ for i := 0; i &lt; 10; i++ {
         <h1 class="title is-5">Related posts</h1>
       
       
-            <h1><a href="https://zhouqian0.github.io/2019/go-first/">Go 指南阅读心得1 基础</a></h1>
+            <h1><a href="https://zhouqian0.github.io/2019/go-fourth/">Go 指南阅读笔记4 方法和接口</a></h1>
+            <time class="has-text-grey-light is-size-7">16 August 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/go-first/">Go 指南阅读笔记1 基础</a></h1>
             <time class="has-text-grey-light is-size-7">15 August 2019</time>
       
-            <h1><a href="https://zhouqian0.github.io/2019/go-second/">Go 指南阅读心得2 流程控制语句</a></h1>
+            <h1><a href="https://zhouqian0.github.io/2019/go-second/">Go 指南阅读笔记2 流程控制语句</a></h1>
             <time class="has-text-grey-light is-size-7">15 August 2019</time>
       
     </div>
@@ -406,7 +411,7 @@ for i := 0; i &lt; 10; i++ {
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (35)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (36)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         

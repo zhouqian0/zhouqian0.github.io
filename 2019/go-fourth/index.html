@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Let&#39;s finish what we started  | Go 指南阅读笔记4 方法和接口</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://zhouqian0.github.io/css/blog.css" />
+    
+</head>
+<body>
+
+    
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://zhouqian0.github.io/">Home</a>
+        </div>
+    </nav>
+    
+
+    
+    <section class="hero is-info is-medium">
+        <div class="hero-body" style="background-image: url(https://zhouqian0.github.io/img/bg-blog.jpg);">
+            <div class="container has-text-centered">
+                <br>
+                <h1 class="title is-size-1">
+                    
+                        Go 指南阅读笔记4 方法和接口
+                    
+                </h1>
+                
+            </div>
+        </div>
+    </section>
+
+
+<div class="container">
+    <div class="section">
+    
+
+<div class="columns">
+    <div class="column is-9">
+        <div class="tile is-child box">
+            <div class="content">
+                
+
+<h3 id="方法和接口">方法和接口</h3>
+
+<ol>
+<li><p>Go 没有类。<strong>方法</strong> 就是一类带特殊的 接收者 参数的函数。方法接收者在它自己的参数列表内，位于 func 关键字和方法名之间。</p>
+
+<pre><code>   type Vertex struct {
+    X, Y float64
+   }
+       
+   func (v Vertex) Abs() float64 {
+    return math.Sqrt(v.X*v.X + v.Y*v.Y)
+   }
+       
+   func main() {
+    v := Vertex{3, 4}
+    fmt.Println(v.Abs())
+   }
+</code></pre>
+
+<ol>
+<li><p>方法只是个带接收者参数的函数。</p>
+
+<pre><code>   func Abs(v Vertex) float64 {
+    return math.Sqrt(v.X*v.X + v.Y*v.Y)
+   }
+           
+   func main() {
+    v := Vertex{3, 4}
+    fmt.Println(Abs(v))
+   }
+</code></pre></li>
+
+<li><p>也可以为非结构体类型声明方法</p>
+
+<p>接收者的类型定义和方法声明必须在同一包内；不能为内建类型声明方法。</p>
+
+<pre><code>  type MyFloat float64
+          
+  func (f MyFloat) Abs() float64 {
+    if f &lt; 0 {
+        return float64(-f)
+    }
+    return float64(f)
+  }
+          
+  func main() {
+    f := MyFloat(-math.Sqrt2)
+    fmt.Println(f.Abs())
+  }
+</code></pre></li>
+
+<li><p>对于某类型 T，接收者的类型可以用 *T （指针接收者）的文法。</p>
+
+<p>指针接收者的方法可以修改接收者指向的值。<em>由于方法经常需要修改它的接收者，指针接收者比值接收者更常用</em></p></li>
+
+<li><p>带指针参数的函数必须接受一个指针，而以指针为接收者的方法被调用时，接收者既能为值又能为指针。</p>
+
+<p>接受一个值作为参数的函数必须接受一个指定类型的值，而以指针为接收者的方法被调用时，接收者既能为值又能为指针。</p>
+
+<ul>
+<li>使用指针接收者的原因:
+
+<ul>
+<li>方法能够修改其接收者指向的值。</li>
+<li>可以避免在每次调用方法时 <em>复制该值</em> 。若值的类型为大型结构体时，这样做会更加高效。</li>
+</ul></li>
+</ul></li>
+</ol></li>
+
+<li><p><strong>接口类型</strong> 是由一组方法签名定义的集合。</p>
+
+<p>接口类型的变量可以保存任何实现了这些方法的值。(如下例中 a 能等于 f 或 &amp;v)</p>
+
+<pre><code>   type Abser interface {
+    Abs() float64
+   }
+       
+   func main() {
+    var a Abser
+    f := MyFloat(-math.Sqrt2)
+    v := Vertex{3, 4}
+       
+    a = f  // a MyFloat 实现了 Abser
+    a = &amp;v // a *Vertex 实现了 Abser
+       
+    // 下面一行，v 是一个 Vertex（而不是 *Vertex）
+    // 所以没有实现 Abser。
+    a = v // Error, Vertex does not implement Abser (Abs method has pointer receiver)go
+
+    fmt.Println(a.Abs())
+   }
+       
+   type MyFloat float64
+       
+   func (f MyFloat) Abs() float64 {
+    if f &lt; 0 {
+        return float64(-f)
+    }
+    return float64(f)
+   }
+       
+   type Vertex struct {
+    X, Y float64
+   }
+       
+   func (v *Vertex) Abs() float64 {
+    return math.Sqrt(v.X*v.X + v.Y*v.Y)
+   }
+</code></pre>
+
+<ol>
+<li>类型通过实现一个接口的所有方法来实现该接口。无专门显式声明( 无 &ldquo;implements&rdquo; )。</li>
+<li>隐式接口从接口的实现中解耦了定义，这样接口的实现可以出现在任何包中，无需提前准备。</li>
+<li>接口也是值。它们可以像其它值一样传递( 接口值可以用作函数的参数或返回值 )。</li>
+
+<li><p>在内部，接口值可以看做包含值和具体类型的元组：</p>
+
+<pre><code>(value, type)
+</code></pre></li>
+
+<li><p>接口值保存了一个具体底层类型的具体值，其调用方法时会执行其底层类型的同名方法。</p></li>
+
+<li><p>即便接口内的具体值为 nil，方法仍然会被 nil 接收者调用。</p>
+
+<ul>
+<li><p>保存了 nil 具体值的接口其自身并不为 nil （<strong>底层值为 nil</strong>）。</p>
+
+<pre><code>  type I interface {
+    M()
+  }
+            
+  type T struct {
+    S string
+  }
+          
+  func (t *T) M() {
+    if t == nil {
+        fmt.Println(&quot;&lt;nil&gt;&quot;)
+        return
+    }
+    fmt.Println(t.S)
+  }
+              
+  func main() {
+    var i I
+              
+    var t *T
+    i = t // i 有具体实现
+    describe(i)
+    i.M()
+              
+    i = &amp;T{S: &quot;hello&quot;}
+    describe(i)
+    i.M()
+  }
+</code></pre></li>
+</ul></li>
+
+<li><p>nil 接口值既不保存值也不保存具体类型（<strong>接口无实现，自身为 nil</strong>）。</p>
+
+<ul>
+<li><p>为 nil 接口调用方法会产生运行时错误，因为接口的元组内并未包含能够指明该调用哪个 <strong>具体方法的类型</strong>。</p>
+
+<pre><code>  type I interface {
+    M()
+  }
+              
+  func main() {
+    var i I
+    describe(i)
+    i.M()
+  }
+              
+  func describe(i I) {
+    fmt.Println(i == nil) // true
+    fmt.Printf(&quot;(%v, %T)\n&quot;, i, i) // runtime error, i no implementation
+  }
+</code></pre></li>
+</ul></li>
+
+<li><p>指定了零个方法的接口值被称为<strong>空接口</strong> <code>interface{}</code></p>
+
+<ul>
+<li>空接口可保存任何类型的值。（因为每个类型都至少实现了零个方法。）</li>
+
+<li><p>空接口被用来处理未知类型的值。例如，fmt.Print 可接受类型为 interface{} 的任意数量的参数。</p>
+
+<pre><code>func main() {
+    var i interface{}
+    describe(i) // (&lt;nil&gt;, &lt;nil&gt;)
+              
+    i = 42
+    describe(i) // (42, int)
+              
+    i = &quot;hello&quot;
+    describe(i) // (hello, string)
+}
+              
+func describe(i interface{}) {
+    fmt.Printf(&quot;(%v, %T)\n&quot;, i, i)
+}
+</code></pre>
+
+<pre><code>// fmt.Print
+func Print(a ...interface{}) (n int, err error) {
+    return Fprint(os.Stdout, a...)
+}
+</code></pre></li>
+</ul></li>
+</ol></li>
+
+<li><p><strong>类型断言</strong> 提供了 <em>访问接口值底层具体值</em> 的方式。</p>
+
+<pre><code>t := i.(T)
+</code></pre>
+
+<ol>
+<li><p>该语句断言接口值 i 保存了具体类型 T，并将其底层类型为 T 的值赋予变量 t。</p>
+
+<p>若 i 并未保存 T 类型的值，该语句就会触发一个恐慌( panic )。</p></li>
+
+<li><pre><code>t, ok := i.(T) // 此种写法不会产生恐慌
+</code></pre>
+
+<p>若 i 保存了一个 T，那么 t 将会是其底层值，而 ok 为 true。</p>
+
+<p>否则，ok 将为 false 而 t 将为 T 类型的零值。</p>
+
+<pre><code>    var i interface{} = &quot;hello&quot;
+            
+    s := i.(string)
+    fmt.Println(s) // hello
+        
+    s, ok := i.(string)
+    fmt.Println(s, ok) // hello true
+        
+    f, ok := i.(float64)
+    fmt.Println(f, ok) // false, 0
+        
+    f = i.(float64) // 报错(panic)
+    fmt.Println(f)
+</code></pre></li>
+</ol></li>
+
+<li><p><strong>类型选择</strong> 是一种按顺序从 <em>几个类型断言</em> 中选择分支的结构。</p>
+
+<p>类型选择与一般的 switch 语句相似，针对给定接口值所存储的值的类型进行比较。</p>
+
+<pre><code>    func do(i interface{}) {
+        switch v := i.(type) {
+        case int:
+            fmt.Printf(&quot;Twice %v is %v\n&quot;, v, v*2)
+        case string:
+            fmt.Printf(&quot;%q is %v bytes long\n&quot;, v, len(v))
+        case bool:
+            fmt.Printf(&quot;is %v\n&quot;, v)
+        default:
+            fmt.Printf(&quot;I don't know about type %T!\n&quot;, v)
+        }
+    }
+        
+    func main() {
+        do(21) // Twice 21 is 42
+        do(&quot;hello&quot;) // &quot;hello&quot; is 5 bytes long
+        do(true) // is true
+        do(float64(12.4)) // I don't know about type float64!
+    }
+</code></pre></li>
+
+<li><p>Stringer 是一个可以用字符串描述自己的类型。</p>
+
+<pre><code>    type Person struct {
+        Name string
+        Age  int
+    }
+        
+    func (p Person) String() string { // like java toString()
+        return fmt.Sprintf(&quot;%v (%v years)&quot;, p.Name, p.Age)
+    }
+        
+    func main() {
+        a := Person{&quot;Arthur Dent&quot;, 42}
+        z := Person{&quot;Zaphod Beeblebrox&quot;, 9001}
+        fmt.Println(a, z) // Arthur Dent (42 years) Zaphod Beeblebrox (9001 years)
+    }   
+</code></pre></li>
+
+<li><p>Go 程序使用 <strong>error</strong> 值来表示错误状态。</p>
+
+<p>通常函数会返回一个 error 值，调用的它的代码应当判断这个错误是否等于 nil 来进行错误处理。</p>
+
+<pre><code>   type error interface {
+       Error() string
+   }
+</code></pre>
+
+<pre><code>   i, err := strconv.Atoi(&quot;42&quot;) // error 为 nil 时表示成功；非 nil 的 error 表示失败                                    
+   if err != nil {
+       fmt.Printf(&quot;couldn't convert number: %v\n&quot;, err)
+       return
+   }
+   fmt.Println(&quot;Converted integer:&quot;, i)
+</code></pre>
+
+<pre><code>    type MyError struct {
+        When time.Time
+        What string
+    }
+        
+    func (e *MyError) Error() string {
+        return fmt.Sprintf(&quot;at %v, %s&quot;,
+            e.When, e.What)
+    }
+        
+    func run() error {
+        return &amp;MyError{ // because MyError implements the Error method.
+            time.Now(),
+            &quot;it didn't work&quot;,
+        }
+    }
+        
+    func main() {
+        if err := run(); err != nil {
+            fmt.Println(err)
+        }
+    }
+</code></pre></li>
+
+<li><p>io 包指定了 <strong>io.Reader</strong> 接口，它表示从数据流的末尾进行读取。</p>
+
+<pre><code>func (T) Read(b []byte) (n int, err error)
+</code></pre>
+
+<p>Read 用数据填充给定的字节切片并返回填充的字节数和错误值。在遇到数据流的结尾时，它会返回一个 io.EOF 错误。</p>
+
+<pre><code>    func main() {
+        r := strings.NewReader(&quot;Hello, Reader!&quot;)
+        
+        b := make([]byte, 8)
+        for {
+            n, err := r.Read(b) // 如果读取失败，则不会覆盖 b 中的内容；每次读取 长度为8的字节数组，直到下一次读取到的为空
+            fmt.Printf(&quot;n = %v err = %v b = %v\n&quot;, n, err, b)
+            fmt.Printf(&quot;b[:n] = %q\n&quot;, b[:n])
+            if err == io.EOF {
+                break
+            }
+        }
+    }
+    // n = 8 err = &lt;nil&gt; b = [72 101 108 108 111 44 32 82]
+    // b[:n] = &quot;Hello, R&quot;
+    // n = 6 err = &lt;nil&gt; b = [101 97 100 101 114 33 32 82]
+    // b[:n] = &quot;eader!&quot;
+    // n = 0 err = EOF b = [101 97 100 101 114 33 32 82]
+    // b[:n] = &quot;&quot;
+</code></pre></li>
+
+<li><p>image 包定义了 <strong>Image</strong> 接口：</p>
+
+<pre><code>    package image
+        
+    type Image interface {
+        ColorModel() color.Model
+        Bounds() Rectangle // Rectangle 实际上是一个 image.Rectangle，它在 image 包中声明。                                  
+        At(x, y int) color.Color
+    }
+</code></pre>
+
+<p>color.Color 和 color.Model 类型也是接口，但是通常因为直接使用预定义的实现 image.RGBA 和 image.RGBAModel 而被忽视了。这些接口和类型由 image/color 包定义。</p></li>
+</ol>
+
+            </div>
+        </div>
+    </div>
+    <div class="column is-3">
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Tags</h1>
+        <div class="tags">
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/angular">angular</a></span>
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/go">go</a></span>
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/javascript">javascript</a></span>
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/journal">journal</a></span>
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/typescript">typescript</a></span>
+        
+        </div>          
+    </div>
+</div><br>
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Recent posts</h1>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/go-fourth/">Go 指南阅读笔记4 方法和接口</a></h1>
+            <time class="has-text-grey-light is-size-7">16 August 2019</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/go-third/">Go 指南阅读笔记3 基础类型</a></h1>
+            <time class="has-text-grey-light is-size-7">16 August 2019</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/go-second/">Go 指南阅读笔记2 流程控制语句</a></h1>
+            <time class="has-text-grey-light is-size-7">15 August 2019</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/go-first/">Go 指南阅读笔记1 基础</a></h1>
+            <time class="has-text-grey-light is-size-7">15 August 2019</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/ts-twenty-first/">TS文档阅读小结21 实用类型</a></h1>
+            <time class="has-text-grey-light is-size-7">15 August 2019</time>
+        
+    </div>
+</div>
+    <br>
+                
+  
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Related posts</h1>
+      
+      
+            <h1><a href="https://zhouqian0.github.io/2019/go-third/">Go 指南阅读笔记3 基础类型</a></h1>
+            <time class="has-text-grey-light is-size-7">16 August 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/go-first/">Go 指南阅读笔记1 基础</a></h1>
+            <time class="has-text-grey-light is-size-7">15 August 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/go-second/">Go 指南阅读笔记2 流程控制语句</a></h1>
+            <time class="has-text-grey-light is-size-7">15 August 2019</time>
+      
+    </div>
+</div>
+
+    
+<br>
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Archives</h1>
+        
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (36)<br>
+        
+            <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
+        
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+    </div>
+</div>
+
+<footer class="footer has-background-grey-darker has-text-white">
+    <div class="content has-text-centered">
+        <p>
+            <span class="icon is-large"><a href="https://twitter.com/" class="mysocial" rel="me"><i class="fab fa-twitter fa-3x"></i></a></span>&nbsp;&nbsp;
+            <span class="icon is-large"><a href="https://www.youtube.com/" class="mysocial" rel="me"><i class="fab fa-youtube fa-3x"></i></a></span>&nbsp;&nbsp;
+            <span class="icon is-large"><a href="https://github.com/" class="mysocial" rel="me"><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;
+            <br><br>
+            Copyright &copy; Let&#39;s finish what we started 2019 - Theme by <a href="https://jeffprod.com" class="mysocial">JeffProd.com</a>
+            - <a class="mysocial" href="https://zhouqian0.github.io/about">About</a>
+        </p>
+    </div>
+</footer>
+
+<script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+</body>
+</html>

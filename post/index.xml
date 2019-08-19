@@ -5,13 +5,26 @@
     <description>Recent content in Posts on Let&#39;s finish what we started</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 16 Aug 2019 08:38:44 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 16 Aug 2019 16:15:01 +0800</lastBuildDate>
     
         <atom:link href="https://zhouqian0.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Go 指南阅读心得3 基础类型</title>
+      <title>Go 指南阅读笔记4 方法和接口</title>
+      <link>https://zhouqian0.github.io/2019/go-fourth/</link>
+      <pubDate>Fri, 16 Aug 2019 16:15:01 +0800</pubDate>
+      
+      <guid>https://zhouqian0.github.io/2019/go-fourth/</guid>
+      <description>方法和接口  Go 没有类。方法 就是一类带特殊的 接收者 参数的函数。方法接收者在它自己的参数列表内，位于 func 关键字和方法名之间。
+ type Vertex struct { X, Y float64 } func (v Vertex) Abs() float64 { return math.Sqrt(v.X*v.X + v.Y*v.Y) } func main() { v := Vertex{3, 4} fmt.Println(v.Abs()) }   方法只是个带接收者参数的函数。
+ func Abs(v Vertex) float64 { return math.Sqrt(v.X*v.X + v.Y*v.Y) } func main() { v := Vertex{3, 4} fmt.Println(Abs(v)) }  也可以为非结构体类型声明方法
+接收者的类型定义和方法声明必须在同一包内；不能为内建类型声明方法。
+ type MyFloat float64 func (f MyFloat) Abs() float64 { if f &amp;lt; 0 { return float64(-f) } return float64(f) } func main() { f := MyFloat(-math.</description>
+    </item>
+    
+    <item>
+      <title>Go 指南阅读笔记3 基础类型</title>
       <link>https://zhouqian0.github.io/2019/go-third/</link>
       <pubDate>Fri, 16 Aug 2019 08:38:44 +0800</pubDate>
       
@@ -21,7 +34,7 @@
     </item>
     
     <item>
-      <title>Go 指南阅读心得1 基础</title>
+      <title>Go 指南阅读笔记1 基础</title>
       <link>https://zhouqian0.github.io/2019/go-first/</link>
       <pubDate>Thu, 15 Aug 2019 16:20:28 +0800</pubDate>
       
@@ -33,7 +46,7 @@ package main import &amp;quot;fmt&amp;quot; func swap(x, y string) (string, stri
     </item>
     
     <item>
-      <title>Go 指南阅读心得2 流程控制语句</title>
+      <title>Go 指南阅读笔记2 流程控制语句</title>
       <link>https://zhouqian0.github.io/2019/go-second/</link>
       <pubDate>Thu, 15 Aug 2019 16:20:28 +0800</pubDate>
       
@@ -357,16 +370,6 @@ import {ErrorStateMatcher} from &#39;@angular/material&#39;; import {FormControl
     </item>
     
     <item>
-      <title>Cannot read property &#39;subscribe&#39; of undefined</title>
-      <link>https://zhouqian0.github.io/2019/ng-sixth/</link>
-      <pubDate>Thu, 21 Feb 2019 15:17:24 +0800</pubDate>
-      
-      <guid>https://zhouqian0.github.io/2019/ng-sixth/</guid>
-      <description> EventEmitter 在 angular 中如果没有对 @Output 的 EventEmitter 变量进行初始化就会报错 Cannot read property ‘subscribe’ of undefined ，并且不会有报错行信息。 （初始化放在 onInit 中也会报错, 必须在声明变量时或者在构造函数中初始化）
-@Output() eventEmit = new EventEmitter();  </description>
-    </item>
-    
-    <item>
       <title>angular form 中的 disable() 导致 form valid 结果为 false</title>
       <link>https://zhouqian0.github.io/2019/ng-third/</link>
       <pubDate>Thu, 21 Feb 2019 15:17:24 +0800</pubDate>
@@ -374,6 +377,16 @@ import {ErrorStateMatcher} from &#39;@angular/material&#39;; import {FormControl
       <guid>https://zhouqian0.github.io/2019/ng-third/</guid>
       <description> form 的 disable（） 在angular 的 form 中，如果整个 form 的状态变为 disabled，会使 form.valid 返回的值会变为 false，表单校验不通过（哪怕 form 的所有组件都是验证通过的）。
 import {Component, OnInit} from &#39;@angular/core&#39;; import {FormGroup, FormControl, Validators} from &#39;@angular/forms&#39;; @Component({ selector: &#39;my-app&#39;, templateUrl: &#39;./app.component.html&#39;, styleUrls: [ &#39;./app.component.css&#39; ] }) export class AppComponent implements OnInit{ name = &#39;Angular&#39;; form = new FormGroup({ &#39;test&#39;:new FormControl(&#39;&#39;,Validators.required) }); ngOnInit(){ this.form.get(&#39;test&#39;).setValue(&#39;2&#39;); // this.form.disable(); console.log(this.form.valid); } }  </description>
+    </item>
+    
+    <item>
+      <title>Cannot read property &#39;subscribe&#39; of undefined</title>
+      <link>https://zhouqian0.github.io/2019/ng-sixth/</link>
+      <pubDate>Thu, 21 Feb 2019 15:17:24 +0800</pubDate>
+      
+      <guid>https://zhouqian0.github.io/2019/ng-sixth/</guid>
+      <description> EventEmitter 在 angular 中如果没有对 @Output 的 EventEmitter 变量进行初始化就会报错 Cannot read property ‘subscribe’ of undefined ，并且不会有报错行信息。 （初始化放在 onInit 中也会报错, 必须在声明变量时或者在构造函数中初始化）
+@Output() eventEmit = new EventEmitter();  </description>
     </item>
     
     <item>
