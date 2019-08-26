@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Let&#39;s finish what we started  | angular datepicker 使用建议</title>
+    <title>Let&#39;s finish what we started  | Go 指南阅读笔记5 并发</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -29,7 +29,7 @@
                 <br>
                 <h1 class="title is-size-1">
                     
-                        angular datepicker 使用建议
+                        Go 指南阅读笔记5 并发
                     
                 </h1>
                 
@@ -48,19 +48,99 @@
             <div class="content">
                 
 
-<h3 id="datepicker">datepicker</h3>
+<h3 id="并发">并发</h3>
 
-<p>实现点击 input 后会打开日期选择器：由于input标签可点击，可能会触发浏览器的自动联想（autocomplete）,会出现： 先打开可自动联想的下拉框，然后该下拉框消失，出现日期选择 。针对于此，现解决方案为禁用日期选择器的 input 标签的 autocomplete 属性（autocomplete=&lsquo;off&rsquo;）,然后添加 click 事件 (click)=&ldquo;picker.open()&ldquo;。</p>
+<ol>
+<li><p>Go 程（goroutine）是由 Go 运行时管理的轻量级线程。</p>
 
-<pre><code>&lt;mat-form-field&gt;
-  &lt;label&gt;
-    &lt;input matInput [matDatepicker]=&quot;picker&quot; autocomplete=&quot;off&quot; required formControlName=&quot;date&quot;
-           placeholder=&quot;选择日期&quot; (click)=&quot;picker.open()&quot; [errorStateMatcher]=&quot;matcher&quot;&gt;
-  &lt;/label&gt;
-  &lt;mat-datepicker-toggle matSuffix [for]=&quot;picker&quot;&gt;&lt;/mat-datepicker-toggle&gt;
-  &lt;mat-datepicker #picker&gt;&lt;/mat-datepicker&gt;
-&lt;/mat-form-field&gt;
+<p>Go 程在相同的地址空间中运行，因此在访问共享的内存时必须进行同步。</p></li>
+
+<li><p><em>信道</em> 是带有类型的管道，你可以通过它用信道操作符 &lt;- 来发送或者接收值。</p>
+
+<pre><code>ch &lt;- v    // 将 v 发送至信道 ch。
+v := &lt;-ch  // 从 ch 接收值并赋予 v。
+   
+ch := make(chan int) // 创建
 </code></pre>
+
+<p>默认情况下，发送和接收操作在另一端准备好之前都会阻塞。这使得 Go 程可以在没有显式的锁或竞态变量的情况下进行同步。</p>
+
+<ol>
+<li><p>信道可以是 <em>带缓冲的</em> 。将缓冲长度作为第二个参数提供给 make 来初始化一个带缓冲的信道：</p>
+
+<pre><code>ch := make(chan int, 100) // 100 为缓冲区长度
+</code></pre>
+
+<p>仅当信道的缓冲区填满后，向其发送数据时才会阻塞。当缓冲区为空时，接受方会阻塞。</p></li>
+
+<li><p>发送者可通过 close 关闭一个信道来表示没有需要发送的值了。</p>
+
+<pre><code> v, ok := &lt;-ch // 检测信道是否关闭
+</code></pre>
+
+<ul>
+<li>只有发送者才能关闭信道，而接收者不能。向一个已经关闭的信道发送数据会引发程序恐慌（panic）。</li>
+<li>信道与文件不同，通常情况下无需关闭它们。只有在必须告诉接收者不再有需要发送的值时才有必要关闭，例如终止一个 range 循环。</li>
+</ul></li>
+</ol></li>
+
+<li><p>select 语句使一个 Go 程可以等待多个通信操作。</p>
+
+<p>select 会阻塞到某个分支可以继续执行为止，这时就会执行该分支。 <em>当多个分支都准备好时会随机选择一个执行。</em></p>
+
+<pre><code>  func fibonacci(c, quit chan int) {
+    x, y := 0, 1
+    for {
+        select {
+        case c &lt;- x:
+            x, y = y, x+y
+        case &lt;-quit:
+            fmt.Println(&quot;quit&quot;)
+            return
+        }
+    }
+  }
+      
+  func main() {
+    c := make(chan int)
+    quit := make(chan int)
+    go func() {
+        for i := 0; i &lt; 10; i++ {
+            fmt.Println(&lt;-c)
+        }
+        quit &lt;- 0
+    }()
+    fibonacci(c, quit)
+  }
+</code></pre>
+
+<ul>
+<li><p>当 select 中的其它分支都没有准备好时，default 分支就会执行。</p>
+
+<p>为了在尝试发送或者接收时不发生阻塞，可使用 default 分支：</p>
+
+<pre><code>select {
+case i := &lt;-c:
+    // 使用 i
+default:
+    // 从 c 中接收会阻塞时执行
+}
+</code></pre></li>
+</ul></li>
+
+<li><p>Go 标准库中提供了 sync.Mutex 互斥锁类型及其两个方法：</p>
+
+<ul>
+<li>Lock</li>
+<li>Unlock
+<br /></li>
+</ul>
+
+<p>通过在代码前调用 Lock 方法，在代码后调用 Unlock 方法来保证一段代码的互斥执行。
+保证每次只有一个 Go 程能够访问一个共享的变量，从而避免冲突。</p>
+
+<p><em>用 defer 语句来保证互斥锁一定会被解锁。</em></p></li>
+</ol>
 
             </div>
         </div>
@@ -116,20 +196,17 @@
         <h1 class="title is-5">Related posts</h1>
       
       
-            <h1><a href="https://zhouqian0.github.io/2019/ng-first/">angular 项目编译成的网页源码中的注释</a></h1>
-            <time class="has-text-grey-light is-size-7">25 March 2019</time>
+            <h1><a href="https://zhouqian0.github.io/2019/go-fourth/">Go 指南阅读笔记4 方法和接口</a></h1>
+            <time class="has-text-grey-light is-size-7">16 August 2019</time>
       
-            <h1><a href="https://zhouqian0.github.io/2019/ng-second/">关于主动触发 angular 的表单验证机制</a></h1>
-            <time class="has-text-grey-light is-size-7">27 February 2019</time>
+            <h1><a href="https://zhouqian0.github.io/2019/go-third/">Go 指南阅读笔记3 基础类型</a></h1>
+            <time class="has-text-grey-light is-size-7">16 August 2019</time>
       
-            <h1><a href="https://zhouqian0.github.io/2019/ng-third/">angular form 中的 disable() 导致 form valid 结果为 false</a></h1>
-            <time class="has-text-grey-light is-size-7">21 February 2019</time>
+            <h1><a href="https://zhouqian0.github.io/2019/go-second/">Go 指南阅读笔记2 流程控制语句</a></h1>
+            <time class="has-text-grey-light is-size-7">15 August 2019</time>
       
-            <h1><a href="https://zhouqian0.github.io/2019/ng-sixth/">Cannot read property &#39;subscribe&#39; of undefined</a></h1>
-            <time class="has-text-grey-light is-size-7">21 February 2019</time>
-      
-            <h1><a href="https://zhouqian0.github.io/2019/ng-fourth/">angular 禁用/启用 鼠标滚轮事件</a></h1>
-            <time class="has-text-grey-light is-size-7">13 February 2019</time>
+            <h1><a href="https://zhouqian0.github.io/2019/go-first/">Go 指南阅读笔记1 基础</a></h1>
+            <time class="has-text-grey-light is-size-7">14 August 2019</time>
       
     </div>
 </div>
