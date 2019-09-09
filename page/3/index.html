@@ -57,6 +57,22 @@
                     <article class="media">
                         <div class="media-content">
                             <div class="content">
+                                <p class="title is-4"><a href="https://zhouqian0.github.io/2019/ts-ninth/">TS文档阅读小结9 类型兼容性</a></p>
+                                <p class="subtitle is-size-6 has-text-grey-light">
+                                    Published at July 16, 2019 &middot;
+                                    <i class="far fa-clock"></i>&nbsp;2 min read
+                                </p>
+                                <p>类型兼容性  https://www.tslang.cn/docs/handbook/type-compatibility.html TypeScript 里的类型兼容性是基于结构子类型的（只使用其成员来描述类型的方式）。C#、Java 等语言使用的是基于名义类型的类型系统。
+interface Named { name: string; } class Person { name: string; } let p: Named; p = new Person(); // OK, because of structural typing  TypeScript 结构化类型系统的基本规则是，如果 x 要兼容 y，那么 y 至少具有与 x 相同的属性。
+属性少的类型（例如只含有属性 x）可以赋值给属性多的类型（例如含有属性 x，y），但是属性多的类型不能赋值给属性少的类型。
+interface Named { name: string; } let x: Named; let y = { name: 'Alice', location: 'Seattle' }; // y's inferred type is { name: string; location: string; } x = y; // y = x; // Error!...</p>
+                            </div>
+                        </div>
+                    </article>
+                
+                    <article class="media">
+                        <div class="media-content">
+                            <div class="content">
                                 <p class="title is-4"><a href="https://zhouqian0.github.io/2019/ts-eighth/">TS文档阅读小结8 类型推论</a></p>
                                 <p class="subtitle is-size-6 has-text-grey-light">
                                     Published at July 15, 2019 &middot;
@@ -200,20 +216,6 @@ x[3] = &quot;world&quot;; // Error, Property '3' does not exist on type '[string
                         </div>
                     </article>
                 
-                    <article class="media">
-                        <div class="media-content">
-                            <div class="content">
-                                <p class="title is-4"><a href="https://zhouqian0.github.io/2019/js-first/">异步方法中的同步</a></p>
-                                <p class="subtitle is-size-6 has-text-grey-light">
-                                    Published at March 21, 2019 &middot;
-                                    <i class="far fa-clock"></i>&nbsp;1 min read
-                                </p>
-                                <p> await  通过将 observable 转换为 promise，调用 promise 的 then() 方法，达到同步效果（在异步函数中）。 在异步函数中使用同步，需要加上 await 等待 promise 结束后再执行下一步操作。
-getALLReportData() { return (this.reportService.getReportBlockData() as Observable).toPromise(); } （await） this.getALLReportData().then(res =&gt; this.bkDataList = res['data'] || []);   ...</p>
-                            </div>
-                        </div>
-                    </article>
-                
             </div>
         </div>
     </div>
@@ -242,6 +244,9 @@ getALLReportData() { return (this.reportService.getReportBlockData() as Observab
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2019/mysql-second/">Mysql 必知必会阅读小记2</a></h1>
+            <time class="has-text-grey-light is-size-7">9 September 2019</time>
+        
             <h1><a href="https://zhouqian0.github.io/2019/mysql-first/">Mysql 必知必会阅读小记1</a></h1>
             <time class="has-text-grey-light is-size-7">4 September 2019</time>
         
@@ -254,9 +259,6 @@ getALLReportData() { return (this.reportService.getReportBlockData() as Observab
             <h1><a href="https://zhouqian0.github.io/2019/go-third/">Go 指南阅读笔记3 基础类型</a></h1>
             <time class="has-text-grey-light is-size-7">16 August 2019</time>
         
-            <h1><a href="https://zhouqian0.github.io/2019/go-second/">Go 指南阅读笔记2 流程控制语句</a></h1>
-            <time class="has-text-grey-light is-size-7">15 August 2019</time>
-        
     </div>
 </div>
     <br>
@@ -264,7 +266,7 @@ getALLReportData() { return (this.reportService.getReportBlockData() as Observab
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (38)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (39)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         

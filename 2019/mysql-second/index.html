@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Let&#39;s finish what we started  | Mysql 必知必会阅读小记2</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://zhouqian0.github.io/css/blog.css" />
+    
+</head>
+<body>
+
+    
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://zhouqian0.github.io/">Home</a>
+        </div>
+    </nav>
+    
+
+    
+    <section class="hero is-info is-medium">
+        <div class="hero-body" style="background-image: url(https://zhouqian0.github.io/img/bg-blog.jpg);">
+            <div class="container has-text-centered">
+                <br>
+                <h1 class="title is-size-1">
+                    
+                        Mysql 必知必会阅读小记2
+                    
+                </h1>
+                
+            </div>
+        </div>
+    </section>
+
+
+<div class="container">
+    <div class="section">
+    
+
+<div class="columns">
+    <div class="column is-9">
+        <div class="tile is-child box">
+            <div class="content">
+                <ol>
+<li>LIKE
+
+<ul>
+<li>% 匹配 0 或多个字符</li>
+<li>_ 匹配单个字符</li>
+<li>尾空格可能会干扰通配符匹配(可使用 trim() 去除收尾空格)</li>
+<li>% 不能匹配 null</li>
+<li>通配符耗时较其他搜索会更长</li>
+<li>通配符放在检索条件开头会极大降低搜索效率</li>
+<li>匹配大小写需要使用关键字 BINARY（WHERE BINARY prod_name LIKE &lsquo;Jet%&lsquo;）</li>
+</ul></li>
+<li>REGEXP
+
+<ul>
+<li>. 匹配任意一个字符</li>
+<li>LIKE 匹配整个列，如果不使用 通配符，那么就算查找到匹配的文本也不会返回</li>
+<li>REGEXP 在列值内进行匹配，如果查找到匹配的文本就会返回</li>
+<li>LIKE 匹配整个串而 REGEXP 匹配子串。</li>
+<li>匹配大小写需要使用关键字 BINARY（WHERE BINARY prod_name REGEXP &lsquo;JetPack .000&rsquo;）</li>
+<li>| (REGEXP &lsquo;1000|2000&rsquo;)，匹配包含 1000 或 2000 的值</li>
+<li>[] 匹配特定字符（[123] 定义一组字符，它的意思是匹配 1 或 2 或 3）</li>
+<li>[1-5] = [12345]</li>
+<li>如果需要匹配特殊字符，需要加上\\，如匹配. 需要 REGEXP \\.，匹配 \ 需要 REGEXP \\\<br /></li>
+
+<li><pre><code>[:alnum:]   任意字母和数字(同[a-zA-Z0-9])
+[:alpha:]   任意字符(同[a-zA-Z])
+[:blank:]   空格和制表(同[\\t])
+[:cntrl:]   ASCII控制字符(ASCII 0到31和127)
+[:digit:]   任意数字(同[0-9])
+[:graph:]   与[:print:]相同，但不包括空格 
+[:lower:]   任意小写字母(同[a-z])
+[:print:]   任意可打印字符
+[:punct:]   既不在[:alnum:]又不在[:cntrl:]中的任意字符
+[:space:]   包括空格在内的任意空白字符(同[\\f\\n\\r\\t\\v])
+[:upper:]   任意大写字母(同[A-Z])
+[:xdigit:]  任意十六进制数字(同[a-fA-F0-9])
+</code></pre></li>
+
+<li><pre><code>*       0个或多个匹配
++       1个或多个匹配(等于{1,})
+?       0个或1个匹配(等于{0,1}) {n} 指定数目的匹配
+{n,}    不少于指定数目的匹配
+{n,m}   匹配数目的范围(m不超过255)
+</code></pre></li>
+
+<li><pre><code>^       文本的开始
+$       文本的结尾 
+[[:&lt;:]] 词的开始
+[[:&gt;:]] 词的结尾
+</code></pre></li>
+
+<li><p>^ 有两种用法。在集合中(用 [ 和 ] 定义)，用它来否定该集合，否则用来指串的开始处。</p></li>
+
+<li><p>可用 SELECT 测试正则表达式。</p>
+
+<pre><code>SELECT 'hello' REGEXP '[a-z]' AS 'test' // 匹配成功返回 1，失败返回 0
+</code></pre></li>
+</ul></li>
+
+<li><p>Concat() 字符串拼接</p>
+
+<pre><code>SELECT 
+    CONCAT(LTRIM(vend_name),
+            '(',
+            RTRIM(vend_country),
+            ')') AS vend_title
+FROM
+    vendors
+ORDER BY vend_name;
+</code></pre></li>
+
+<li><pre><code>Left()      返回串左边的字符 
+Length()    返回串的长度 
+Locate()    找出串的一个子串
+Lower()     将串转换为小写
+LTrim()     去掉串左边的空格
+Right()     返回串右边的字符
+RTrim()     去掉串右边的空格
+Soundex()   返回串的SOUNDEX值    // SOUNDEX 是一个将任何文本串转换为描述其语音表示的字母数字模式的算法。
+SubString() 返回子串的字符 
+Upper()     将串转换为大写
+</code></pre></li>
+
+<li><pre><code>AddDate()       增加一个日期(天、周等)
+AddTime()       增加一个时间(时、分等)
+CurDate()       返回当前日期
+CurTime()       返回当前时间
+Date()          返回日期时间的日期部分
+DateDiff()      计算两个日期之差
+Date_Add()      高度灵活的日期运算函数
+Date_Format()   返回一个格式化的日期或时间串
+Day()           返回一个日期的天数部分
+DayOfWeek()     对于一个日期，返回对应的星期几
+Hour()          返回一个时间的小时部分
+Minute()        返回一个时间的分钟部分    
+Month()         返回一个日期的月份部分
+Now()           返回当前日期和时间
+Second()        返回一个时间的秒部分
+Time()          返回一个日期时间的时间部分
+Year()          返回一个日期的年份部分
+</code></pre></li>
+
+<li><p>yyyy-mm-dd 是首选的日期格式，因为其排除了多义性。</p></li>
+
+<li><pre><code>SELECT 
+    *
+FROM
+    orders
+WHERE
+    DATE(order_date) = '2019-09-09' // 如果不使用 Date()函数，则只能匹配默认的 2019-09-09 00:00:00
+</code></pre></li>
+
+<li><pre><code>AVG()   返回某列的平均值
+COUNT() 返回某列的行数
+MAX()   返回某列的最大值
+MIN()   返回某列的最小值
+SUM()   返回某列值之和
+</code></pre>
+
+<ul>
+<li>avg(), max(), min(), sum() 忽略值为 NULL 的行</li>
+<li>count(*) 不忽略 值为 NULL 的行，count(column) 忽略值为 NULL 的行</li>
+<li>当 min() 函数用于文本时， 返回最前面的行</li>
+<li>可以使用 DISTINCT 来只包含不通知，否则为 ALL (ALL 为默认值)</li>
+</ul></li>
+
+<li><p>DISTINCT 不能用于 COUNT(*)，DISTINCT必须使用列名，不能用于计算或表达式。</p></li>
+
+<li><p>在指定别名以包含某个聚集函数的结果时，不应该使用表中实际的列名。
+虽然这样做并非不合法，但使用唯一的名字会使你的SQL更易于理解和使用(以及将来容易排除故障)。</p></li>
+
+<li><p>GROUP BY 子句指示 MySQL 分组数据，然后对每个组而不是整个结果集进行聚集。</p>
+
+<ul>
+<li>GROUP BY 子句可以包含任意数目的列。这使得能对分组进行嵌套，为数据分组提供更细致的控制。</li>
+<li>如果在 GROUP BY 子句中嵌套了分组，数据将在最后规定的分组上进行汇总。换句话说，在建立分组时，指定的所有列都一起计算(所以不能从个别的列取回数据)。</li>
+<li>GROUP BY 子句中列出的每个列都必须是检索列或有效的表达式(但不能是聚集函数)。如果在 SELECT中 使用表达式，则必须在 GROUP BY子句中指定相同的表达式。不能使用别名。</li>
+<li>除聚集计算语句外，SELECT 语句中的每个列都必须在 GROUP BY 子句中给出。</li>
+<li>如果分组列中具有NULL值，则NULL将作为一个分组返回。如果列 中有多行NULL值，它们将分为一组。</li>
+<li>GROUP BY 子句必须出现在 WHERE 子句之后，ORDER BY 子句之前。</li>
+<li>使用 WITH ROLLUP 关键字，可以得到每个分组以及每个分组 <em>汇总</em> 级别(针对每个分组)的值</li>
+</ul></li>
+
+<li><ul>
+<li>WHERE 过滤行，而 HAVING 过滤分组。</li>
+<li>WHERE 在数据分组前进行过滤，HAVING 在数据分组后进行过滤。</li>
+</ul></li>
+
+<li><ul>
+<li>在 WHERE 子句中使用子查询，应该保证 SELECT 语句具有与 WHERE 子句中相同数目的列。
+通常，子查询将返回单个列并且与单个列匹配，但如果需要也可以使用多个列。</li>
+</ul>
+
+<ul>
+<li>用子查询建立(和测试)查询的最可靠的方法是逐渐进行
+
+<ul>
+<li>首先，建立和测试最内层的查询。然后，用硬编码数据建立和测试外层查询，并且仅在确认它正常后才嵌入子查询。</li>
+</ul></li>
+</ul></li>
+</ol>
+
+            </div>
+        </div>
+    </div>
+    <div class="column is-3">
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Tags</h1>
+        <div class="tags">
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/angular">angular</a></span>
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/go">go</a></span>
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/javascript">javascript</a></span>
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/journal">journal</a></span>
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/mysql">mysql</a></span>
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/typescript">typescript</a></span>
+        
+        </div>          
+    </div>
+</div><br>
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Recent posts</h1>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/mysql-second/">Mysql 必知必会阅读小记2</a></h1>
+            <time class="has-text-grey-light is-size-7">9 September 2019</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/mysql-first/">Mysql 必知必会阅读小记1</a></h1>
+            <time class="has-text-grey-light is-size-7">4 September 2019</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/go-fifth/">Go 指南阅读笔记5 并发</a></h1>
+            <time class="has-text-grey-light is-size-7">26 August 2019</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/go-fourth/">Go 指南阅读笔记4 方法和接口</a></h1>
+            <time class="has-text-grey-light is-size-7">16 August 2019</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/go-third/">Go 指南阅读笔记3 基础类型</a></h1>
+            <time class="has-text-grey-light is-size-7">16 August 2019</time>
+        
+    </div>
+</div>
+    <br>
+                
+  
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Related posts</h1>
+      
+      
+            <h1><a href="https://zhouqian0.github.io/2019/mysql-first/">Mysql 必知必会阅读小记1</a></h1>
+            <time class="has-text-grey-light is-size-7">4 September 2019</time>
+      
+    </div>
+</div>
+
+    
+<br>
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Archives</h1>
+        
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (39)<br>
+        
+            <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
+        
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+    </div>
+</div>
+
+<footer class="footer has-background-grey-darker has-text-white">
+    <div class="content has-text-centered">
+        <p>
+            <span class="icon is-large"><a href="https://twitter.com/" class="mysocial" rel="me"><i class="fab fa-twitter fa-3x"></i></a></span>&nbsp;&nbsp;
+            <span class="icon is-large"><a href="https://www.youtube.com/" class="mysocial" rel="me"><i class="fab fa-youtube fa-3x"></i></a></span>&nbsp;&nbsp;
+            <span class="icon is-large"><a href="https://github.com/" class="mysocial" rel="me"><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;
+            <br><br>
+            Copyright &copy; Let&#39;s finish what we started 2019 - Theme by <a href="https://jeffprod.com" class="mysocial">JeffProd.com</a>
+            - <a class="mysocial" href="https://zhouqian0.github.io/about">About</a>
+        </p>
+    </div>
+</footer>
+
+<script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+</body>
+</html>

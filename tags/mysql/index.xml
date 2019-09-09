@@ -5,10 +5,19 @@
     <description>Recent content in mysql on Let&#39;s finish what we started</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 04 Sep 2019 09:40:26 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 09 Sep 2019 10:24:50 +0800</lastBuildDate>
     
         <atom:link href="https://zhouqian0.github.io/tags/mysql/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Mysql 必知必会阅读小记2</title>
+      <link>https://zhouqian0.github.io/2019/mysql-second/</link>
+      <pubDate>Mon, 09 Sep 2019 10:24:50 +0800</pubDate>
+      
+      <guid>https://zhouqian0.github.io/2019/mysql-second/</guid>
+      <description>LIKE  % 匹配 0 或多个字符 _ 匹配单个字符 尾空格可能会干扰通配符匹配(可使用 trim() 去除收尾空格) % 不能匹配 null 通配符耗时较其他搜索会更长 通配符放在检索条件开头会极大降低搜索效率 匹配大小写需要使用关键字 BINARY（WHERE BINARY prod_name LIKE &amp;lsquo;Jet%&amp;lsquo;）  REGEXP  . 匹配任意一个字符 LIKE 匹配整个列，如果不使用 通配符，那么就算查找到匹配的文本也不会返回 REGEXP 在列值内进行匹配，如果查找到匹配的文本就会返回 LIKE 匹配整个串而 REGEXP 匹配子串。 匹配大小写需要使用关键字 BINARY（WHERE BINARY prod_name REGEXP &amp;lsquo;JetPack .000&amp;rsquo;） | (REGEXP &amp;lsquo;1000|2000&amp;rsquo;)，匹配包含 1000 或 2000 的值 [] 匹配特定字符（[123] 定义一组字符，它的意思是匹配 1 或 2 或 3） [1-5] = [12345] 如果需要匹配特殊字符，需要加上\\，如匹配. 需要 REGEXP \\.，匹配 \ 需要 REGEXP \\\</description>
+    </item>
     
     <item>
       <title>Mysql 必知必会阅读小记1</title>
