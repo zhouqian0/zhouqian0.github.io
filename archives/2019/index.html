@@ -54,6 +54,20 @@
                 <article class="media">
                     <div class="media-content">
                         <div class="content">
+                            <p class="title is-4"><a href="/2019/mysql-first/">Mysql 必知必会阅读小记1</a></p>
+                            <p class="subtitle is-size-6 has-text-grey-light">
+                                Published at September 4, 2019 &middot;
+                                <i class="far fa-clock"></i>&nbsp;2 min read
+                            </p>
+                            <p>数据库(database) 保存有组织的数据的容器(通常是一个文件或一组文件)。 我们日常使用的是 DBMS(数据库管理系统)，而非直接操作数据库，mysql 就是一种 DBMS。 关于主键的好习惯:  不更新主键列中的值; 不重用主键列的值; 不在主键列中使用可能会更改的值。  SQL 是结构化查询语言(Structured Query Language) 的缩写。 SHOW DATABASES; USE XXX; // 选定特定的数据库; SHOW TABLES; // 显示选定数据库的所有表; SHOW COLUMNS FROM XXX; == DESCRIBE XXX; // 展示选定数据库表的详情; SHOW STATUS; // 用于显示广泛的服务器状态信息 SHOW CREATE DATABASE XXX; // 显示创建特定数据库的MySQL语句; SHOW CREATE TABLE XXX; // 显示创建特定表的MySQL语句; SHOW GRANTS; // 用来显示授予用户(所有用户或特定用户)的安全权限; SHOW ERRORS; // 用来显示服务器错误消息; SHOW WARNINGS; // 用来显示服务器警告消息; HELP SHOW; // 展示所有可以通过 show 来执行的命令;  SELECT DISTINCT vend_id * FROM products; // 去重查找 vend_id  DISTINCT 关键字应用于所有列而 不仅是前置它的列。如果给出 SELECT DISTINCT vend_id, prod_price，除非指定的两个列都不同，否则所有行都将被检索出来。...</p>
+                        </div>
+                    </div>
+                </article>
+                <br>
+
+                <article class="media">
+                    <div class="media-content">
+                        <div class="content">
                             <p class="title is-4"><a href="/2019/go-fifth/">Go 指南阅读笔记5 并发</a></p>
                             <p class="subtitle is-size-6 has-text-grey-light">
                                 Published at August 26, 2019 &middot;
@@ -66,7 +80,7 @@ ch &lt;- v // 将 v 发送至信道 ch。 v := &lt;-ch // 从 ch 接收值并赋
  信道可以是 带缓冲的 。将缓冲长度作为第二个参数提供给 make 来初始化一个带缓冲的信道：
 ch := make(chan int, 100) // 100 为缓冲区长度  仅当信道的缓冲区填满后，向其发送数据时才会阻塞。当缓冲区为空时，接受方会阻塞。
  发送者可通过 close 关闭一个信道来表示没有需要发送的值了。
- v, ok := &lt;-ch // 检测信道是否关闭   只有发送者才能关闭信道，而接收者不能。向一个已经关闭的信道发送数据会引发程序恐慌（panic）。 信道与文件不同，通常情况下无需关闭它们。只有在必须告诉接收者不再有需要发送的值时才有必要关闭，例如终止一个 range 循环。   select 语句使一个 Go 程可以等待多个通信操作。...</p>
+ v, ok := &lt;-ch // 检测信道是否关闭   只有发送者才能关闭信道，而接收者不能。向一个已经关闭的信道发送数据会引发程序恐慌（panic）。 信道与文件不同，通常情况下无需关闭它们。只有在必须告诉接收者不再有需要发送的值时才有必要关闭，例如终止一个 range 循环。 信道（channel）关闭后，仍然可以从其中拿到值（val &lt;- channel）。   select 语句使一个 Go 程可以等待多个通信操作。...</p>
                         </div>
                     </div>
                 </article>
@@ -689,6 +703,8 @@ document.querySelector('html').style.overflow = 'scroll';   ...</p>
         
             <span class="tag"><a href="https://zhouqian0.github.io/tags/journal">journal</a></span>
         
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/mysql">mysql</a></span>
+        
             <span class="tag"><a href="https://zhouqian0.github.io/tags/typescript">typescript</a></span>
         
         </div>          
@@ -697,6 +713,9 @@ document.querySelector('html').style.overflow = 'scroll';   ...</p>
         <div class="card">
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/mysql-first/">Mysql 必知必会阅读小记1</a></h1>
+            <time class="has-text-grey-light is-size-7">4 September 2019</time>
         
             <h1><a href="https://zhouqian0.github.io/2019/go-fifth/">Go 指南阅读笔记5 并发</a></h1>
             <time class="has-text-grey-light is-size-7">26 August 2019</time>
@@ -710,9 +729,6 @@ document.querySelector('html').style.overflow = 'scroll';   ...</p>
             <h1><a href="https://zhouqian0.github.io/2019/go-second/">Go 指南阅读笔记2 流程控制语句</a></h1>
             <time class="has-text-grey-light is-size-7">15 August 2019</time>
         
-            <h1><a href="https://zhouqian0.github.io/2019/ts-twenty-first/">TS文档阅读小结21 实用类型</a></h1>
-            <time class="has-text-grey-light is-size-7">15 August 2019</time>
-        
     </div>
 </div>
     <br>
@@ -720,7 +736,7 @@ document.querySelector('html').style.overflow = 'scroll';   ...</p>
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (37)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (38)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         

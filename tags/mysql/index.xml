@@ -1,0 +1,23 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>mysql on Let&#39;s finish what we started</title>
+    <link>https://zhouqian0.github.io/tags/mysql/</link>
+    <description>Recent content in mysql on Let&#39;s finish what we started</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 04 Sep 2019 09:40:26 +0800</lastBuildDate>
+    
+        <atom:link href="https://zhouqian0.github.io/tags/mysql/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Mysql 必知必会阅读小记1</title>
+      <link>https://zhouqian0.github.io/2019/mysql-first/</link>
+      <pubDate>Wed, 04 Sep 2019 09:40:26 +0800</pubDate>
+      
+      <guid>https://zhouqian0.github.io/2019/mysql-first/</guid>
+      <description>数据库(database) 保存有组织的数据的容器(通常是一个文件或一组文件)。 我们日常使用的是 DBMS(数据库管理系统)，而非直接操作数据库，mysql 就是一种 DBMS。 关于主键的好习惯:  不更新主键列中的值; 不重用主键列的值; 不在主键列中使用可能会更改的值。  SQL 是结构化查询语言(Structured Query Language) 的缩写。 SHOW DATABASES; USE XXX; // 选定特定的数据库; SHOW TABLES; // 显示选定数据库的所有表; SHOW COLUMNS FROM XXX; == DESCRIBE XXX; // 展示选定数据库表的详情; SHOW STATUS; // 用于显示广泛的服务器状态信息 SHOW CREATE DATABASE XXX; // 显示创建特定数据库的MySQL语句; SHOW CREATE TABLE XXX; // 显示创建特定表的MySQL语句; SHOW GRANTS; // 用来显示授予用户(所有用户或特定用户)的安全权限; SHOW ERRORS; // 用来显示服务器错误消息; SHOW WARNINGS; // 用来显示服务器警告消息; HELP SHOW; // 展示所有可以通过 show 来执行的命令;  SELECT DISTINCT vend_id * FROM products; // 去重查找 vend_id  DISTINCT 关键字应用于所有列而 不仅是前置它的列。如果给出 SELECT DISTINCT vend_id, prod_price，除非指定的两个列都不同，否则所有行都将被检索出来。</description>
+    </item>
+    
+  </channel>
+</rss>

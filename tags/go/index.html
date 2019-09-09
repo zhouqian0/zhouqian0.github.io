@@ -67,7 +67,7 @@ ch &lt;- v // 将 v 发送至信道 ch。 v := &lt;-ch // 从 ch 接收值并赋
  信道可以是 带缓冲的 。将缓冲长度作为第二个参数提供给 make 来初始化一个带缓冲的信道：
 ch := make(chan int, 100) // 100 为缓冲区长度  仅当信道的缓冲区填满后，向其发送数据时才会阻塞。当缓冲区为空时，接受方会阻塞。
  发送者可通过 close 关闭一个信道来表示没有需要发送的值了。
- v, ok := &lt;-ch // 检测信道是否关闭   只有发送者才能关闭信道，而接收者不能。向一个已经关闭的信道发送数据会引发程序恐慌（panic）。 信道与文件不同，通常情况下无需关闭它们。只有在必须告诉接收者不再有需要发送的值时才有必要关闭，例如终止一个 range 循环。   select 语句使一个 Go 程可以等待多个通信操作。...</p>
+ v, ok := &lt;-ch // 检测信道是否关闭   只有发送者才能关闭信道，而接收者不能。向一个已经关闭的信道发送数据会引发程序恐慌（panic）。 信道与文件不同，通常情况下无需关闭它们。只有在必须告诉接收者不再有需要发送的值时才有必要关闭，例如终止一个 range 循环。 信道（channel）关闭后，仍然可以从其中拿到值（val &lt;- channel）。   select 语句使一个 Go 程可以等待多个通信操作。...</p>
                         </div>
                     </div>
                 </article>
@@ -157,6 +157,8 @@ package main import &quot;fmt&quot; func swap(x, y string) (string, string) { re
         
             <span class="tag"><a href="https://zhouqian0.github.io/tags/journal">journal</a></span>
         
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/mysql">mysql</a></span>
+        
             <span class="tag"><a href="https://zhouqian0.github.io/tags/typescript">typescript</a></span>
         
         </div>          
@@ -165,6 +167,9 @@ package main import &quot;fmt&quot; func swap(x, y string) (string, string) { re
         <div class="card">
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/mysql-first/">Mysql 必知必会阅读小记1</a></h1>
+            <time class="has-text-grey-light is-size-7">4 September 2019</time>
         
             <h1><a href="https://zhouqian0.github.io/2019/go-fifth/">Go 指南阅读笔记5 并发</a></h1>
             <time class="has-text-grey-light is-size-7">26 August 2019</time>
@@ -178,9 +183,6 @@ package main import &quot;fmt&quot; func swap(x, y string) (string, string) { re
             <h1><a href="https://zhouqian0.github.io/2019/go-second/">Go 指南阅读笔记2 流程控制语句</a></h1>
             <time class="has-text-grey-light is-size-7">15 August 2019</time>
         
-            <h1><a href="https://zhouqian0.github.io/2019/ts-twenty-first/">TS文档阅读小结21 实用类型</a></h1>
-            <time class="has-text-grey-light is-size-7">15 August 2019</time>
-        
     </div>
 </div>
     <br>
@@ -188,7 +190,7 @@ package main import &quot;fmt&quot; func swap(x, y string) (string, string) { re
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (37)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (38)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         

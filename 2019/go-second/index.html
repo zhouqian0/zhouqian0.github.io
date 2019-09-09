@@ -85,7 +85,33 @@ func main() {
 <ul>
 <li>Go 自动提供了在这些语言中每个 case 后面所需的 break 语句。 除非以 fallthrough 语句结束，否则分支会自动终止。</li>
 <li>Go 的另一点重要的不同在于 switch 的 case 无需为常量，且取值不必为整数。</li>
-<li>没有条件的 switch 同 switch true 一样。该形式能将一长串 if-then-else 写得更加清晰。</li>
+
+<li><p>没有条件的 switch 同 switch true 一样。该形式能将一长串 if-then-else 写得更加清晰。</p>
+
+<pre><code>switch time.Now().Weekday() {
+    case time.Saturday, time.Sunday:
+        fmt.Println(&quot;It's the weekend&quot;)
+    default:
+        fmt.Println(&quot;It's a weekday&quot;)
+    }
+</code></pre>
+
+<p>可以用逗号分隔同一个 case 的多个条件</p>
+
+<pre><code>whatAmI := func(i interface{}) {
+    switch t := i.(type) {  // 此语法在 switch 域外不可用
+    case bool:
+        fmt.Println(&quot;I'm a bool&quot;)
+    case int:
+        fmt.Println(&quot;I'm an int&quot;)
+    default:
+        fmt.Printf(&quot;Don't know type %T\n&quot;, t)
+    }
+}
+whatAmI(true)   // I'm a bool
+whatAmI(1)      // I'm an int
+whatAmI(&quot;hey&quot;)  // Don't know type string
+</code></pre></li>
 </ul></li>
 
 <li><p>defer 语句会将函数推迟到外层函数返回之后执行。(感觉有点类似 js 的 setTimeout)</p>
@@ -113,6 +139,8 @@ func main() {
         
             <span class="tag"><a href="https://zhouqian0.github.io/tags/journal">journal</a></span>
         
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/mysql">mysql</a></span>
+        
             <span class="tag"><a href="https://zhouqian0.github.io/tags/typescript">typescript</a></span>
         
         </div>          
@@ -121,6 +149,9 @@ func main() {
         <div class="card">
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/mysql-first/">Mysql 必知必会阅读小记1</a></h1>
+            <time class="has-text-grey-light is-size-7">4 September 2019</time>
         
             <h1><a href="https://zhouqian0.github.io/2019/go-fifth/">Go 指南阅读笔记5 并发</a></h1>
             <time class="has-text-grey-light is-size-7">26 August 2019</time>
@@ -132,9 +163,6 @@ func main() {
             <time class="has-text-grey-light is-size-7">16 August 2019</time>
         
             <h1><a href="https://zhouqian0.github.io/2019/go-second/">Go 指南阅读笔记2 流程控制语句</a></h1>
-            <time class="has-text-grey-light is-size-7">15 August 2019</time>
-        
-            <h1><a href="https://zhouqian0.github.io/2019/ts-twenty-first/">TS文档阅读小结21 实用类型</a></h1>
             <time class="has-text-grey-light is-size-7">15 August 2019</time>
         
     </div>
@@ -171,7 +199,7 @@ func main() {
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (37)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (38)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         

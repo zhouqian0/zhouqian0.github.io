@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
+	<meta name="generator" content="Hugo 0.58.1" />
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Let&#39;s finish what we started  | angular datepicker 使用建议</title>
+    <title>Let&#39;s finish what we started  | Let&#39;s finish what we started</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -11,6 +12,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
     <link rel="stylesheet" href="https://zhouqian0.github.io/css/blog.css" />
     
+  <link href="https://zhouqian0.github.io/index.xml" rel="alternate" type="application/rss+xml" title="Let&#39;s finish what we started" />
+  <link href="https://zhouqian0.github.io/index.xml" rel="feed" type="application/rss+xml" title="Let&#39;s finish what we started" />
+
 </head>
 <body>
 
@@ -29,7 +33,7 @@
                 <br>
                 <h1 class="title is-size-1">
                     
-                        angular datepicker 使用建议
+                        Let&#39;s finish what we started
                     
                 </h1>
                 
@@ -42,26 +46,29 @@
     <div class="section">
     
 
+
 <div class="columns">
     <div class="column is-9">
         <div class="tile is-child box">
             <div class="content">
+                <h3>Welcome to my blog !</h3>
+                <hr>
                 
-
-<h3 id="datepicker">datepicker</h3>
-
-<p>实现点击 input 后会打开日期选择器：由于input标签可点击，可能会触发浏览器的自动联想（autocomplete）,会出现： 先打开可自动联想的下拉框，然后该下拉框消失，出现日期选择 。针对于此，现解决方案为禁用日期选择器的 input 标签的 autocomplete 属性（autocomplete=&lsquo;off&rsquo;）,然后添加 click 事件 (click)=&ldquo;picker.open()&ldquo;。</p>
-
-<pre><code>&lt;mat-form-field&gt;
-  &lt;label&gt;
-    &lt;input matInput [matDatepicker]=&quot;picker&quot; autocomplete=&quot;off&quot; required formControlName=&quot;date&quot;
-           placeholder=&quot;选择日期&quot; (click)=&quot;picker.open()&quot; [errorStateMatcher]=&quot;matcher&quot;&gt;
-  &lt;/label&gt;
-  &lt;mat-datepicker-toggle matSuffix [for]=&quot;picker&quot;&gt;&lt;/mat-datepicker-toggle&gt;
-  &lt;mat-datepicker #picker&gt;&lt;/mat-datepicker&gt;
-&lt;/mat-form-field&gt;
-</code></pre>
-
+                    <article class="media">
+                        <div class="media-content">
+                            <div class="content">
+                                <p class="title is-4"><a href="https://zhouqian0.github.io/2018/js-fourth/">js 中文排序</a></p>
+                                <p class="subtitle is-size-6 has-text-grey-light">
+                                    Published at December 7, 2018 &middot;
+                                    <i class="far fa-clock"></i>&nbsp;1 min read
+                                </p>
+                                <p> 中文排序  如果直接是中文数组，可以采用 arr.sort() 排序。
+ 如果对对象数组中的某个属性进行中文排序，可用 js 的 localeCompare() 对中文排序。
+corps.sort((a, b) =&gt; { return a.shortName.localeCompare(b.shortName, 'zh-Hans-CN',{sensitivity:'accent'}); });   不同浏览器可能会出现不同结果 无法识别多音字   ...</p>
+                            </div>
+                        </div>
+                    </article>
+                
             </div>
         </div>
     </div>
@@ -108,36 +115,6 @@
     </div>
 </div>
     <br>
-                
-  
-
-
-
-<div class="card">
-    <div class="card-content">
-        <h1 class="title is-5">Related posts</h1>
-      
-      
-            <h1><a href="https://zhouqian0.github.io/2019/ng-first/">angular 项目编译成的网页源码中的注释</a></h1>
-            <time class="has-text-grey-light is-size-7">25 March 2019</time>
-      
-            <h1><a href="https://zhouqian0.github.io/2019/ng-second/">关于主动触发 angular 的表单验证机制</a></h1>
-            <time class="has-text-grey-light is-size-7">27 February 2019</time>
-      
-            <h1><a href="https://zhouqian0.github.io/2019/ng-third/">angular form 中的 disable() 导致 form valid 结果为 false</a></h1>
-            <time class="has-text-grey-light is-size-7">21 February 2019</time>
-      
-            <h1><a href="https://zhouqian0.github.io/2019/ng-sixth/">Cannot read property &#39;subscribe&#39; of undefined</a></h1>
-            <time class="has-text-grey-light is-size-7">21 February 2019</time>
-      
-            <h1><a href="https://zhouqian0.github.io/2019/ng-fourth/">angular 禁用/启用 鼠标滚轮事件</a></h1>
-            <time class="has-text-grey-light is-size-7">13 February 2019</time>
-      
-    </div>
-</div>
-
-    
-<br>
         <div class="card">
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
@@ -149,6 +126,37 @@
     </div>
 </div>
 
+    </div>
+</div>
+<div class="columns">
+    <div class="column is-9">
+        <nav class="pagination is-centered is-rounded" role="navigation" aria-label="pagination">
+            <a class="pagination-previous" href="/page/4/">Previous</a>
+            
+            <ul class="pagination-list">
+                
+                <li class="pagination__item">
+                    <a class="pagination-link" aria-label="Goto page 1" href="/">1</a>
+                </li>
+                
+                <li class="pagination__item">
+                    <a class="pagination-link" aria-label="Goto page 2" href="/page/2/">2</a>
+                </li>
+                
+                <li class="pagination__item">
+                    <a class="pagination-link" aria-label="Goto page 3" href="/page/3/">3</a>
+                </li>
+                
+                <li class="pagination__item">
+                    <a class="pagination-link" aria-label="Goto page 4" href="/page/4/">4</a>
+                </li>
+                
+                <li class="pagination__item">
+                    <a class="pagination-link is-current" aria-label="Goto page 5" href="/page/5/">5</a>
+                </li>
+                
+            </ul>
+        </nav>
     </div>
 </div>
 

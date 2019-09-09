@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Let&#39;s finish what we started  | angular datepicker 使用建议</title>
+    <title>Let&#39;s finish what we started  | mysql</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
     <link rel="stylesheet" href="https://zhouqian0.github.io/css/blog.css" />
     
+  <link href="https://zhouqian0.github.io/tags/mysql/index.xml" rel="alternate" type="application/rss+xml" title="Let&#39;s finish what we started" />
+  <link href="https://zhouqian0.github.io/tags/mysql/index.xml" rel="feed" type="application/rss+xml" title="Let&#39;s finish what we started" />
+
 </head>
 <body>
 
@@ -29,7 +32,7 @@
                 <br>
                 <h1 class="title is-size-1">
                     
-                        angular datepicker 使用建议
+                        #mysql
                     
                 </h1>
                 
@@ -42,25 +45,26 @@
     <div class="section">
     
 
+
+
 <div class="columns">
     <div class="column is-9">
         <div class="tile is-child box">
             <div class="content">
-                
 
-<h3 id="datepicker">datepicker</h3>
-
-<p>实现点击 input 后会打开日期选择器：由于input标签可点击，可能会触发浏览器的自动联想（autocomplete）,会出现： 先打开可自动联想的下拉框，然后该下拉框消失，出现日期选择 。针对于此，现解决方案为禁用日期选择器的 input 标签的 autocomplete 属性（autocomplete=&lsquo;off&rsquo;）,然后添加 click 事件 (click)=&ldquo;picker.open()&ldquo;。</p>
-
-<pre><code>&lt;mat-form-field&gt;
-  &lt;label&gt;
-    &lt;input matInput [matDatepicker]=&quot;picker&quot; autocomplete=&quot;off&quot; required formControlName=&quot;date&quot;
-           placeholder=&quot;选择日期&quot; (click)=&quot;picker.open()&quot; [errorStateMatcher]=&quot;matcher&quot;&gt;
-  &lt;/label&gt;
-  &lt;mat-datepicker-toggle matSuffix [for]=&quot;picker&quot;&gt;&lt;/mat-datepicker-toggle&gt;
-  &lt;mat-datepicker #picker&gt;&lt;/mat-datepicker&gt;
-&lt;/mat-form-field&gt;
-</code></pre>
+                <article class="media">
+                    <div class="media-content">
+                        <div class="content">
+                            <p class="title is-4"><a href="/2019/mysql-first/">Mysql 必知必会阅读小记1</a></p>
+                            <p class="subtitle is-size-6 has-text-grey-light">
+                                Published at September 4, 2019 &middot;
+                                <i class="far fa-clock"></i>&nbsp;2 min read
+                            </p>
+                            <p>数据库(database) 保存有组织的数据的容器(通常是一个文件或一组文件)。 我们日常使用的是 DBMS(数据库管理系统)，而非直接操作数据库，mysql 就是一种 DBMS。 关于主键的好习惯:  不更新主键列中的值; 不重用主键列的值; 不在主键列中使用可能会更改的值。  SQL 是结构化查询语言(Structured Query Language) 的缩写。 SHOW DATABASES; USE XXX; // 选定特定的数据库; SHOW TABLES; // 显示选定数据库的所有表; SHOW COLUMNS FROM XXX; == DESCRIBE XXX; // 展示选定数据库表的详情; SHOW STATUS; // 用于显示广泛的服务器状态信息 SHOW CREATE DATABASE XXX; // 显示创建特定数据库的MySQL语句; SHOW CREATE TABLE XXX; // 显示创建特定表的MySQL语句; SHOW GRANTS; // 用来显示授予用户(所有用户或特定用户)的安全权限; SHOW ERRORS; // 用来显示服务器错误消息; SHOW WARNINGS; // 用来显示服务器警告消息; HELP SHOW; // 展示所有可以通过 show 来执行的命令;  SELECT DISTINCT vend_id * FROM products; // 去重查找 vend_id  DISTINCT 关键字应用于所有列而 不仅是前置它的列。如果给出 SELECT DISTINCT vend_id, prod_price，除非指定的两个列都不同，否则所有行都将被检索出来。...</p>
+                        </div>
+                    </div>
+                </article>
+                <br>
 
             </div>
         </div>
@@ -108,36 +112,6 @@
     </div>
 </div>
     <br>
-                
-  
-
-
-
-<div class="card">
-    <div class="card-content">
-        <h1 class="title is-5">Related posts</h1>
-      
-      
-            <h1><a href="https://zhouqian0.github.io/2019/ng-first/">angular 项目编译成的网页源码中的注释</a></h1>
-            <time class="has-text-grey-light is-size-7">25 March 2019</time>
-      
-            <h1><a href="https://zhouqian0.github.io/2019/ng-second/">关于主动触发 angular 的表单验证机制</a></h1>
-            <time class="has-text-grey-light is-size-7">27 February 2019</time>
-      
-            <h1><a href="https://zhouqian0.github.io/2019/ng-third/">angular form 中的 disable() 导致 form valid 结果为 false</a></h1>
-            <time class="has-text-grey-light is-size-7">21 February 2019</time>
-      
-            <h1><a href="https://zhouqian0.github.io/2019/ng-sixth/">Cannot read property &#39;subscribe&#39; of undefined</a></h1>
-            <time class="has-text-grey-light is-size-7">21 February 2019</time>
-      
-            <h1><a href="https://zhouqian0.github.io/2019/ng-fourth/">angular 禁用/启用 鼠标滚轮事件</a></h1>
-            <time class="has-text-grey-light is-size-7">13 February 2019</time>
-      
-    </div>
-</div>
-
-    
-<br>
         <div class="card">
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
