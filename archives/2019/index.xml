@@ -5,10 +5,26 @@
     <description>Recent content in 2019 on Let&#39;s finish what we started</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 09 Sep 2019 10:24:50 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 10 Sep 2019 10:42:10 +0800</lastBuildDate>
     
         <atom:link href="https://zhouqian0.github.io/archives/2019/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Mysql 必知必会阅读小记3</title>
+      <link>https://zhouqian0.github.io/2019/mysql.third/</link>
+      <pubDate>Tue, 10 Sep 2019 10:42:10 +0800</pubDate>
+      
+      <guid>https://zhouqian0.github.io/2019/mysql.third/</guid>
+      <description>相同数据出现多次决不是一件好事，此因素是关系数据库设计的基础。 关系表的设计就是要保证把信息分解成多个表，一类数据 一个表。 各表通过某些常用的值(即关系设计中的关系 (relational) )互 相关联。 外键 为某个表中的一列，它包含另一个表 的主键值，定义了两个表之间的关系。 联结 是一种机制，用来在一条SELECT 语句中关联表，因此称之为联结。使用特殊的语法，可以联结多个表返 回一组输出，联结在运行时关联表中正确的行
+SELECT vend_name, prod_name, prod_price FROM vendors, products WHERE products.vend_id = vendors.vend_id  由没有联结条件的表关系返回的结果为 笛卡儿积 。检索出的行的数目将是第一个表中的行数乘 以第二个表中的行数。
+ 等值联结(equijoin)，基于两个表之间的相等测试，这种联结也称为内部联结。（ &amp;hellip; INNER JOIN &amp;hellip; ON &amp;hellip;）
+ 不要联结 不必要的表 。联结的表越多，性能下降越厉害。
+ 自联结通常作为外部语句用来替代从相同表中检索数据时使用的子查询语句。虽然最终的结果是相同的，但有时候处理联结远比处理子查询快得多。
+ 无论何时对表进行联结，应该至少有一个列出现在不止一个表中(被联结的列)。 标准的联结返回所有数据，甚至相同的列多次出现。自然联结排除多次出现，使每个列只返回一次。
+ 左外部联结(&amp;hellip; LEFT OUTER JOIN &amp;hellip; ON &amp;hellip;) 和 右外部联结(&amp;hellip; RIGHT OUTER JOIN &amp;hellip; ON &amp;hellip;) 之间的唯一差别是所关联的表的顺序不同。 换句话说，左外部联结可通过颠倒FROM或WHERE子句中表的顺序转换为右外部联结。因此，两种类型的外部联结可互换使用。
+ 左联结 时从左边的表中选择所有的行 右联结 时从右边的表中选择所有的行  应该总是提供联结条件，否则会得出笛卡儿积。</description>
+    </item>
     
     <item>
       <title>Mysql 必知必会阅读小记2</title>
