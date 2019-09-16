@@ -12,10 +12,10 @@
     
     <item>
       <title>Mysql 必知必会阅读小记3</title>
-      <link>https://zhouqian0.github.io/2019/mysql.third/</link>
+      <link>https://zhouqian0.github.io/2019/mysql-third/</link>
       <pubDate>Tue, 10 Sep 2019 10:42:10 +0800</pubDate>
       
-      <guid>https://zhouqian0.github.io/2019/mysql.third/</guid>
+      <guid>https://zhouqian0.github.io/2019/mysql-third/</guid>
       <description>相同数据出现多次决不是一件好事，此因素是关系数据库设计的基础。 关系表的设计就是要保证把信息分解成多个表，一类数据 一个表。 各表通过某些常用的值(即关系设计中的关系 (relational) )互 相关联。 外键 为某个表中的一列，它包含另一个表 的主键值，定义了两个表之间的关系。 联结 是一种机制，用来在一条SELECT 语句中关联表，因此称之为联结。使用特殊的语法，可以联结多个表返 回一组输出，联结在运行时关联表中正确的行
 SELECT vend_name, prod_name, prod_price FROM vendors, products WHERE products.vend_id = vendors.vend_id  由没有联结条件的表关系返回的结果为 笛卡儿积 。检索出的行的数目将是第一个表中的行数乘 以第二个表中的行数。
  等值联结(equijoin)，基于两个表之间的相等测试，这种联结也称为内部联结。（ &amp;hellip; INNER JOIN &amp;hellip; ON &amp;hellip;）
