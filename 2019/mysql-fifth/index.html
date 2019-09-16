@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Let&#39;s finish what we started  | Mysql 必知必会阅读小记1</title>
+    <title>Let&#39;s finish what we started  | Mysql 必知必会阅读小记4</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -29,7 +29,7 @@
                 <br>
                 <h1 class="title is-size-1">
                     
-                        Mysql 必知必会阅读小记1
+                        Mysql 必知必会阅读小记4
                     
                 </h1>
                 
@@ -47,71 +47,181 @@
         <div class="tile is-child box">
             <div class="content">
                 <ol>
-<li>数据库(database) 保存有组织的数据的容器(通常是一个文件或一组文件)。</li>
-<li>我们日常使用的是 DBMS(数据库管理系统)，而非直接操作数据库，mysql 就是一种 DBMS。</li>
-<li>关于主键的好习惯:
+<li><p>插入 INSERT，</p>
+
+<pre><code>// 指定列名，指定列名会按照指定的顺序进行插入，如果不指定需要按照表中列的顺序给出相应的值。
+insert into customers(cust_name,
+ cust_address,
+ cust_city,
+ cust_state,
+ cust_zip,
+ cust_country,
+ cust_contact,
+ cust_email)
+ values('Pep E. LaPew', 
+ '100 Main Street',
+ 'Los Angeles',
+ 'CA', 
+ '90046',
+ 'USA',
+ null,
+ null)
+</code></pre>
 
 <ul>
-<li>不更新主键列中的值;</li>
-<li>不重用主键列的值;</li>
-<li>不在主键列中使用可能会更改的值。</li>
+<li>一般不要使用没有明确给出列的列表的 INSERT 语句。使用列的列表能使 SQL 代码继续发挥作用，即使表结构发生了变化。</li>
+<li>如果不提供列名，则必须给每个表列提供一个值。如果提供列名，则必须对每个列出的列给出一个值
+(对允许空值或者设定了默认值的列可将其值设为 null)。</li>
 </ul></li>
-<li>SQL 是结构化查询语言(Structured Query Language) 的缩写。</li>
 
-<li><pre><code>SHOW DATABASES;
-USE XXX;                                    // 选定特定的数据库;
-SHOW TABLES;                                // 显示选定数据库的所有表;
-SHOW COLUMNS FROM XXX; == DESCRIBE XXX;     // 展示选定数据库表的详情;
-SHOW STATUS;                                // 用于显示广泛的服务器状态信息
-SHOW CREATE DATABASE XXX;                   // 显示创建特定数据库的MySQL语句;
-SHOW CREATE TABLE XXX;                      // 显示创建特定表的MySQL语句;
-SHOW GRANTS;                                // 用来显示授予用户(所有用户或特定用户)的安全权限;
-SHOW ERRORS;                                // 用来显示服务器错误消息;
-SHOW WARNINGS;                              // 用来显示服务器警告消息;
-HELP SHOW;                                  // 展示所有可以通过 show 来执行的命令;
+<li><p>INSERT 操作可能很耗时(特别是有很多索引需要更新时)，且它可能降低等待处理的SELECT语句的性能。</p>
+
+<p>可以通过在 INSERT 和 INTO 之间添加关键字 LOW_PRIORITY，指示 MySQL 降低 INSERT 语句的优先级:</p>
+
+<pre><code>INSERT LOW_PRIORITY INTO
 </code></pre></li>
 
-<li><pre><code>SELECT DISTINCT vend_id * FROM products; // 去重查找 vend_id
+<li><p>插入多条：</p>
+
+<pre><code>// 逗号分隔，推荐（单条 INSERT 语句处理多个插入比使用多条 INSERT 语句快）。
+insert into customers(cust_name,
+ cust_address,
+ cust_city,
+ cust_state,
+ cust_zip,
+ cust_country,
+ cust_contact,
+ cust_email)
+ values('Pep E. LaPew1', 
+ '100 Main Street',
+ 'Los Angeles',
+ 'CA', 
+ '90046',
+ 'USA',
+ null,
+ null),(
+ 'Pep E. LaPew2', 
+ '100 Main Street',
+ 'Los Angeles',
+ 'CA', 
+ '90046',
+ 'USA',
+ null,
+ null
+ )
 </code></pre>
 
-<p>DISTINCT 关键字应用于所有列而 不仅是前置它的列。如果给出 SELECT DISTINCT vend_id, prod_price，除非指定的两个列都不同，否则所有行都将被检索出来。</p></li>
-
-<li><pre><code>SELECT prod_name * FROM products LIMIT 5;           // 查找前 5 行
-SELECT prod_name * FROM products LIMIT 5, 5;        // 从第 6 行开始往后查找 5 行（行数从 0 开始）
-SELECT prod_name * FROM products LIMIT 3 OFFSET 5;  // 从第 6 行开始往后查 3 行
+<pre><code>// 分号分隔
+insert into customers(cust_name,
+ cust_address,
+ cust_city,
+ cust_state,
+ cust_zip,
+ cust_country,
+ cust_contact,
+ cust_email)
+ values('Pep E. LaPew3', 
+ '100 Main Street',
+ 'Los Angeles',
+ 'CA', 
+ '90046',
+ 'USA',
+ null,
+ null);
+ insert into customers(cust_name,
+ cust_address,
+ cust_city,
+ cust_state,
+ cust_zip,
+ cust_country,
+ cust_contact,
+ cust_email)
+ values('Pep E. LaPew4', 
+ '100 Main Street',
+ 'Los Angeles',
+ 'CA', 
+ '90046',
+ 'USA',
+ null,
+ null);
 </code></pre></li>
 
-<li><pre><code>SELECT prod_name * FROM products ORDER BY prod_name; // 通过 order by 对检索数据进行排序  
-SELECT prod_name FROM products ORDER BY prod_price, prod_name; // 先按照 prod_price 排序，当 price 一样时，按照 prod_name 排序
-SELECT prod_name FROM products ORDER BY prod_price DESC LIMIT 1; // 查找价格最贵的一个商品
-</code></pre>
+<li><p>INSERT SELECT，由一条 INSERT 语句和一条 SELECT 语句组成的，将查询到的值插入。</p>
+
+<pre><code>// 列名可以不匹配，因为 MySQL 通过 INSERT 的顺序 插入数据。
+// SELECT 可以使用 WHERE 用作过滤
+INSERT INTO custnew(cust_id,
+ cust_contact,
+ cust_email,
+ cust_name,
+ cust_address,
+ cust_city,
+ cust_state,
+ cust_zip,
+ cust_country)
+SELECT cust_id,
+ cust_contact,
+ cust_email,
+ cust_name,
+ cust_address,
+ cust_city,
+ cust_state,
+ cust_zip,
+ cust_country 
+FROM customers;
+</code></pre></li>
+
+<li><p>UPDATE, 更新表中特定行 / 所有行。</p>
 
 <ul>
-<li>order by 所跟数据可以不是 select 的数据。</li>
-<li>order by 所跟数据默认为 ASC 升序。</li>
-<li>ASC、DESC 只对当个列有效，如果需要指定多个列的升降序，需要在每个列前显示指定 ASC/DESC。</li>
+<li><p>语句组成：</p>
+
+<ul>
+<li>要更新的表;</li>
+<li>列名和它们的新值;</li>
+
+<li><p>确定要更新行的过滤条件。</p>
+
+<pre><code>UPDATE customers 
+SET 
+cust_state = 'AZ',
+cust_email = 'test@mail.com'
+WHERE
+cust_id = 10011
+</code></pre></li>
 </ul></li>
 
-<li><pre><code>SELECT prod_name FROM products WHERE prod_price BETWEEN 5 AND 10;
-SELECT prod_name FROM products WHERE prod_price IS NULL;
-</code></pre>
+<li><p>UPDATE 语句中可以使用子查询，使得能用 SELECT 语句检索出的数据更新列数据。</p></li>
 
-<ul>
-<li>where 和 order by 同时出现时，order by 需要在 where 之后。</li>
-<li>where 匹配时默认不区分大小写</li>
+<li><p>使用 IGNORE 关键字忽略错误不回滚，否则 UPDATE 操作再遇到错误时会会滚成原来的样子。</p>
+
+<pre><code>UPDATE IGNORE customers...
+</code></pre></li>
+
+<li><p>MySQL 默认启用安全模式，不能直接更新全表</p>
+
+<pre><code>SET SQL_SAFE_UPDATES = 0;
+</code></pre></li>
 </ul></li>
 
-<li><pre><code>SELECT prod_name FROM Products WHERE prod_id = 'bnbg01' AND prod_price &lt;= 10;
-SELECT prod_name FROM Products WHERE prod_price &gt;= 5 OR prod_price &lt;= 3;
-SELECT prod_name FROM Products WHERE prod_price IN (3.49 , 9.49); // 等价于  prod_price = 3.49 or prod_price = 9.49
-SELECT prod_name FROM Products WHERE prod_price NOT IN (3.49 , 9.49);
+<li><p>DELETE 从表中删除特定的行 / 所有行。</p>
+
+<pre><code>DELETE FROM custnew 
+WHERE
+    cust_id = 10014
 </code></pre>
 
+<p>如果想从表中删除所有行，不要使用 DELETE。 应使用 TRUNCATE TABLE 语句，它完成相同的工作，且速度更快
+(TRUNCATE 实际是删除原来的表并重新创建一个表，而不是逐行删除表中的数据)。</p></li>
+
+<li><p>使用 UPDATE 或 DELETE 时所遵循的习惯:</p>
+
 <ul>
-<li>当 and 和 or 同时出现时，如果未用括号进行合理分隔，则会优先计算 and 部分语句。</li>
-<li>in 操作符一般比 or 操作符清单执行更快。</li>
-<li><strong>in 可以包含其他 select 语句。</strong></li>
-<li>灵活运用 not 对 in、between、exists 子句取反。</li>
+<li>除非确实打算更新和删除每一行，否则绝对不要使用不带 WHERE 子句的 UPDATE 或 DELETE 语句。</li>
+<li>保证每个表都有主键，尽可能像 WHERE 子句那样使用它 (可以指定各主键、多个值或值的范围)。</li>
+<li>在对 UPDATE 或 DELETE 语句使用 WHERE 子句前，应该先用 SELECT 进行测试，
+保证它过滤的是正确的记录，以防编写的 WHERE 子句不正确。</li>
+<li>使用强制实施引用完整性的数据库，这样 MySQL 将不允许删除具有与其他表相关联的数据的行。</li>
 </ul></li>
 </ol>
 
@@ -171,14 +281,14 @@ SELECT prod_name FROM Products WHERE prod_price NOT IN (3.49 , 9.49);
         <h1 class="title is-5">Related posts</h1>
       
       
-            <h1><a href="https://zhouqian0.github.io/2019/mysql-fifth/">Mysql 必知必会阅读小记4</a></h1>
-            <time class="has-text-grey-light is-size-7">16 September 2019</time>
-      
             <h1><a href="https://zhouqian0.github.io/2019/mysql-third/">Mysql 必知必会阅读小记3</a></h1>
             <time class="has-text-grey-light is-size-7">10 September 2019</time>
       
             <h1><a href="https://zhouqian0.github.io/2019/mysql-second/">Mysql 必知必会阅读小记2</a></h1>
             <time class="has-text-grey-light is-size-7">9 September 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/mysql-first/">Mysql 必知必会阅读小记1</a></h1>
+            <time class="has-text-grey-light is-size-7">4 September 2019</time>
       
     </div>
 </div>

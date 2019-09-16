@@ -57,6 +57,23 @@
                     <article class="media">
                         <div class="media-content">
                             <div class="content">
+                                <p class="title is-4"><a href="https://zhouqian0.github.io/2019/mysql-fifth/">Mysql 必知必会阅读小记4</a></p>
+                                <p class="subtitle is-size-6 has-text-grey-light">
+                                    Published at September 16, 2019 &middot;
+                                    <i class="far fa-clock"></i>&nbsp;2 min read
+                                </p>
+                                <p>插入 INSERT，
+// 指定列名，指定列名会按照指定的顺序进行插入，如果不指定需要按照表中列的顺序给出相应的值。 insert into customers(cust_name, cust_address, cust_city, cust_state, cust_zip, cust_country, cust_contact, cust_email) values('Pep E. LaPew', '100 Main Street', 'Los Angeles', 'CA', '90046', 'USA', null, null)   一般不要使用没有明确给出列的列表的 INSERT 语句。使用列的列表能使 SQL 代码继续发挥作用，即使表结构发生了变化。 如果不提供列名，则必须给每个表列提供一个值。如果提供列名，则必须对每个列出的列给出一个值 (对允许空值或者设定了默认值的列可将其值设为 null)。  INSERT 操作可能很耗时(特别是有很多索引需要更新时)，且它可能降低等待处理的SELECT语句的性能。
+可以通过在 INSERT 和 INTO 之间添加关键字 LOW_PRIORITY，指示 MySQL 降低 INSERT 语句的优先级:
+INSERT LOW_PRIORITY INTO  插入多条：
+// 逗号分隔，推荐（单条 INSERT 语句处理多个插入比使用多条 INSERT 语句快）。 insert into customers(cust_name, cust_address, cust_city, cust_state, cust_zip, cust_country, cust_contact, cust_email) values('Pep E....</p>
+                            </div>
+                        </div>
+                    </article>
+                
+                    <article class="media">
+                        <div class="media-content">
+                            <div class="content">
                                 <p class="title is-4"><a href="https://zhouqian0.github.io/2019/mysql-third/">Mysql 必知必会阅读小记3</a></p>
                                 <p class="subtitle is-size-6 has-text-grey-light">
                                     Published at September 10, 2019 &middot;
@@ -199,24 +216,6 @@ package main import &quot;fmt&quot; func swap(x, y string) (string, string) { re
                         </div>
                     </article>
                 
-                    <article class="media">
-                        <div class="media-content">
-                            <div class="content">
-                                <p class="title is-4"><a href="https://zhouqian0.github.io/2019/ts-twenty/">TS文档阅读小结20 三斜线指令</a></p>
-                                <p class="subtitle is-size-6 has-text-grey-light">
-                                    Published at August 14, 2019 &middot;
-                                    <i class="far fa-clock"></i>&nbsp;1 min read
-                                </p>
-                                <p>三斜线指令（triple-slash-directives）  https://www.tslang.cn/docs/handbook/triple-slash-directives.html 三斜线指令是包含单个 XML 标签的单行注释。 注释的内容会做为编译器指令使用。 三斜线指令仅可放在包含它的文件的最顶端。 一个三斜线指令的前面只能出现单行或多行注释，这包括其它的三斜线指令。 如果它们出现在一个语句或声明之后，那么它们会被当做普通的单行注释，并且不具有特殊的涵义。 /// &lt;reference path=&quot;...&quot; /&gt; 指令是三斜线指令中最常见的一种。 用于声明文件间的 依赖。 预处理输入文件  编译器会对输入文件进行预处理来解析所有三斜线引用指令。 在这个过程中，额外的文件会加到编译过程中。 这个过程会以一些根文件开始； 它们是在命令行中指定的文件或是在 tsconfig.json 中的 &ldquo;files&rdquo; 列表里的文件。 这些根文件按指定的顺序进行预处理。 在一个文件被加入列表前，它包含的所有三斜线引用都要被处理，还有它们包含的目标。 三斜线引用以它们在文件里出现的顺序，使用深度优先的方式解析。 一个三斜线引用路径是相对于包含它的文件的，如果不是根文件。  引用不存在的文件会报错。 一个文件用三斜线指令引用自己会报错。 如果指定了--noResolve 编译选项，三斜线引用会被忽略（它们不会增加新文件，也不会改变给定文件的顺序）。 /// &lt;reference types=&quot;...&quot; /&gt;
- 该指令则声明了对某个包的依赖（可以简单地把三斜线类型引用指令当做 import 声明的包）。
-eg：把 /// &lt;reference types=&quot;node&quot; /&gt; 引入到声明文件，表明这个文件使用了 @types/node/index.d.ts 里面声明的名字； 并且，这个包需要在编译阶段与声明文件一起被包含进来。
- 仅当在需要写一个 d.ts 文件时才使用这个指令。
- 对于那些在编译阶段生成的声明文件，编译器会自动地添加/// &lt;reference types=&quot;...&quot; /&gt;； 当且仅当结果文件中使用了引用的包里的声明时才会在生成的声明文件里添加/// &lt;reference types=&quot;...&quot; /&gt;语句。
- 若要在 .ts 文件里声明一个对 @types 包的依赖，使用 &ndash;types 命令行选项或在 tsconfig....</p>
-                            </div>
-                        </div>
-                    </article>
-                
             </div>
         </div>
     </div>
@@ -245,6 +244,9 @@ eg：把 /// &lt;reference types=&quot;node&quot; /&gt; 引入到声明文件，
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2019/mysql-fifth/">Mysql 必知必会阅读小记4</a></h1>
+            <time class="has-text-grey-light is-size-7">16 September 2019</time>
+        
             <h1><a href="https://zhouqian0.github.io/2019/mysql-third/">Mysql 必知必会阅读小记3</a></h1>
             <time class="has-text-grey-light is-size-7">10 September 2019</time>
         
@@ -257,9 +259,6 @@ eg：把 /// &lt;reference types=&quot;node&quot; /&gt; 引入到声明文件，
             <h1><a href="https://zhouqian0.github.io/2019/go-fifth/">Go 指南阅读笔记5 并发</a></h1>
             <time class="has-text-grey-light is-size-7">26 August 2019</time>
         
-            <h1><a href="https://zhouqian0.github.io/2019/go-fourth/">Go 指南阅读笔记4 方法和接口</a></h1>
-            <time class="has-text-grey-light is-size-7">16 August 2019</time>
-        
     </div>
 </div>
     <br>
@@ -267,7 +266,7 @@ eg：把 /// &lt;reference types=&quot;node&quot; /&gt; 引入到声明文件，
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (40)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (41)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         

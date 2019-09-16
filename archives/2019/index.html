@@ -54,6 +54,24 @@
                 <article class="media">
                     <div class="media-content">
                         <div class="content">
+                            <p class="title is-4"><a href="/2019/mysql-fifth/">Mysql 必知必会阅读小记4</a></p>
+                            <p class="subtitle is-size-6 has-text-grey-light">
+                                Published at September 16, 2019 &middot;
+                                <i class="far fa-clock"></i>&nbsp;2 min read
+                            </p>
+                            <p>插入 INSERT，
+// 指定列名，指定列名会按照指定的顺序进行插入，如果不指定需要按照表中列的顺序给出相应的值。 insert into customers(cust_name, cust_address, cust_city, cust_state, cust_zip, cust_country, cust_contact, cust_email) values('Pep E. LaPew', '100 Main Street', 'Los Angeles', 'CA', '90046', 'USA', null, null)   一般不要使用没有明确给出列的列表的 INSERT 语句。使用列的列表能使 SQL 代码继续发挥作用，即使表结构发生了变化。 如果不提供列名，则必须给每个表列提供一个值。如果提供列名，则必须对每个列出的列给出一个值 (对允许空值或者设定了默认值的列可将其值设为 null)。  INSERT 操作可能很耗时(特别是有很多索引需要更新时)，且它可能降低等待处理的SELECT语句的性能。
+可以通过在 INSERT 和 INTO 之间添加关键字 LOW_PRIORITY，指示 MySQL 降低 INSERT 语句的优先级:
+INSERT LOW_PRIORITY INTO  插入多条：
+// 逗号分隔，推荐（单条 INSERT 语句处理多个插入比使用多条 INSERT 语句快）。 insert into customers(cust_name, cust_address, cust_city, cust_state, cust_zip, cust_country, cust_contact, cust_email) values('Pep E....</p>
+                        </div>
+                    </div>
+                </article>
+                <br>
+
+                <article class="media">
+                    <div class="media-content">
+                        <div class="content">
                             <p class="title is-4"><a href="/2019/mysql-third/">Mysql 必知必会阅读小记3</a></p>
                             <p class="subtitle is-size-6 has-text-grey-light">
                                 Published at September 10, 2019 &middot;
@@ -749,6 +767,9 @@ document.querySelector('html').style.overflow = 'scroll';   ...</p>
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2019/mysql-fifth/">Mysql 必知必会阅读小记4</a></h1>
+            <time class="has-text-grey-light is-size-7">16 September 2019</time>
+        
             <h1><a href="https://zhouqian0.github.io/2019/mysql-third/">Mysql 必知必会阅读小记3</a></h1>
             <time class="has-text-grey-light is-size-7">10 September 2019</time>
         
@@ -761,9 +782,6 @@ document.querySelector('html').style.overflow = 'scroll';   ...</p>
             <h1><a href="https://zhouqian0.github.io/2019/go-fifth/">Go 指南阅读笔记5 并发</a></h1>
             <time class="has-text-grey-light is-size-7">26 August 2019</time>
         
-            <h1><a href="https://zhouqian0.github.io/2019/go-fourth/">Go 指南阅读笔记4 方法和接口</a></h1>
-            <time class="has-text-grey-light is-size-7">16 August 2019</time>
-        
     </div>
 </div>
     <br>
@@ -771,7 +789,7 @@ document.querySelector('html').style.overflow = 'scroll';   ...</p>
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (40)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (41)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         

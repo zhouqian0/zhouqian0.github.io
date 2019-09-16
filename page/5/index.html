@@ -57,6 +57,19 @@
                     <article class="media">
                         <div class="media-content">
                             <div class="content">
+                                <p class="title is-4"><a href="https://zhouqian0.github.io/2019/ng-fourth/">angular 禁用/启用 鼠标滚轮事件</a></p>
+                                <p class="subtitle is-size-6 has-text-grey-light">
+                                    Published at February 13, 2019 &middot;
+                                    <i class="far fa-clock"></i>&nbsp;1 min read
+                                </p>
+                                <p>禁用/启用 鼠标滚轮 event scrollFunc(event) { event = event || window.event; if (event.preventDefault) { // Firefox event.preventDefault(); event.stopPropagation(); } else { // IE event.cancelBubble = true; event.returnValue = false; } return false; }  // 禁用鼠标滚轮事件 const html = document.querySelector('html'); if (html.addEventListener) { html.addEventListener('DOMMouseScroll', this.scrollFunc, false); //添加事件监听 } //firefox html.onmousewheel = html.onmousewheel = this.scrollFunc; //ie/opera/chrome  // 启用鼠标滚轮事件 const html = document.querySelector('html'); if (html.removeEventListener) { html.removeEventListener('DOMMouseScroll', this.scrollFunc, false); //解绑事件监听 } //firefox html....</p>
+                            </div>
+                        </div>
+                    </article>
+                
+                    <article class="media">
+                        <div class="media-content">
+                            <div class="content">
                                 <p class="title is-4"><a href="https://zhouqian0.github.io/2018/second/">无顺序优先级的比较表达式优化</a></p>
                                 <p class="subtitle is-size-6 has-text-grey-light">
                                     Published at December 28, 2018 &middot;
@@ -126,6 +139,9 @@ corps.sort((a, b) =&gt; { return a.shortName.localeCompare(b.shortName, 'zh-Hans
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2019/mysql-fifth/">Mysql 必知必会阅读小记4</a></h1>
+            <time class="has-text-grey-light is-size-7">16 September 2019</time>
+        
             <h1><a href="https://zhouqian0.github.io/2019/mysql-third/">Mysql 必知必会阅读小记3</a></h1>
             <time class="has-text-grey-light is-size-7">10 September 2019</time>
         
@@ -138,9 +154,6 @@ corps.sort((a, b) =&gt; { return a.shortName.localeCompare(b.shortName, 'zh-Hans
             <h1><a href="https://zhouqian0.github.io/2019/go-fifth/">Go 指南阅读笔记5 并发</a></h1>
             <time class="has-text-grey-light is-size-7">26 August 2019</time>
         
-            <h1><a href="https://zhouqian0.github.io/2019/go-fourth/">Go 指南阅读笔记4 方法和接口</a></h1>
-            <time class="has-text-grey-light is-size-7">16 August 2019</time>
-        
     </div>
 </div>
     <br>
@@ -148,7 +161,7 @@ corps.sort((a, b) =&gt; { return a.shortName.localeCompare(b.shortName, 'zh-Hans
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (40)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (41)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         
