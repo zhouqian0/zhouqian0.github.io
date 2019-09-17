@@ -55,6 +55,24 @@
                 <article class="media">
                     <div class="media-content">
                         <div class="content">
+                            <p class="title is-4"><a href="/2019/mysql-fourth/">Mysql 必知必会阅读小记5</a></p>
+                            <p class="subtitle is-size-6 has-text-grey-light">
+                                Published at September 17, 2019 &middot;
+                                <i class="far fa-clock"></i>&nbsp;3 min read
+                            </p>
+                            <p>利用 CREATE TABLE 创建表:
+ 在关键字 CREATE TABLE 之后给出新表的名字 表列的名字和定义，用逗号分隔
+CREATE TABLE IF NOT EXISTS `customers` ( `cust_id` int(11) NOT NULL AUTO_INCREMENT, `cust_name` char(50) NOT NULL, `cust_address` char(50) NULL, `cust_city` char(50) NULL, `cust_state` char(5) NULL, `cust_zip` char(10) NULL, `cust_country` char(50) NULL, `cust_contact` char(50) NULL, `cust_email` char(255) NULL, PRIMARY KEY (`cust_id`) ) ENGINE=InnoDB;   不要把 NULL 值与空串相混淆。NULL 值是没有值，它不是空串。
+ 为创建由多个列组成的主键 (多个列的组合值必须唯一)，应该以逗号分隔的列表给出各列名:
+CREATE TABLE `orderitems` ( `order_num` int(11) NOT NULL, `order_item` int(11) NOT NULL, `prod_id` char(10) NOT NULL, `quantity` int(11) NOT NULL, `item_price` decimal(8,2) NOT NULL, PRIMARY KEY (`order_num`,`order_item`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8  主键中只能使用不允许 NULL 值的列。允许 NULL值的列不能作为唯一标识。...</p>
+                        </div>
+                    </div>
+                </article>
+                <br>
+
+                <article class="media">
+                    <div class="media-content">
+                        <div class="content">
                             <p class="title is-4"><a href="/2019/mysql-fifth/">Mysql 必知必会阅读小记4</a></p>
                             <p class="subtitle is-size-6 has-text-grey-light">
                                 Published at September 16, 2019 &middot;
@@ -147,6 +165,9 @@ SELECT vend_name, prod_name, prod_price FROM vendors, products WHERE products.ve
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2019/mysql-fourth/">Mysql 必知必会阅读小记5</a></h1>
+            <time class="has-text-grey-light is-size-7">17 September 2019</time>
+        
             <h1><a href="https://zhouqian0.github.io/2019/mysql-fifth/">Mysql 必知必会阅读小记4</a></h1>
             <time class="has-text-grey-light is-size-7">16 September 2019</time>
         
@@ -159,9 +180,6 @@ SELECT vend_name, prod_name, prod_price FROM vendors, products WHERE products.ve
             <h1><a href="https://zhouqian0.github.io/2019/mysql-first/">Mysql 必知必会阅读小记1</a></h1>
             <time class="has-text-grey-light is-size-7">4 September 2019</time>
         
-            <h1><a href="https://zhouqian0.github.io/2019/go-fifth/">Go 指南阅读笔记5 并发</a></h1>
-            <time class="has-text-grey-light is-size-7">26 August 2019</time>
-        
     </div>
 </div>
     <br>
@@ -169,7 +187,7 @@ SELECT vend_name, prod_name, prod_price FROM vendors, products WHERE products.ve
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (41)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (42)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         

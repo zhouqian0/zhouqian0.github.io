@@ -5,10 +5,23 @@
     <description>Recent content in mysql on Let&#39;s finish what we started</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 16 Sep 2019 16:23:53 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 17 Sep 2019 10:03:08 +0800</lastBuildDate>
     
         <atom:link href="https://zhouqian0.github.io/tags/mysql/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Mysql 必知必会阅读小记5</title>
+      <link>https://zhouqian0.github.io/2019/mysql-fourth/</link>
+      <pubDate>Tue, 17 Sep 2019 10:03:08 +0800</pubDate>
+      
+      <guid>https://zhouqian0.github.io/2019/mysql-fourth/</guid>
+      <description>利用 CREATE TABLE 创建表:
+ 在关键字 CREATE TABLE 之后给出新表的名字 表列的名字和定义，用逗号分隔
+CREATE TABLE IF NOT EXISTS `customers` ( `cust_id` int(11) NOT NULL AUTO_INCREMENT, `cust_name` char(50) NOT NULL, `cust_address` char(50) NULL, `cust_city` char(50) NULL, `cust_state` char(5) NULL, `cust_zip` char(10) NULL, `cust_country` char(50) NULL, `cust_contact` char(50) NULL, `cust_email` char(255) NULL, PRIMARY KEY (`cust_id`) ) ENGINE=InnoDB;   不要把 NULL 值与空串相混淆。NULL 值是没有值，它不是空串。
+ 为创建由多个列组成的主键 (多个列的组合值必须唯一)，应该以逗号分隔的列表给出各列名:
+CREATE TABLE `orderitems` ( `order_num` int(11) NOT NULL, `order_item` int(11) NOT NULL, `prod_id` char(10) NOT NULL, `quantity` int(11) NOT NULL, `item_price` decimal(8,2) NOT NULL, PRIMARY KEY (`order_num`,`order_item`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8  主键中只能使用不允许 NULL 值的列。允许 NULL值的列不能作为唯一标识。</description>
+    </item>
     
     <item>
       <title>Mysql 必知必会阅读小记4</title>

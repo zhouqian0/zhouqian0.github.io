@@ -57,6 +57,19 @@
                     <article class="media">
                         <div class="media-content">
                             <div class="content">
+                                <p class="title is-4"><a href="https://zhouqian0.github.io/2019/ts-second/">TS文档阅读小结2 变量声明</a></p>
+                                <p class="subtitle is-size-6 has-text-grey-light">
+                                    Published at July 5, 2019 &middot;
+                                    <i class="far fa-clock"></i>&nbsp;2 min read
+                                </p>
+                                <p>变量声明  https://typescript.bootcss.com/variable-declarations.html var 声明可以在包含它的函数，模块，命名空间或全局作用域内部任何位置被访问。  多次声明同一个变量并不会报错 声明的变量可以在包含它们的函数外访问  let 声明的变量使用的是词法作用域或块作用域。  块作用域变量在包含它们的块或 for 循环之外无法访问 不能在被声明之前读或写(仍可在一个拥有块作用域变量被声明前获取它，只是我们不能在变量声明前去调用此函数) 在同一作用域只能声明一次 每进入一个作用域就会创建一个变量的环境，就算作用域内代码已经执行完毕，这个环境与其捕获的变量依然存在  const 拥有与 let 相同的作用域规则，但不能对它们重新赋值。  变量内部状态可修改(可通过设置对象成员为只读改变)  使用最小特权原则，所有变量除了计划去修改的都应使用const。  基本原则：如果一个变量不需要对它写入，那么其它使用这些代码的人也不能够写入它们，并且要思考为什么会需要对这些变量重新赋值。 使用 const 可更容易推测数据的流动。  解构数组：  let input = [1, 2]; let [first, second] = input; [first, second] = [second, first]; // wap variavle function f([first, second]: [number, number]) let [, second, , fourth] = [1, 2, 3, 4]; 可用作在一行内声明多个数组变量，用作自解释  元组解构  let tuple: [number, string, boolean] = [7, &quot;hello&quot;, true]; let [a, ....</p>
+                            </div>
+                        </div>
+                    </article>
+                
+                    <article class="media">
+                        <div class="media-content">
+                            <div class="content">
                                 <p class="title is-4"><a href="https://zhouqian0.github.io/2019/ts-first/">TS文档阅读小结1 基础类型</a></p>
                                 <p class="subtitle is-size-6 has-text-grey-light">
                                     Published at June 24, 2019 &middot;
@@ -183,21 +196,6 @@ import {Component, OnInit} from '@angular/core'; import {FormGroup, FormControl,
                         </div>
                     </article>
                 
-                    <article class="media">
-                        <div class="media-content">
-                            <div class="content">
-                                <p class="title is-4"><a href="https://zhouqian0.github.io/2019/js-third/">隐藏/显示 网页滚动条</a></p>
-                                <p class="subtitle is-size-6 has-text-grey-light">
-                                    Published at February 13, 2019 &middot;
-                                    <i class="far fa-clock"></i>&nbsp;1 min read
-                                </p>
-                                <p> js 隐藏/显示 网页滚动条  隐藏：
-document.querySelector('html').style.overflow = 'hidden';  显示：
-document.querySelector('html').style.overflow = 'scroll';   ...</p>
-                            </div>
-                        </div>
-                    </article>
-                
             </div>
         </div>
     </div>
@@ -226,6 +224,9 @@ document.querySelector('html').style.overflow = 'scroll';   ...</p>
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2019/mysql-fourth/">Mysql 必知必会阅读小记5</a></h1>
+            <time class="has-text-grey-light is-size-7">17 September 2019</time>
+        
             <h1><a href="https://zhouqian0.github.io/2019/mysql-fifth/">Mysql 必知必会阅读小记4</a></h1>
             <time class="has-text-grey-light is-size-7">16 September 2019</time>
         
@@ -238,9 +239,6 @@ document.querySelector('html').style.overflow = 'scroll';   ...</p>
             <h1><a href="https://zhouqian0.github.io/2019/mysql-first/">Mysql 必知必会阅读小记1</a></h1>
             <time class="has-text-grey-light is-size-7">4 September 2019</time>
         
-            <h1><a href="https://zhouqian0.github.io/2019/go-fifth/">Go 指南阅读笔记5 并发</a></h1>
-            <time class="has-text-grey-light is-size-7">26 August 2019</time>
-        
     </div>
 </div>
     <br>
@@ -248,7 +246,7 @@ document.querySelector('html').style.overflow = 'scroll';   ...</p>
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (41)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (42)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         

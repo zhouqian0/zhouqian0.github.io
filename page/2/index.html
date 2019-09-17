@@ -57,6 +57,22 @@
                     <article class="media">
                         <div class="media-content">
                             <div class="content">
+                                <p class="title is-4"><a href="https://zhouqian0.github.io/2019/go-first/">Go 指南阅读笔记1 基础</a></p>
+                                <p class="subtitle is-size-6 has-text-grey-light">
+                                    Published at August 14, 2019 &middot;
+                                    <i class="far fa-clock"></i>&nbsp;2 min read
+                                </p>
+                                <p>基础  https://tour.go-zh.org/basics/1 在 Go 中，如果一个名字以大写字母开头，那么它就是已导出的。例如 math.Pi
+ package main import ( &quot;fmt&quot; &quot;math&quot; ) func main() { fmt.Println(math.Pi) // 3.14.... }  函数可以没有参数或接受多个参数(类型在变量名 之后)。
+ package main import &quot;fmt&quot; func add(x int, y int) int { return x + y } func main() { fmt.Println(add(42, 13)) // 55 }   函数可以返回任意数量的返回值。
+package main import &quot;fmt&quot; func swap(x, y string) (string, string) { return y, x } func main() { a, b := swap(&quot;hello&quot;, &quot;world&quot;) fmt....</p>
+                            </div>
+                        </div>
+                    </article>
+                
+                    <article class="media">
+                        <div class="media-content">
+                            <div class="content">
                                 <p class="title is-4"><a href="https://zhouqian0.github.io/2019/ts-twenty/">TS文档阅读小结20 三斜线指令</a></p>
                                 <p class="subtitle is-size-6 has-text-grey-light">
                                     Published at August 14, 2019 &middot;
@@ -204,20 +220,6 @@ class ZipCodeValidator implements StringValidator { isAcceptable(s: string) { re
                         </div>
                     </article>
                 
-                    <article class="media">
-                        <div class="media-content">
-                            <div class="content">
-                                <p class="title is-4"><a href="https://zhouqian0.github.io/2019/ts-twelfth/">TS文档阅读小结12 迭代器和生成器</a></p>
-                                <p class="subtitle is-size-6 has-text-grey-light">
-                                    Published at July 31, 2019 &middot;
-                                    <i class="far fa-clock"></i>&nbsp;2 min read
-                                </p>
-                                <p>迭代器和生成器  https://www.tslang.cn/docs/handbook/iterators-and-generators.html 可迭代性: 当一个对象实现了 Symbol.iterator 属性时，我们认为它是可迭代的。 一些内置的类型如 Array，Map，Set，String，Int32Array，Uint32Array 等都已经实现了各自的 Symbol.iterator。 对象上的 Symbol.iterator函数负责返回供迭代的值。  Symbol.iterator, A method that returns the default iterator for an object. Called by the semantics of the for-of statement.  for..of 会遍历可迭代的对象，调用对象上的 Symbol.iterator 方法。
-let someArray = [1, &quot;string&quot;, false]; for (let entry of someArray) { console.log(entry); // 1, &quot;string&quot;, false }  for..of 和 for..in 均可迭代一个列表； 但是用于迭代的值却不同，for..in 迭代的是对象的 键 的列表，而 for..of 则迭代对象的键对应的 值 。...</p>
-                            </div>
-                        </div>
-                    </article>
-                
             </div>
         </div>
     </div>
@@ -246,6 +248,9 @@ let someArray = [1, &quot;string&quot;, false]; for (let entry of someArray) { c
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2019/mysql-fourth/">Mysql 必知必会阅读小记5</a></h1>
+            <time class="has-text-grey-light is-size-7">17 September 2019</time>
+        
             <h1><a href="https://zhouqian0.github.io/2019/mysql-fifth/">Mysql 必知必会阅读小记4</a></h1>
             <time class="has-text-grey-light is-size-7">16 September 2019</time>
         
@@ -258,9 +263,6 @@ let someArray = [1, &quot;string&quot;, false]; for (let entry of someArray) { c
             <h1><a href="https://zhouqian0.github.io/2019/mysql-first/">Mysql 必知必会阅读小记1</a></h1>
             <time class="has-text-grey-light is-size-7">4 September 2019</time>
         
-            <h1><a href="https://zhouqian0.github.io/2019/go-fifth/">Go 指南阅读笔记5 并发</a></h1>
-            <time class="has-text-grey-light is-size-7">26 August 2019</time>
-        
     </div>
 </div>
     <br>
@@ -268,7 +270,7 @@ let someArray = [1, &quot;string&quot;, false]; for (let entry of someArray) { c
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (41)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (42)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         
