@@ -57,6 +57,23 @@
                     <article class="media">
                         <div class="media-content">
                             <div class="content">
+                                <p class="title is-4"><a href="https://zhouqian0.github.io/2019/mysql-sixth/">Mysql 必知必会阅读小记6</a></p>
+                                <p class="subtitle is-size-6 has-text-grey-light">
+                                    Published at September 18, 2019 &middot;
+                                    <i class="far fa-clock"></i>&nbsp;2 min read
+                                </p>
+                                <p>游标 (cursor) 是一个存储在 MySQL 服务器上的数据库查询，它不是一条SELECT语句，而是被该语句检索出来的结果集。
+MySQL 游标只能用于存储过程(和函数)。
+ 使用游标的步骤:
+ 在能够使用游标前，必须声明(定义)它。这个过程实际上没有检索数据，它只是定义要使用的 SELECT 语句。 一旦声明后，必须打开游标以供使用。这个过程用前面定义的 SELECT 语句把数据实际检索出来。 对于填有数据的游标，根据需要取出(检索)各行。 在结束游标使用时，必须关闭游标。  DECLARE 命名游标，并定义相应的 SELECT 语句:
+DELIMITER // CREATE PROCEDURE processorders() BEGIN -- Declare local variable DECLARE done BOOLEAN DEFAULT 0; DECLARE o int; DECLARE t DECIMAL(8,2); -- Declare the cursor DECLARE ordernumbers CURSOR FOR SELECT order_num FROM orders ORDER BY order_num; -- Declare continue handler DECLARE CONTINUE HANDLER FOR SQLSTATE '02000' SET done = 1; -- Create a table to store the results CREATE TABLE IF NOT EXISTS ordertotals ( order_num INT, total DECIMAL(8 , 2 ) ); -- Open the cursor OPEN ordernumbers; -- Loop throught all rows REPEAT -- Get order number FETCH ordernumbers INTO o; IF NOT done THEN -- Get the total for this order CALL ordertotal(o, 1, t); -- Insert order and total into ordertotals INSERT INTO ordertotals(order_num, total) VALUES(o, t); END IF; -- End of loop UNTIL done END REPEAT; -- Close the cursor CLOSE ordernumbers; END // DELIMITER ;   done 默认为 0，通过 CONTINUE HANDLER 将其设为 1。 SQLSTATE &lsquo;02000&rsquo;是一个未找到条件，当 REPEAT 由于没有更多的行供循环而不能继续时，出现这个条件。  错误代码参考https://dev....</p>
+                            </div>
+                        </div>
+                    </article>
+                
+                    <article class="media">
+                        <div class="media-content">
+                            <div class="content">
                                 <p class="title is-4"><a href="https://zhouqian0.github.io/2019/mysql-fourth/">Mysql 必知必会阅读小记5</a></p>
                                 <p class="subtitle is-size-6 has-text-grey-light">
                                     Published at September 17, 2019 &middot;
@@ -201,22 +218,6 @@ package main import &quot;fmt&quot; func main() { sum := 0 for i := 0; i &lt; 10
                         </div>
                     </article>
                 
-                    <article class="media">
-                        <div class="media-content">
-                            <div class="content">
-                                <p class="title is-4"><a href="https://zhouqian0.github.io/2019/ts-twenty-first/">TS文档阅读小结21 实用类型</a></p>
-                                <p class="subtitle is-size-6 has-text-grey-light">
-                                    Published at August 15, 2019 &middot;
-                                    <i class="far fa-clock"></i>&nbsp;5 min read
-                                </p>
-                                <p>实用类型  https://www.typescriptlang.org/docs/handbook/utility-types.html Partial&lt;T&gt;
-构造一个类型，其所有属性 T 都设置为 optional。此实用程序将返回表示给定类型的所有子集的类型。
-interface Todo { title: string; description: string; } function updateTodo(todo: Todo, fieldsToUpdate: Partial&lt;Todo&gt;) { // T: Todo return { ...todo, ...fieldsToUpdate }; } const todo1 = { title: 'organize desk', description: 'clear clutter', }; const todo2 = updateTodo(todo1, { description: 'throw out trash', }); console.log(todo2); // { title: 'organize desk', description: 'throw out trash' }  Readonly&lt;T&gt;
-构造一个所有属性 T 都设置为的类型 readonly，这意味着无法重新分配构造类型的属性。...</p>
-                            </div>
-                        </div>
-                    </article>
-                
             </div>
         </div>
     </div>
@@ -245,6 +246,9 @@ interface Todo { title: string; description: string; } function updateTodo(todo:
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2019/mysql-sixth/">Mysql 必知必会阅读小记6</a></h1>
+            <time class="has-text-grey-light is-size-7">18 September 2019</time>
+        
             <h1><a href="https://zhouqian0.github.io/2019/mysql-fourth/">Mysql 必知必会阅读小记5</a></h1>
             <time class="has-text-grey-light is-size-7">17 September 2019</time>
         
@@ -257,9 +261,6 @@ interface Todo { title: string; description: string; } function updateTodo(todo:
             <h1><a href="https://zhouqian0.github.io/2019/mysql-second/">Mysql 必知必会阅读小记2</a></h1>
             <time class="has-text-grey-light is-size-7">9 September 2019</time>
         
-            <h1><a href="https://zhouqian0.github.io/2019/mysql-first/">Mysql 必知必会阅读小记1</a></h1>
-            <time class="has-text-grey-light is-size-7">4 September 2019</time>
-        
     </div>
 </div>
     <br>
@@ -267,7 +268,7 @@ interface Todo { title: string; description: string; } function updateTodo(todo:
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (42)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (43)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         

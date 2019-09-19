@@ -57,6 +57,20 @@
                     <article class="media">
                         <div class="media-content">
                             <div class="content">
+                                <p class="title is-4"><a href="https://zhouqian0.github.io/2019/ng-fifth/">angular datepicker 使用建议</a></p>
+                                <p class="subtitle is-size-6 has-text-grey-light">
+                                    Published at February 13, 2019 &middot;
+                                    <i class="far fa-clock"></i>&nbsp;1 min read
+                                </p>
+                                <p> datepicker 实现点击 input 后会打开日期选择器：由于input标签可点击，可能会触发浏览器的自动联想（autocomplete）,会出现： 先打开可自动联想的下拉框，然后该下拉框消失，出现日期选择 。针对于此，现解决方案为禁用日期选择器的 input 标签的 autocomplete 属性（autocomplete=&lsquo;off&rsquo;）,然后添加 click 事件 (click)=&ldquo;picker.open()&ldquo;。
+&lt;mat-form-field&gt; &lt;label&gt; &lt;input matInput [matDatepicker]=&quot;picker&quot; autocomplete=&quot;off&quot; required formControlName=&quot;date&quot; placeholder=&quot;选择日期&quot; (click)=&quot;picker.open()&quot; [errorStateMatcher]=&quot;matcher&quot;&gt; &lt;/label&gt; &lt;mat-datepicker-toggle matSuffix [for]=&quot;picker&quot;&gt;&lt;/mat-datepicker-toggle&gt; &lt;mat-datepicker #picker&gt;&lt;/mat-datepicker&gt; &lt;/mat-form-field&gt;  ...</p>
+                            </div>
+                        </div>
+                    </article>
+                
+                    <article class="media">
+                        <div class="media-content">
+                            <div class="content">
                                 <p class="title is-4"><a href="https://zhouqian0.github.io/2019/js-third/">隐藏/显示 网页滚动条</a></p>
                                 <p class="subtitle is-size-6 has-text-grey-light">
                                     Published at February 13, 2019 &middot;
@@ -154,6 +168,9 @@ corps.sort((a, b) =&gt; { return a.shortName.localeCompare(b.shortName, 'zh-Hans
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2019/mysql-sixth/">Mysql 必知必会阅读小记6</a></h1>
+            <time class="has-text-grey-light is-size-7">18 September 2019</time>
+        
             <h1><a href="https://zhouqian0.github.io/2019/mysql-fourth/">Mysql 必知必会阅读小记5</a></h1>
             <time class="has-text-grey-light is-size-7">17 September 2019</time>
         
@@ -166,9 +183,6 @@ corps.sort((a, b) =&gt; { return a.shortName.localeCompare(b.shortName, 'zh-Hans
             <h1><a href="https://zhouqian0.github.io/2019/mysql-second/">Mysql 必知必会阅读小记2</a></h1>
             <time class="has-text-grey-light is-size-7">9 September 2019</time>
         
-            <h1><a href="https://zhouqian0.github.io/2019/mysql-first/">Mysql 必知必会阅读小记1</a></h1>
-            <time class="has-text-grey-light is-size-7">4 September 2019</time>
-        
     </div>
 </div>
     <br>
@@ -176,7 +190,7 @@ corps.sort((a, b) =&gt; { return a.shortName.localeCompare(b.shortName, 'zh-Hans
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (42)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (43)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         

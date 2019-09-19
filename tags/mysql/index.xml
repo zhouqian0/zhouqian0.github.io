@@ -5,10 +5,23 @@
     <description>Recent content in mysql on Let&#39;s finish what we started</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 17 Sep 2019 10:03:08 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 18 Sep 2019 10:35:24 +0800</lastBuildDate>
     
         <atom:link href="https://zhouqian0.github.io/tags/mysql/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Mysql 必知必会阅读小记6</title>
+      <link>https://zhouqian0.github.io/2019/mysql-sixth/</link>
+      <pubDate>Wed, 18 Sep 2019 10:35:24 +0800</pubDate>
+      
+      <guid>https://zhouqian0.github.io/2019/mysql-sixth/</guid>
+      <description>游标 (cursor) 是一个存储在 MySQL 服务器上的数据库查询，它不是一条SELECT语句，而是被该语句检索出来的结果集。
+MySQL 游标只能用于存储过程(和函数)。
+ 使用游标的步骤:
+ 在能够使用游标前，必须声明(定义)它。这个过程实际上没有检索数据，它只是定义要使用的 SELECT 语句。 一旦声明后，必须打开游标以供使用。这个过程用前面定义的 SELECT 语句把数据实际检索出来。 对于填有数据的游标，根据需要取出(检索)各行。 在结束游标使用时，必须关闭游标。  DECLARE 命名游标，并定义相应的 SELECT 语句:
+DELIMITER // CREATE PROCEDURE processorders() BEGIN -- Declare local variable DECLARE done BOOLEAN DEFAULT 0; DECLARE o int; DECLARE t DECIMAL(8,2); -- Declare the cursor DECLARE ordernumbers CURSOR FOR SELECT order_num FROM orders ORDER BY order_num; -- Declare continue handler DECLARE CONTINUE HANDLER FOR SQLSTATE &#39;02000&#39; SET done = 1; -- Create a table to store the results CREATE TABLE IF NOT EXISTS ordertotals ( order_num INT, total DECIMAL(8 , 2 ) ); -- Open the cursor OPEN ordernumbers; -- Loop throught all rows REPEAT -- Get order number FETCH ordernumbers INTO o; IF NOT done THEN -- Get the total for this order CALL ordertotal(o, 1, t); -- Insert order and total into ordertotals INSERT INTO ordertotals(order_num, total) VALUES(o, t); END IF; -- End of loop UNTIL done END REPEAT; -- Close the cursor CLOSE ordernumbers; END // DELIMITER ;   done 默认为 0，通过 CONTINUE HANDLER 将其设为 1。 SQLSTATE &amp;lsquo;02000&amp;rsquo;是一个未找到条件，当 REPEAT 由于没有更多的行供循环而不能继续时，出现这个条件。  错误代码参考https://dev.</description>
+    </item>
     
     <item>
       <title>Mysql 必知必会阅读小记5</title>
