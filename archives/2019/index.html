@@ -54,6 +54,26 @@
                 <article class="media">
                     <div class="media-content">
                         <div class="content">
+                            <p class="title is-4"><a href="/2019/mysql-seventh/">Mysql 必知必会阅读小记7</a></p>
+                            <p class="subtitle is-size-6 has-text-grey-light">
+                                Published at September 22, 2019 &middot;
+                                <i class="far fa-clock"></i>&nbsp;3 min read
+                            </p>
+                            <p>MyISAM 不支持事务管理，但支持全文本搜索，InnoDB 正好相反。 事务处理可以用来维护数据库的完整性，保证 sql 操作要么完全执行，要么不执行（管理成批的 sql 操作）。   事务（transaction）：一组 sql 语句。 回退（rollback）：撤销指定 sql 语句的过程。  只能在一个事务处理内使用。 不能回退 create 和 drop。  提交（commit）：将未存储的 sql 语句结果写入数据库表。 保留点（savepoint）：事务处理中设置的临时占位符，可以对它发布回退（与回退整个事务处理不同，为部分回退）。  保留点越多越灵活。 可使用 release savepoint 释放保留点。   默认的 MySQL 行为是自动提交所有更改。
+-- 取消自动提交 SET autocommit=0;  autocommit 是针对某个连接而不是服务器。
+  字符集：字母和符号的集合。
+-- 列出所有可用的字符集 show character set;  编码：某个字符集成员的内部表示。
+ 校对：规定字符如何比较的指令。
+ 校对在对用 order by 子句检索出来的数据排序时重要作用。   使用何种字符集和校对的决定在服务器、数据库和表级中进行。
+show variables like 'character%'; show variables like 'collation%'  -- 不指定字符集和校对则使用默认值 CREATE TABLE mytable ( column1 INT, column2 VARCHAR(10) CHARACTER SET LATIN1 COLLATE LATIN1_GENERAL_CI ) DEFAULT CHARACTER SET HEBREW COLLATE HEBREW_GENERAL_CI;  SELECT * FROM customers ORDER BY firstname , lastname COLLATE LATIN1_GENERAL_CI   MySQL 允许对每个列指定字符集和校对。 可在 select 时使用 collate 指定备用的校对顺序。 collate 还可以用于 group by、having、聚集函数、别名等。 串可以在字符集之间转换（ cast(), convert() ）。  MySQL 用户账号和信息存储在名为 mysql 的数据库中。...</p>
+                        </div>
+                    </div>
+                </article>
+                <br>
+
+                <article class="media">
+                    <div class="media-content">
+                        <div class="content">
                             <p class="title is-4"><a href="/2019/mysql-sixth/">Mysql 必知必会阅读小记6</a></p>
                             <p class="subtitle is-size-6 has-text-grey-light">
                                 Published at September 18, 2019 &middot;
@@ -803,6 +823,9 @@ document.querySelector('html').style.overflow = 'scroll';   ...</p>
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2019/mysql-seventh/">Mysql 必知必会阅读小记7</a></h1>
+            <time class="has-text-grey-light is-size-7">22 September 2019</time>
+        
             <h1><a href="https://zhouqian0.github.io/2019/mysql-sixth/">Mysql 必知必会阅读小记6</a></h1>
             <time class="has-text-grey-light is-size-7">18 September 2019</time>
         
@@ -815,9 +838,6 @@ document.querySelector('html').style.overflow = 'scroll';   ...</p>
             <h1><a href="https://zhouqian0.github.io/2019/mysql-third/">Mysql 必知必会阅读小记3</a></h1>
             <time class="has-text-grey-light is-size-7">10 September 2019</time>
         
-            <h1><a href="https://zhouqian0.github.io/2019/mysql-second/">Mysql 必知必会阅读小记2</a></h1>
-            <time class="has-text-grey-light is-size-7">9 September 2019</time>
-        
     </div>
 </div>
     <br>
@@ -825,7 +845,7 @@ document.querySelector('html').style.overflow = 'scroll';   ...</p>
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (43)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (44)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         
