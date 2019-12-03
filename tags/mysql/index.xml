@@ -16,13 +16,11 @@
       <pubDate>Sun, 22 Sep 2019 16:20:47 +0800</pubDate>
       
       <guid>https://zhouqian0.github.io/2019/mysql-seventh/</guid>
-      <description>MyISAM 不支持事务管理，但支持全文本搜索，InnoDB 正好相反。 事务处理可以用来维护数据库的完整性，保证 sql 操作要么完全执行，要么不执行（管理成批的 sql 操作）。   事务（transaction）：一组 sql 语句。 回退（rollback）：撤销指定 sql 语句的过程。  只能在一个事务处理内使用。 不能回退 create 和 drop。  提交（commit）：将未存储的 sql 语句结果写入数据库表。 保留点（savepoint）：事务处理中设置的临时占位符，可以对它发布回退（与回退整个事务处理不同，为部分回退）。  保留点越多越灵活。 可使用 release savepoint 释放保留点。   默认的 MySQL 行为是自动提交所有更改。
--- 取消自动提交 SET autocommit=0;  autocommit 是针对某个连接而不是服务器。
-  字符集：字母和符号的集合。
--- 列出所有可用的字符集 show character set;  编码：某个字符集成员的内部表示。
- 校对：规定字符如何比较的指令。
- 校对在对用 order by 子句检索出来的数据排序时重要作用。   使用何种字符集和校对的决定在服务器、数据库和表级中进行。
-show variables like &#39;character%&#39;; show variables like &#39;collation%&#39;  -- 不指定字符集和校对则使用默认值 CREATE TABLE mytable ( column1 INT, column2 VARCHAR(10) CHARACTER SET LATIN1 COLLATE LATIN1_GENERAL_CI ) DEFAULT CHARACTER SET HEBREW COLLATE HEBREW_GENERAL_CI;  SELECT * FROM customers ORDER BY firstname , lastname COLLATE LATIN1_GENERAL_CI   MySQL 允许对每个列指定字符集和校对。 可在 select 时使用 collate 指定备用的校对顺序。 collate 还可以用于 group by、having、聚集函数、别名等。 串可以在字符集之间转换（ cast(), convert() ）。  MySQL 用户账号和信息存储在名为 mysql 的数据库中。</description>
+      <description>MyISAM 不支持事务管理，但支持全文本搜索，InnoDB 正好相反。
+  事务处理可以用来维护数据库的完整性，保证 sql 操作要么完全执行，要么不执行（管理成批的 sql 操作）。
+   事务（transaction）：一组 sql 语句。 回退（rollback）：撤销指定 sql 语句的过程。  只能在一个事务处理内使用。 不能回退 create 和 drop。   提交（commit）：将未存储的 sql 语句结果写入数据库表。 保留点（savepoint）：事务处理中设置的临时占位符，可以对它发布回退（与回退整个事务处理不同，为部分回退）。  保留点越多越灵活。 可使用 release savepoint 释放保留点。      默认的 MySQL 行为是自动提交所有更改。
+-- 取消自动提交 SET autocommit=0; autocommit 是针对某个连接而不是服务器。
+   字符集：字母和符号的集合。 -- 列出所有可用的字符集 show character set;  编码：某个字符集成员的内部表示。 校对：规定字符如何比较的指令。  校对在对用 order by 子句检索出来的数据排序时重要作用。      使用何种字符集和校对的决定在服务器、数据库和表级中进行。</description>
     </item>
     
     <item>
@@ -33,9 +31,9 @@ show variables like &#39;character%&#39;; show variables like &#39;collation%&#3
       <guid>https://zhouqian0.github.io/2019/mysql-sixth/</guid>
       <description>游标 (cursor) 是一个存储在 MySQL 服务器上的数据库查询，它不是一条SELECT语句，而是被该语句检索出来的结果集。
 MySQL 游标只能用于存储过程(和函数)。
- 使用游标的步骤:
- 在能够使用游标前，必须声明(定义)它。这个过程实际上没有检索数据，它只是定义要使用的 SELECT 语句。 一旦声明后，必须打开游标以供使用。这个过程用前面定义的 SELECT 语句把数据实际检索出来。 对于填有数据的游标，根据需要取出(检索)各行。 在结束游标使用时，必须关闭游标。  DECLARE 命名游标，并定义相应的 SELECT 语句:
-DELIMITER // CREATE PROCEDURE processorders() BEGIN -- Declare local variable DECLARE done BOOLEAN DEFAULT 0; DECLARE o int; DECLARE t DECIMAL(8,2); -- Declare the cursor DECLARE ordernumbers CURSOR FOR SELECT order_num FROM orders ORDER BY order_num; -- Declare continue handler DECLARE CONTINUE HANDLER FOR SQLSTATE &#39;02000&#39; SET done = 1; -- Create a table to store the results CREATE TABLE IF NOT EXISTS ordertotals ( order_num INT, total DECIMAL(8 , 2 ) ); -- Open the cursor OPEN ordernumbers; -- Loop throught all rows REPEAT -- Get order number FETCH ordernumbers INTO o; IF NOT done THEN -- Get the total for this order CALL ordertotal(o, 1, t); -- Insert order and total into ordertotals INSERT INTO ordertotals(order_num, total) VALUES(o, t); END IF; -- End of loop UNTIL done END REPEAT; -- Close the cursor CLOSE ordernumbers; END // DELIMITER ;   done 默认为 0，通过 CONTINUE HANDLER 将其设为 1。 SQLSTATE &amp;lsquo;02000&amp;rsquo;是一个未找到条件，当 REPEAT 由于没有更多的行供循环而不能继续时，出现这个条件。  错误代码参考https://dev.</description>
+  使用游标的步骤:
+ 在能够使用游标前，必须声明(定义)它。这个过程实际上没有检索数据，它只是定义要使用的 SELECT 语句。 一旦声明后，必须打开游标以供使用。这个过程用前面定义的 SELECT 语句把数据实际检索出来。 对于填有数据的游标，根据需要取出(检索)各行。 在结束游标使用时，必须关闭游标。    DECLARE 命名游标，并定义相应的 SELECT 语句:
+DELIMITER // CREATE PROCEDURE processorders() BEGIN -- Declare local variable DECLARE done BOOLEAN DEFAULT 0; DECLARE o int; DECLARE t DECIMAL(8,2); -- Declare the cursor DECLARE ordernumbers CURSOR FOR SELECT order_num FROM orders ORDER BY order_num; -- Declare continue handler DECLARE CONTINUE HANDLER FOR SQLSTATE &#39;02000&#39; SET done = 1; -- Create a table to store the results CREATE TABLE IF NOT EXISTS ordertotals ( order_num INT, total DECIMAL(8 , 2 ) ); -- Open the cursor OPEN ordernumbers; -- Loop throught all rows REPEAT -- Get order number FETCH ordernumbers INTO o; IF NOT done THEN -- Get the total for this order CALL ordertotal(o, 1, t); -- Insert order and total into ordertotals INSERT INTO ordertotals(order_num, total) VALUES(o, t); END IF; -- End of loop UNTIL done END REPEAT; -- Close the cursor CLOSE ordernumbers; END // DELIMITER ;  done 默认为 0，通过 CONTINUE HANDLER 将其设为 1。 SQLSTATE &amp;lsquo;02000&#39;是一个未找到条件，当 REPEAT 由于没有更多的行供循环而不能继续时，出现这个条件。  错误代码参考https://dev.</description>
     </item>
     
     <item>
@@ -45,10 +43,9 @@ DELIMITER // CREATE PROCEDURE processorders() BEGIN -- Declare local variable DE
       
       <guid>https://zhouqian0.github.io/2019/mysql-fourth/</guid>
       <description>利用 CREATE TABLE 创建表:
- 在关键字 CREATE TABLE 之后给出新表的名字 表列的名字和定义，用逗号分隔
-CREATE TABLE IF NOT EXISTS `customers` ( `cust_id` int(11) NOT NULL AUTO_INCREMENT, `cust_name` char(50) NOT NULL, `cust_address` char(50) NULL, `cust_city` char(50) NULL, `cust_state` char(5) NULL, `cust_zip` char(10) NULL, `cust_country` char(50) NULL, `cust_contact` char(50) NULL, `cust_email` char(255) NULL, PRIMARY KEY (`cust_id`) ) ENGINE=InnoDB;   不要把 NULL 值与空串相混淆。NULL 值是没有值，它不是空串。
- 为创建由多个列组成的主键 (多个列的组合值必须唯一)，应该以逗号分隔的列表给出各列名:
-CREATE TABLE `orderitems` ( `order_num` int(11) NOT NULL, `order_item` int(11) NOT NULL, `prod_id` char(10) NOT NULL, `quantity` int(11) NOT NULL, `item_price` decimal(8,2) NOT NULL, PRIMARY KEY (`order_num`,`order_item`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8  主键中只能使用不允许 NULL 值的列。允许 NULL值的列不能作为唯一标识。</description>
+ 在关键字 CREATE TABLE 之后给出新表的名字 表列的名字和定义，用逗号分隔  CREATE TABLE IF NOT EXISTS `customers` ( `cust_id` int(11) NOT NULL AUTO_INCREMENT, `cust_name` char(50) NOT NULL, `cust_address` char(50) NULL, `cust_city` char(50) NULL, `cust_state` char(5) NULL, `cust_zip` char(10) NULL, `cust_country` char(50) NULL, `cust_contact` char(50) NULL, `cust_email` char(255) NULL, PRIMARY KEY (`cust_id`) ) ENGINE=InnoDB;   不要把 NULL 值与空串相混淆。NULL 值是没有值，它不是空串。
+  为创建由多个列组成的主键 (多个列的组合值必须唯一)，应该以逗号分隔的列表给出各列名:
+CREATE TABLE `orderitems` ( `order_num` int(11) NOT NULL, `order_item` int(11) NOT NULL, `prod_id` char(10) NOT NULL, `quantity` int(11) NOT NULL, `item_price` decimal(8,2) NOT NULL, PRIMARY KEY (`order_num`,`order_item`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8   主键中只能使用不允许 NULL 值的列。允许 NULL值的列不能作为唯一标识。</description>
     </item>
     
     <item>
@@ -58,9 +55,9 @@ CREATE TABLE `orderitems` ( `order_num` int(11) NOT NULL, `order_item` int(11) N
       
       <guid>https://zhouqian0.github.io/2019/mysql-fifth/</guid>
       <description>插入 INSERT，
-// 指定列名，指定列名会按照指定的顺序进行插入，如果不指定需要按照表中列的顺序给出相应的值。 insert into customers(cust_name, cust_address, cust_city, cust_state, cust_zip, cust_country, cust_contact, cust_email) values(&#39;Pep E. LaPew&#39;, &#39;100 Main Street&#39;, &#39;Los Angeles&#39;, &#39;CA&#39;, &#39;90046&#39;, &#39;USA&#39;, null, null)   一般不要使用没有明确给出列的列表的 INSERT 语句。使用列的列表能使 SQL 代码继续发挥作用，即使表结构发生了变化。 如果不提供列名，则必须给每个表列提供一个值。如果提供列名，则必须对每个列出的列给出一个值 (对允许空值或者设定了默认值的列可将其值设为 null)。  INSERT 操作可能很耗时(特别是有很多索引需要更新时)，且它可能降低等待处理的SELECT语句的性能。
+// 指定列名，指定列名会按照指定的顺序进行插入，如果不指定需要按照表中列的顺序给出相应的值。 insert into customers(cust_name, cust_address, cust_city, cust_state, cust_zip, cust_country, cust_contact, cust_email) values(&#39;Pep E. LaPew&#39;, &#39;100 Main Street&#39;, &#39;Los Angeles&#39;, &#39;CA&#39;, &#39;90046&#39;, &#39;USA&#39;, null, null)  一般不要使用没有明确给出列的列表的 INSERT 语句。使用列的列表能使 SQL 代码继续发挥作用，即使表结构发生了变化。 如果不提供列名，则必须给每个表列提供一个值。如果提供列名，则必须对每个列出的列给出一个值 (对允许空值或者设定了默认值的列可将其值设为 null)。    INSERT 操作可能很耗时(特别是有很多索引需要更新时)，且它可能降低等待处理的SELECT语句的性能。
 可以通过在 INSERT 和 INTO 之间添加关键字 LOW_PRIORITY，指示 MySQL 降低 INSERT 语句的优先级:
-INSERT LOW_PRIORITY INTO  插入多条：
+INSERT LOW_PRIORITY INTO   插入多条：
 // 逗号分隔，推荐（单条 INSERT 语句处理多个插入比使用多条 INSERT 语句快）。 insert into customers(cust_name, cust_address, cust_city, cust_state, cust_zip, cust_country, cust_contact, cust_email) values(&#39;Pep E.</description>
     </item>
     
@@ -70,14 +67,7 @@ INSERT LOW_PRIORITY INTO  插入多条：
       <pubDate>Tue, 10 Sep 2019 10:42:10 +0800</pubDate>
       
       <guid>https://zhouqian0.github.io/2019/mysql-third/</guid>
-      <description>相同数据出现多次决不是一件好事，此因素是关系数据库设计的基础。 关系表的设计就是要保证把信息分解成多个表，一类数据 一个表。 各表通过某些常用的值(即关系设计中的关系 (relational) )互 相关联。 外键 为某个表中的一列，它包含另一个表 的主键值，定义了两个表之间的关系。 联结 是一种机制，用来在一条SELECT 语句中关联表，因此称之为联结。使用特殊的语法，可以联结多个表返 回一组输出，联结在运行时关联表中正确的行
-SELECT vend_name, prod_name, prod_price FROM vendors, products WHERE products.vend_id = vendors.vend_id  由没有联结条件的表关系返回的结果为 笛卡儿积 。检索出的行的数目将是第一个表中的行数乘 以第二个表中的行数。
- 等值联结(equijoin)，基于两个表之间的相等测试，这种联结也称为内部联结。（ &amp;hellip; INNER JOIN &amp;hellip; ON &amp;hellip;）
- 不要联结 不必要的表 。联结的表越多，性能下降越厉害。
- 自联结通常作为外部语句用来替代从相同表中检索数据时使用的子查询语句。虽然最终的结果是相同的，但有时候处理联结远比处理子查询快得多。
- 无论何时对表进行联结，应该至少有一个列出现在不止一个表中(被联结的列)。 标准的联结返回所有数据，甚至相同的列多次出现。自然联结排除多次出现，使每个列只返回一次。
- 左外部联结(&amp;hellip; LEFT OUTER JOIN &amp;hellip; ON &amp;hellip;) 和 右外部联结(&amp;hellip; RIGHT OUTER JOIN &amp;hellip; ON &amp;hellip;) 之间的唯一差别是所关联的表的顺序不同。 换句话说，左外部联结可通过颠倒FROM或WHERE子句中表的顺序转换为右外部联结。因此，两种类型的外部联结可互换使用。
- 左联结 时从左边的表中选择所有的行 右联结 时从右边的表中选择所有的行  应该总是提供联结条件，否则会得出笛卡儿积。</description>
+      <description> 相同数据出现多次决不是一件好事，此因素是关系数据库设计的基础。 关系表的设计就是要保证把信息分解成多个表，一类数据 一个表。 各表通过某些常用的值(即关系设计中的关系 (relational) )互 相关联。 外键 为某个表中的一列，它包含另一个表 的主键值，定义了两个表之间的关系。 联结 是一种机制，用来在一条SELECT 语句中关联表，因此称之为联结。使用特殊的语法，可以联结多个表返 回一组输出，联结在运行时关联表中正确的行 SELECT vend_name, prod_name, prod_price FROM vendors, products WHERE products.vend_id = vendors.vend_id  由没有联结条件的表关系返回的结果为 笛卡儿积 。检索出的行的数目将是第一个表中的行数乘 以第二个表中的行数。 等值联结(equijoin)，基于两个表之间的相等测试，这种联结也称为内部联结。（ &amp;hellip; INNER JOIN &amp;hellip; ON &amp;hellip;） 不要联结 不必要的表 。联结的表越多，性能下降越厉害。 自联结通常作为外部语句用来替代从相同表中检索数据时使用的子查询语句。虽然最终的结果是相同的，但有时候处理联结远比处理子查询快得多。 无论何时对表进行联结，应该至少有一个列出现在不止一个表中(被联结的列)。 标准的联结返回所有数据，甚至相同的列多次出现。自然联结排除多次出现，使每个列只返回一次。 左外部联结(&amp;hellip; LEFT OUTER JOIN &amp;hellip; ON &amp;hellip;) 和 右外部联结(&amp;hellip; RIGHT OUTER JOIN &amp;hellip; ON &amp;hellip;) 之间的唯一差别是所关联的表的顺序不同。 换句话说，左外部联结可通过颠倒FROM或WHERE子句中表的顺序转换为右外部联结。因此，两种类型的外部联结可互换使用。  左联结 时从左边的表中选择所有的行 右联结 时从右边的表中选择所有的行   应该总是提供联结条件，否则会得出笛卡儿积。 可用UNION操作符来组合数条 SQL 查询。  UNION 必须由两条或两条以上的 SELECT 语句组成，语句之间用关键字 UNION 分隔 UNION 中的每个查询必须包含相同的列、表达式或聚集函数(次序可不同) 列数据类型必须兼容:类型不必完全相同，但必须是 DBMS 可以隐含地转换的类型 UNION 从查询结果集中自动去除了重复的行(使用 UNION ALL 可以联合全部的数据不去重) 在最后一条 SELECT 语句后使用了 ORDER BY 子句。MySQL 将用它来排序所有 SELECT 语句返回的所有结果。   数据库引擎 MyISAM(前者支持全文本搜索) 和 InnoDB(不支持全文本搜索)。  为了进行全文本搜索，必须索引被搜索的列，而且要随着数据的改变不断地重新索引。 在创建表时启用全文本搜索。CREATE TABLE 语句接受 FULLTEXT 子句 CREATE TABLE `productnotes` ( `note_id` int(11) NOT NULL AUTO_INCREMENT, `prod_id` char(10) NOT NULL, `note_date` datetime NOT NULL, `note_text` text, PRIMARY KEY (`note_id`), FULLTEXT KEY `note_text` (`note_text`) ) ENGINE=MyISAM AUTO_INCREMENT=115 DEFAULT CHARSET=utf8  不要在导入数据时使用 FULLTEXT，使索引数据的总时间小于在导入每行时分别进行索引所需的总时间 Match() 指定被搜索的列(传递给 Match() 的值必须与 FULLTEXT() 定义中的相同。如果指定多个列，则必须列出它们，且次序正确)，Against() 指定要使用的搜索表达式。 SELECT note_text FROM productnotes WHERE MATCH (note_text) AGAINST (&#39;rabbit&#39; )  全文本搜索会对搜索结果排序，会按照特定规则计算目标的等级并按照等级的值进行排序。而 LIKE 并不可以。 查询扩展 WITH QUERY EXPANSION，使用扩展查询，可以以找到关键词的行中的词再对表进行搜索，即搜索了两次，丰富了搜索出的内容。  表中的行越多(这些行中的文本就越多)，使用 查询扩展返回的结果越好。  SELECT note_text FROM productnotes WHERE MATCH (note_text) AGAINST (&#39;anvils&#39; WITH QUERY EXPANSION);      布尔文本搜索，  需要提供：  要匹配的词; 要排斥的词(如果某行包含这个词，则不返回该行，即使它包含其他指定的词也是如此); 排列提示(指定某些词比其他词更重要，更重要的词等级更高); 表达式分组; 另外一些内容。   即使没有定义 FULLTEXT 索引，也可使用。但这是一种非常缓慢的操作(其性能将随着数据量的增加而降低)。  SELECT note_text FROM productnotes WHERE MATCH (note_text) AGAINST (&#39;heavy -rope*&#39; IN BOOLEAN MODE); // -rope* 表示搜索不包含 rope 的行  布尔操作符 + 包含，词必须存在 - 排除，词必须不出现 &amp;gt; 包含，而且增加等级值 &amp;lt; 包含，且减少等级值 () 把词组成子表达式(允许这些子表达式作为一个组被包含、排除、排列等) ~ 取消一个词的排序值 * 词尾的通配符 &amp;quot;&amp;quot; 定义一个短语(与单个词的列表不一样，它匹配整个短语以便包含或排除这个短语)   AGAINST (&#39;+rabbit +bait&#39; IN BOOLEAN MODE); // 搜索同时包含 rabbit 和 bait 的行 AGAINST (&#39;rabbit bait&#39; IN BOOLEAN MODE); // 搜索包含 rabbit 或 bait 的行 AGAINST (&#39;&amp;quot;rabbit bait&amp;quot;&#39; IN BOOLEAN MODE); // 搜索匹配短语 &#39;rabbit bait&#39; 的行 AGAINST (&#39;&amp;gt;rabbit &amp;lt;carrot&#39; IN BOOLEAN MODE); // 匹配 rabbit 和 carrot，增加前者的等级，降低后者的等级。 AGAINST (&#39;+saft +(&amp;lt;combination)carrot&#39; IN BOOLEAN MODE); // 匹配词 safe 和 combination，降低后者的等级。  在布尔方式中，不按等级值降序排序。   全文本搜索的使用说明  在索引全文本数据时，短词被忽略且从索引中排除。短词定义为 那些具有 3 个或 3 个以下字符的词(如果需要，这个数目可以更改)。 MySQL 带有一个内建的非用词(stopword)列表，这些词在索引全文本数据时总是被忽略。如果需要，可以覆盖这个列表。 许多词出现的频率很高，搜索它们没有用处(返回太多的结果)。 因此，MySQL 规定了一条 50% 规则，如果一个词出现在50%以上 的行中，则将它作为一个非用词忽略。50% 规则不用于 IN BOOLEAN MODE。 如果表中的行数少于 3 行，则全文本搜索不返回结果(因为每个词或者不出现，或者至少出现在 50% 的行中)。 忽略词中的单引号。例如，don&#39;t 索引为dont。 不具有词分隔符(包括日语和汉语)的语言不能恰当地返回全文本搜索结果。 仅在 MyISAM 数据库引擎中支持全文本搜索。 没有邻近操作符。    </description>
     </item>
     
     <item>
@@ -86,7 +76,7 @@ SELECT vend_name, prod_name, prod_price FROM vendors, products WHERE products.ve
       <pubDate>Mon, 09 Sep 2019 10:24:50 +0800</pubDate>
       
       <guid>https://zhouqian0.github.io/2019/mysql-second/</guid>
-      <description>LIKE  % 匹配 0 或多个字符 _ 匹配单个字符 尾空格可能会干扰通配符匹配(可使用 trim() 去除收尾空格) % 不能匹配 null 通配符耗时较其他搜索会更长 通配符放在检索条件开头会极大降低搜索效率 匹配大小写需要使用关键字 BINARY（WHERE BINARY prod_name LIKE &amp;lsquo;Jet%&amp;lsquo;）  REGEXP  . 匹配任意一个字符 LIKE 匹配整个列，如果不使用 通配符，那么就算查找到匹配的文本也不会返回 REGEXP 在列值内进行匹配，如果查找到匹配的文本就会返回 LIKE 匹配整个串而 REGEXP 匹配子串。 匹配大小写需要使用关键字 BINARY（WHERE BINARY prod_name REGEXP &amp;lsquo;JetPack .000&amp;rsquo;） | (REGEXP &amp;lsquo;1000|2000&amp;rsquo;)，匹配包含 1000 或 2000 的值 [] 匹配特定字符（[123] 定义一组字符，它的意思是匹配 1 或 2 或 3） [1-5] = [12345] 如果需要匹配特殊字符，需要加上\\，如匹配. 需要 REGEXP \\.，匹配 \ 需要 REGEXP \\\</description>
+      <description>LIKE  % 匹配 0 或多个字符 _ 匹配单个字符 尾空格可能会干扰通配符匹配(可使用 trim() 去除收尾空格) % 不能匹配 null 通配符耗时较其他搜索会更长 通配符放在检索条件开头会极大降低搜索效率 匹配大小写需要使用关键字 BINARY（WHERE BINARY prod_name LIKE &amp;lsquo;Jet%&#39;）   REGEXP  . 匹配任意一个字符 LIKE 匹配整个列，如果不使用 通配符，那么就算查找到匹配的文本也不会返回 REGEXP 在列值内进行匹配，如果查找到匹配的文本就会返回 LIKE 匹配整个串而 REGEXP 匹配子串。 匹配大小写需要使用关键字 BINARY（WHERE BINARY prod_name REGEXP &amp;lsquo;JetPack .000&amp;rsquo;） | (REGEXP &amp;lsquo;1000|2000&amp;rsquo;)，匹配包含 1000 或 2000 的值 [] 匹配特定字符（[123] 定义一组字符，它的意思是匹配 1 或 2 或 3） [1-5] = [12345] 如果需要匹配特殊字符，需要加上\\，如匹配. 需要 REGEXP \\.，匹配 \ 需要 REGEXP \\\\  [:alnum:] 任意字母和数字(同[a-zA-Z0-9]) [:alpha:] 任意字符(同[a-zA-Z]) [:blank:] 空格和制表(同[\\t]) [:cntrl:] ASCII控制字符(ASCII 0到31和127) [:digit:] 任意数字(同[0-9]) [:graph:] 与[:print:]相同，但不包括空格 [:lower:] 任意小写字母(同[a-z]) [:print:] 任意可打印字符 [:punct:] 既不在[:alnum:]又不在[:cntrl:]中的任意字符 [:space:] 包括空格在内的任意空白字符(同[\\f\\n\\r\\t\\v]) [:upper:] 任意大写字母(同[A-Z]) [:xdigit:] 任意十六进制数字(同[a-fA-F0-9])   * 0个或多个匹配 + 1个或多个匹配(等于{1,}) ?</description>
     </item>
     
     <item>
@@ -95,7 +85,7 @@ SELECT vend_name, prod_name, prod_price FROM vendors, products WHERE products.ve
       <pubDate>Wed, 04 Sep 2019 09:40:26 +0800</pubDate>
       
       <guid>https://zhouqian0.github.io/2019/mysql-first/</guid>
-      <description>数据库(database) 保存有组织的数据的容器(通常是一个文件或一组文件)。 我们日常使用的是 DBMS(数据库管理系统)，而非直接操作数据库，mysql 就是一种 DBMS。 关于主键的好习惯:  不更新主键列中的值; 不重用主键列的值; 不在主键列中使用可能会更改的值。  SQL 是结构化查询语言(Structured Query Language) 的缩写。 SHOW DATABASES; USE XXX; // 选定特定的数据库; SHOW TABLES; // 显示选定数据库的所有表; SHOW COLUMNS FROM XXX; == DESCRIBE XXX; // 展示选定数据库表的详情; SHOW STATUS; // 用于显示广泛的服务器状态信息 SHOW CREATE DATABASE XXX; // 显示创建特定数据库的MySQL语句; SHOW CREATE TABLE XXX; // 显示创建特定表的MySQL语句; SHOW GRANTS; // 用来显示授予用户(所有用户或特定用户)的安全权限; SHOW ERRORS; // 用来显示服务器错误消息; SHOW WARNINGS; // 用来显示服务器警告消息; HELP SHOW; // 展示所有可以通过 show 来执行的命令;  SELECT DISTINCT vend_id * FROM products; // 去重查找 vend_id  DISTINCT 关键字应用于所有列而 不仅是前置它的列。如果给出 SELECT DISTINCT vend_id, prod_price，除非指定的两个列都不同，否则所有行都将被检索出来。</description>
+      <description>数据库(database) 保存有组织的数据的容器(通常是一个文件或一组文件)。 我们日常使用的是 DBMS(数据库管理系统)，而非直接操作数据库，mysql 就是一种 DBMS。 关于主键的好习惯:  不更新主键列中的值; 不重用主键列的值; 不在主键列中使用可能会更改的值。   SQL 是结构化查询语言(Structured Query Language) 的缩写。  SHOW DATABASES; USE XXX; // 选定特定的数据库; SHOW TABLES; // 显示选定数据库的所有表; SHOW COLUMNS FROM XXX; == DESCRIBE XXX; // 展示选定数据库表的详情; SHOW STATUS; // 用于显示广泛的服务器状态信息 SHOW CREATE DATABASE XXX; // 显示创建特定数据库的MySQL语句; SHOW CREATE TABLE XXX; // 显示创建特定表的MySQL语句; SHOW GRANTS; // 用来显示授予用户(所有用户或特定用户)的安全权限; SHOW ERRORS; // 用来显示服务器错误消息; SHOW WARNINGS; // 用来显示服务器警告消息; HELP SHOW; // 展示所有可以通过 show 来执行的命令;   SELECT DISTINCT vend_id * FROM products; // 去重查找 vend_id DISTINCT 关键字应用于所有列而 不仅是前置它的列。如果给出 SELECT DISTINCT vend_id, prod_price，除非指定的两个列都不同，否则所有行都将被检索出来。  SELECT prod_name * FROM products LIMIT 5; // 查找前 5 行 SELECT prod_name * FROM products LIMIT 5, 5; // 从第 6 行开始往后查找 5 行（行数从 0 开始） SELECT prod_name * FROM products LIMIT 3 OFFSET 5; // 从第 6 行开始往后查 3 行   SELECT prod_name * FROM products ORDER BY prod_name; // 通过 order by 对检索数据进行排序 SELECT prod_name FROM products ORDER BY prod_price, prod_name; // 先按照 prod_price 排序，当 price 一样时，按照 prod_name 排序 SELECT prod_name FROM products ORDER BY prod_price DESC LIMIT 1; // 查找价格最贵的一个商品  order by 所跟数据可以不是 select 的数据。 order by 所跟数据默认为 ASC 升序。 ASC、DESC 只对当个列有效，如果需要指定多个列的升降序，需要在每个列前显示指定 ASC/DESC。    SELECT prod_name FROM products WHERE prod_price BETWEEN 5 AND 10; SELECT prod_name FROM products WHERE prod_price IS NULL;  where 和 order by 同时出现时，order by 需要在 where 之后。 where 匹配时默认不区分大小写    SELECT prod_name FROM Products WHERE prod_id = &#39;bnbg01&#39; AND prod_price &amp;lt;= 10; SELECT prod_name FROM Products WHERE prod_price &amp;gt;= 5 OR prod_price &amp;lt;= 3; SELECT prod_name FROM Products WHERE prod_price IN (3.</description>
     </item>
     
   </channel>

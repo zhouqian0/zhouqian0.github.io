@@ -46,18 +46,15 @@
     <div class="column is-9">
         <div class="tile is-child box">
             <div class="content">
-                
-
-<h3 id="safari-date-invalid">Safari Date Invalid</h3>
-
+                <h3 id="safari-date-invalid">Safari Date Invalid</h3>
 <ol>
 <li>safari 浏览器在对 js Date 函数的支持与 Chrome 和 Firefox 不同，
-
 <ul>
 <li>在 Safari 中，如果日期格式为 YYYY-MM-DD HH:mm:ss，那么对该时间的 string 使用 new Date(timeString) 时，返回的结果将是 invalid。
 但此现象在其他两种浏览器中并未出现。</li>
 <li>如果日期格式为 YYYY-MM-DD（无时分秒信息）， 此时 new Date(timeString) 返回的结果值也正常。</li>
-</ul></li>
+</ul>
+</li>
 <li>改进：将日期格式改为 YYYY/MM/DD HH:mm:ss，此时 new Date(timeString) 返回的时间结果正常。</li>
 </ol>
 
@@ -89,6 +86,9 @@
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2019/summary-first/">angular 学习心得1</a></h1>
+            <time class="has-text-grey-light is-size-7">3 December 2019</time>
+        
             <h1><a href="https://zhouqian0.github.io/2019/mysql-seventh/">Mysql 必知必会阅读小记7</a></h1>
             <time class="has-text-grey-light is-size-7">22 September 2019</time>
         
@@ -100,9 +100,6 @@
         
             <h1><a href="https://zhouqian0.github.io/2019/mysql-fifth/">Mysql 必知必会阅读小记4</a></h1>
             <time class="has-text-grey-light is-size-7">16 September 2019</time>
-        
-            <h1><a href="https://zhouqian0.github.io/2019/mysql-third/">Mysql 必知必会阅读小记3</a></h1>
-            <time class="has-text-grey-light is-size-7">10 September 2019</time>
         
     </div>
 </div>
@@ -138,7 +135,7 @@
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (44)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (45)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         

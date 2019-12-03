@@ -60,9 +60,10 @@
                                 Published at August 15, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;5 min read
                             </p>
-                            <p>实用类型  https://www.typescriptlang.org/docs/handbook/utility-types.html Partial&lt;T&gt;
+                            <p>实用类型   https://www.typescriptlang.org/docs/handbook/utility-types.html
+  Partial&lt;T&gt;
 构造一个类型，其所有属性 T 都设置为 optional。此实用程序将返回表示给定类型的所有子集的类型。
-interface Todo { title: string; description: string; } function updateTodo(todo: Todo, fieldsToUpdate: Partial&lt;Todo&gt;) { // T: Todo return { ...todo, ...fieldsToUpdate }; } const todo1 = { title: 'organize desk', description: 'clear clutter', }; const todo2 = updateTodo(todo1, { description: 'throw out trash', }); console.log(todo2); // { title: 'organize desk', description: 'throw out trash' }  Readonly&lt;T&gt;
+interface Todo { title: string; description: string; } function updateTodo(todo: Todo, fieldsToUpdate: Partial&lt;Todo&gt;) { // T: Todo return { ...todo, ...fieldsToUpdate }; } const todo1 = { title: 'organize desk', description: 'clear clutter', }; const todo2 = updateTodo(todo1, { description: 'throw out trash', }); console.log(todo2); // { title: 'organize desk', description: 'throw out trash' }   Readonly&lt;T&gt;
 构造一个所有属性 T 都设置为的类型 readonly，这意味着无法重新分配构造类型的属性。...</p>
                         </div>
                     </div>
@@ -77,12 +78,10 @@ interface Todo { title: string; description: string; } function updateTodo(todo:
                                 Published at August 14, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;1 min read
                             </p>
-                            <p>三斜线指令（triple-slash-directives）  https://www.tslang.cn/docs/handbook/triple-slash-directives.html 三斜线指令是包含单个 XML 标签的单行注释。 注释的内容会做为编译器指令使用。 三斜线指令仅可放在包含它的文件的最顶端。 一个三斜线指令的前面只能出现单行或多行注释，这包括其它的三斜线指令。 如果它们出现在一个语句或声明之后，那么它们会被当做普通的单行注释，并且不具有特殊的涵义。 /// &lt;reference path=&quot;...&quot; /&gt; 指令是三斜线指令中最常见的一种。 用于声明文件间的 依赖。 预处理输入文件  编译器会对输入文件进行预处理来解析所有三斜线引用指令。 在这个过程中，额外的文件会加到编译过程中。 这个过程会以一些根文件开始； 它们是在命令行中指定的文件或是在 tsconfig.json 中的 &ldquo;files&rdquo; 列表里的文件。 这些根文件按指定的顺序进行预处理。 在一个文件被加入列表前，它包含的所有三斜线引用都要被处理，还有它们包含的目标。 三斜线引用以它们在文件里出现的顺序，使用深度优先的方式解析。 一个三斜线引用路径是相对于包含它的文件的，如果不是根文件。  引用不存在的文件会报错。 一个文件用三斜线指令引用自己会报错。 如果指定了--noResolve 编译选项，三斜线引用会被忽略（它们不会增加新文件，也不会改变给定文件的顺序）。 /// &lt;reference types=&quot;...&quot; /&gt;
- 该指令则声明了对某个包的依赖（可以简单地把三斜线类型引用指令当做 import 声明的包）。
+                            <p>三斜线指令（triple-slash-directives）  https://www.tslang.cn/docs/handbook/triple-slash-directives.html 三斜线指令是包含单个 XML 标签的单行注释。 注释的内容会做为编译器指令使用。 三斜线指令仅可放在包含它的文件的最顶端。 一个三斜线指令的前面只能出现单行或多行注释，这包括其它的三斜线指令。 如果它们出现在一个语句或声明之后，那么它们会被当做普通的单行注释，并且不具有特殊的涵义。 /// &lt;reference path=&quot;...&quot; /&gt; 指令是三斜线指令中最常见的一种。 用于声明文件间的 依赖。 预处理输入文件  编译器会对输入文件进行预处理来解析所有三斜线引用指令。 在这个过程中，额外的文件会加到编译过程中。 这个过程会以一些根文件开始； 它们是在命令行中指定的文件或是在 tsconfig.json 中的 &ldquo;files&rdquo; 列表里的文件。 这些根文件按指定的顺序进行预处理。 在一个文件被加入列表前，它包含的所有三斜线引用都要被处理，还有它们包含的目标。 三斜线引用以它们在文件里出现的顺序，使用深度优先的方式解析。 一个三斜线引用路径是相对于包含它的文件的，如果不是根文件。   引用不存在的文件会报错。 一个文件用三斜线指令引用自己会报错。 如果指定了--noResolve 编译选项，三斜线引用会被忽略（它们不会增加新文件，也不会改变给定文件的顺序）。 /// &lt;reference types=&quot;...&quot; /&gt;   该指令则声明了对某个包的依赖（可以简单地把三斜线类型引用指令当做 import 声明的包）。
 eg：把 /// &lt;reference types=&quot;node&quot; /&gt; 引入到声明文件，表明这个文件使用了 @types/node/index.d.ts 里面声明的名字； 并且，这个包需要在编译阶段与声明文件一起被包含进来。
- 仅当在需要写一个 d.ts 文件时才使用这个指令。
- 对于那些在编译阶段生成的声明文件，编译器会自动地添加/// &lt;reference types=&quot;...&quot; /&gt;； 当且仅当结果文件中使用了引用的包里的声明时才会在生成的声明文件里添加/// &lt;reference types=&quot;...&quot; /&gt;语句。
- 若要在 .ts 文件里声明一个对 @types 包的依赖，使用 &ndash;types 命令行选项或在 tsconfig....</p>
+  仅当在需要写一个 d.ts 文件时才使用这个指令。
+  对于那些在编译阶段生成的声明文件，编译器会自动地添加/// &lt;reference types=&quot;...&quot; /&gt;； 当且仅当结果文件中使用了引用的包里的声明时才会在生成的声明文件里添加/// &lt;reference types=&quot;...&quot; /&gt;语句。...</p>
                         </div>
                     </div>
                 </article>
@@ -96,7 +95,7 @@ eg：把 /// &lt;reference types=&quot;node&quot; /&gt; 引入到声明文件，
                                 Published at August 14, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;3 min read
                             </p>
-                            <p>混入（Mixins）  https://www.typescriptlang.org/docs/handbook/mixins.html https://mariusschulz.com/blog/mixin-classes-in-typescript Mixins 提供了一种基于组合行为的代码重用形式。  // Disposable Mixin class Disposable { isDisposed: boolean; dispose() { this.isDisposed = true; } } // Activatable Mixin class Activatable { isActive: boolean; activate() { this.isActive = true; } deactivate() { this.isActive = false; } } class SmartObject { constructor() { setInterval(() =&gt; console.log(this.isActive + &quot; : &quot; + this.isDisposed), 500); } interact() { this.activate(); } } interface SmartObject extends Disposable, Activatable {} applyMixins(SmartObject, [Disposable, Activatable]); let smartObj = new SmartObject(); setTimeout(() =&gt; smartObj....</p>
+                            <p>混入（Mixins）  https://www.typescriptlang.org/docs/handbook/mixins.html https://mariusschulz.com/blog/mixin-classes-in-typescript Mixins 提供了一种基于组合行为的代码重用形式。   // Disposable Mixin class Disposable { isDisposed: boolean; dispose() { this.isDisposed = true; } } // Activatable Mixin class Activatable { isActive: boolean; activate() { this.isActive = true; } deactivate() { this.isActive = false; } } class SmartObject { constructor() { setInterval(() =&gt; console.log(this.isActive + &quot; : &quot; + this.isDisposed), 500); } interact() { this.activate(); } } interface SmartObject extends Disposable, Activatable {} applyMixins(SmartObject, [Disposable, Activatable]); let smartObj = new SmartObject(); setTimeout(() =&gt; smartObj....</p>
                         </div>
                     </div>
                 </article>
@@ -110,10 +109,13 @@ eg：把 /// &lt;reference types=&quot;node&quot; /&gt; 引入到声明文件，
                                 Published at August 8, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;7 min read
                             </p>
-                            <p>装饰器（Decorators）  https://www.tslang.cn/docs/handbook/decorators.html https://juejin.im/post/5d15e13fe51d45108f254242 装饰器（Decorators）为我们在类的声明及成员上通过元编程语法添加标注提供了一种方式。 启用实验性的装饰器特性，必须在 命令行 或 tsconfig.json 里启用 experimentalDecorators 编译器选项：
-tsc --target ES5 --experimentalDecorators  { &quot;compilerOptions&quot;: { &quot;target&quot;: &quot;ES5&quot;, &quot;experimentalDecorators&quot;: true } }  装饰器是一种特殊类型的声明，它能够被附加到类声明，方法，访问符，属性或参数上。 它使用 @expression 这种形式，expression 求值后必须为一个函数 ，它会在运行时被调用，被装饰的声明信息做为参数传入。
- 装饰器工厂就是一个简单的函数，它返回一个表达式，以供装饰器在运行时调用。
- function color(value: string) { // 这是一个装饰器工厂 return function (target) { // 这是装饰器 // do something with &quot;target&quot; and &quot;value&quot;... } }  import { logClass } from './class-decorator'; import { logMethod } from '....</p>
+                            <p>装饰器（Decorators）   https://www.tslang.cn/docs/handbook/decorators.html
+  https://juejin.im/post/5d15e13fe51d45108f254242
+  装饰器（Decorators）为我们在类的声明及成员上通过元编程语法添加标注提供了一种方式。
+  启用实验性的装饰器特性，必须在 命令行 或 tsconfig.json 里启用 experimentalDecorators 编译器选项：
+tsc --target ES5 --experimentalDecorators { &quot;compilerOptions&quot;: { &quot;target&quot;: &quot;ES5&quot;, &quot;experimentalDecorators&quot;: true } }   装饰器是一种特殊类型的声明，它能够被附加到类声明，方法，访问符，属性或参数上。 它使用 @expression 这种形式，expression 求值后必须为一个函数 ，它会在运行时被调用，被装饰的声明信息做为参数传入。
+  装饰器工厂就是一个简单的函数，它返回一个表达式，以供装饰器在运行时调用。 1.
+function color(value: string) { // 这是一个装饰器工厂 return function (target) { // 这是装饰器 // do something with &quot;target&quot; and &quot;value&quot;... } }     import { logClass } from '....</p>
                         </div>
                     </div>
                 </article>
@@ -127,9 +129,10 @@ tsc --target ES5 --experimentalDecorators  { &quot;compilerOptions&quot;: { &quo
                                 Published at August 8, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;3 min read
                             </p>
-                            <p>声明合并  https://typescript.bootcss.com/declaration-merging.html “声明合并”是指编译器将针对同一个名字的两个独立声明合并为单一声明。 合并后的声明同时拥有原先两个声明的特性。 任何数量的声明都可被合并；不局限于两个声明。 接口合并
-interface Box { height: number; width: number; } interface Box { scale: number; width: string; // error, property 'width' must be of type 'number' } let box: Box = {height: 5, width: 6, scale: 10};   合并的机制是把双方的成员放到一个同名的接口里。 接口的非函数的成员应该是唯一的。 如果它们不是唯一的，那么它们必须是相同的类型。
-interface Cloner { clone(animal: Animal): Animal; } interface Cloner { clone(animal: Sheep): Sheep; } interface Cloner { clone(animal: Dog): Dog; clone(animal: Cat): Cat; } // ---------------------- interface Cloner { clone(animal: Dog): Dog; clone(animal: Cat): Cat; clone(animal: Sheep): Sheep; clone(animal: Animal): Animal; }  对于函数成员，每个同名函数声明都会被当成这个函数的一个重载。后面的接口具有更高的优先级。...</p>
+                            <p>声明合并   https://typescript.bootcss.com/declaration-merging.html
+  “声明合并”是指编译器将针对同一个名字的两个独立声明合并为单一声明。 合并后的声明同时拥有原先两个声明的特性。 任何数量的声明都可被合并；不局限于两个声明。
+  接口合并
+interface Box { height: number; width: number; } interface Box { scale: number; width: string; // error, property 'width' must be of type 'number' } let box: Box = {height: 5, width: 6, scale: 10};  合并的机制是把双方的成员放到一个同名的接口里。 接口的非函数的成员应该是唯一的。 如果它们不是唯一的，那么它们必须是相同的类型。   interface Cloner { clone(animal: Animal): Animal; } interface Cloner { clone(animal: Sheep): Sheep; } interface Cloner { clone(animal: Dog): Dog; clone(animal: Cat): Cat; } // ---------------------- interface Cloner { clone(animal: Dog): Dog; clone(animal: Cat): Cat; clone(animal: Sheep): Sheep; clone(animal: Animal): Animal; }  对于函数成员，每个同名函数声明都会被当成这个函数的一个重载。后面的接口具有更高的优先级。   interface Document { createElement(tagName: any): Element; } interface Document { createElement(tagName: &quot;div&quot;): HTMLDivElement; createElement(tagName: &quot;span&quot;): HTMLSpanElement; } interface Document { createElement(tagName: string): HTMLElement; createElement(tagName: &quot;canvas&quot;): HTMLCanvasElement; } // ---------------------- interface Document { createElement(tagName: &quot;canvas&quot;): HTMLCanvasElement; createElement(tagName: &quot;div&quot;): HTMLDivElement; createElement(tagName: &quot;span&quot;): HTMLSpanElement; createElement(tagName: string): HTMLElement; createElement(tagName: any): Element; }  如果签名里有一个参数的类型是单一的字符串字面量（比如，不是字符串字面量的联合类型），那么它将会被提升到重载列表的最顶端。    命名空间合并...</p>
                         </div>
                     </div>
                 </article>
@@ -143,21 +146,20 @@ interface Cloner { clone(animal: Animal): Animal; } interface Cloner { clone(ani
                                 Published at August 7, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;3 min read
                             </p>
-                            <p>模块解析  https://typescript.bootcss.com/module-resolution.html 模块解析就是指编译器所要依据的一个流程，用它来找出某个导入操作所引用的具体值。
+                            <p>模块解析   https://typescript.bootcss.com/module-resolution.html
+  模块解析就是指编译器所要依据的一个流程，用它来找出某个导入操作所引用的具体值。
 假设有一个导入语句 import { a } from &ldquo;moduleA&rdquo;; 为了去检查任何对 a 的使用，编译器需要准确的知道它表示什么，并且会需要检查它的定义 moduleA。
- 根据模块引用是相对的还是非相对的，模块导入会以不同的方式解析。
- 相对导入是以/，./或../开头的。
+  根据模块引用是相对的还是非相对的，模块导入会以不同的方式解析。
+  相对导入是以/，./或../开头的。
 相对导入解析时是相对于导入它的文件来的，并且不能解析为一个外部模块声明。 你应该为你自己写的模块使用相对导入，这样能确保它们在运行时的相对位置。
- 所有其它形式的导入被当作非相对的。
+  所有其它形式的导入被当作非相对的。
 非相对模块的导入可以相对于baseUrl或通过下文会讲到的路径映射来进行解析。 它们还可以被解析能外部模块声明。 使用非相对路径来导入你的外部依赖。
-  共有两种可用的模块解析策略：Node 和 Classic。
+    共有两种可用的模块解析策略：Node 和 Classic。
 可以使用 &ndash;moduleResolution 标记指定使用哪种模块解析策略。 若未指定，那么在使用了 &ndash;module AMD | System | ES2015 时的默认值为 Classic，其它情况时则为 Node。
- Classic
+  Classic
 以前是 TypeScript 默认的解析策略。 现在，它存在的理由主要是为了向后兼容。
- 相对导入
-eg: 查找 /root/src/folder/A.ts 文件里的 import { b } from &ldquo;./moduleB&rdquo; 的流程
- /root/src/folder/moduleB.ts /root/src/folder/moduleB.d.ts  非相对模块的导入
-eg: 查找 /root/src/folder/A....</p>
+  相对导入
+eg: 查找 /root/src/folder/A.ts 文件里的 import { b } from &ldquo;....</p>
                         </div>
                     </div>
                 </article>
@@ -171,14 +173,15 @@ eg: 查找 /root/src/folder/A....</p>
                                 Published at August 1, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;1 min read
                             </p>
-                            <p>命名空间和模块  https://www.tslang.cn/docs/handbook/namespaces-and-modules.html 命名空间是位于全局命名空间下的一个普通的带有名字的 JavaScript 对象。  可以在多文件中同时使用，并通过 &ndash;outFile 结合在一起。 命名空间是组织 Web 应用不错的方式，你可以把所有依赖都放在 HTML 页面的 &lt;script&gt; 标签里。 但就像其它的全局命名空间污染一样，它很难去识别组件之间的依赖关系，尤其是在大型的应用中。  模块可以包含代码和声明。不同的是模块可以 声明它的依赖 。
- 模块会把依赖添加到模块加载器上（例如 CommonJs / Require.js）。
+                            <p>命名空间和模块   https://www.tslang.cn/docs/handbook/namespaces-and-modules.html
+  命名空间是位于全局命名空间下的一个普通的带有名字的 JavaScript 对象。
+ 可以在多文件中同时使用，并通过 &ndash;outFile 结合在一起。 命名空间是组织 Web 应用不错的方式，你可以把所有依赖都放在 HTML 页面的 &lt;script&gt; 标签里。 但就像其它的全局命名空间污染一样，它很难去识别组件之间的依赖关系，尤其是在大型的应用中。    模块可以包含代码和声明。不同的是模块可以 声明它的依赖 。
+  模块会把依赖添加到模块加载器上（例如 CommonJs / Require.js）。
 对于大型应用，这一点点的花费会带来长久的模块化和可维护性上的便利。 模块也提供了更好的代码重用，更强的封闭性以及更好的使用工具进行优化。
-  对于新项目来说推荐使用模块做为组织代码的方式。
- 引用模块文件应该使用 import，而不是 /// &lt;reference&gt;。
+    对于新项目来说推荐使用模块做为组织代码的方式。
+  引用模块文件应该使用 import，而不是 /// &lt;reference&gt;。
 编译器首先尝试去查找相应路径下的 .ts，.tsx 再或者 .d.ts。 如果这些文件都找不到，编译器会查找 外部模块声明。
- myModules.d.ts
-// In a .d.ts file or .ts file that is not a module: declare module &quot;SomeModule&quot; { export function fn(): string; }  myOtherModule.ts...</p>
+ myModules.d.ts   // In a .d.ts file or .ts file that is not a module: declare module &quot;SomeModule&quot; { export function fn(): string; }  myOtherModule....</p>
                         </div>
                     </div>
                 </article>
@@ -192,7 +195,8 @@ eg: 查找 /root/src/folder/A....</p>
                                 Published at August 1, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;3 min read
                             </p>
-                            <p>命名空间  https://www.tslang.cn/docs/handbook/namespaces.html   命名空间可以组织代码，以便于在记录它们类型的同时还不用担心与其它对象产生命名冲突。 把类型归集到一个命名空间内，而不是把它们放在全局命名空间下。 当应用变得越来越大时，我们需要将代码分离到不同的文件中以便于维护。  // single file interface StringValidator { isAcceptable(s: string): boolean; } let lettersRegexp = /^[A-Za-z]+$/; let numberRegexp = /^[0-9]+$/; class LettersOnlyValidator implements StringValidator { isAcceptable(s: string) { return lettersRegexp.test(s); } } class ZipCodeValidator implements StringValidator { isAcceptable(s: string) { return s.length === 5 &amp;&amp; numberRegexp.test(s); } } // Some samples to try let strings = [&quot;Hello&quot;, &quot;98052&quot;, &quot;101&quot;]; // Validators to use let validators: { [s: string]: StringValidator; } = {}; validators[&quot;ZIP code&quot;] = new ZipCodeValidator(); validators[&quot;Letters only&quot;] = new LettersOnlyValidator(); // Show whether each string passed each validator for (let s of strings) { for (let name in validators) { let isMatch = validators[name]....</p>
+                            <p>命名空间   https://www.tslang.cn/docs/handbook/namespaces.html
+   命名空间可以组织代码，以便于在记录它们类型的同时还不用担心与其它对象产生命名冲突。 把类型归集到一个命名空间内，而不是把它们放在全局命名空间下。 当应用变得越来越大时，我们需要将代码分离到不同的文件中以便于维护。    // single file interface StringValidator { isAcceptable(s: string): boolean; } let lettersRegexp = /^[A-Za-z]+$/; let numberRegexp = /^[0-9]+$/; class LettersOnlyValidator implements StringValidator { isAcceptable(s: string) { return lettersRegexp.test(s); } } class ZipCodeValidator implements StringValidator { isAcceptable(s: string) { return s.length === 5 &amp;&amp; numberRegexp.test(s); } } // Some samples to try let strings = [&quot;Hello&quot;, &quot;98052&quot;, &quot;101&quot;]; // Validators to use let validators: { [s: string]: StringValidator; } = {}; validators[&quot;ZIP code&quot;] = new ZipCodeValidator(); validators[&quot;Letters only&quot;] = new LettersOnlyValidator(); // Show whether each string passed each validator for (let s of strings) { for (let name in validators) { let isMatch = validators[name]....</p>
                         </div>
                     </div>
                 </article>
@@ -206,9 +210,11 @@ eg: 查找 /root/src/folder/A....</p>
                                 Published at July 31, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;3 min read
                             </p>
-                            <p>模块  https://www.tslang.cn/docs/handbook/modules.html TypeScript 与 ECMAScript 2015 一样，任何包含顶级 import 或者 export 的文件都被当成一个模块。 相反地，如果一个文件不带有顶级的 import 或者 export 声明，那么它的内容被视为全局可见的（因此对模块也是可见的）。 任何声明（比如变量，函数，类，类型别名或接口）都能够通过添加 export 关键字来导出。
-// Validation.ts export interface StringValidator { isAcceptable(s: string): boolean; }  // ZipCodeValidator.ts export const numberRegexp = /^[0-9]+$/; export class ZipCodeValidator implements StringValidator { isAcceptable(s: string) { return s.length === 5 &amp;&amp; numberRegexp.test(s); } }  导出语句，可能需要对导出的部分重命名
-class ZipCodeValidator implements StringValidator { isAcceptable(s: string) { return s.length === 5 &amp;&amp; numberRegexp....</p>
+                            <p>模块   https://www.tslang.cn/docs/handbook/modules.html
+  TypeScript 与 ECMAScript 2015 一样，任何包含顶级 import 或者 export 的文件都被当成一个模块。 相反地，如果一个文件不带有顶级的 import 或者 export 声明，那么它的内容被视为全局可见的（因此对模块也是可见的）。
+  任何声明（比如变量，函数，类，类型别名或接口）都能够通过添加 export 关键字来导出。
+// Validation.ts export interface StringValidator { isAcceptable(s: string): boolean; } // ZipCodeValidator.ts export const numberRegexp = /^[0-9]+$/; export class ZipCodeValidator implements StringValidator { isAcceptable(s: string) { return s.length === 5 &amp;&amp; numberRegexp.test(s); } }   导出语句，可能需要对导出的部分重命名
+class ZipCodeValidator implements StringValidator { isAcceptable(s: string) { return s....</p>
                         </div>
                     </div>
                 </article>
@@ -222,8 +228,7 @@ class ZipCodeValidator implements StringValidator { isAcceptable(s: string) { re
                                 Published at July 31, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;2 min read
                             </p>
-                            <p>迭代器和生成器  https://www.tslang.cn/docs/handbook/iterators-and-generators.html 可迭代性: 当一个对象实现了 Symbol.iterator 属性时，我们认为它是可迭代的。 一些内置的类型如 Array，Map，Set，String，Int32Array，Uint32Array 等都已经实现了各自的 Symbol.iterator。 对象上的 Symbol.iterator函数负责返回供迭代的值。  Symbol.iterator, A method that returns the default iterator for an object. Called by the semantics of the for-of statement.  for..of 会遍历可迭代的对象，调用对象上的 Symbol.iterator 方法。
-let someArray = [1, &quot;string&quot;, false]; for (let entry of someArray) { console.log(entry); // 1, &quot;string&quot;, false }  for..of 和 for..in 均可迭代一个列表； 但是用于迭代的值却不同，for..in 迭代的是对象的 键 的列表，而 for..of 则迭代对象的键对应的 值 。...</p>
+                            <p>迭代器和生成器  https://www.tslang.cn/docs/handbook/iterators-and-generators.html 可迭代性: 当一个对象实现了 Symbol.iterator 属性时，我们认为它是可迭代的。 一些内置的类型如 Array，Map，Set，String，Int32Array，Uint32Array 等都已经实现了各自的 Symbol.iterator。 对象上的 Symbol.iterator函数负责返回供迭代的值。  Symbol.iterator, A method that returns the default iterator for an object. Called by the semantics of the for-of statement.   for..of 会遍历可迭代的对象，调用对象上的 Symbol.iterator 方法。 let someArray = [1, &quot;string&quot;, false]; for (let entry of someArray) { console.log(entry); // 1, &quot;string&quot;, false }  for..of 和 for..in 均可迭代一个列表； 但是用于迭代的值却不同，for..in 迭代的是对象的 键 的列表，而 for..of 则迭代对象的键对应的 值 。 let list = [4, 5, 6]; for (let i in list) { console....</p>
                         </div>
                     </div>
                 </article>
@@ -237,11 +242,7 @@ let someArray = [1, &quot;string&quot;, false]; for (let entry of someArray) { c
                                 Published at July 30, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;2 min read
                             </p>
-                            <p>Symbols  https://www.tslang.cn/docs/handbook/symbols.html https://www.keithcirkel.co.uk/metaprogramming-in-es6-symbols/ http://es6.ruanyifeng.com/#docs/symbol 自 ECMAScript 2015 起，symbol 成为了一种新的原生类型，是 JavaScript 的第七种原始类型。很适合做标识符。
-assert(typeof Symbol() === 'symbol')  symbol 类型的值是通过 Symbol 构造函数创建的，无法通过 new 创建
-let sym1 = Symbol(); // Ok let sym2 = Symbol(&quot;key&quot;); // 可选的字符串key let sym3 = new Symbol(); // TypeError  Symbols 是不可改变且唯一的。
-let sym2 = Symbol(&quot;key&quot;); let sym3 = Symbol(&quot;key&quot;); sym2 === sym3; // false, symbols是唯一的  symbols 也可以被用做对象属性的键。 它能避免命名冲突的风险。 这对于一个对象由多个模块构成的情况非常有用，能防止某一个键被不小心改写或覆盖。
-let sym = Symbol(); let obj = { [sym]: &quot;value&quot; }; console....</p>
+                            <p>Symbols  https://www.tslang.cn/docs/handbook/symbols.html https://www.keithcirkel.co.uk/metaprogramming-in-es6-symbols/ http://es6.ruanyifeng.com/#docs/symbol 自 ECMAScript 2015 起，symbol 成为了一种新的原生类型，是 JavaScript 的第七种原始类型。很适合做标识符。 assert(typeof Symbol() === 'symbol')  symbol 类型的值是通过 Symbol 构造函数创建的，无法通过 new 创建 let sym1 = Symbol(); // Ok let sym2 = Symbol(&quot;key&quot;); // 可选的字符串key let sym3 = new Symbol(); // TypeError  Symbols 是不可改变且唯一的。 let sym2 = Symbol(&quot;key&quot;); let sym3 = Symbol(&quot;key&quot;); sym2 === sym3; // false, symbols是唯一的  symbols 也可以被用做对象属性的键。 它能避免命名冲突的风险。 这对于一个对象由多个模块构成的情况非常有用，能防止某一个键被不小心改写或覆盖。 let sym = Symbol(); let obj = { [sym]: &quot;value&quot; }; console....</p>
                         </div>
                     </div>
                 </article>
@@ -255,7 +256,8 @@ let sym = Symbol(); let obj = { [sym]: &quot;value&quot; }; console....</p>
                                 Published at July 17, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;9 min read
                             </p>
-                            <p>高级类型  https://www.tslang.cn/docs/handbook/advanced-types.html 交叉类型（Intersection Types），将多个类型合并为一个类型。
+                            <p>高级类型   https://www.tslang.cn/docs/handbook/advanced-types.html
+  交叉类型（Intersection Types），将多个类型合并为一个类型。
 例如， Person &amp; Serializable &amp; Loggable 同时是 Person 和 Serializable 和 Loggable。 就是说这个类型的对象同时拥有了这三种类型的成员。
 function extend&lt;First, Second&gt;(first: First, second: Second): First &amp; Second { const result: Partial&lt;First &amp; Second&gt; = {}; for (const prop in first) { if (first.hasOwnProperty(prop)) { (result as First)[prop] = first[prop]; } } for (const prop in second) { if (second.hasOwnProperty(prop)) { (result as Second)[prop] = second[prop]; } } return result as First &amp; Second; } class Person { constructor(public name: string) { } } interface Loggable { log(name: string): void; } class ConsoleLogger implements Loggable { log(name) { console....</p>
                         </div>
@@ -271,8 +273,9 @@ function extend&lt;First, Second&gt;(first: First, second: Second): First &amp; 
                                 Published at July 16, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;2 min read
                             </p>
-                            <p>类型兼容性  https://www.tslang.cn/docs/handbook/type-compatibility.html TypeScript 里的类型兼容性是基于结构子类型的（只使用其成员来描述类型的方式）。C#、Java 等语言使用的是基于名义类型的类型系统。
-interface Named { name: string; } class Person { name: string; } let p: Named; p = new Person(); // OK, because of structural typing  TypeScript 结构化类型系统的基本规则是，如果 x 要兼容 y，那么 y 至少具有与 x 相同的属性。
+                            <p>类型兼容性   https://www.tslang.cn/docs/handbook/type-compatibility.html
+  TypeScript 里的类型兼容性是基于结构子类型的（只使用其成员来描述类型的方式）。C#、Java 等语言使用的是基于名义类型的类型系统。
+interface Named { name: string; } class Person { name: string; } let p: Named; p = new Person(); // OK, because of structural typing   TypeScript 结构化类型系统的基本规则是，如果 x 要兼容 y，那么 y 至少具有与 x 相同的属性。
 属性少的类型（例如只含有属性 x）可以赋值给属性多的类型（例如含有属性 x，y），但是属性多的类型不能赋值给属性少的类型。
 interface Named { name: string; } let x: Named; let y = { name: 'Alice', location: 'Seattle' }; // y's inferred type is { name: string; location: string; } x = y; // y = x; // Error!...</p>
                         </div>
@@ -288,14 +291,11 @@ interface Named { name: string; } let x: Named; let y = { name: 'Alice', locatio
                                 Published at July 15, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;1 min read
                             </p>
-                            <p>类型推论  https://www.tslang.cn/docs/handbook/type-inference.html let x = 3;  变量 x 的类型被推断为 number。 这种推断发生在初始化变量和成员，设置默认参数值和决定函数返回值时。
- 最佳通用类型
- let x = [0, 1, null];  推断 x 的类型需要考虑其中所有元素的类型，当前包括 number 和 null。 计算通用类型算法会考虑所有的候选类型，并给出一个兼容所有候选类型的类型（最终的通用类型取自候选类型）。
-当前例子中， number 兼容 null（Null、Undefined 和 Never 是其它类型的子类型），故而 x 的类型 应为 number[]。
- let zoo = [new Rhino(), new Elephant(), new Snake()];  zoo 中元素都继承自 Animal 类型，但是 zoo 里的元素没有是Animal类型的，因此不能推断出这个结果。
-当候选类型不能使用时需要明确的指出类型：let zoo: Animal[]，否则系统进行类型推断的结果将为联合数组类型：(Rhino | Elephant | Snake)[]。
-  上下文类型，按上下文归类会发生在表达式的类型与所处的位置相关时。
- window....</p>
+                            <p>类型推论   https://www.tslang.cn/docs/handbook/type-inference.html
+  let x = 3; 变量 x 的类型被推断为 number。 这种推断发生在初始化变量和成员，设置默认参数值和决定函数返回值时。
+  最佳通用类型 1. let x = [0, 1, null];  推断 x 的类型需要考虑其中所有元素的类型，当前包括 number 和 null。 计算通用类型算法会考虑所有的候选类型，并给出一个兼容所有候选类型的类型（最终的通用类型取自候选类型）。
+ 当前例子中， number 兼容 null（Null、Undefined 和 Never 是其它类型的子类型），故而 x 的类型 应为 number[]。    let zoo = [new Rhino(), new Elephant(), new Snake()]; zoo 中元素都继承自 Animal 类型，但是 zoo 里的元素没有是Animal类型的，因此不能推断出这个结果。
+当候选类型不能使用时需要明确的指出类型：let zoo: Animal[]，否则系统进行类型推断的结果将为联合数组类型：(Rhino | Elephant | Snake)[]。...</p>
                         </div>
                     </div>
                 </article>
@@ -309,10 +309,12 @@ interface Named { name: string; } let x: Named; let y = { name: 'Alice', locatio
                                 Published at July 14, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;2 min read
                             </p>
-                            <p>枚举  https://www.tslang.cn/docs/handbook/enums.html 使用枚举（enum）我们可以定义一些有名字的数字常量。 数字枚举可以混入函数的和常量成员。
+                            <p>枚举   https://www.tslang.cn/docs/handbook/enums.html
+  使用枚举（enum）我们可以定义一些有名字的数字常量。
+  数字枚举可以混入函数的和常量成员。
 不带初始化器的枚举或者被放在第一的位置，或者被放在使用了数字常量或其它常量初始化了的枚举后面。
-enum E { A = getSomeValue(), B, // error! 'A' is not constant-initialized, so 'B' needs an initializer }  enum E { A, // A = 1 is also possible B = getSomeValue(); // ok! }  字符串枚举，每个成员都必须用字符串字面量，或另外一个字符串枚举成员进行初始化。
-enum Direction { Up = &quot;UP&quot;, Down = &quot;DOWN&quot;, Left = &quot;LEFT&quot;, // Left = 1 is also possible Right = &quot;RIGHT&quot;, }  异构枚举，就是上个例子中 Left = 1 的情景，可以混合字符串和数字成员，一般不建议 。...</p>
+enum E { A = getSomeValue(), B, // error! 'A' is not constant-initialized, so 'B' needs an initializer } enum E { A, // A = 1 is also possible B = getSomeValue(); // ok! }   字符串枚举，每个成员都必须用字符串字面量，或另外一个字符串枚举成员进行初始化。
+enum Direction { Up = &quot;UP&quot;, Down = &quot;DOWN&quot;, Left = &quot;LEFT&quot;, // Left = 1 is also possible Right = &quot;RIGHT&quot;, }   异构枚举，就是上个例子中 Left = 1 的情景，可以混合字符串和数字成员，一般不建议 。...</p>
                         </div>
                     </div>
                 </article>
@@ -326,12 +328,8 @@ enum Direction { Up = &quot;UP&quot;, Down = &quot;DOWN&quot;, Left = &quot;LEFT
                                 Published at July 13, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;2 min read
                             </p>
-                            <p>泛型  https://typescript.bootcss.com/generics.html 泛型，类型变量，是一种特殊的变量，只用于表示类型而不是值。 定义了泛型函数后，可以用两种方法使用。
- 第一种是，传入所有的参数，包含类型参数
-let output = identity&lt;string&gt;(&quot;myString&quot;); // type of output will be 'string'  利用类型推论 – 即编译器会根据传入的参数自动地帮助我们确定 T 的类型
-let output = identity(&quot;myString&quot;); // type of output will be 'string'   编译器要求你在泛型函数的函数体必须正确的使用这个通用的类型。 换句话说，你必须把这些参数当做是任意或所有类型。
-否则可能将 T 类型定义为 number， 然后去调用 T 的 length 属性，但是 number 类型是没有 length 属性。
-function loggingIdentity&lt;T&gt;(arg: T): T { console.log(arg.length); // Error: T doesn't have .length return arg; } // 这里可以将 arg 定义为 T[] 或 Array&lt;T&gt; 类型， 这样就可以使用 length 属性了  泛型函数的类型与非泛型函数的类型...</p>
+                            <p>泛型  https://typescript.bootcss.com/generics.html 泛型，类型变量，是一种特殊的变量，只用于表示类型而不是值。 定义了泛型函数后，可以用两种方法使用。  第一种是，传入所有的参数，包含类型参数  let output = identity&lt;string&gt;(&quot;myString&quot;); // type of output will be 'string' 利用类型推论 – 即编译器会根据传入的参数自动地帮助我们确定 T 的类型  let output = identity(&quot;myString&quot;); // type of output will be 'string'  编译器要求你在泛型函数的函数体必须正确的使用这个通用的类型。 换句话说，你必须把这些参数当做是任意或所有类型。
+否则可能将 T 类型定义为 number， 然后去调用 T 的 length 属性，但是 number 类型是没有 length 属性。 function loggingIdentity&lt;T&gt;(arg: T): T { console.log(arg.length); // Error: T doesn't have .length return arg; } // 这里可以将 arg 定义为 T[] 或 Array&lt;T&gt; 类型， 这样就可以使用 length 属性了  泛型函数的类型与非泛型函数的类型 function identity&lt;T&gt;(arg: T): T { return arg; } let myIdentity: &lt;T&gt;(arg: T) =&gt; T = identity; // let myIdentity: &lt;U&gt;(arg: U) =&gt; U = identity; // let myIdentity: {&lt;T&gt;(arg: T): T} = identity;  泛型接口 interface GenericIdentityFn&lt;T&gt; { (arg: T): T; } function identity&lt;T&gt;(arg: T): T { return arg; } let myIdentity: GenericIdentityFn&lt;number&gt; = identity;  泛型类 class GenericNumber&lt;T&gt; { zeroValue: T; add: (x: T, y: T) =&gt; T; } let myGenericNumber = new GenericNumber&lt;number&gt;(); myGenericNumber....</p>
                         </div>
                     </div>
                 </article>
@@ -345,13 +343,10 @@ function loggingIdentity&lt;T&gt;(arg: T): T { console.log(arg.length); // Error
                                 Published at July 12, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;2 min read
                             </p>
-                            <p>函数  https://typescript.bootcss.com/functions.html 完整函数类型，包含参数类型和返回值类型。
-let myAdd: (x:number, y:number) =&gt; number = function(x: number, y: number): number { return x + y; };   以参数列表的形式写出参数类型，为每个参数指定一个名字和类型。名字只是为了增加可读性，只要参数类型是匹配即有效 在函数和返回值类型之前使用（=&gt;）符号，返回值类型是函数类型的必要部分，即使函数没有返回任何值也必须指定返回值类型为 void  TypeScript 编译器会检查用户是否为每个参数都传入了值，所以每个函数参数都是必须的（可输入 null or undefined）。
- 可选参数（?） 必须跟在必须参数后面 有默认初始化值的参数， 在所有必须参数后面的带默认初始化的参数都是可选的。共享同样的类型
-function buildName(firstName: string, lastName = &quot;Smith&quot;) { return firstName + &quot; &quot; + lastName; }  带默认值的参数不需要放在必须参数的后面。如果带默认值的参数出现在必须参数前面，用户必须明确的传入 undefined 值来获得默认值。
- 剩余参数 会被当做个数不限的可选参数。编译器创建参数数组，名字是你在省略号（&hellip;）后面给定的名字，你可以在函数体内使用这个数组。
-  JavaScript 里 this 的工作原理，它的值在函数被调用的时候才会指定。
- 顶级的非方法式调用会将 this 视为 window。（在严格模式下，this 为 undefined 而不是 window） ECMAScript 6 箭头语法能保存函数创建时的 this 值，而不是调用时的值。 this 来自对象字面量里的函数表达式(this 为 any 类型)。 显式调用 this，指定 this 类型。...</p>
+                            <p>函数   https://typescript.bootcss.com/functions.html
+  完整函数类型，包含参数类型和返回值类型。
+let myAdd: (x:number, y:number) =&gt; number = function(x: number, y: number): number { return x + y; };  以参数列表的形式写出参数类型，为每个参数指定一个名字和类型。名字只是为了增加可读性，只要参数类型是匹配即有效 在函数和返回值类型之前使用（=&gt;）符号，返回值类型是函数类型的必要部分，即使函数没有返回任何值也必须指定返回值类型为 void    TypeScript 编译器会检查用户是否为每个参数都传入了值，所以每个函数参数都是必须的（可输入 null or undefined）。
+ 可选参数（?） 必须跟在必须参数后面 有默认初始化值的参数， 在所有必须参数后面的带默认初始化的参数都是可选的。共享同样的类型 function buildName(firstName: string, lastName = &quot;Smith&quot;) { return firstName + &quot; &quot; + lastName; }  带默认值的参数不需要放在必须参数的后面。如果带默认值的参数出现在必须参数前面，用户必须明确的传入 undefined 值来获得默认值。 剩余参数 会被当做个数不限的可选参数。编译器创建参数数组，名字是你在省略号（&hellip;）后面给定的名字，你可以在函数体内使用这个数组。    JavaScript 里 this 的工作原理，它的值在函数被调用的时候才会指定。...</p>
                         </div>
                     </div>
                 </article>
@@ -365,8 +360,10 @@ function buildName(firstName: string, lastName = &quot;Smith&quot;) { return fir
                                 Published at July 11, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;2 min read
                             </p>
-                            <p>类  https://typescript.bootcss.com/classes.html 在 TypeScript 里，使用面向对象模式，允许使用继承来扩展现有的类。 派生类(子类)包含了一个构造函数，它必须调用 super() 方法（会执行基类的构造函数）。
- class Animal { name: string; constructor(theName: string) { this.name = theName; } move(distanceInMeters: number = 0) { console.log(`${this.name} moved ${distanceInMeters}m.`); } } class Snake extends Animal { constructor(name: string) { super(name); } move(distanceInMeters = 5) { console.log(&quot;Slithering...&quot;); super.move(distanceInMeters); } } class Horse extends Animal { constructor(name: string) { super(name); } move(distanceInMeters = 45) { console.log(&quot;Galloping...&quot;); super.move(distanceInMeters); } } let sam = new Snake(&quot;Sammy the Python&quot;); let tom: Animal = new Horse(&quot;Tommy the Palomino&quot;); sam....</p>
+                            <p>类   https://typescript.bootcss.com/classes.html
+  在 TypeScript 里，使用面向对象模式，允许使用继承来扩展现有的类。
+  派生类(子类)包含了一个构造函数，它必须调用 super() 方法（会执行基类的构造函数）。
+ class Animal { name: string; constructor(theName: string) { this.name = theName; } move(distanceInMeters: number = 0) { console.log(`${this.name} moved ${distanceInMeters}m.`); } } class Snake extends Animal { constructor(name: string) { super(name); } move(distanceInMeters = 5) { console.log(&quot;Slithering...&quot;); super.move(distanceInMeters); } } class Horse extends Animal { constructor(name: string) { super(name); } move(distanceInMeters = 45) { console.log(&quot;Galloping...&quot;); super....</p>
                         </div>
                     </div>
                 </article>
@@ -380,10 +377,14 @@ function buildName(firstName: string, lastName = &quot;Smith&quot;) { return fir
                                 Published at July 10, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;2 min read
                             </p>
-                            <p>接口  https://typescript.bootcss.com/interfaces.html 在 TypeScript 里，接口的作用就是定义结构。 可选属性名字( ? ), 可以对可能存在的属性进行预定义，以及捕获引用了不存在的属性时的错误。 可以将接口属性定义为 readonly，定义后只能在初始化时接口对象时赋值。 ReadonlyArray，只读数组，定义后不可更改，同时也不可将其复制给普通数组。 变量使用 const，属性使用 readonly。 对象字面量会被特殊对待且会额外属性检查，当将其赋值给变量或作为参数传递的时候。 如果一个对象字面量存在任何“目标类型”不包含的属性时，会报错，可以用以下方法规避：
- 类型断言（使用类型断言可以绕开类型检查） 字符串索引签名（eg: man[&lsquo;canRead&rsquo;]） 将该对象赋值给一个另一个变量
-interface SquareConfig { color?: string; width?: number; } function createSquare(config: SquareConfig): { color: string; area: number } { // ... } let squareOptions = { colour: &quot;red&quot;, width: 100 }; let mySquare = createSquare(squareOptions);   接口表示函数类型，需给接口定义一个调用签名。
-interface SearchFunc { (source: string, subString: string): boolean; } let mySearch: SearchFunc; mySearch = function(source: string, subString: string) { let result = source....</p>
+                            <p>接口   https://typescript.bootcss.com/interfaces.html
+  在 TypeScript 里，接口的作用就是定义结构。
+  可选属性名字( ? ), 可以对可能存在的属性进行预定义，以及捕获引用了不存在的属性时的错误。
+  可以将接口属性定义为 readonly，定义后只能在初始化时接口对象时赋值。
+  ReadonlyArray，只读数组，定义后不可更改，同时也不可将其复制给普通数组。
+  变量使用 const，属性使用 readonly。
+  对象字面量会被特殊对待且会额外属性检查，当将其赋值给变量或作为参数传递的时候。 如果一个对象字面量存在任何“目标类型”不包含的属性时，会报错，可以用以下方法规避：
+ 类型断言（使用类型断言可以绕开类型检查） 字符串索引签名（eg: man[&lsquo;canRead&rsquo;]） 将该对象赋值给一个另一个变量 interface SquareConfig { color?: string; width?: number; } function createSquare(config: SquareConfig): { color: string; area: number } { // ... } let squareOptions = { colour: &quot;red&quot;, width: 100 }; let mySquare = createSquare(squareOptions);     接口表示函数类型，需给接口定义一个调用签名。...</p>
                         </div>
                     </div>
                 </article>
@@ -397,7 +398,7 @@ interface SearchFunc { (source: string, subString: string): boolean; } let mySea
                                 Published at July 5, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;2 min read
                             </p>
-                            <p>变量声明  https://typescript.bootcss.com/variable-declarations.html var 声明可以在包含它的函数，模块，命名空间或全局作用域内部任何位置被访问。  多次声明同一个变量并不会报错 声明的变量可以在包含它们的函数外访问  let 声明的变量使用的是词法作用域或块作用域。  块作用域变量在包含它们的块或 for 循环之外无法访问 不能在被声明之前读或写(仍可在一个拥有块作用域变量被声明前获取它，只是我们不能在变量声明前去调用此函数) 在同一作用域只能声明一次 每进入一个作用域就会创建一个变量的环境，就算作用域内代码已经执行完毕，这个环境与其捕获的变量依然存在  const 拥有与 let 相同的作用域规则，但不能对它们重新赋值。  变量内部状态可修改(可通过设置对象成员为只读改变)  使用最小特权原则，所有变量除了计划去修改的都应使用const。  基本原则：如果一个变量不需要对它写入，那么其它使用这些代码的人也不能够写入它们，并且要思考为什么会需要对这些变量重新赋值。 使用 const 可更容易推测数据的流动。  解构数组：  let input = [1, 2]; let [first, second] = input; [first, second] = [second, first]; // wap variavle function f([first, second]: [number, number]) let [, second, , fourth] = [1, 2, 3, 4]; 可用作在一行内声明多个数组变量，用作自解释  元组解构  let tuple: [number, string, boolean] = [7, &quot;hello&quot;, true]; let [a, ....</p>
+                            <p>变量声明  https://typescript.bootcss.com/variable-declarations.html var 声明可以在包含它的函数，模块，命名空间或全局作用域内部任何位置被访问。  多次声明同一个变量并不会报错 声明的变量可以在包含它们的函数外访问   let 声明的变量使用的是词法作用域或块作用域。  块作用域变量在包含它们的块或 for 循环之外无法访问 不能在被声明之前读或写(仍可在一个拥有块作用域变量被声明前获取它，只是我们不能在变量声明前去调用此函数) 在同一作用域只能声明一次 每进入一个作用域就会创建一个变量的环境，就算作用域内代码已经执行完毕，这个环境与其捕获的变量依然存在   const 拥有与 let 相同的作用域规则，但不能对它们重新赋值。  变量内部状态可修改(可通过设置对象成员为只读改变)   使用最小特权原则，所有变量除了计划去修改的都应使用const。  基本原则：如果一个变量不需要对它写入，那么其它使用这些代码的人也不能够写入它们，并且要思考为什么会需要对这些变量重新赋值。 使用 const 可更容易推测数据的流动。   解构数组：  let input = [1, 2]; let [first, second] = input; [first, second] = [second, first]; // wap variavle function f([first, second]: [number, number]) let [, second, , fourth] = [1, 2, 3, 4]; 可用作在一行内声明多个数组变量，用作自解释   元组解构  let tuple: [number, string, boolean] = [7, &quot;hello&quot;, true]; let [a, ....</p>
                         </div>
                     </div>
                 </article>
@@ -411,11 +412,7 @@ interface SearchFunc { (source: string, subString: string): boolean; } let mySea
                                 Published at June 24, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;1 min read
                             </p>
-                            <p>基础类型  https://typescript.bootcss.com/basic-types.html TypeScript 里的所有数字都是浮点数。 模版字符串，可以定义多行文本和内嵌表达式。 其被反引号包围（ `），并且以 ${ expr } 这种形式嵌入表达式。 数组，使用后跟[]元素的类型来表示该元素类型的数组或者使用通用数组类型Array。 元组类型( Tuple )允许表示一个已知元素数量和类型的数组，各元素的类型不必相同。
- eg: let x: [string, number]; x = [&lsquo;hello&rsquo;, 10]; // 必须要按照定义类型的顺序赋值 访问越界元素会出现错误提示:
-x[3] = &quot;world&quot;; // Error, Property '3' does not exist on type '[string, number]'. console.log(x[5].toString()); // Error, Property '5' does not exist on type '[string, number]'.   枚举类型提供的一个便利是你可以由枚举的值得到它的名字。
- 类型检查器不对 any 类型的值进行检查而是直接让它们通过编译阶段的检查。Object 类型的变量只允许给它赋任意值 ，但是却不能够在它上面调用任意的方法，即便它真的有这些方法。
- 指定了 &ndash;strictNullChecks 标记(编译选项)，null 和 undefined 只能赋值给 void 和它们各自。...</p>
+                            <p>基础类型  https://typescript.bootcss.com/basic-types.html TypeScript 里的所有数字都是浮点数。 模版字符串，可以定义多行文本和内嵌表达式。 其被反引号包围（ `），并且以 ${ expr } 这种形式嵌入表达式。 数组，使用后跟[]元素的类型来表示该元素类型的数组或者使用通用数组类型Array。 元组类型( Tuple )允许表示一个已知元素数量和类型的数组，各元素的类型不必相同。  eg: let x: [string, number]; x = [&lsquo;hello&rsquo;, 10]; // 必须要按照定义类型的顺序赋值 访问越界元素会出现错误提示: x[3] = &quot;world&quot;; // Error, Property '3' does not exist on type '[string, number]'. console.log(x[5].toString()); // Error, Property '5' does not exist on type '[string, number]'.    枚举类型提供的一个便利是你可以由枚举的值得到它的名字。 类型检查器不对 any 类型的值进行检查而是直接让它们通过编译阶段的检查。Object 类型的变量只允许给它赋任意值 ，但是却不能够在它上面调用任意的方法，即便它真的有这些方法。 指定了 &ndash;strictNullChecks 标记(编译选项)，null 和 undefined 只能赋值给 void 和它们各自。 never 类型表示的是那些永不存在的值的类型，即使 any 也不能赋值给 never。  可作为 error 函数 (return Error()) 的返回值   类型断言( as , 尖括号 (&lt;String&gt;)) 类似 JAVA 中的类型转换，但是不进行特殊的数据检查和解构。不影响运行，只干预编译阶段。 推荐使用 let 代替 var（和作用域有关）  ...</p>
                         </div>
                     </div>
                 </article>
@@ -449,6 +446,9 @@ x[3] = &quot;world&quot;; // Error, Property '3' does not exist on type '[string
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2019/summary-first/">angular 学习心得1</a></h1>
+            <time class="has-text-grey-light is-size-7">3 December 2019</time>
+        
             <h1><a href="https://zhouqian0.github.io/2019/mysql-seventh/">Mysql 必知必会阅读小记7</a></h1>
             <time class="has-text-grey-light is-size-7">22 September 2019</time>
         
@@ -461,9 +461,6 @@ x[3] = &quot;world&quot;; // Error, Property '3' does not exist on type '[string
             <h1><a href="https://zhouqian0.github.io/2019/mysql-fifth/">Mysql 必知必会阅读小记4</a></h1>
             <time class="has-text-grey-light is-size-7">16 September 2019</time>
         
-            <h1><a href="https://zhouqian0.github.io/2019/mysql-third/">Mysql 必知必会阅读小记3</a></h1>
-            <time class="has-text-grey-light is-size-7">10 September 2019</time>
-        
     </div>
 </div>
     <br>
@@ -471,7 +468,7 @@ x[3] = &quot;world&quot;; // Error, Property '3' does not exist on type '[string
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (44)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (45)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         

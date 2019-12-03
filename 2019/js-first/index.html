@@ -46,23 +46,17 @@
     <div class="column is-9">
         <div class="tile is-child box">
             <div class="content">
-                
-
-<h3 id="await">await</h3>
-
+                <h3 id="await">await</h3>
 <ol>
 <li>通过将 observable 转换为 promise，调用 promise 的 then() 方法，达到同步效果（在异步函数中）。</li>
-
-<li><p>在异步函数中使用同步，需要加上 await 等待 promise 结束后再执行下一步操作。</p>
-
-<pre><code>getALLReportData() {
-  return (this.reportService.getReportBlockData() as Observable).toPromise();
-}
-    
-（await） this.getALLReportData().then(res =&gt; this.bkDataList = res['data'] || []);
-</code></pre></li>
+<li>在异步函数中使用同步，需要加上 await 等待 promise 结束后再执行下一步操作。</li>
 </ol>
-
+<pre><code>    getALLReportData() {
+      return (this.reportService.getReportBlockData() as Observable).toPromise();
+    }
+    
+    （await） this.getALLReportData().then(res =&gt; this.bkDataList = res['data'] || []);
+</code></pre>
             </div>
         </div>
     </div>
@@ -91,6 +85,9 @@
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2019/summary-first/">angular 学习心得1</a></h1>
+            <time class="has-text-grey-light is-size-7">3 December 2019</time>
+        
             <h1><a href="https://zhouqian0.github.io/2019/mysql-seventh/">Mysql 必知必会阅读小记7</a></h1>
             <time class="has-text-grey-light is-size-7">22 September 2019</time>
         
@@ -102,9 +99,6 @@
         
             <h1><a href="https://zhouqian0.github.io/2019/mysql-fifth/">Mysql 必知必会阅读小记4</a></h1>
             <time class="has-text-grey-light is-size-7">16 September 2019</time>
-        
-            <h1><a href="https://zhouqian0.github.io/2019/mysql-third/">Mysql 必知必会阅读小记3</a></h1>
-            <time class="has-text-grey-light is-size-7">10 September 2019</time>
         
     </div>
 </div>
@@ -140,7 +134,7 @@
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (44)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (45)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         

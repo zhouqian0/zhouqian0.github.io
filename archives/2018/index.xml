@@ -16,7 +16,7 @@
       <pubDate>Fri, 28 Dec 2018 15:03:45 +0800</pubDate>
       
       <guid>https://zhouqian0.github.io/2018/second/</guid>
-      <description> 比较表达式  当需要判断多个变量来获取结果，并且这些判断是没有判断先后顺序的优先级时，可以考虑将这些要判断的变量的值转换为数字，通过判断数字的大于小于来获取结果。  例如，权限系统会将权限等级用数字来表示，通过判断数字属于那个区间来判断具体权限。如判断权限 x &amp;gt;= 400 &amp;amp;&amp;amp; x &amp;lt;= 500。   </description>
+      <description>比较表达式  当需要判断多个变量来获取结果，并且这些判断是没有判断先后顺序的优先级时，可以考虑将这些要判断的变量的值转换为数字，通过判断数字的大于小于来获取结果。  例如，权限系统会将权限等级用数字来表示，通过判断数字属于那个区间来判断具体权限。如判断权限 x &amp;gt;= 400 &amp;amp;&amp;amp; x &amp;lt;= 500。    </description>
     </item>
     
     <item>
@@ -25,10 +25,8 @@
       <pubDate>Fri, 14 Dec 2018 15:03:45 +0800</pubDate>
       
       <guid>https://zhouqian0.github.io/2018/third/</guid>
-      <description> 滚动条 页面抖动 在网页的实现中，由于页面块的切换导致滚动条出现会使得页面往左挤压（滚动条占有宽度），造成一种抖动的视觉效果。
- 最开始的解决办法是在 html 的 body 中加上 css 样式（如下），使得页面的滚动条一直出现，但是这样不仅影响美观效果，还引发了另外一个问题：在网页中打开弹窗时，会出现背景遮罩层，该遮罩层会使滚动条向右挤压隐藏，使弹框出现时看不到网页中有滚动条，但是当弹框消失时，遮罩层消失，滚动条复现，又使页面往左挤压了一点，造成抖动。
-body { overflow: scroll; } // 第一次的解决方式  所以，为了从根本上解决问题，再次 Google，找到了更加合适的版本（如下），在此版本中，滚动条不会一直出现，并且最重要的是，滚动条不再占用页面宽度。
-html{ overflow-y: scroll; } :root { overflow-x: auto; overflow-y: hidden } :root body { position: absolute; } body { width: 100vw; overflow: hidden; } // 目前解决方式   </description>
+      <description>滚动条 页面抖动 在网页的实现中，由于页面块的切换导致滚动条出现会使得页面往左挤压（滚动条占有宽度），造成一种抖动的视觉效果。
+  最开始的解决办法是在 html 的 body 中加上 css 样式（如下），使得页面的滚动条一直出现，但是这样不仅影响美观效果，还引发了另外一个问题：在网页中打开弹窗时，会出现背景遮罩层，该遮罩层会使滚动条向右挤压隐藏，使弹框出现时看不到网页中有滚动条，但是当弹框消失时，遮罩层消失，滚动条复现，又使页面往左挤压了一点，造成抖动。   body { overflow: scroll; } // 第一次的解决方式 所以，为了从根本上解决问题，再次 Google，找到了更加合适的版本（如下），在此版本中，滚动条不会一直出现，并且最重要的是，滚动条不再占用页面宽度。   html{ overflow-y: scroll; } :root { overflow-x: auto; overflow-y: hidden } :root body { position: absolute; } body { width: 100vw; overflow: hidden; } // 目前解决方式 </description>
     </item>
     
     <item>
@@ -37,9 +35,9 @@ html{ overflow-y: scroll; } :root { overflow-x: auto; overflow-y: hidden } :root
       <pubDate>Fri, 07 Dec 2018 15:52:27 +0800</pubDate>
       
       <guid>https://zhouqian0.github.io/2018/js-fourth/</guid>
-      <description> 中文排序  如果直接是中文数组，可以采用 arr.sort() 排序。
- 如果对对象数组中的某个属性进行中文排序，可用 js 的 localeCompare() 对中文排序。
-corps.sort((a, b) =&amp;gt; { return a.shortName.localeCompare(b.shortName, &#39;zh-Hans-CN&#39;,{sensitivity:&#39;accent&#39;}); });   不同浏览器可能会出现不同结果 无法识别多音字   </description>
+      <description>中文排序   如果直接是中文数组，可以采用 arr.sort() 排序。
+  如果对对象数组中的某个属性进行中文排序，可用 js 的 localeCompare() 对中文排序。
+   corps.sort((a, b) =&amp;gt; { return a.shortName.localeCompare(b.shortName, &#39;zh-Hans-CN&#39;,{sensitivity:&#39;accent&#39;}); }); - 不同浏览器可能会出现不同结果 - 无法识别多音字  </description>
     </item>
     
   </channel>

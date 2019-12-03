@@ -46,24 +46,21 @@
     <div class="column is-9">
         <div class="tile is-child box">
             <div class="content">
-                
-
-<h3 id="混入-mixins">混入（Mixins）</h3>
-
+                <h3 id="mixins">混入（Mixins）</h3>
 <ol>
 <li><a href="https://www.typescriptlang.org/docs/handbook/mixins.html">https://www.typescriptlang.org/docs/handbook/mixins.html</a></li>
 <li><a href="https://mariusschulz.com/blog/mixin-classes-in-typescript">https://mariusschulz.com/blog/mixin-classes-in-typescript</a></li>
 <li>Mixins 提供了一种基于组合行为的代码重用形式。</li>
-
-<li><pre><code>  // Disposable Mixin
+<li>
+<pre><code>  // Disposable Mixin
   class Disposable {
       isDisposed: boolean;
       dispose() {
           this.isDisposed = true;
       }
-      
+     
   }
-      
+     
   // Activatable Mixin
   class Activatable {
       isActive: boolean;
@@ -74,27 +71,27 @@
           this.isActive = false;
       }
   }
-      
+     
   class SmartObject {
       constructor() {
           setInterval(() =&gt; console.log(this.isActive + &quot; : &quot; + this.isDisposed), 500);
       }
-      
+     
       interact() {
           this.activate();
       }
   }
-      
+     
   interface SmartObject extends Disposable, Activatable {}
   applyMixins(SmartObject, [Disposable, Activatable]);
-      
+     
   let smartObj = new SmartObject();
   setTimeout(() =&gt; smartObj.interact(), 1000);
-      
+     
   ////////////////////////////////////////
   // In your runtime library somewhere
   ////////////////////////////////////////
-      
+     
   function applyMixins(derivedCtor: any, baseCtors: any[]) {
       baseCtors.forEach(baseCtor =&gt; {
           Object.getOwnPropertyNames(baseCtor.prototype).forEach(name =&gt; {
@@ -102,16 +99,15 @@
           });
       });
   }
-</code></pre>
-
-<ul>
+</code></pre><ul>
 <li>使用 extends 扩展了 SmartObject 接口。</li>
 <li>由于声明合并，SmartObject 接口将被混合到 SmartObject 类中。</li>
 <li>applyMixins 函数运行后会将 baseCtors 中的属性都混入 derivedCtor 类型中。</li>
-</ul></li>
-
-<li><pre><code>type Constructor&lt;T = {}&gt; = new (...args: any[]) =&gt; T;
-   
+</ul>
+</li>
+<li>
+<pre><code>type Constructor&lt;T = {}&gt; = new (...args: any[]) =&gt; T;
+  
 function Timestamped&lt;TBase extends Constructor&gt;(Base: TBase) {
  return class Timestamped extends Base {
    timestamp = Date.now();
@@ -120,113 +116,102 @@ function Timestamped&lt;TBase extends Constructor&gt;(Base: TBase) {
 
 class User {
  name: string;
-   
+  
  constructor(name: string) {
    this.name = name;
  }
 }
-   
+  
 // Create a new class by mixing &quot;Timestamped&quot; into &quot;User&quot;
 const TimestampedUser = Timestamped(User);
-   
+  
 // Instantiate the new &quot;TimestampedUser&quot; class
 const user = new TimestampedUser(&quot;John Doe&quot;);
-   
+  
 // We can now access properties from both the &quot;User&quot; class
 // and our &quot;Timestamped&quot; mixin in a type-safe manner
 console.log(user.name);  // John Doe
 console.log(user.timestamp); // 1565752687614
 </code></pre></li>
-
-<li><p>Mixins with a Constructor</p>
-
+<li>Mixins with a Constructor
 <pre><code>   type Constructor&lt;T = {}&gt; = new (...args: any[]) =&gt; T;
-       
+      
    function Tagged&lt;TBase extends Constructor&gt;(Base: TBase) {
      return class extends Base {
        tag: string | null;
-       
+      
        constructor(...args: any[]) {
          super(...args);
          this.tag = null;
        }
      };
    }
-   
+  
    class User {
     name: string;
-          
+         
     constructor(name: string) {
       this.name = name;
     }
    }
-</code></pre>
-
-<pre><code>   // Create a new class by mixing &quot;Tagged&quot; into &quot;User&quot;
+</code></pre><pre><code>   // Create a new class by mixing &quot;Tagged&quot; into &quot;User&quot;
    const TaggedUser = Tagged(User);
-       
+      
    // Instantiate the new &quot;TaggedUser&quot; class
    const user = new TaggedUser(&quot;John Doe&quot;);
-       
+      
    // We can now access properties from both the &quot;User&quot; class
    // and our &quot;Tagged&quot; mixin in a type-safe manner
    user.name = &quot;Jane Doe&quot;;
    user.tag = &quot;janedoe&quot;;
 </code></pre></li>
-
-<li><p>Mixins with Methods</p>
-
+<li>Mixins with Methods
 <pre><code>   type Constructor&lt;T = {}&gt; = new (...args: any[]) =&gt; T;
 
    function Activatable&lt;TBase extends Constructor&gt;(Base: TBase) {
      return class extends Base {
        isActivated = false;
-       
+      
        activate() {
          this.isActivated = true;
        }
-       
+      
        deactivate() {
          this.isActivated = false;
        }
      };
    }
-   
+  
    class User {
      name: string;
-              
+             
      constructor(name: string) {
        this.name = name;
      }
    }
-</code></pre>
-
-<pre><code>   const ActivatableUser = Activatable(User);
-       
+</code></pre><pre><code>   const ActivatableUser = Activatable(User);
+      
    // Instantiate the new &quot;ActivatableUser&quot; class
    const user = new ActivatableUser(&quot;John Doe&quot;);
-       
+      
    // Initially, the &quot;isActivated&quot; property is false
    console.log(user.isActivated);
-       
+      
    // Activate the user
    user.activate();
-       
+      
    // Now, &quot;isActivated&quot; is true
    console.log(user.isActivated);
 </code></pre></li>
-
-<li><p>Composing Multiple Mixins</p>
-
+<li>Composing Multiple Mixins
 <pre><code>const SpecialUser = Activatable(Tagged(Timestamped(User)));
 const user = new SpecialUser(&quot;John Doe&quot;);
-</code></pre>
-
-<ul>
+</code></pre><ul>
 <li>TypeScript 可以静态地理解这种 mixin 组合。
 编译器可以对自动完成列表中的所有用法进行类型检查并建议可用成员。</li>
 <li>将此与类继承进行对比，类只能有一个基类，mixin 可以混合多个类。</li>
-</ul></li>
+</ul>
+</li>
 </ol>
 
             </div>
@@ -257,6 +242,9 @@ const user = new SpecialUser(&quot;John Doe&quot;);
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2019/summary-first/">angular 学习心得1</a></h1>
+            <time class="has-text-grey-light is-size-7">3 December 2019</time>
+        
             <h1><a href="https://zhouqian0.github.io/2019/mysql-seventh/">Mysql 必知必会阅读小记7</a></h1>
             <time class="has-text-grey-light is-size-7">22 September 2019</time>
         
@@ -268,9 +256,6 @@ const user = new SpecialUser(&quot;John Doe&quot;);
         
             <h1><a href="https://zhouqian0.github.io/2019/mysql-fifth/">Mysql 必知必会阅读小记4</a></h1>
             <time class="has-text-grey-light is-size-7">16 September 2019</time>
-        
-            <h1><a href="https://zhouqian0.github.io/2019/mysql-third/">Mysql 必知必会阅读小记3</a></h1>
-            <time class="has-text-grey-light is-size-7">10 September 2019</time>
         
     </div>
 </div>
@@ -309,7 +294,7 @@ const user = new SpecialUser(&quot;John Doe&quot;);
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (44)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (45)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         

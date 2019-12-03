@@ -46,88 +46,70 @@
     <div class="column is-9">
         <div class="tile is-child box">
             <div class="content">
-                
-
-<h3 id="迭代器和生成器">迭代器和生成器</h3>
-
+                <h3 id="heading">迭代器和生成器</h3>
 <ol>
 <li><a href="https://www.tslang.cn/docs/handbook/iterators-and-generators.html">https://www.tslang.cn/docs/handbook/iterators-and-generators.html</a></li>
 <li>可迭代性: 当一个对象实现了 Symbol.iterator 属性时，我们认为它是可迭代的。 一些内置的类型如 Array，Map，Set，String，Int32Array，Uint32Array 等都已经实现了各自的 Symbol.iterator。 对象上的 Symbol.iterator函数负责返回供迭代的值。
-
 <ul>
 <li>Symbol.iterator, A method that returns the default iterator for an object. Called by the semantics of the for-of statement.</li>
-</ul></li>
-
-<li><p>for..of 会遍历可迭代的对象，调用对象上的 Symbol.iterator 方法。</p>
-
+</ul>
+</li>
+<li>for..of 会遍历可迭代的对象，调用对象上的 Symbol.iterator 方法。
 <pre><code>let someArray = [1, &quot;string&quot;, false];
-   
+  
 for (let entry of someArray) {
    console.log(entry); // 1, &quot;string&quot;, false
 }
 </code></pre></li>
-
-<li><p>for..of 和 for..in 均可迭代一个列表；
-但是用于迭代的值却不同，for..in 迭代的是对象的 <em>键</em> 的列表，而 for..of 则迭代对象的键对应的 <em>值</em> 。</p>
-
+<li>for..of 和 for..in 均可迭代一个列表；
+但是用于迭代的值却不同，for..in 迭代的是对象的 <em>键</em> 的列表，而 for..of 则迭代对象的键对应的 <em>值</em> 。
 <pre><code>let list = [4, 5, 6];
-   
+  
 for (let i in list) {
    console.log(i); // &quot;0&quot;, &quot;1&quot;, &quot;2&quot;,
 }
-   
+  
 for (let i of list) {
    console.log(i); // 4, 5, 6
 }
-</code></pre>
-
-<p>另一个区别是 for..in 可以操作任何对象；它提供了查看对象属性的一种方法。
+</code></pre><p>另一个区别是 for..in 可以操作任何对象；它提供了查看对象属性的一种方法。
 但是 for..of 关注于迭代对象的值。内置对象 Map 和 Set 已经实现了 Symbol.iterator 方法，让我们可以访问它们保存的值。</p>
-
 <pre><code>let pets = new Set([&quot;Cat&quot;, &quot;Dog&quot;, &quot;Hamster&quot;]);
 pets[&quot;species&quot;] = &quot;mammals&quot;;
-   
+  
 for (let pet in pets) {
    console.log(pet); // &quot;species&quot;
 }
-   
+  
 for (let pet of pets) {
    console.log(pet); // no output
 }
-</code></pre>
-
-<pre><code>const map = new Map;
+</code></pre><pre><code>const map = new Map;
 map.set('first', 1);
 map.set('second', 2);   
 map[&quot;species&quot;] = &quot;mammals&quot;;
    
 for(let a in map){
-    console.log(a); // &quot;species&quot;
+     console.log(a); // &quot;species&quot;
 }
    
 for(let a of map){
-    console.log(a); // no output
+     console.log(a); // no output
 }
 </code></pre></li>
-
-<li><p>当生成目标为 ES5 或 ES3，迭代器 <em>只允许在 Array 类型</em> 上使用。 在非数组值上使用 for..of 语句会得到一个错误，就算这些非数组值已经实现了 Symbol.iterator 属性。</p>
-
+<li>当生成目标为 ES5 或 ES3，迭代器 <em>只允许在 Array 类型</em> 上使用。 在非数组值上使用 for..of 语句会得到一个错误，就算这些非数组值已经实现了 Symbol.iterator 属性。
 <pre><code>let numbers = [1, 2, 3];
 for (let num of numbers) {
    console.log(num);
 }
-</code></pre>
-
-<p>会编译成</p>
-
+</code></pre><p>会编译成</p>
 <pre><code>var numbers = [1, 2, 3];
 for (var _i = 0; _i &lt; numbers.length; _i++) {
    var num = numbers[_i];
    console.log(num);
 }
 </code></pre></li>
-
-<li><p>当目标为兼容 ES 2015 的引擎时，编译器会生成相应引擎的 for..of 内置迭代器实现方式。</p></li>
+<li>当目标为兼容 ES 2015 的引擎时，编译器会生成相应引擎的 for..of 内置迭代器实现方式。</li>
 </ol>
 
             </div>
@@ -158,6 +140,9 @@ for (var _i = 0; _i &lt; numbers.length; _i++) {
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2019/summary-first/">angular 学习心得1</a></h1>
+            <time class="has-text-grey-light is-size-7">3 December 2019</time>
+        
             <h1><a href="https://zhouqian0.github.io/2019/mysql-seventh/">Mysql 必知必会阅读小记7</a></h1>
             <time class="has-text-grey-light is-size-7">22 September 2019</time>
         
@@ -169,9 +154,6 @@ for (var _i = 0; _i &lt; numbers.length; _i++) {
         
             <h1><a href="https://zhouqian0.github.io/2019/mysql-fifth/">Mysql 必知必会阅读小记4</a></h1>
             <time class="has-text-grey-light is-size-7">16 September 2019</time>
-        
-            <h1><a href="https://zhouqian0.github.io/2019/mysql-third/">Mysql 必知必会阅读小记3</a></h1>
-            <time class="has-text-grey-light is-size-7">10 September 2019</time>
         
     </div>
 </div>
@@ -216,7 +198,7 @@ for (var _i = 0; _i &lt; numbers.length; _i++) {
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (44)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (45)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         

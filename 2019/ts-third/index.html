@@ -46,164 +46,168 @@
     <div class="column is-9">
         <div class="tile is-child box">
             <div class="content">
-                
-
-<h3 id="接口">接口</h3>
-
+                <h3 id="heading">接口</h3>
 <ol>
-<li><a href="https://typescript.bootcss.com/interfaces.html">https://typescript.bootcss.com/interfaces.html</a></li>
-<li>在 TypeScript 里，接口的作用就是定义结构。</li>
-<li>可选属性名字( ? ), 可以对可能存在的属性进行预定义，以及捕获引用了不存在的属性时的错误。</li>
-<li>可以将接口属性定义为 readonly，定义后只能在初始化时接口对象时赋值。</li>
-<li>ReadonlyArray<T>，只读数组，定义后不可更改，同时也不可将其复制给普通数组。</li>
-<li>变量使用 const，属性使用 readonly。</li>
-
-<li><p>对象字面量会被特殊对待且会额外属性检查，当将其赋值给变量或作为参数传递的时候。 如果一个对象字面量存在任何“目标类型”不包含的属性时，会报错，可以用以下方法规避：</p>
-
+<li>
+<p><a href="https://typescript.bootcss.com/interfaces.html">https://typescript.bootcss.com/interfaces.html</a></p>
+</li>
+<li>
+<p>在 TypeScript 里，接口的作用就是定义结构。</p>
+</li>
+<li>
+<p>可选属性名字( ? ), 可以对可能存在的属性进行预定义，以及捕获引用了不存在的属性时的错误。</p>
+</li>
+<li>
+<p>可以将接口属性定义为 readonly，定义后只能在初始化时接口对象时赋值。</p>
+</li>
+<li>
+<p>ReadonlyArray<!-- raw HTML omitted -->，只读数组，定义后不可更改，同时也不可将其复制给普通数组。</p>
+</li>
+<li>
+<p>变量使用 const，属性使用 readonly。</p>
+</li>
+<li>
+<p>对象字面量会被特殊对待且会额外属性检查，当将其赋值给变量或作为参数传递的时候。 如果一个对象字面量存在任何“目标类型”不包含的属性时，会报错，可以用以下方法规避：</p>
 <ol>
 <li>类型断言（使用类型断言可以绕开类型检查）</li>
 <li><a href="https://jkchao.github.io/typescript-book-chinese/typings/indexSignatures.html#typescript-%E7%B4%A2%E5%BC%95%E7%AD%BE%E5%90%8D">字符串索引签名</a>（eg: man[&lsquo;canRead&rsquo;]）</li>
-
-<li><p>将该对象赋值给一个另一个变量</p>
-
+<li>将该对象赋值给一个另一个变量
 <pre><code>interface SquareConfig {
     color?: string;
     width?: number;
 }
-        
+       
 function createSquare(config: SquareConfig): { color: string; area: number } {
     // ...
 }
-        
+       
 let squareOptions = { colour: &quot;red&quot;, width: 100 };
 let mySquare = createSquare(squareOptions);
 </code></pre></li>
-</ol></li>
-
-<li><p>接口表示函数类型，需给接口定义一个调用签名。</p>
-
+</ol>
+</li>
+<li>
+<p>接口表示函数类型，需给接口定义一个调用签名。</p>
 <pre><code>interface SearchFunc {
     (source: string, subString: string): boolean;
 }
-    
+   
 let mySearch: SearchFunc;
 mySearch = function(source: string, subString: string) {
     let result = source.search(subString);
     return result &gt; -1;
 }
 </code></pre></li>
-
-<li><p>可索引的类型，具有一个索引签名，它描述了对象索引的类型，还有相应的索引返回值类型。</p>
-
+<li>
+<p>可索引的类型，具有一个索引签名，它描述了对象索引的类型，还有相应的索引返回值类型。</p>
 <p>eg: man[&lsquo;canRead&rsquo;]</p>
-
 <ol>
 <li>可以同时使用 string 和 number 两种类型的索引，但是数字索引的返回值必须是字符串索引返回值类型的子类型。（使用 number 类型索引时会自动将其转化为 string 类型的索引）</li>
 <li>字符串索引签名能够很好的描述 dictionary 模式，并且它们也会确保所有属性与其返回值类型相匹配 (obj.property 和 obj[&lsquo;property&rsquo;])</li>
 <li>[key: string]: string | number; // 必须包括所用成员类型</li>
 <li>索引签名可设置为只读（readonly）</li>
-</ol></li>
-
-<li><p>class 强制一个类去符合某种契约</p></li>
-
-<li><p>接口描述了类的公共部分，而不是公共和私有两部分。
-它不会帮你检查类是否具有某些私有成员。</p></li>
-
-<li><p>当你用构造器签名去定义一个接口并试图定义一个类去实现这个接口时会得到一个错误:</p>
-
+</ol>
+</li>
+<li>
+<p>class 强制一个类去符合某种契约</p>
+</li>
+<li>
+<p>接口描述了类的公共部分，而不是公共和私有两部分。
+它不会帮你检查类是否具有某些私有成员。</p>
+</li>
+<li>
+<p>当你用构造器签名去定义一个接口并试图定义一个类去实现这个接口时会得到一个错误:</p>
 <ol>
 <li>一个类实现了一个接口时，只对其实例部分进行类型检查。 constructor 存在于类的静态部分，因此，应直接操作类的静态部分(方法1)。</li>
 <li>new() 这个方法出现在接口中时，一个 class 实现了这个接口，那么这个 new 方法是对应这个 class 的构造函数的。</li>
-
-<li><pre><code>interface ComponentClass&lt;P = {}&gt; {
-    new (props?: P, context?: any): Component&lt;P, ComponentState&gt;;//此处对Component做了修饰，规定react的构造函数类型
-    propTypes?: ValidationMap&lt;P&gt;;//下面几个全部是静态方法和属性
-    contextTypes?: ValidationMap&lt;any&gt;;
-    childContextTypes?: ValidationMap&lt;any&gt;;
-    defaultProps?: Partial&lt;P&gt;;
-    displayName?: string;
-}
-</code></pre></li>
-
-<li><p>方法1：直接操作类的静态部分</p>
-
-<pre><code> interface ClockConstructor {
-     new (hour: number, minute: number): ClockInterface;
- }
- interface ClockInterface {
+<li></li>
+</ol>
+<pre><code>   interface ComponentClass&lt;P = {}&gt; {
+       new (props?: P, context?: any): Component&lt;P, ComponentState&gt;;//此处对Component做了修饰，规定react的构造函数类型
+       propTypes?: ValidationMap&lt;P&gt;;//下面几个全部是静态方法和属性
+       contextTypes?: ValidationMap&lt;any&gt;;
+       childContextTypes?: ValidationMap&lt;any&gt;;
+       defaultProps?: Partial&lt;P&gt;;
+       displayName?: string;
+   }
+</code></pre><ol>
+<li>方法1：直接操作类的静态部分</li>
+</ol>
+<pre><code>    interface ClockConstructor {
+        new (hour: number, minute: number): ClockInterface;
+    }
+    interface ClockInterface {
+        tick();
+    }
+       
+    function createClock(ctor: ClockConstructor, hour: number, minute: number): ClockInterface {
+        return new ctor(hour, minute);
+    }
+       
+    class DigitalClock implements ClockInterface {
+        constructor(h: number, m: number) { }
+        tick() {
+            console.log(&quot;beep beep&quot;);
+        }
+    }
+    class AnalogClock implements ClockInterface {
+        constructor(h: number, m: number) { }
+        tick() {
+            console.log(&quot;tick tock&quot;);
+        }
+    }
+       
+    let digital = createClock(DigitalClock, 12, 17);
+    let analog = createClock(AnalogClock, 7, 32);
+</code></pre><ol>
+<li>方法2：使用类表达式</li>
+</ol>
+<pre><code>   interface ClockConstructor {
+     new (hour: number, minute: number);
+   }
+      
+   interface ClockInterface {
      tick();
- }
-         
- function createClock(ctor: ClockConstructor, hour: number, minute: number): ClockInterface {
-     return new ctor(hour, minute);
- }
-         
- class DigitalClock implements ClockInterface {
-     constructor(h: number, m: number) { }
+   }
+      
+   const Clock: ClockConstructor = class Clock implements ClockInterface {
+     constructor(h: number, m: number) {}
      tick() {
          console.log(&quot;beep beep&quot;);
      }
- }
- class AnalogClock implements ClockInterface {
-     constructor(h: number, m: number) { }
-     tick() {
-         console.log(&quot;tick tock&quot;);
-     }
- }
-         
- let digital = createClock(DigitalClock, 12, 17);
- let analog = createClock(AnalogClock, 7, 32);
+   }
 </code></pre></li>
-
-<li><p>方法2：使用类表达式</p>
-
-<pre><code>interface ClockConstructor {
-  new (hour: number, minute: number);
-}
-        
-interface ClockInterface {
-  tick();
-}
-        
-const Clock: ClockConstructor = class Clock implements ClockInterface {
-  constructor(h: number, m: number) {}
-  tick() {
-      console.log(&quot;beep beep&quot;);
-  }
-}
-</code></pre></li>
-</ol></li>
-
-<li><p>接口可互相继承，且一个接口可以继承多个接口（类似 Java 的语言为单继承）。</p></li>
-
-<li><p>一个对象可以同时做为函数和对象使用，并带有额外的属性。</p>
-
+<li>
+<p>接口可互相继承，且一个接口可以继承多个接口（类似 Java 的语言为单继承）。</p>
+</li>
+<li>
+<p>一个对象可以同时做为函数和对象使用，并带有额外的属性。</p>
 <pre><code>interface Counter {
     (start: number): string;
     interval: number;
     reset(): void;
 }
-    
+   
 function getCounter(): Counter {
     let counter = &lt;Counter&gt;function (start: number) { };
     counter.interval = 123;
     counter.reset = function () { };
     return counter;
 }
-    
+   
 let c = getCounter();
 c(10);
 c.reset();
 c.interval = 5.0;
 </code></pre></li>
-
-<li><p>接口继承类</p>
-
+<li>
+<p>接口继承类</p>
 <ol>
 <li>接口继承类时，只会继承其成员，不会继承其实现</li>
 <li>接口会继承到类的 private 和 protected 成员。 意味着当创建了一个继承了拥有私有或受保护的成员的类的接口时，<em>这个接口类型只能被这个类或其子类所实现</em> (对私有成员的兼容性是必须的)。</li>
 <li>当有一个庞大的继承结构时这很有用，但要指出的是只在子类拥有特定属性时起作用。 这个子类除了继承至基类外与基类没有任何关系。</li>
-</ol></li>
+</ol>
+</li>
 </ol>
 
             </div>
@@ -234,6 +238,9 @@ c.interval = 5.0;
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2019/summary-first/">angular 学习心得1</a></h1>
+            <time class="has-text-grey-light is-size-7">3 December 2019</time>
+        
             <h1><a href="https://zhouqian0.github.io/2019/mysql-seventh/">Mysql 必知必会阅读小记7</a></h1>
             <time class="has-text-grey-light is-size-7">22 September 2019</time>
         
@@ -245,9 +252,6 @@ c.interval = 5.0;
         
             <h1><a href="https://zhouqian0.github.io/2019/mysql-fifth/">Mysql 必知必会阅读小记4</a></h1>
             <time class="has-text-grey-light is-size-7">16 September 2019</time>
-        
-            <h1><a href="https://zhouqian0.github.io/2019/mysql-third/">Mysql 必知必会阅读小记3</a></h1>
-            <time class="has-text-grey-light is-size-7">10 September 2019</time>
         
     </div>
 </div>
@@ -292,7 +296,7 @@ c.interval = 5.0;
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (44)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (45)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         

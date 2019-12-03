@@ -46,28 +46,21 @@
     <div class="column is-9">
         <div class="tile is-child box">
             <div class="content">
-                
-
-<h3 id="errorstatematcher">errorStateMatcher</h3>
-
+                <h3 id="errorstatematcher">errorStateMatcher</h3>
 <p>在某些情况下，submit 的操作并不能出发整个 form 的验证机制。</p>
-
 <ol>
-<li>可以为所有不能通过 submit 触发验证的表单组件添加 [errorStateMatcher]=&ldquo;matcher&rdquo; ，主动设置它的错误校验机制。</li>
-
-<li><p>将 matcher 声明为 ErrorStateMatcher，不初始化，在需要触发验证的时候将其变为 this.matcher = new MyErrorStateMatcher(); 即可主动触发所有表单组件的验证状态。</p>
-
-<pre><code>import {ErrorStateMatcher} from '@angular/material';
-import {FormControl, FormGroupDirective, NgForm} from '@angular/forms';
-    
-export class FormErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    return !!(control &amp;&amp; control.invalid &amp;&amp; !control.touched || (control &amp;&amp; (control.errors !== null)));
-  }
-}
-</code></pre></li>
+<li>可以为所有不能通过 submit 触发验证的表单组件添加 [errorStateMatcher]=&quot;matcher&rdquo; ，主动设置它的错误校验机制。</li>
+<li>将 matcher 声明为 ErrorStateMatcher，不初始化，在需要触发验证的时候将其变为 this.matcher = new MyErrorStateMatcher(); 即可主动触发所有表单组件的验证状态。</li>
 </ol>
-
+<pre><code>    import {ErrorStateMatcher} from '@angular/material';
+    import {FormControl, FormGroupDirective, NgForm} from '@angular/forms';
+    
+    export class FormErrorStateMatcher implements ErrorStateMatcher {
+      isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+        return !!(control &amp;&amp; control.invalid &amp;&amp; !control.touched || (control &amp;&amp; (control.errors !== null)));
+      }
+    }
+</code></pre>
             </div>
         </div>
     </div>
@@ -96,6 +89,9 @@ export class FormErrorStateMatcher implements ErrorStateMatcher {
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2019/summary-first/">angular 学习心得1</a></h1>
+            <time class="has-text-grey-light is-size-7">3 December 2019</time>
+        
             <h1><a href="https://zhouqian0.github.io/2019/mysql-seventh/">Mysql 必知必会阅读小记7</a></h1>
             <time class="has-text-grey-light is-size-7">22 September 2019</time>
         
@@ -107,9 +103,6 @@ export class FormErrorStateMatcher implements ErrorStateMatcher {
         
             <h1><a href="https://zhouqian0.github.io/2019/mysql-fifth/">Mysql 必知必会阅读小记4</a></h1>
             <time class="has-text-grey-light is-size-7">16 September 2019</time>
-        
-            <h1><a href="https://zhouqian0.github.io/2019/mysql-third/">Mysql 必知必会阅读小记3</a></h1>
-            <time class="has-text-grey-light is-size-7">10 September 2019</time>
         
     </div>
 </div>
@@ -123,6 +116,9 @@ export class FormErrorStateMatcher implements ErrorStateMatcher {
     <div class="card-content">
         <h1 class="title is-5">Related posts</h1>
       
+      
+            <h1><a href="https://zhouqian0.github.io/2019/summary-first/">angular 学习心得1</a></h1>
+            <time class="has-text-grey-light is-size-7">3 December 2019</time>
       
             <h1><a href="https://zhouqian0.github.io/2019/ng-first/">angular 项目编译成的网页源码中的注释</a></h1>
             <time class="has-text-grey-light is-size-7">25 March 2019</time>
@@ -148,7 +144,7 @@ export class FormErrorStateMatcher implements ErrorStateMatcher {
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (44)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (45)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         

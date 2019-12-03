@@ -55,6 +55,23 @@
                 <article class="media">
                     <div class="media-content">
                         <div class="content">
+                            <p class="title is-4"><a href="/2019/summary-first/">angular 学习心得1</a></p>
+                            <p class="subtitle is-size-6 has-text-grey-light">
+                                Published at December 3, 2019 &middot;
+                                <i class="far fa-clock"></i>&nbsp;5 min read
+                            </p>
+                            <p>angular 的变更检测 Angular 引入 Zone.js 以处理变更检测 (ngZone)。ngZone 使 angular 可以决定何时需要刷新UI。
+当我们试着在 angular 项目中将 main.js 中的 ngZone 移除之后，angular 的页面就不再会自动的更新数据。
+// main.js import {enableProdMode} from &#39;@angular/core&#39;; import {platformBrowserDynamic} from &#39;@angular/platform-browser-dynamic&#39;; import {AppModule} from &#39;./app/app.module&#39;; import {environment} from &#39;./environments/environment&#39;; if (environment.production) { enableProdMode(); } platformBrowserDynamic().bootstrapModule(AppModule, {ngZone: &#39;noop&#39;}) .catch(err =&gt; console.error(err)); 但是当我在组件中引入了一个 ApplicationRef 对象之后，并且在需要发生页面数据变更的时候调用其的 tick() 方法，奇迹出现了，页面又能够和往常一样更新数据了。
+import {ApplicationRef, Component} from &#39;@angular/core&#39;; @Component({ selector: &#39;app-root&#39;, template: `&lt;div&gt;{{count}}&lt;/div&gt; &lt;button (click)=&#34;add()&#34;&gt;add&lt;/button&gt; &lt;button (click)=&#34;reset()&#34;&gt;reset&lt;/button&gt; ` }) export class AppComponent { count = 0; constructor(private applicationRef: ApplicationRef) { } add() { this....</p>
+                        </div>
+                    </div>
+                </article>
+                <br>
+
+                <article class="media">
+                    <div class="media-content">
+                        <div class="content">
                             <p class="title is-4"><a href="/2019/ng-first/">angular 项目编译成的网页源码中的注释</a></p>
                             <p class="subtitle is-size-6 has-text-grey-light">
                                 Published at March 25, 2019 &middot;
@@ -74,9 +91,8 @@
                                 Published at February 27, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;1 min read
                             </p>
-                            <p> errorStateMatcher 在某些情况下，submit 的操作并不能出发整个 form 的验证机制。
- 可以为所有不能通过 submit 触发验证的表单组件添加 [errorStateMatcher]=&ldquo;matcher&rdquo; ，主动设置它的错误校验机制。 将 matcher 声明为 ErrorStateMatcher，不初始化，在需要触发验证的时候将其变为 this.matcher = new MyErrorStateMatcher(); 即可主动触发所有表单组件的验证状态。
-import {ErrorStateMatcher} from '@angular/material'; import {FormControl, FormGroupDirective, NgForm} from '@angular/forms'; export class FormErrorStateMatcher implements ErrorStateMatcher { isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean { return !!(control &amp;&amp; control.invalid &amp;&amp; !control.touched || (control &amp;&amp; (control.errors !== null))); } }   ...</p>
+                            <p>errorStateMatcher 在某些情况下，submit 的操作并不能出发整个 form 的验证机制。
+ 可以为所有不能通过 submit 触发验证的表单组件添加 [errorStateMatcher]=&quot;matcher&rdquo; ，主动设置它的错误校验机制。 将 matcher 声明为 ErrorStateMatcher，不初始化，在需要触发验证的时候将其变为 this.matcher = new MyErrorStateMatcher(); 即可主动触发所有表单组件的验证状态。   import {ErrorStateMatcher} from '@angular/material'; import {FormControl, FormGroupDirective, NgForm} from '@angular/forms'; export class FormErrorStateMatcher implements ErrorStateMatcher { isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean { return !!(control &amp;&amp; control.invalid &amp;&amp; !control.touched || (control &amp;&amp; (control.errors !== null))); } } ...</p>
                         </div>
                     </div>
                 </article>
@@ -90,8 +106,8 @@ import {ErrorStateMatcher} from '@angular/material'; import {FormControl, FormGr
                                 Published at February 21, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;1 min read
                             </p>
-                            <p> form 的 disable（） 在angular 的 form 中，如果整个 form 的状态变为 disabled，会使 form.valid 返回的值会变为 false，表单校验不通过（哪怕 form 的所有组件都是验证通过的）。
-import {Component, OnInit} from '@angular/core'; import {FormGroup, FormControl, Validators} from '@angular/forms'; @Component({ selector: 'my-app', templateUrl: './app.component.html', styleUrls: [ './app.component.css' ] }) export class AppComponent implements OnInit{ name = 'Angular'; form = new FormGroup({ 'test':new FormControl('',Validators.required) }); ngOnInit(){ this.form.get('test').setValue('2'); // this.form.disable(); console.log(this.form.valid); } }  ...</p>
+                            <p>form 的 disable（） 在angular 的 form 中，如果整个 form 的状态变为 disabled，会使 form.valid 返回的值会变为 false，表单校验不通过（哪怕 form 的所有组件都是验证通过的）。
+import {Component, OnInit} from '@angular/core'; import {FormGroup, FormControl, Validators} from '@angular/forms'; @Component({ selector: 'my-app', templateUrl: './app.component.html', styleUrls: [ './app.component.css' ] }) export class AppComponent implements OnInit{ name = 'Angular'; form = new FormGroup({ 'test':new FormControl('',Validators.required) }); ngOnInit(){ this.form.get('test').setValue('2'); // this.form.disable(); console.log(this.form.valid); } } ...</p>
                         </div>
                     </div>
                 </article>
@@ -105,8 +121,8 @@ import {Component, OnInit} from '@angular/core'; import {FormGroup, FormControl,
                                 Published at February 21, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;1 min read
                             </p>
-                            <p> EventEmitter 在 angular 中如果没有对 @Output 的 EventEmitter 变量进行初始化就会报错 Cannot read property ‘subscribe’ of undefined ，并且不会有报错行信息。 （初始化放在 onInit 中也会报错, 必须在声明变量时或者在构造函数中初始化）
-@Output() eventEmit = new EventEmitter();  ...</p>
+                            <p>EventEmitter 在 angular 中如果没有对 @Output 的 EventEmitter 变量进行初始化就会报错 Cannot read property ‘subscribe’ of undefined ，并且不会有报错行信息。 （初始化放在 onInit 中也会报错, 必须在声明变量时或者在构造函数中初始化）
+@Output() eventEmit = new EventEmitter(); ...</p>
                         </div>
                     </div>
                 </article>
@@ -120,8 +136,8 @@ import {Component, OnInit} from '@angular/core'; import {FormGroup, FormControl,
                                 Published at February 13, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;1 min read
                             </p>
-                            <p> datepicker 实现点击 input 后会打开日期选择器：由于input标签可点击，可能会触发浏览器的自动联想（autocomplete）,会出现： 先打开可自动联想的下拉框，然后该下拉框消失，出现日期选择 。针对于此，现解决方案为禁用日期选择器的 input 标签的 autocomplete 属性（autocomplete=&lsquo;off&rsquo;）,然后添加 click 事件 (click)=&ldquo;picker.open()&ldquo;。
-&lt;mat-form-field&gt; &lt;label&gt; &lt;input matInput [matDatepicker]=&quot;picker&quot; autocomplete=&quot;off&quot; required formControlName=&quot;date&quot; placeholder=&quot;选择日期&quot; (click)=&quot;picker.open()&quot; [errorStateMatcher]=&quot;matcher&quot;&gt; &lt;/label&gt; &lt;mat-datepicker-toggle matSuffix [for]=&quot;picker&quot;&gt;&lt;/mat-datepicker-toggle&gt; &lt;mat-datepicker #picker&gt;&lt;/mat-datepicker&gt; &lt;/mat-form-field&gt;  ...</p>
+                            <p>datepicker 实现点击 input 后会打开日期选择器：由于input标签可点击，可能会触发浏览器的自动联想（autocomplete）,会出现： 先打开可自动联想的下拉框，然后该下拉框消失，出现日期选择 。针对于此，现解决方案为禁用日期选择器的 input 标签的 autocomplete 属性（autocomplete='off&rsquo;）,然后添加 click 事件 (click)=&quot;picker.open()&quot;。
+&lt;mat-form-field&gt; &lt;label&gt; &lt;input matInput [matDatepicker]=&quot;picker&quot; autocomplete=&quot;off&quot; required formControlName=&quot;date&quot; placeholder=&quot;选择日期&quot; (click)=&quot;picker.open()&quot; [errorStateMatcher]=&quot;matcher&quot;&gt; &lt;/label&gt; &lt;mat-datepicker-toggle matSuffix [for]=&quot;picker&quot;&gt;&lt;/mat-datepicker-toggle&gt; &lt;mat-datepicker #picker&gt;&lt;/mat-datepicker&gt; &lt;/mat-form-field&gt; ...</p>
                         </div>
                     </div>
                 </article>
@@ -135,7 +151,7 @@ import {Component, OnInit} from '@angular/core'; import {FormGroup, FormControl,
                                 Published at February 13, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;1 min read
                             </p>
-                            <p>禁用/启用 鼠标滚轮 event scrollFunc(event) { event = event || window.event; if (event.preventDefault) { // Firefox event.preventDefault(); event.stopPropagation(); } else { // IE event.cancelBubble = true; event.returnValue = false; } return false; }  // 禁用鼠标滚轮事件 const html = document.querySelector('html'); if (html.addEventListener) { html.addEventListener('DOMMouseScroll', this.scrollFunc, false); //添加事件监听 } //firefox html.onmousewheel = html.onmousewheel = this.scrollFunc; //ie/opera/chrome  // 启用鼠标滚轮事件 const html = document.querySelector('html'); if (html.removeEventListener) { html.removeEventListener('DOMMouseScroll', this.scrollFunc, false); //解绑事件监听 } //firefox html....</p>
+                            <p>禁用/启用 鼠标滚轮 event scrollFunc(event) { event = event || window.event; if (event.preventDefault) { // Firefox event.preventDefault(); event.stopPropagation(); } else { // IE event.cancelBubble = true; event.returnValue = false; } return false; } // 禁用鼠标滚轮事件 const html = document.querySelector('html'); if (html.addEventListener) { html.addEventListener('DOMMouseScroll', this.scrollFunc, false); //添加事件监听 } //firefox html.onmousewheel = html.onmousewheel = this.scrollFunc; //ie/opera/chrome // 启用鼠标滚轮事件 const html = document.querySelector('html'); if (html.removeEventListener) { html.removeEventListener('DOMMouseScroll', this.scrollFunc, false); //解绑事件监听 } //firefox html.onmousewheel = html....</p>
                         </div>
                     </div>
                 </article>
@@ -169,6 +185,9 @@ import {Component, OnInit} from '@angular/core'; import {FormGroup, FormControl,
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2019/summary-first/">angular 学习心得1</a></h1>
+            <time class="has-text-grey-light is-size-7">3 December 2019</time>
+        
             <h1><a href="https://zhouqian0.github.io/2019/mysql-seventh/">Mysql 必知必会阅读小记7</a></h1>
             <time class="has-text-grey-light is-size-7">22 September 2019</time>
         
@@ -181,9 +200,6 @@ import {Component, OnInit} from '@angular/core'; import {FormGroup, FormControl,
             <h1><a href="https://zhouqian0.github.io/2019/mysql-fifth/">Mysql 必知必会阅读小记4</a></h1>
             <time class="has-text-grey-light is-size-7">16 September 2019</time>
         
-            <h1><a href="https://zhouqian0.github.io/2019/mysql-third/">Mysql 必知必会阅读小记3</a></h1>
-            <time class="has-text-grey-light is-size-7">10 September 2019</time>
-        
     </div>
 </div>
     <br>
@@ -191,7 +207,7 @@ import {Component, OnInit} from '@angular/core'; import {FormGroup, FormControl,
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (44)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (45)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         

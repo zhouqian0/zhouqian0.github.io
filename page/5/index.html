@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
-	<meta name="generator" content="Hugo 0.58.3" />
+	<meta name="generator" content="Hugo 0.60.1" />
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Let&#39;s finish what we started  | Let&#39;s finish what we started</title>
@@ -57,13 +57,27 @@
                     <article class="media">
                         <div class="media-content">
                             <div class="content">
+                                <p class="title is-4"><a href="https://zhouqian0.github.io/2019/ng-third/">angular form 中的 disable() 导致 form valid 结果为 false</a></p>
+                                <p class="subtitle is-size-6 has-text-grey-light">
+                                    Published at February 21, 2019 &middot;
+                                    <i class="far fa-clock"></i>&nbsp;1 min read
+                                </p>
+                                <p>form 的 disable（） 在angular 的 form 中，如果整个 form 的状态变为 disabled，会使 form.valid 返回的值会变为 false，表单校验不通过（哪怕 form 的所有组件都是验证通过的）。
+import {Component, OnInit} from '@angular/core'; import {FormGroup, FormControl, Validators} from '@angular/forms'; @Component({ selector: 'my-app', templateUrl: './app.component.html', styleUrls: [ './app.component.css' ] }) export class AppComponent implements OnInit{ name = 'Angular'; form = new FormGroup({ 'test':new FormControl('',Validators.required) }); ngOnInit(){ this.form.get('test').setValue('2'); // this.form.disable(); console.log(this.form.valid); } } ...</p>
+                            </div>
+                        </div>
+                    </article>
+                
+                    <article class="media">
+                        <div class="media-content">
+                            <div class="content">
                                 <p class="title is-4"><a href="https://zhouqian0.github.io/2019/js-second/">js Date 类型的比较</a></p>
                                 <p class="subtitle is-size-6 has-text-grey-light">
                                     Published at February 21, 2019 &middot;
                                     <i class="far fa-clock"></i>&nbsp;1 min read
                                 </p>
-                                <p> 两个 Date 之间的相互对比  js 中 new Date() 得到的日期为当前日期时分秒。但是用 new Date(&ldquo;yy-mm-dd&rdquo;) 得到的日期却为 yy-mm-dd 那天的八点，非零点。
- 两个Date日期比较采用getTime()方法。
+                                <p>两个 Date 之间的相互对比   js 中 new Date() 得到的日期为当前日期时分秒。但是用 new Date(&ldquo;yy-mm-dd&rdquo;) 得到的日期却为 yy-mm-dd 那天的八点，非零点。
+  两个Date日期比较采用getTime()方法。
   ...</p>
                             </div>
                         </div>
@@ -77,8 +91,8 @@
                                     Published at February 13, 2019 &middot;
                                     <i class="far fa-clock"></i>&nbsp;1 min read
                                 </p>
-                                <p> datepicker 实现点击 input 后会打开日期选择器：由于input标签可点击，可能会触发浏览器的自动联想（autocomplete）,会出现： 先打开可自动联想的下拉框，然后该下拉框消失，出现日期选择 。针对于此，现解决方案为禁用日期选择器的 input 标签的 autocomplete 属性（autocomplete=&lsquo;off&rsquo;）,然后添加 click 事件 (click)=&ldquo;picker.open()&ldquo;。
-&lt;mat-form-field&gt; &lt;label&gt; &lt;input matInput [matDatepicker]=&quot;picker&quot; autocomplete=&quot;off&quot; required formControlName=&quot;date&quot; placeholder=&quot;选择日期&quot; (click)=&quot;picker.open()&quot; [errorStateMatcher]=&quot;matcher&quot;&gt; &lt;/label&gt; &lt;mat-datepicker-toggle matSuffix [for]=&quot;picker&quot;&gt;&lt;/mat-datepicker-toggle&gt; &lt;mat-datepicker #picker&gt;&lt;/mat-datepicker&gt; &lt;/mat-form-field&gt;  ...</p>
+                                <p>datepicker 实现点击 input 后会打开日期选择器：由于input标签可点击，可能会触发浏览器的自动联想（autocomplete）,会出现： 先打开可自动联想的下拉框，然后该下拉框消失，出现日期选择 。针对于此，现解决方案为禁用日期选择器的 input 标签的 autocomplete 属性（autocomplete='off&rsquo;）,然后添加 click 事件 (click)=&quot;picker.open()&quot;。
+&lt;mat-form-field&gt; &lt;label&gt; &lt;input matInput [matDatepicker]=&quot;picker&quot; autocomplete=&quot;off&quot; required formControlName=&quot;date&quot; placeholder=&quot;选择日期&quot; (click)=&quot;picker.open()&quot; [errorStateMatcher]=&quot;matcher&quot;&gt; &lt;/label&gt; &lt;mat-datepicker-toggle matSuffix [for]=&quot;picker&quot;&gt;&lt;/mat-datepicker-toggle&gt; &lt;mat-datepicker #picker&gt;&lt;/mat-datepicker&gt; &lt;/mat-form-field&gt; ...</p>
                             </div>
                         </div>
                     </article>
@@ -91,9 +105,7 @@
                                     Published at February 13, 2019 &middot;
                                     <i class="far fa-clock"></i>&nbsp;1 min read
                                 </p>
-                                <p> js 隐藏/显示 网页滚动条  隐藏：
-document.querySelector('html').style.overflow = 'hidden';  显示：
-document.querySelector('html').style.overflow = 'scroll';   ...</p>
+                                <p>js 隐藏/显示 网页滚动条  隐藏：  document.querySelector('html').style.overflow = 'hidden'; 显示：  document.querySelector('html').style.overflow = 'scroll'; ...</p>
                             </div>
                         </div>
                     </article>
@@ -106,7 +118,7 @@ document.querySelector('html').style.overflow = 'scroll';   ...</p>
                                     Published at February 13, 2019 &middot;
                                     <i class="far fa-clock"></i>&nbsp;1 min read
                                 </p>
-                                <p>禁用/启用 鼠标滚轮 event scrollFunc(event) { event = event || window.event; if (event.preventDefault) { // Firefox event.preventDefault(); event.stopPropagation(); } else { // IE event.cancelBubble = true; event.returnValue = false; } return false; }  // 禁用鼠标滚轮事件 const html = document.querySelector('html'); if (html.addEventListener) { html.addEventListener('DOMMouseScroll', this.scrollFunc, false); //添加事件监听 } //firefox html.onmousewheel = html.onmousewheel = this.scrollFunc; //ie/opera/chrome  // 启用鼠标滚轮事件 const html = document.querySelector('html'); if (html.removeEventListener) { html.removeEventListener('DOMMouseScroll', this.scrollFunc, false); //解绑事件监听 } //firefox html....</p>
+                                <p>禁用/启用 鼠标滚轮 event scrollFunc(event) { event = event || window.event; if (event.preventDefault) { // Firefox event.preventDefault(); event.stopPropagation(); } else { // IE event.cancelBubble = true; event.returnValue = false; } return false; } // 禁用鼠标滚轮事件 const html = document.querySelector('html'); if (html.addEventListener) { html.addEventListener('DOMMouseScroll', this.scrollFunc, false); //添加事件监听 } //firefox html.onmousewheel = html.onmousewheel = this.scrollFunc; //ie/opera/chrome // 启用鼠标滚轮事件 const html = document.querySelector('html'); if (html.removeEventListener) { html.removeEventListener('DOMMouseScroll', this.scrollFunc, false); //解绑事件监听 } //firefox html.onmousewheel = html....</p>
                             </div>
                         </div>
                     </article>
@@ -119,7 +131,7 @@ document.querySelector('html').style.overflow = 'scroll';   ...</p>
                                     Published at December 28, 2018 &middot;
                                     <i class="far fa-clock"></i>&nbsp;1 min read
                                 </p>
-                                <p> 比较表达式  当需要判断多个变量来获取结果，并且这些判断是没有判断先后顺序的优先级时，可以考虑将这些要判断的变量的值转换为数字，通过判断数字的大于小于来获取结果。  例如，权限系统会将权限等级用数字来表示，通过判断数字属于那个区间来判断具体权限。如判断权限 x &gt;= 400 &amp;&amp; x &lt;= 500。   ...</p>
+                                <p>比较表达式  当需要判断多个变量来获取结果，并且这些判断是没有判断先后顺序的优先级时，可以考虑将这些要判断的变量的值转换为数字，通过判断数字的大于小于来获取结果。  例如，权限系统会将权限等级用数字来表示，通过判断数字属于那个区间来判断具体权限。如判断权限 x &gt;= 400 &amp;&amp; x &lt;= 500。    ...</p>
                             </div>
                         </div>
                     </article>
@@ -132,10 +144,8 @@ document.querySelector('html').style.overflow = 'scroll';   ...</p>
                                     Published at December 14, 2018 &middot;
                                     <i class="far fa-clock"></i>&nbsp;1 min read
                                 </p>
-                                <p> 滚动条 页面抖动 在网页的实现中，由于页面块的切换导致滚动条出现会使得页面往左挤压（滚动条占有宽度），造成一种抖动的视觉效果。
- 最开始的解决办法是在 html 的 body 中加上 css 样式（如下），使得页面的滚动条一直出现，但是这样不仅影响美观效果，还引发了另外一个问题：在网页中打开弹窗时，会出现背景遮罩层，该遮罩层会使滚动条向右挤压隐藏，使弹框出现时看不到网页中有滚动条，但是当弹框消失时，遮罩层消失，滚动条复现，又使页面往左挤压了一点，造成抖动。
-body { overflow: scroll; } // 第一次的解决方式  所以，为了从根本上解决问题，再次 Google，找到了更加合适的版本（如下），在此版本中，滚动条不会一直出现，并且最重要的是，滚动条不再占用页面宽度。
-html{ overflow-y: scroll; } :root { overflow-x: auto; overflow-y: hidden } :root body { position: absolute; } body { width: 100vw; overflow: hidden; } // 目前解决方式   ...</p>
+                                <p>滚动条 页面抖动 在网页的实现中，由于页面块的切换导致滚动条出现会使得页面往左挤压（滚动条占有宽度），造成一种抖动的视觉效果。
+  最开始的解决办法是在 html 的 body 中加上 css 样式（如下），使得页面的滚动条一直出现，但是这样不仅影响美观效果，还引发了另外一个问题：在网页中打开弹窗时，会出现背景遮罩层，该遮罩层会使滚动条向右挤压隐藏，使弹框出现时看不到网页中有滚动条，但是当弹框消失时，遮罩层消失，滚动条复现，又使页面往左挤压了一点，造成抖动。   body { overflow: scroll; } // 第一次的解决方式 所以，为了从根本上解决问题，再次 Google，找到了更加合适的版本（如下），在此版本中，滚动条不会一直出现，并且最重要的是，滚动条不再占用页面宽度。   html{ overflow-y: scroll; } :root { overflow-x: auto; overflow-y: hidden } :root body { position: absolute; } body { width: 100vw; overflow: hidden; } // 目前解决方式 ...</p>
                             </div>
                         </div>
                     </article>
@@ -148,9 +158,9 @@ html{ overflow-y: scroll; } :root { overflow-x: auto; overflow-y: hidden } :root
                                     Published at December 7, 2018 &middot;
                                     <i class="far fa-clock"></i>&nbsp;1 min read
                                 </p>
-                                <p> 中文排序  如果直接是中文数组，可以采用 arr.sort() 排序。
- 如果对对象数组中的某个属性进行中文排序，可用 js 的 localeCompare() 对中文排序。
-corps.sort((a, b) =&gt; { return a.shortName.localeCompare(b.shortName, 'zh-Hans-CN',{sensitivity:'accent'}); });   不同浏览器可能会出现不同结果 无法识别多音字   ...</p>
+                                <p>中文排序   如果直接是中文数组，可以采用 arr.sort() 排序。
+  如果对对象数组中的某个属性进行中文排序，可用 js 的 localeCompare() 对中文排序。
+   corps.sort((a, b) =&gt; { return a.shortName.localeCompare(b.shortName, 'zh-Hans-CN',{sensitivity:'accent'}); }); - 不同浏览器可能会出现不同结果 - 无法识别多音字  ...</p>
                             </div>
                         </div>
                     </article>
@@ -183,6 +193,9 @@ corps.sort((a, b) =&gt; { return a.shortName.localeCompare(b.shortName, 'zh-Hans
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2019/summary-first/">angular 学习心得1</a></h1>
+            <time class="has-text-grey-light is-size-7">3 December 2019</time>
+        
             <h1><a href="https://zhouqian0.github.io/2019/mysql-seventh/">Mysql 必知必会阅读小记7</a></h1>
             <time class="has-text-grey-light is-size-7">22 September 2019</time>
         
@@ -195,9 +208,6 @@ corps.sort((a, b) =&gt; { return a.shortName.localeCompare(b.shortName, 'zh-Hans
             <h1><a href="https://zhouqian0.github.io/2019/mysql-fifth/">Mysql 必知必会阅读小记4</a></h1>
             <time class="has-text-grey-light is-size-7">16 September 2019</time>
         
-            <h1><a href="https://zhouqian0.github.io/2019/mysql-third/">Mysql 必知必会阅读小记3</a></h1>
-            <time class="has-text-grey-light is-size-7">10 September 2019</time>
-        
     </div>
 </div>
     <br>
@@ -205,7 +215,7 @@ corps.sort((a, b) =&gt; { return a.shortName.localeCompare(b.shortName, 'zh-Hans
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (44)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (45)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         

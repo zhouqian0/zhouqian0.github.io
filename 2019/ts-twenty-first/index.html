@@ -46,65 +46,57 @@
     <div class="column is-9">
         <div class="tile is-child box">
             <div class="content">
-                
-
-<h3 id="实用类型">实用类型</h3>
-
+                <h3 id="heading">实用类型</h3>
 <ol>
-<li><a href="https://www.typescriptlang.org/docs/handbook/utility-types.html">https://www.typescriptlang.org/docs/handbook/utility-types.html</a></li>
-
-<li><p><strong>Partial&lt;T&gt;</strong></p>
-
+<li>
+<p><a href="https://www.typescriptlang.org/docs/handbook/utility-types.html">https://www.typescriptlang.org/docs/handbook/utility-types.html</a></p>
+</li>
+<li>
+<p><strong>Partial&lt;T&gt;</strong></p>
 <p>构造一个类型，其所有属性 T 都设置为 optional。此实用程序将返回表示给定类型的所有子集的类型。</p>
-
 <pre><code>interface Todo {
    title: string;
    description: string;
 }
-   
+  
 function updateTodo(todo: Todo, fieldsToUpdate: Partial&lt;Todo&gt;) { // T: Todo
    return { ...todo, ...fieldsToUpdate };
 }
-   
+  
 const todo1 = {
    title: 'organize desk',
    description: 'clear clutter',
 };
-   
+  
 const todo2 = updateTodo(todo1, {
    description: 'throw out trash',
 });
-   
+  
 console.log(todo2); // { title: 'organize desk', description: 'throw out trash' }
 </code></pre></li>
-
-<li><p><strong>Readonly&lt;T&gt;</strong></p>
-
+<li>
+<p><strong>Readonly&lt;T&gt;</strong></p>
 <p>构造一个所有属性 T 都设置为的类型 readonly，这意味着无法重新分配构造类型的属性。</p>
-
 <p>Object.freeze 就是通过调用 Readonly&lt;T&gt; 实现的。</p>
-
 <pre><code>interface Todo {
    title: string;
 }
-   
+  
 const todo: Readonly&lt;Todo&gt; = { // T: Todo
    title: 'Delete inactive users',
 };
-   
+  
 todo.title = 'Hello'; // Error: Cannot assign to 'title' because it is a read-only property.ts
 </code></pre></li>
-
-<li><p><strong>Record&lt;K,T&gt;</strong></p>
-
+<li>
+<p><strong>Record&lt;K,T&gt;</strong></p>
 <p>构造具有一组 K 类型属性的类型 T。此实用程序可用于将类型的属性映射到另一种类型。</p>
-
 <pre><code>interface PageInfo {
    title: string;
 }
-   
+  
 type Page = 'home' | 'about' | 'contact';
-   
+  
 const x: Record&lt;Page, PageInfo&gt; = { // K: Page, T: PageInfo
    about: { title: 'about' },
    contact: { title: 'contact' },
@@ -112,98 +104,86 @@ const x: Record&lt;Page, PageInfo&gt; = { // K: Page, T: PageInfo
    other: { title: '123' } // Error, other: { title: string; }; }' is not assignable to type 'Record&lt;Page, PageInfo&gt;'.
 };
 </code></pre></li>
-
-<li><p><strong>Pick&lt;K,T&gt;</strong></p>
-
+<li>
+<p><strong>Pick&lt;K,T&gt;</strong></p>
 <p>通过 K 从中选择一组属性来构造一个类型 T。（和 omit 相反）</p>
-
 <pre><code>interface Todo {
    title: string;
    description: string;
    completed: boolean;
 }
-   
+  
 type TodoPreview = Pick&lt;Todo, 'title' | 'completed'&gt;; // K: Todo; T: 'title' | 'completed'
-   
+  
 const todo: TodoPreview = {
    title: 'Clean room',
    completed: false,
    description: 'lol' // Error, Type '{ title: string; completed: false; description: string; }' is not assignable to type 'Pick&lt;Todo, &quot;title&quot; | &quot;completed&quot;&gt;'.
 };
-   
+  
 </code></pre></li>
-
-<li><p><strong>Omit&lt;K,T&gt;</strong></p>
-
+<li>
+<p><strong>Omit&lt;K,T&gt;</strong></p>
 <p>通过从中选择所有属性 T 然后删除来构造类型 K。(与 Pick 相反)</p>
-
 <pre><code>interface Todo {
    title: string;
    description: string;
    completed: boolean;
 }
-   
+  
 type TodoPreview = Omit&lt;Todo, 'description'&gt;; // K: Todo; T: 'description'
-   
+  
 const todo: TodoPreview = {
    title: 'Clean room',
    completed: false,
    description: 'lol' // Error, Type '{ title: string; completed: false; description: string; }' is not assignable to type 'Pick&lt;Todo, &quot;title&quot; | &quot;completed&quot;&gt;'.
 };
 </code></pre></li>
-
-<li><p><strong>Exclude&lt;T,U&gt;</strong></p>
-
+<li>
+<p><strong>Exclude&lt;T,U&gt;</strong></p>
 <p>通过从 T 可分配给的所有属性中排除来构造类型 U。</p>
-
 <pre><code>type T0 = Exclude&lt;&quot;a&quot; | &quot;b&quot; | &quot;c&quot;, &quot;a&quot;&gt;;  // &quot;b&quot; | &quot;c&quot;
 type T1 = Exclude&lt;&quot;a&quot; | &quot;b&quot; | &quot;c&quot;, &quot;a&quot; | &quot;b&quot;&gt;;  // &quot;c&quot;
 type T2 = Exclude&lt;string | number | (() =&gt; void), Function&gt;;  // string | number
-   
+  
 let t0: T0 = 'b';
 t0 = 'c';
 t0 = 'a' // Error, Type '&quot;a&quot;' is not assignable to type '&quot;b&quot; | &quot;c&quot;'
-   
+  
 let t1: T1 = 'c';
 t1 = 'a' // Error, Type '&quot;a&quot;' is not assignable to type '&quot;c&quot;'
-   
+  
 let t2: T2 = 666;
 t2 = 'lol';
 t2 = (a, b) =&gt; a + b; // Error, Type '(a: any, b: any) =&gt; any' is not assignable to type 'string | number'.
 </code></pre></li>
-
-<li><p><strong>Extract&lt;T,U&gt;</strong></p>
-
+<li>
+<p><strong>Extract&lt;T,U&gt;</strong></p>
 <p>通过从 T 可分配给的所有属性中提取共通的属性来构造类型 U。</p>
-
 <pre><code>type T0 = Extract&lt;&quot;a&quot; | &quot;b&quot; | &quot;c&quot;, &quot;a&quot; | &quot;f&quot;&gt;;  // &quot;a&quot;
 type T1 = Extract&lt;string | number | (() =&gt; void), Function&gt;;  // () =&gt; void
-   
+  
 let t0: T0 = 'a';
 t0 = 'b'; // Error, Type '&quot;b&quot;' is not assignable to type '&quot;a&quot;'
-   
+  
 let t1: T1 = () =&gt; { };
 t1 = 'lol'; // Error, Type '&quot;lol&quot;' is not assignable to type '() =&gt; void'
 </code></pre></li>
-
-<li><p><strong>NonNullable&lt;T&gt;</strong></p>
-
+<li>
+<p><strong>NonNullable&lt;T&gt;</strong></p>
 <p>通过排除 null 和 undefined 从中构造一个类型 T。</p>
-
 <pre><code>type T0 = NonNullable&lt;string | number | undefined&gt;;  // string | number
 type T1 = NonNullable&lt;string[] | null | undefined&gt;;  // string[]
-   
+  
 let t0: T0 = 'lol';
 t0 = 1;
 t0 = null; // 编译器不报错，但是当使用严格模式编译时（--strictNullChecks）出现错误：Type 'null' is not assignable to type 'string | number'.
 </code></pre></li>
-
-<li><p><strong>ReturnType&lt;T&gt;</strong></p>
-
+<li>
+<p><strong>ReturnType&lt;T&gt;</strong></p>
 <p>构造一个由返回类型的函数组成的类型 T。</p>
-
 <pre><code>const f1 = (a: Number, b: string) =&gt; { return { a, b } };
-   
+  
 type T0 = ReturnType&lt;() =&gt; string&gt;;  // string
 type T1 = ReturnType&lt;(s: string) =&gt; void&gt;;  // void
 type T2 = ReturnType&lt;(&lt;T&gt;() =&gt; T)&gt;;  // {}
@@ -214,63 +194,59 @@ type T6 = ReturnType&lt;never&gt;;  // any
 type T7 = ReturnType&lt;string&gt;;  // Error, Type 'string' does not satisfy the constraint '(...args: any) =&gt; any'
 type T8 = ReturnType&lt;Function&gt;;  // Error, Type 'Function' does not satisfy the constraint '(...args: any) =&gt; any'
 </code></pre></li>
-
-<li><p><strong>InstanceType&lt;T&gt;</strong></p>
-
+<li>
+<p><strong>InstanceType&lt;T&gt;</strong></p>
 <p>构造一个由构造函数类型的实例类型组成的类型T。</p>
-
 <pre><code>class C {
    x = 0;
    y = 0;
 }
-   
+  
 type T0 = InstanceType&lt;typeof C&gt;;  // C
 type T1 = InstanceType&lt;any&gt;;  // any
 type T2 = InstanceType&lt;never&gt;;  // never
 type T3 = InstanceType&lt;string&gt;;  // Error, Type 'string' does not satisfy the constraint 'new (...args: any) =&gt; any'
 type T4 = InstanceType&lt;Function&gt;;  // Error, Type 'Function' does not satisfy the constraint 'new (...args: any) =&gt; any'
-   
+  
 let t0: T0 = {
    x: 1,
    y: 2,
    z: 3, // Error, Type '{ x: number; y: number; z: number; }' is not assignable to type 'C'.
 }
 </code></pre></li>
-
-<li><p><strong>Required&lt;T&gt;</strong></p>
-
+<li>
+<p><strong>Required&lt;T&gt;</strong></p>
 <p>构造一个由 T 的所有属性组成的类型（无论该属性是否 optional）。</p>
-
 <pre><code>interface Props {
    a?: number;
    b?: string;
 };
-   
+  
 const obj: Props = { a: 5 }; // OK
-   
+  
 const obj2: Required&lt;Props&gt; = { a: 5}; // Error, Property 'b' is missing in type '{ a: number; }' but required in type 'Required&lt;Props&gt;'
-   
+  
 const obj3: Required&lt;Props&gt; = { a: 5, b: 'lol' }; // OK
 </code></pre></li>
-
-<li><p><strong>ThisType&lt;T&gt;</strong></p>
-
+<li>
+<p><strong>ThisType&lt;T&gt;</strong></p>
 <p>通过 ThisType 我们可以在对象字面量中键入 this，并提供通过上下文类型控制 this 类型的便捷方式。它只有在<code>--noImplicitThis</code>的选项下才有效。</p>
-
 <ul>
-<li><a href="https://jkchao.github.io/typescript-book-chinese/typings/thisType.html">https://jkchao.github.io/typescript-book-chinese/typings/thisType.html</a></li>
-
-<li><pre><code>type ObjectDescriptor&lt;D, M&gt; = {
+<li>
+<p><a href="https://jkchao.github.io/typescript-book-chinese/typings/thisType.html">https://jkchao.github.io/typescript-book-chinese/typings/thisType.html</a></p>
+</li>
+<li>
+<pre><code>type ObjectDescriptor&lt;D, M&gt; = {
    data?: D;
    methods?: M &amp; ThisType&lt;D &amp; M&gt;;  // Type of 'this' in methods is D &amp; M
 }
-       
+     
 function makeObject&lt;D, M&gt;(desc: ObjectDescriptor&lt;D, M&gt;): D &amp; M {
    let data: object = desc.data || {};
    let methods: object = desc.methods || {};
    return { ...data, ...methods } as D &amp; M;
 }
-       
+     
 let obj = makeObject({
    data: { x: 0, y: 0 },
    methods: {
@@ -280,17 +256,18 @@ let obj = makeObject({
        }
    }
 });
-       
+     
 obj.x = 10;
 obj.y = 20;
 obj.moveBy(5, 5);
 console.log(obj); // { x: 15, y: 25, moveBy: [Function: moveBy] }
-</code></pre>
-
-<p>makeObject 参数中的对象属性 methods 具有包含 ThisType<D & M> 的上下文类型，因此对象中 methods 属性下的方法的 this 类型为 { x: number, y: number } &amp; { moveBy(dx: number, dy: number): number }。</p></li>
-
-<li><p>ThisType<T> 的接口，在 lib.d.ts 只是被声明为空的接口，除了可以在对象字面量上下文中可以被识别以外，该接口的作用等同于任意空接口。</p></li>
-</ul></li>
+</code></pre><p>makeObject 参数中的对象属性 methods 具有包含 ThisType&lt;D &amp; M&gt; 的上下文类型，因此对象中 methods 属性下的方法的 this 类型为 { x: number, y: number } &amp; { moveBy(dx: number, dy: number): number }。</p>
+</li>
+<li>
+<p>ThisType<!-- raw HTML omitted --> 的接口，在 lib.d.ts 只是被声明为空的接口，除了可以在对象字面量上下文中可以被识别以外，该接口的作用等同于任意空接口。</p>
+</li>
+</ul>
+</li>
 </ol>
 
             </div>
@@ -321,6 +298,9 @@ console.log(obj); // { x: 15, y: 25, moveBy: [Function: moveBy] }
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2019/summary-first/">angular 学习心得1</a></h1>
+            <time class="has-text-grey-light is-size-7">3 December 2019</time>
+        
             <h1><a href="https://zhouqian0.github.io/2019/mysql-seventh/">Mysql 必知必会阅读小记7</a></h1>
             <time class="has-text-grey-light is-size-7">22 September 2019</time>
         
@@ -332,9 +312,6 @@ console.log(obj); // { x: 15, y: 25, moveBy: [Function: moveBy] }
         
             <h1><a href="https://zhouqian0.github.io/2019/mysql-fifth/">Mysql 必知必会阅读小记4</a></h1>
             <time class="has-text-grey-light is-size-7">16 September 2019</time>
-        
-            <h1><a href="https://zhouqian0.github.io/2019/mysql-third/">Mysql 必知必会阅读小记3</a></h1>
-            <time class="has-text-grey-light is-size-7">10 September 2019</time>
         
     </div>
 </div>
@@ -373,7 +350,7 @@ console.log(obj); // { x: 15, y: 25, moveBy: [Function: moveBy] }
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (44)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (45)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         

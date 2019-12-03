@@ -47,8 +47,8 @@
         <div class="tile is-child box">
             <div class="content">
                 <ol>
-<li><p>插入 INSERT，</p>
-
+<li>
+<p>插入 INSERT，</p>
 <pre><code>// 指定列名，指定列名会按照指定的顺序进行插入，如果不指定需要按照表中列的顺序给出相应的值。
 insert into customers(cust_name,
  cust_address,
@@ -66,23 +66,19 @@ insert into customers(cust_name,
  'USA',
  null,
  null)
-</code></pre>
-
-<ul>
+</code></pre><ul>
 <li>一般不要使用没有明确给出列的列表的 INSERT 语句。使用列的列表能使 SQL 代码继续发挥作用，即使表结构发生了变化。</li>
 <li>如果不提供列名，则必须给每个表列提供一个值。如果提供列名，则必须对每个列出的列给出一个值
 (对允许空值或者设定了默认值的列可将其值设为 null)。</li>
-</ul></li>
-
-<li><p>INSERT 操作可能很耗时(特别是有很多索引需要更新时)，且它可能降低等待处理的SELECT语句的性能。</p>
-
+</ul>
+</li>
+<li>
+<p>INSERT 操作可能很耗时(特别是有很多索引需要更新时)，且它可能降低等待处理的SELECT语句的性能。</p>
 <p>可以通过在 INSERT 和 INTO 之间添加关键字 LOW_PRIORITY，指示 MySQL 降低 INSERT 语句的优先级:</p>
-
 <pre><code>INSERT LOW_PRIORITY INTO
 </code></pre></li>
-
-<li><p>插入多条：</p>
-
+<li>
+<p>插入多条：</p>
 <pre><code>// 逗号分隔，推荐（单条 INSERT 语句处理多个插入比使用多条 INSERT 语句快）。
 insert into customers(cust_name,
  cust_address,
@@ -109,9 +105,7 @@ insert into customers(cust_name,
  null,
  null
  )
-</code></pre>
-
-<pre><code>// 分号分隔
+</code></pre><pre><code>// 分号分隔
 insert into customers(cust_name,
  cust_address,
  cust_city,
@@ -145,9 +139,8 @@ insert into customers(cust_name,
  null,
  null);
 </code></pre></li>
-
-<li><p>INSERT SELECT，由一条 INSERT 语句和一条 SELECT 语句组成的，将查询到的值插入。</p>
-
+<li>
+<p>INSERT SELECT，由一条 INSERT 语句和一条 SELECT 语句组成的，将查询到的值插入。</p>
 <pre><code>// 列名可以不匹配，因为 MySQL 通过 INSERT 的顺序 插入数据。
 // SELECT 可以使用 WHERE 用作过滤
 INSERT INTO custnew(cust_id,
@@ -170,59 +163,51 @@ SELECT cust_id,
  cust_country 
 FROM customers;
 </code></pre></li>
-
-<li><p>UPDATE, 更新表中特定行 / 所有行。</p>
-
+<li>
+<p>UPDATE, 更新表中特定行 / 所有行。</p>
 <ul>
-<li><p>语句组成：</p>
-
+<li>语句组成：
 <ul>
 <li>要更新的表;</li>
 <li>列名和它们的新值;</li>
-
-<li><p>确定要更新行的过滤条件。</p>
-
+<li>确定要更新行的过滤条件。</li>
+</ul>
+</li>
+</ul>
 <pre><code>UPDATE customers 
 SET 
-cust_state = 'AZ',
-cust_email = 'test@mail.com'
+    cust_state = 'AZ',
+    cust_email = 'test@mail.com'
 WHERE
-cust_id = 10011
-</code></pre></li>
-</ul></li>
-
-<li><p>UPDATE 语句中可以使用子查询，使得能用 SELECT 语句检索出的数据更新列数据。</p></li>
-
-<li><p>使用 IGNORE 关键字忽略错误不回滚，否则 UPDATE 操作再遇到错误时会会滚成原来的样子。</p>
-
+    cust_id = 10011
+</code></pre><ul>
+<li>UPDATE 语句中可以使用子查询，使得能用 SELECT 语句检索出的数据更新列数据。</li>
+<li>使用 IGNORE 关键字忽略错误不回滚，否则 UPDATE 操作再遇到错误时会会滚成原来的样子。
 <pre><code>UPDATE IGNORE customers...
 </code></pre></li>
-
-<li><p>MySQL 默认启用安全模式，不能直接更新全表</p>
-
+<li>MySQL 默认启用安全模式，不能直接更新全表
 <pre><code>SET SQL_SAFE_UPDATES = 0;
 </code></pre></li>
-</ul></li>
-
-<li><p>DELETE 从表中删除特定的行 / 所有行。</p>
-
+</ul>
+</li>
+<li>
+<p>DELETE 从表中删除特定的行 / 所有行。</p>
 <pre><code>DELETE FROM custnew 
 WHERE
     cust_id = 10014
-</code></pre>
-
-<p>如果想从表中删除所有行，不要使用 DELETE。 应使用 TRUNCATE TABLE 语句，它完成相同的工作，且速度更快
-(TRUNCATE 实际是删除原来的表并重新创建一个表，而不是逐行删除表中的数据)。</p></li>
-
-<li><p>使用 UPDATE 或 DELETE 时所遵循的习惯:</p>
-
+</code></pre><p>如果想从表中删除所有行，不要使用 DELETE。 应使用 TRUNCATE TABLE 语句，它完成相同的工作，且速度更快
+(TRUNCATE 实际是删除原来的表并重新创建一个表，而不是逐行删除表中的数据)。</p>
+</li>
+<li>
+<p>使用 UPDATE 或 DELETE 时所遵循的习惯:</p>
 <ul>
 <li>除非确实打算更新和删除每一行，否则绝对不要使用不带 WHERE 子句的 UPDATE 或 DELETE 语句。</li>
 <li>保证每个表都有主键，尽可能像 WHERE 子句那样使用它 (可以指定各主键、多个值或值的范围)。</li>
 <li>在对 UPDATE 或 DELETE 语句使用 WHERE 子句前，应该先用 SELECT 进行测试，
 保证它过滤的是正确的记录，以防编写的 WHERE 子句不正确。</li>
 <li>使用强制实施引用完整性的数据库，这样 MySQL 将不允许删除具有与其他表相关联的数据的行。</li>
-</ul></li>
+</ul>
+</li>
 </ol>
 
             </div>
@@ -253,6 +238,9 @@ WHERE
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2019/summary-first/">angular 学习心得1</a></h1>
+            <time class="has-text-grey-light is-size-7">3 December 2019</time>
+        
             <h1><a href="https://zhouqian0.github.io/2019/mysql-seventh/">Mysql 必知必会阅读小记7</a></h1>
             <time class="has-text-grey-light is-size-7">22 September 2019</time>
         
@@ -264,9 +252,6 @@ WHERE
         
             <h1><a href="https://zhouqian0.github.io/2019/mysql-fifth/">Mysql 必知必会阅读小记4</a></h1>
             <time class="has-text-grey-light is-size-7">16 September 2019</time>
-        
-            <h1><a href="https://zhouqian0.github.io/2019/mysql-third/">Mysql 必知必会阅读小记3</a></h1>
-            <time class="has-text-grey-light is-size-7">10 September 2019</time>
         
     </div>
 </div>
@@ -308,7 +293,7 @@ WHERE
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (44)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (45)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         

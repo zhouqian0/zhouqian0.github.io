@@ -46,118 +46,108 @@
     <div class="column is-9">
         <div class="tile is-child box">
             <div class="content">
-                
-
-<h3 id="基础">基础</h3>
-
+                <h3 id="heading">基础</h3>
 <ol>
-<li><a href="https://tour.go-zh.org/basics/1">https://tour.go-zh.org/basics/1</a></li>
-
-<li><p>在 Go 中，如果一个名字以大写字母开头，那么它就是已导出的。例如 math.Pi</p>
-
+<li>
+<p><a href="https://tour.go-zh.org/basics/1">https://tour.go-zh.org/basics/1</a></p>
+</li>
+<li>
+<p>在 Go 中，如果一个名字以大写字母开头，那么它就是已导出的。例如 math.Pi</p>
 <pre><code>   package main
-       
+      
    import (
     &quot;fmt&quot;
     &quot;math&quot;
    )
-       
+      
    func main() {
     fmt.Println(math.Pi) // 3.14....
    }
 </code></pre></li>
-
-<li><p>函数可以没有参数或接受多个参数(类型在变量名 之后)。</p>
-
+<li>
+<p>函数可以没有参数或接受多个参数(类型在变量名 之后)。</p>
 <pre><code>   package main
-       
+      
    import &quot;fmt&quot;
-       
+      
    func add(x int, y int) int {
     return x + y
    }
-       
+      
    func main() {
     fmt.Println(add(42, 13)) // 55
    }
-</code></pre>
-
-<ol>
-<li><p>函数可以返回任意数量的返回值。</p>
-
+</code></pre><ol>
+<li>函数可以返回任意数量的返回值。
 <pre><code>package main
-      
+    
 import &quot;fmt&quot;
-      
+    
 func swap(x, y string) (string, string) {
 return y, x
 }
-      
+    
 func main() {
 a, b := swap(&quot;hello&quot;, &quot;world&quot;)
 fmt.Println(a, b) // hello world
 }
 </code></pre></li>
-
-<li><p>Go 的返回值可被命名，它们会被视作定义在函数顶部的变量。</p></li>
 </ol>
-
+</li>
+<li>
+<p>Go 的返回值可被命名，它们会被视作定义在函数顶部的变量。</p>
 <p>直接返回语句应当仅用在下面这样的短函数中。在长的函数中它们会影响代码的可读性。
-    ```
-       package main</p>
-
-<pre><code>   import &quot;fmt&quot;
-
-   func split(sum int) (x, y int) {
-    x = sum * 4 / 9
-    y = sum - x
-    return
-   }
-
-   func main() {
-    fmt.Println(split(17)) // 7 10
-   }
+```
+package main</p>
+<pre><code>    import &quot;fmt&quot;
+       
+    func split(sum int) (x, y int) {
+     x = sum * 4 / 9
+     y = sum - x
+     return
+    }
+       
+    func main() {
+     fmt.Println(split(17)) // 7 10
+    }
+```
 </code></pre>
-
-<p>```</p></li>
-
-<li><p>var 语句用于声明一个变量列表，跟函数的参数列表一样，类型在最后。</p>
-
+</li>
+<li>
+<p>var 语句用于声明一个变量列表，跟函数的参数列表一样，类型在最后。</p>
 <pre><code>var c, python, java bool
 </code></pre></li>
-
-<li><p>简洁赋值语句 := 可在类型明确的地方代替 var 声明，但结构不能在函数外使用。</p></li>
-
-<li><p>Go 的基本类型有</p>
-
-<pre><code>bool
+<li>
+<p>简洁赋值语句 := 可在类型明确的地方代替 var 声明，但结构不能在函数外使用。</p>
+</li>
+<li>
+<p>Go 的基本类型有</p>
+<pre><code> bool
       
-string
+ string
     
-int  int8  int16  int32  int64
-uint uint8 uint16 uint32 uint64 uintptr
+ int  int8  int16  int32  int64
+ uint uint8 uint16 uint32 uint64 uintptr
     
-byte // uint8 的别名
+ byte // uint8 的别名
     
-rune // int32 的别名
-  // 表示一个 Unicode 码点
+ rune // int32 的别名
+   // 表示一个 Unicode 码点
     
-float32 float64
+ float32 float64
     
-complex64 complex128
-</code></pre>
-
-<p>int, uint 和 uintptr 在 32 位系统上通常为 32 位宽，在 64 位系统上则为 64 位宽。</p></li>
-
-<li><p>与 C 不同的是，Go 在不同类型的项之间赋值时需要显式转换。</p>
-
+ complex64 complex128
+</code></pre><p>int, uint 和 uintptr 在 32 位系统上通常为 32 位宽，在 64 位系统上则为 64 位宽。</p>
+</li>
+<li>
+<p>与 C 不同的是，Go 在不同类型的项之间赋值时需要显式转换。</p>
 <pre><code>   package main
-       
+      
    import (
     &quot;fmt&quot;
     &quot;math&quot;
    )
-       
+      
    func main() {
     var x, y int = 3, 4
     var f float64 = math.Sqrt(float64(x*x + y*y))
@@ -165,18 +155,17 @@ complex64 complex128
     fmt.Println(x, y, z) // 3 4 5
    }
 </code></pre></li>
-
-<li><p>当右边包含未指明类型的数值常量时，新变量的类型就可能是 int, float64 或 complex128 了，这取决于常量的精度</p>
-
+<li>
+<p>当右边包含未指明类型的数值常量时，新变量的类型就可能是 int, float64 或 complex128 了，这取决于常量的精度</p>
 <pre><code>i := 42           // int
 f := 3.142        // float64
 g := 0.867 + 0.5i // complex128
 </code></pre></li>
-
-<li><p>常量( const )不能用 := 语法声明。</p></li>
-
-<li><p>打印类型</p>
-
+<li>
+<p>常量( const )不能用 := 语法声明。</p>
+</li>
+<li>
+<p>打印类型</p>
 <pre><code>fmt.Printf(&quot;v is of type %T\n&quot;, v) // 如果使用 fmt.Println 去打印 带 % 的占位符，则会失败
 </code></pre></li>
 </ol>
@@ -209,6 +198,9 @@ g := 0.867 + 0.5i // complex128
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2019/summary-first/">angular 学习心得1</a></h1>
+            <time class="has-text-grey-light is-size-7">3 December 2019</time>
+        
             <h1><a href="https://zhouqian0.github.io/2019/mysql-seventh/">Mysql 必知必会阅读小记7</a></h1>
             <time class="has-text-grey-light is-size-7">22 September 2019</time>
         
@@ -220,9 +212,6 @@ g := 0.867 + 0.5i // complex128
         
             <h1><a href="https://zhouqian0.github.io/2019/mysql-fifth/">Mysql 必知必会阅读小记4</a></h1>
             <time class="has-text-grey-light is-size-7">16 September 2019</time>
-        
-            <h1><a href="https://zhouqian0.github.io/2019/mysql-third/">Mysql 必知必会阅读小记3</a></h1>
-            <time class="has-text-grey-light is-size-7">10 September 2019</time>
         
     </div>
 </div>
@@ -258,7 +247,7 @@ g := 0.867 + 0.5i // complex128
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (44)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (45)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         

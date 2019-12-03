@@ -46,10 +46,7 @@
     <div class="column is-9">
         <div class="tile is-child box">
             <div class="content">
-                
-
-<h3 id="禁用-启用-鼠标滚轮-event">禁用/启用 鼠标滚轮 event</h3>
-
+                <h3 id="--event">禁用/启用 鼠标滚轮 event</h3>
 <pre><code>scrollFunc(event) {
   event = event || window.event;
   if (event.preventDefault) {
@@ -63,31 +60,25 @@
   }
   return false;
 }
-</code></pre>
-
-<pre><code>// 禁用鼠标滚轮事件
+</code></pre><pre><code>// 禁用鼠标滚轮事件
 const html = document.querySelector('html');
 if (html.addEventListener) { 
   html.addEventListener('DOMMouseScroll', this.scrollFunc, false); //添加事件监听
 } //firefox
 html.onmousewheel = html.onmousewheel = this.scrollFunc; //ie/opera/chrome
-</code></pre>
-
-<pre><code>// 启用鼠标滚轮事件
+</code></pre><pre><code>// 启用鼠标滚轮事件
 const html = document.querySelector('html');
 if (html.removeEventListener) {
   html.removeEventListener('DOMMouseScroll', this.scrollFunc, false); //解绑事件监听
 } //firefox
 html.onmousewheel = html.onmousewheel = null; //ie/opera/chrome
-</code></pre>
-
-<ol>
+</code></pre><ol>
 <li>refer:
-
 <ul>
 <li><a href="https://blog.csdn.net/ouyangxie/article/details/79005423">https://blog.csdn.net/ouyangxie/article/details/79005423</a></li>
 <li><a href="http://www.cnblogs.com/yangwenbin/p/4565541.html">http://www.cnblogs.com/yangwenbin/p/4565541.html</a></li>
-</ul></li>
+</ul>
+</li>
 </ol>
 
             </div>
@@ -118,6 +109,9 @@ html.onmousewheel = html.onmousewheel = null; //ie/opera/chrome
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2019/summary-first/">angular 学习心得1</a></h1>
+            <time class="has-text-grey-light is-size-7">3 December 2019</time>
+        
             <h1><a href="https://zhouqian0.github.io/2019/mysql-seventh/">Mysql 必知必会阅读小记7</a></h1>
             <time class="has-text-grey-light is-size-7">22 September 2019</time>
         
@@ -129,9 +123,6 @@ html.onmousewheel = html.onmousewheel = null; //ie/opera/chrome
         
             <h1><a href="https://zhouqian0.github.io/2019/mysql-fifth/">Mysql 必知必会阅读小记4</a></h1>
             <time class="has-text-grey-light is-size-7">16 September 2019</time>
-        
-            <h1><a href="https://zhouqian0.github.io/2019/mysql-third/">Mysql 必知必会阅读小记3</a></h1>
-            <time class="has-text-grey-light is-size-7">10 September 2019</time>
         
     </div>
 </div>
@@ -145,6 +136,9 @@ html.onmousewheel = html.onmousewheel = null; //ie/opera/chrome
     <div class="card-content">
         <h1 class="title is-5">Related posts</h1>
       
+      
+            <h1><a href="https://zhouqian0.github.io/2019/summary-first/">angular 学习心得1</a></h1>
+            <time class="has-text-grey-light is-size-7">3 December 2019</time>
       
             <h1><a href="https://zhouqian0.github.io/2019/ng-first/">angular 项目编译成的网页源码中的注释</a></h1>
             <time class="has-text-grey-light is-size-7">25 March 2019</time>
@@ -170,7 +164,7 @@ html.onmousewheel = html.onmousewheel = null; //ie/opera/chrome
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (44)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (45)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         

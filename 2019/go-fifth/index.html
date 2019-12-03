@@ -46,49 +46,37 @@
     <div class="column is-9">
         <div class="tile is-child box">
             <div class="content">
-                
-
-<h3 id="并发">并发</h3>
-
+                <h3 id="heading">并发</h3>
 <ol>
-<li><p>Go 程（goroutine）是由 Go 运行时管理的轻量级线程。</p>
-
-<p>Go 程在相同的地址空间中运行，因此在访问共享的内存时必须进行同步。</p></li>
-
-<li><p><em>信道</em> 是带有类型的管道，你可以通过它用信道操作符 &lt;- 来发送或者接收值。</p>
-
-<pre><code>ch &lt;- v    // 将 v 发送至信道 ch。
-v := &lt;-ch  // 从 ch 接收值并赋予 v。
+<li>
+<p>Go 程（goroutine）是由 Go 运行时管理的轻量级线程。</p>
+<p>Go 程在相同的地址空间中运行，因此在访问共享的内存时必须进行同步。</p>
+</li>
+<li>
+<p><em>信道</em> 是带有类型的管道，你可以通过它用信道操作符 &lt;- 来发送或者接收值。</p>
+<pre><code> ch &lt;- v    // 将 v 发送至信道 ch。
+ v := &lt;-ch  // 从 ch 接收值并赋予 v。
    
-ch := make(chan int) // 创建
-</code></pre>
-
-<p>默认情况下，发送和接收操作在另一端准备好之前都会阻塞。这使得 Go 程可以在没有显式的锁或竞态变量的情况下进行同步。</p>
-
+ ch := make(chan int) // 创建
+</code></pre><p>默认情况下，发送和接收操作在另一端准备好之前都会阻塞。这使得 Go 程可以在没有显式的锁或竞态变量的情况下进行同步。</p>
 <ol>
-<li><p>信道可以是 <em>带缓冲的</em> 。将缓冲长度作为第二个参数提供给 make 来初始化一个带缓冲的信道：</p>
-
-<pre><code>ch := make(chan int, 100) // 100 为缓冲区长度
-</code></pre>
-
-<p>仅当信道的缓冲区填满后，向其发送数据时才会阻塞。当缓冲区为空时，接受方会阻塞。</p></li>
-
-<li><p>发送者可通过 close 关闭一个信道来表示没有需要发送的值了。</p>
-
+<li>信道可以是 <em>带缓冲的</em> 。将缓冲长度作为第二个参数提供给 make 来初始化一个带缓冲的信道：
+<pre><code> ch := make(chan int, 100) // 100 为缓冲区长度
+</code></pre><p>仅当信道的缓冲区填满后，向其发送数据时才会阻塞。当缓冲区为空时，接受方会阻塞。</p>
+</li>
+<li>发送者可通过 close 关闭一个信道来表示没有需要发送的值了。
 <pre><code> v, ok := &lt;-ch // 检测信道是否关闭
-</code></pre>
-
-<ul>
+</code></pre><ul>
 <li>只有发送者才能关闭信道，而接收者不能。向一个已经关闭的信道发送数据会引发程序恐慌（panic）。</li>
 <li>信道与文件不同，通常情况下无需关闭它们。只有在必须告诉接收者不再有需要发送的值时才有必要关闭，例如终止一个 range 循环。</li>
 <li>信道（channel）关闭后，仍然可以从其中拿到值（val &lt;- channel）。</li>
-</ul></li>
-</ol></li>
-
-<li><p>select 语句使一个 Go 程可以等待多个通信操作。</p>
-
+</ul>
+</li>
+</ol>
+</li>
+<li>
+<p>select 语句使一个 Go 程可以等待多个通信操作。</p>
 <p>select 会阻塞到某个分支可以继续执行为止，这时就会执行该分支。 <em>当多个分支都准备好时会随机选择一个执行。</em></p>
-
 <pre><code>  func fibonacci(c, quit chan int) {
     x, y := 0, 1
     for {
@@ -101,7 +89,7 @@ ch := make(chan int) // 创建
         }
     }
   }
-      
+     
   func main() {
     c := make(chan int)
     quit := make(chan int)
@@ -113,13 +101,10 @@ ch := make(chan int) // 创建
     }()
     fibonacci(c, quit)
   }
-</code></pre>
-
-<ul>
-<li><p>当 select 中的其它分支都没有准备好时，default 分支就会执行。</p>
-
+</code></pre><ul>
+<li>
+<p>当 select 中的其它分支都没有准备好时，default 分支就会执行。</p>
 <p>为了在尝试发送或者接收时不发生阻塞，可使用 default 分支：</p>
-
 <pre><code>select {
 case i := &lt;-c:
     // 使用 i
@@ -127,20 +112,18 @@ default:
     // 从 c 中接收会阻塞时执行
 }
 </code></pre></li>
-</ul></li>
-
-<li><p>Go 标准库中提供了 sync.Mutex 互斥锁类型及其两个方法：</p>
-
+</ul>
+</li>
+<li>
+<p>Go 标准库中提供了 sync.Mutex 互斥锁类型及其两个方法：</p>
 <ul>
 <li>Lock</li>
-<li>Unlock
-<br /></li>
+<li>Unlock</li>
 </ul>
-
 <p>通过在代码前调用 Lock 方法，在代码后调用 Unlock 方法来保证一段代码的互斥执行。
 保证每次只有一个 Go 程能够访问一个共享的变量，从而避免冲突。</p>
-
-<p><em>用 defer 语句来保证互斥锁一定会被解锁。</em></p></li>
+<p><em>用 defer 语句来保证互斥锁一定会被解锁。</em></p>
+</li>
 </ol>
 
             </div>
@@ -171,6 +154,9 @@ default:
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2019/summary-first/">angular 学习心得1</a></h1>
+            <time class="has-text-grey-light is-size-7">3 December 2019</time>
+        
             <h1><a href="https://zhouqian0.github.io/2019/mysql-seventh/">Mysql 必知必会阅读小记7</a></h1>
             <time class="has-text-grey-light is-size-7">22 September 2019</time>
         
@@ -182,9 +168,6 @@ default:
         
             <h1><a href="https://zhouqian0.github.io/2019/mysql-fifth/">Mysql 必知必会阅读小记4</a></h1>
             <time class="has-text-grey-light is-size-7">16 September 2019</time>
-        
-            <h1><a href="https://zhouqian0.github.io/2019/mysql-third/">Mysql 必知必会阅读小记3</a></h1>
-            <time class="has-text-grey-light is-size-7">10 September 2019</time>
         
     </div>
 </div>
@@ -220,7 +203,7 @@ default:
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (44)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (45)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         

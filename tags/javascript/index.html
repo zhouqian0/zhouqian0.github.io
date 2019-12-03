@@ -60,7 +60,7 @@
                                 Published at August 7, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;1 min read
                             </p>
-                            <p> Safari Date Invalid  safari 浏览器在对 js Date 函数的支持与 Chrome 和 Firefox 不同，  在 Safari 中，如果日期格式为 YYYY-MM-DD HH:mm:ss，那么对该时间的 string 使用 new Date(timeString) 时，返回的结果将是 invalid。 但此现象在其他两种浏览器中并未出现。 如果日期格式为 YYYY-MM-DD（无时分秒信息）， 此时 new Date(timeString) 返回的结果值也正常。  改进：将日期格式改为 YYYY/MM/DD HH:mm:ss，此时 new Date(timeString) 返回的时间结果正常。  ...</p>
+                            <p>Safari Date Invalid  safari 浏览器在对 js Date 函数的支持与 Chrome 和 Firefox 不同，  在 Safari 中，如果日期格式为 YYYY-MM-DD HH:mm:ss，那么对该时间的 string 使用 new Date(timeString) 时，返回的结果将是 invalid。 但此现象在其他两种浏览器中并未出现。 如果日期格式为 YYYY-MM-DD（无时分秒信息）， 此时 new Date(timeString) 返回的结果值也正常。   改进：将日期格式改为 YYYY/MM/DD HH:mm:ss，此时 new Date(timeString) 返回的时间结果正常。  ...</p>
                         </div>
                     </div>
                 </article>
@@ -74,8 +74,7 @@
                                 Published at March 21, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;1 min read
                             </p>
-                            <p> await  通过将 observable 转换为 promise，调用 promise 的 then() 方法，达到同步效果（在异步函数中）。 在异步函数中使用同步，需要加上 await 等待 promise 结束后再执行下一步操作。
-getALLReportData() { return (this.reportService.getReportBlockData() as Observable).toPromise(); } （await） this.getALLReportData().then(res =&gt; this.bkDataList = res['data'] || []);   ...</p>
+                            <p>await  通过将 observable 转换为 promise，调用 promise 的 then() 方法，达到同步效果（在异步函数中）。 在异步函数中使用同步，需要加上 await 等待 promise 结束后再执行下一步操作。   getALLReportData() { return (this.reportService.getReportBlockData() as Observable).toPromise(); } （await） this.getALLReportData().then(res =&gt; this.bkDataList = res['data'] || []); ...</p>
                         </div>
                     </div>
                 </article>
@@ -89,8 +88,8 @@ getALLReportData() { return (this.reportService.getReportBlockData() as Observab
                                 Published at February 21, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;1 min read
                             </p>
-                            <p> 两个 Date 之间的相互对比  js 中 new Date() 得到的日期为当前日期时分秒。但是用 new Date(&ldquo;yy-mm-dd&rdquo;) 得到的日期却为 yy-mm-dd 那天的八点，非零点。
- 两个Date日期比较采用getTime()方法。
+                            <p>两个 Date 之间的相互对比   js 中 new Date() 得到的日期为当前日期时分秒。但是用 new Date(&ldquo;yy-mm-dd&rdquo;) 得到的日期却为 yy-mm-dd 那天的八点，非零点。
+  两个Date日期比较采用getTime()方法。
   ...</p>
                         </div>
                     </div>
@@ -105,9 +104,7 @@ getALLReportData() { return (this.reportService.getReportBlockData() as Observab
                                 Published at February 13, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;1 min read
                             </p>
-                            <p> js 隐藏/显示 网页滚动条  隐藏：
-document.querySelector('html').style.overflow = 'hidden';  显示：
-document.querySelector('html').style.overflow = 'scroll';   ...</p>
+                            <p>js 隐藏/显示 网页滚动条  隐藏：  document.querySelector('html').style.overflow = 'hidden'; 显示：  document.querySelector('html').style.overflow = 'scroll'; ...</p>
                         </div>
                     </div>
                 </article>
@@ -121,9 +118,9 @@ document.querySelector('html').style.overflow = 'scroll';   ...</p>
                                 Published at December 7, 2018 &middot;
                                 <i class="far fa-clock"></i>&nbsp;1 min read
                             </p>
-                            <p> 中文排序  如果直接是中文数组，可以采用 arr.sort() 排序。
- 如果对对象数组中的某个属性进行中文排序，可用 js 的 localeCompare() 对中文排序。
-corps.sort((a, b) =&gt; { return a.shortName.localeCompare(b.shortName, 'zh-Hans-CN',{sensitivity:'accent'}); });   不同浏览器可能会出现不同结果 无法识别多音字   ...</p>
+                            <p>中文排序   如果直接是中文数组，可以采用 arr.sort() 排序。
+  如果对对象数组中的某个属性进行中文排序，可用 js 的 localeCompare() 对中文排序。
+   corps.sort((a, b) =&gt; { return a.shortName.localeCompare(b.shortName, 'zh-Hans-CN',{sensitivity:'accent'}); }); - 不同浏览器可能会出现不同结果 - 无法识别多音字  ...</p>
                         </div>
                     </div>
                 </article>
@@ -157,6 +154,9 @@ corps.sort((a, b) =&gt; { return a.shortName.localeCompare(b.shortName, 'zh-Hans
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2019/summary-first/">angular 学习心得1</a></h1>
+            <time class="has-text-grey-light is-size-7">3 December 2019</time>
+        
             <h1><a href="https://zhouqian0.github.io/2019/mysql-seventh/">Mysql 必知必会阅读小记7</a></h1>
             <time class="has-text-grey-light is-size-7">22 September 2019</time>
         
@@ -169,9 +169,6 @@ corps.sort((a, b) =&gt; { return a.shortName.localeCompare(b.shortName, 'zh-Hans
             <h1><a href="https://zhouqian0.github.io/2019/mysql-fifth/">Mysql 必知必会阅读小记4</a></h1>
             <time class="has-text-grey-light is-size-7">16 September 2019</time>
         
-            <h1><a href="https://zhouqian0.github.io/2019/mysql-third/">Mysql 必知必会阅读小记3</a></h1>
-            <time class="has-text-grey-light is-size-7">10 September 2019</time>
-        
     </div>
 </div>
     <br>
@@ -179,7 +176,7 @@ corps.sort((a, b) =&gt; { return a.shortName.localeCompare(b.shortName, 'zh-Hans
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (44)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (45)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         

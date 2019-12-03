@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
-	<meta name="generator" content="Hugo 0.58.3" />
+	<meta name="generator" content="Hugo 0.60.1" />
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Let&#39;s finish what we started  | Let&#39;s finish what we started</title>
@@ -57,13 +57,31 @@
                     <article class="media">
                         <div class="media-content">
                             <div class="content">
+                                <p class="title is-4"><a href="https://zhouqian0.github.io/2019/ts-fifth/">TS文档阅读小结5 函数</a></p>
+                                <p class="subtitle is-size-6 has-text-grey-light">
+                                    Published at July 12, 2019 &middot;
+                                    <i class="far fa-clock"></i>&nbsp;2 min read
+                                </p>
+                                <p>函数   https://typescript.bootcss.com/functions.html
+  完整函数类型，包含参数类型和返回值类型。
+let myAdd: (x:number, y:number) =&gt; number = function(x: number, y: number): number { return x + y; };  以参数列表的形式写出参数类型，为每个参数指定一个名字和类型。名字只是为了增加可读性，只要参数类型是匹配即有效 在函数和返回值类型之前使用（=&gt;）符号，返回值类型是函数类型的必要部分，即使函数没有返回任何值也必须指定返回值类型为 void    TypeScript 编译器会检查用户是否为每个参数都传入了值，所以每个函数参数都是必须的（可输入 null or undefined）。
+ 可选参数（?） 必须跟在必须参数后面 有默认初始化值的参数， 在所有必须参数后面的带默认初始化的参数都是可选的。共享同样的类型 function buildName(firstName: string, lastName = &quot;Smith&quot;) { return firstName + &quot; &quot; + lastName; }  带默认值的参数不需要放在必须参数的后面。如果带默认值的参数出现在必须参数前面，用户必须明确的传入 undefined 值来获得默认值。 剩余参数 会被当做个数不限的可选参数。编译器创建参数数组，名字是你在省略号（&hellip;）后面给定的名字，你可以在函数体内使用这个数组。    JavaScript 里 this 的工作原理，它的值在函数被调用的时候才会指定。...</p>
+                            </div>
+                        </div>
+                    </article>
+                
+                    <article class="media">
+                        <div class="media-content">
+                            <div class="content">
                                 <p class="title is-4"><a href="https://zhouqian0.github.io/2019/ts-fourth/">TS文档阅读小结4 类</a></p>
                                 <p class="subtitle is-size-6 has-text-grey-light">
                                     Published at July 11, 2019 &middot;
                                     <i class="far fa-clock"></i>&nbsp;2 min read
                                 </p>
-                                <p>类  https://typescript.bootcss.com/classes.html 在 TypeScript 里，使用面向对象模式，允许使用继承来扩展现有的类。 派生类(子类)包含了一个构造函数，它必须调用 super() 方法（会执行基类的构造函数）。
- class Animal { name: string; constructor(theName: string) { this.name = theName; } move(distanceInMeters: number = 0) { console.log(`${this.name} moved ${distanceInMeters}m.`); } } class Snake extends Animal { constructor(name: string) { super(name); } move(distanceInMeters = 5) { console.log(&quot;Slithering...&quot;); super.move(distanceInMeters); } } class Horse extends Animal { constructor(name: string) { super(name); } move(distanceInMeters = 45) { console.log(&quot;Galloping...&quot;); super.move(distanceInMeters); } } let sam = new Snake(&quot;Sammy the Python&quot;); let tom: Animal = new Horse(&quot;Tommy the Palomino&quot;); sam....</p>
+                                <p>类   https://typescript.bootcss.com/classes.html
+  在 TypeScript 里，使用面向对象模式，允许使用继承来扩展现有的类。
+  派生类(子类)包含了一个构造函数，它必须调用 super() 方法（会执行基类的构造函数）。
+ class Animal { name: string; constructor(theName: string) { this.name = theName; } move(distanceInMeters: number = 0) { console.log(`${this.name} moved ${distanceInMeters}m.`); } } class Snake extends Animal { constructor(name: string) { super(name); } move(distanceInMeters = 5) { console.log(&quot;Slithering...&quot;); super.move(distanceInMeters); } } class Horse extends Animal { constructor(name: string) { super(name); } move(distanceInMeters = 45) { console.log(&quot;Galloping...&quot;); super....</p>
                             </div>
                         </div>
                     </article>
@@ -76,10 +94,14 @@
                                     Published at July 10, 2019 &middot;
                                     <i class="far fa-clock"></i>&nbsp;2 min read
                                 </p>
-                                <p>接口  https://typescript.bootcss.com/interfaces.html 在 TypeScript 里，接口的作用就是定义结构。 可选属性名字( ? ), 可以对可能存在的属性进行预定义，以及捕获引用了不存在的属性时的错误。 可以将接口属性定义为 readonly，定义后只能在初始化时接口对象时赋值。 ReadonlyArray，只读数组，定义后不可更改，同时也不可将其复制给普通数组。 变量使用 const，属性使用 readonly。 对象字面量会被特殊对待且会额外属性检查，当将其赋值给变量或作为参数传递的时候。 如果一个对象字面量存在任何“目标类型”不包含的属性时，会报错，可以用以下方法规避：
- 类型断言（使用类型断言可以绕开类型检查） 字符串索引签名（eg: man[&lsquo;canRead&rsquo;]） 将该对象赋值给一个另一个变量
-interface SquareConfig { color?: string; width?: number; } function createSquare(config: SquareConfig): { color: string; area: number } { // ... } let squareOptions = { colour: &quot;red&quot;, width: 100 }; let mySquare = createSquare(squareOptions);   接口表示函数类型，需给接口定义一个调用签名。
-interface SearchFunc { (source: string, subString: string): boolean; } let mySearch: SearchFunc; mySearch = function(source: string, subString: string) { let result = source....</p>
+                                <p>接口   https://typescript.bootcss.com/interfaces.html
+  在 TypeScript 里，接口的作用就是定义结构。
+  可选属性名字( ? ), 可以对可能存在的属性进行预定义，以及捕获引用了不存在的属性时的错误。
+  可以将接口属性定义为 readonly，定义后只能在初始化时接口对象时赋值。
+  ReadonlyArray，只读数组，定义后不可更改，同时也不可将其复制给普通数组。
+  变量使用 const，属性使用 readonly。
+  对象字面量会被特殊对待且会额外属性检查，当将其赋值给变量或作为参数传递的时候。 如果一个对象字面量存在任何“目标类型”不包含的属性时，会报错，可以用以下方法规避：
+ 类型断言（使用类型断言可以绕开类型检查） 字符串索引签名（eg: man[&lsquo;canRead&rsquo;]） 将该对象赋值给一个另一个变量 interface SquareConfig { color?: string; width?: number; } function createSquare(config: SquareConfig): { color: string; area: number } { // ... } let squareOptions = { colour: &quot;red&quot;, width: 100 }; let mySquare = createSquare(squareOptions);     接口表示函数类型，需给接口定义一个调用签名。...</p>
                             </div>
                         </div>
                     </article>
@@ -92,7 +114,7 @@ interface SearchFunc { (source: string, subString: string): boolean; } let mySea
                                     Published at July 5, 2019 &middot;
                                     <i class="far fa-clock"></i>&nbsp;2 min read
                                 </p>
-                                <p>变量声明  https://typescript.bootcss.com/variable-declarations.html var 声明可以在包含它的函数，模块，命名空间或全局作用域内部任何位置被访问。  多次声明同一个变量并不会报错 声明的变量可以在包含它们的函数外访问  let 声明的变量使用的是词法作用域或块作用域。  块作用域变量在包含它们的块或 for 循环之外无法访问 不能在被声明之前读或写(仍可在一个拥有块作用域变量被声明前获取它，只是我们不能在变量声明前去调用此函数) 在同一作用域只能声明一次 每进入一个作用域就会创建一个变量的环境，就算作用域内代码已经执行完毕，这个环境与其捕获的变量依然存在  const 拥有与 let 相同的作用域规则，但不能对它们重新赋值。  变量内部状态可修改(可通过设置对象成员为只读改变)  使用最小特权原则，所有变量除了计划去修改的都应使用const。  基本原则：如果一个变量不需要对它写入，那么其它使用这些代码的人也不能够写入它们，并且要思考为什么会需要对这些变量重新赋值。 使用 const 可更容易推测数据的流动。  解构数组：  let input = [1, 2]; let [first, second] = input; [first, second] = [second, first]; // wap variavle function f([first, second]: [number, number]) let [, second, , fourth] = [1, 2, 3, 4]; 可用作在一行内声明多个数组变量，用作自解释  元组解构  let tuple: [number, string, boolean] = [7, &quot;hello&quot;, true]; let [a, ....</p>
+                                <p>变量声明  https://typescript.bootcss.com/variable-declarations.html var 声明可以在包含它的函数，模块，命名空间或全局作用域内部任何位置被访问。  多次声明同一个变量并不会报错 声明的变量可以在包含它们的函数外访问   let 声明的变量使用的是词法作用域或块作用域。  块作用域变量在包含它们的块或 for 循环之外无法访问 不能在被声明之前读或写(仍可在一个拥有块作用域变量被声明前获取它，只是我们不能在变量声明前去调用此函数) 在同一作用域只能声明一次 每进入一个作用域就会创建一个变量的环境，就算作用域内代码已经执行完毕，这个环境与其捕获的变量依然存在   const 拥有与 let 相同的作用域规则，但不能对它们重新赋值。  变量内部状态可修改(可通过设置对象成员为只读改变)   使用最小特权原则，所有变量除了计划去修改的都应使用const。  基本原则：如果一个变量不需要对它写入，那么其它使用这些代码的人也不能够写入它们，并且要思考为什么会需要对这些变量重新赋值。 使用 const 可更容易推测数据的流动。   解构数组：  let input = [1, 2]; let [first, second] = input; [first, second] = [second, first]; // wap variavle function f([first, second]: [number, number]) let [, second, , fourth] = [1, 2, 3, 4]; 可用作在一行内声明多个数组变量，用作自解释   元组解构  let tuple: [number, string, boolean] = [7, &quot;hello&quot;, true]; let [a, ....</p>
                             </div>
                         </div>
                     </article>
@@ -105,11 +127,7 @@ interface SearchFunc { (source: string, subString: string): boolean; } let mySea
                                     Published at June 24, 2019 &middot;
                                     <i class="far fa-clock"></i>&nbsp;1 min read
                                 </p>
-                                <p>基础类型  https://typescript.bootcss.com/basic-types.html TypeScript 里的所有数字都是浮点数。 模版字符串，可以定义多行文本和内嵌表达式。 其被反引号包围（ `），并且以 ${ expr } 这种形式嵌入表达式。 数组，使用后跟[]元素的类型来表示该元素类型的数组或者使用通用数组类型Array。 元组类型( Tuple )允许表示一个已知元素数量和类型的数组，各元素的类型不必相同。
- eg: let x: [string, number]; x = [&lsquo;hello&rsquo;, 10]; // 必须要按照定义类型的顺序赋值 访问越界元素会出现错误提示:
-x[3] = &quot;world&quot;; // Error, Property '3' does not exist on type '[string, number]'. console.log(x[5].toString()); // Error, Property '5' does not exist on type '[string, number]'.   枚举类型提供的一个便利是你可以由枚举的值得到它的名字。
- 类型检查器不对 any 类型的值进行检查而是直接让它们通过编译阶段的检查。Object 类型的变量只允许给它赋任意值 ，但是却不能够在它上面调用任意的方法，即便它真的有这些方法。
- 指定了 &ndash;strictNullChecks 标记(编译选项)，null 和 undefined 只能赋值给 void 和它们各自。...</p>
+                                <p>基础类型  https://typescript.bootcss.com/basic-types.html TypeScript 里的所有数字都是浮点数。 模版字符串，可以定义多行文本和内嵌表达式。 其被反引号包围（ `），并且以 ${ expr } 这种形式嵌入表达式。 数组，使用后跟[]元素的类型来表示该元素类型的数组或者使用通用数组类型Array。 元组类型( Tuple )允许表示一个已知元素数量和类型的数组，各元素的类型不必相同。  eg: let x: [string, number]; x = [&lsquo;hello&rsquo;, 10]; // 必须要按照定义类型的顺序赋值 访问越界元素会出现错误提示: x[3] = &quot;world&quot;; // Error, Property '3' does not exist on type '[string, number]'. console.log(x[5].toString()); // Error, Property '5' does not exist on type '[string, number]'.    枚举类型提供的一个便利是你可以由枚举的值得到它的名字。 类型检查器不对 any 类型的值进行检查而是直接让它们通过编译阶段的检查。Object 类型的变量只允许给它赋任意值 ，但是却不能够在它上面调用任意的方法，即便它真的有这些方法。 指定了 &ndash;strictNullChecks 标记(编译选项)，null 和 undefined 只能赋值给 void 和它们各自。 never 类型表示的是那些永不存在的值的类型，即使 any 也不能赋值给 never。  可作为 error 函数 (return Error()) 的返回值   类型断言( as , 尖括号 (&lt;String&gt;)) 类似 JAVA 中的类型转换，但是不进行特殊的数据检查和解构。不影响运行，只干预编译阶段。 推荐使用 let 代替 var（和作用域有关）  ...</p>
                             </div>
                         </div>
                     </article>
@@ -135,8 +153,7 @@ x[3] = &quot;world&quot;; // Error, Property '3' does not exist on type '[string
                                     Published at March 21, 2019 &middot;
                                     <i class="far fa-clock"></i>&nbsp;1 min read
                                 </p>
-                                <p> await  通过将 observable 转换为 promise，调用 promise 的 then() 方法，达到同步效果（在异步函数中）。 在异步函数中使用同步，需要加上 await 等待 promise 结束后再执行下一步操作。
-getALLReportData() { return (this.reportService.getReportBlockData() as Observable).toPromise(); } （await） this.getALLReportData().then(res =&gt; this.bkDataList = res['data'] || []);   ...</p>
+                                <p>await  通过将 observable 转换为 promise，调用 promise 的 then() 方法，达到同步效果（在异步函数中）。 在异步函数中使用同步，需要加上 await 等待 promise 结束后再执行下一步操作。   getALLReportData() { return (this.reportService.getReportBlockData() as Observable).toPromise(); } （await） this.getALLReportData().then(res =&gt; this.bkDataList = res['data'] || []); ...</p>
                             </div>
                         </div>
                     </article>
@@ -162,9 +179,8 @@ getALLReportData() { return (this.reportService.getReportBlockData() as Observab
                                     Published at February 27, 2019 &middot;
                                     <i class="far fa-clock"></i>&nbsp;1 min read
                                 </p>
-                                <p> errorStateMatcher 在某些情况下，submit 的操作并不能出发整个 form 的验证机制。
- 可以为所有不能通过 submit 触发验证的表单组件添加 [errorStateMatcher]=&ldquo;matcher&rdquo; ，主动设置它的错误校验机制。 将 matcher 声明为 ErrorStateMatcher，不初始化，在需要触发验证的时候将其变为 this.matcher = new MyErrorStateMatcher(); 即可主动触发所有表单组件的验证状态。
-import {ErrorStateMatcher} from '@angular/material'; import {FormControl, FormGroupDirective, NgForm} from '@angular/forms'; export class FormErrorStateMatcher implements ErrorStateMatcher { isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean { return !!(control &amp;&amp; control.invalid &amp;&amp; !control.touched || (control &amp;&amp; (control.errors !== null))); } }   ...</p>
+                                <p>errorStateMatcher 在某些情况下，submit 的操作并不能出发整个 form 的验证机制。
+ 可以为所有不能通过 submit 触发验证的表单组件添加 [errorStateMatcher]=&quot;matcher&rdquo; ，主动设置它的错误校验机制。 将 matcher 声明为 ErrorStateMatcher，不初始化，在需要触发验证的时候将其变为 this.matcher = new MyErrorStateMatcher(); 即可主动触发所有表单组件的验证状态。   import {ErrorStateMatcher} from '@angular/material'; import {FormControl, FormGroupDirective, NgForm} from '@angular/forms'; export class FormErrorStateMatcher implements ErrorStateMatcher { isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean { return !!(control &amp;&amp; control.invalid &amp;&amp; !control.touched || (control &amp;&amp; (control.errors !== null))); } } ...</p>
                             </div>
                         </div>
                     </article>
@@ -177,22 +193,8 @@ import {ErrorStateMatcher} from '@angular/material'; import {FormControl, FormGr
                                     Published at February 21, 2019 &middot;
                                     <i class="far fa-clock"></i>&nbsp;1 min read
                                 </p>
-                                <p> EventEmitter 在 angular 中如果没有对 @Output 的 EventEmitter 变量进行初始化就会报错 Cannot read property ‘subscribe’ of undefined ，并且不会有报错行信息。 （初始化放在 onInit 中也会报错, 必须在声明变量时或者在构造函数中初始化）
-@Output() eventEmit = new EventEmitter();  ...</p>
-                            </div>
-                        </div>
-                    </article>
-                
-                    <article class="media">
-                        <div class="media-content">
-                            <div class="content">
-                                <p class="title is-4"><a href="https://zhouqian0.github.io/2019/ng-third/">angular form 中的 disable() 导致 form valid 结果为 false</a></p>
-                                <p class="subtitle is-size-6 has-text-grey-light">
-                                    Published at February 21, 2019 &middot;
-                                    <i class="far fa-clock"></i>&nbsp;1 min read
-                                </p>
-                                <p> form 的 disable（） 在angular 的 form 中，如果整个 form 的状态变为 disabled，会使 form.valid 返回的值会变为 false，表单校验不通过（哪怕 form 的所有组件都是验证通过的）。
-import {Component, OnInit} from '@angular/core'; import {FormGroup, FormControl, Validators} from '@angular/forms'; @Component({ selector: 'my-app', templateUrl: './app.component.html', styleUrls: [ './app.component.css' ] }) export class AppComponent implements OnInit{ name = 'Angular'; form = new FormGroup({ 'test':new FormControl('',Validators.required) }); ngOnInit(){ this.form.get('test').setValue('2'); // this.form.disable(); console.log(this.form.valid); } }  ...</p>
+                                <p>EventEmitter 在 angular 中如果没有对 @Output 的 EventEmitter 变量进行初始化就会报错 Cannot read property ‘subscribe’ of undefined ，并且不会有报错行信息。 （初始化放在 onInit 中也会报错, 必须在声明变量时或者在构造函数中初始化）
+@Output() eventEmit = new EventEmitter(); ...</p>
                             </div>
                         </div>
                     </article>
@@ -225,6 +227,9 @@ import {Component, OnInit} from '@angular/core'; import {FormGroup, FormControl,
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2019/summary-first/">angular 学习心得1</a></h1>
+            <time class="has-text-grey-light is-size-7">3 December 2019</time>
+        
             <h1><a href="https://zhouqian0.github.io/2019/mysql-seventh/">Mysql 必知必会阅读小记7</a></h1>
             <time class="has-text-grey-light is-size-7">22 September 2019</time>
         
@@ -237,9 +242,6 @@ import {Component, OnInit} from '@angular/core'; import {FormGroup, FormControl,
             <h1><a href="https://zhouqian0.github.io/2019/mysql-fifth/">Mysql 必知必会阅读小记4</a></h1>
             <time class="has-text-grey-light is-size-7">16 September 2019</time>
         
-            <h1><a href="https://zhouqian0.github.io/2019/mysql-third/">Mysql 必知必会阅读小记3</a></h1>
-            <time class="has-text-grey-light is-size-7">10 September 2019</time>
-        
     </div>
 </div>
     <br>
@@ -247,7 +249,7 @@ import {Component, OnInit} from '@angular/core'; import {FormGroup, FormControl,
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (44)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (45)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         

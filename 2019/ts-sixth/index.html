@@ -46,83 +46,64 @@
     <div class="column is-9">
         <div class="tile is-child box">
             <div class="content">
-                
-
-<h3 id="泛型">泛型</h3>
-
+                <h3 id="heading">泛型</h3>
 <ol>
 <li><a href="https://typescript.bootcss.com/generics.html">https://typescript.bootcss.com/generics.html</a></li>
 <li>泛型，类型变量，是一种特殊的变量，只用于表示类型而不是值。</li>
-
-<li><p>定义了泛型函数后，可以用两种方法使用。</p>
-
+<li>定义了泛型函数后，可以用两种方法使用。
 <ol>
-<li><p>第一种是，传入所有的参数，包含类型参数</p>
-
+<li>第一种是，传入所有的参数，包含类型参数</li>
+</ol>
 <pre><code>let output = identity&lt;string&gt;(&quot;myString&quot;);  // type of output will be 'string'
-</code></pre></li>
-
-<li><p>利用类型推论 – 即编译器会根据传入的参数自动地帮助我们确定 T 的类型</p>
-
+</code></pre><ol start="2">
+<li>利用类型推论 – 即编译器会根据传入的参数自动地帮助我们确定 T 的类型</li>
+</ol>
 <pre><code>let output = identity(&quot;myString&quot;);  // type of output will be 'string'
 </code></pre></li>
-</ol></li>
-
-<li><p>编译器要求你在泛型函数的函数体必须正确的使用这个通用的类型。 换句话说，你必须把这些参数当做是任意或所有类型。<br />
-否则可能将 T 类型定义为 number， 然后去调用 T 的 length 属性，但是 number 类型是没有 length 属性。</p>
-
+<li>编译器要求你在泛型函数的函数体必须正确的使用这个通用的类型。 换句话说，你必须把这些参数当做是任意或所有类型。<br>
+否则可能将 T 类型定义为 number， 然后去调用 T 的 length 属性，但是 number 类型是没有 length 属性。
 <pre><code>function loggingIdentity&lt;T&gt;(arg: T): T {
     console.log(arg.length);  // Error: T doesn't have .length
     return arg;
 } // 这里可以将 arg 定义为 T[] 或 Array&lt;T&gt; 类型， 这样就可以使用 length 属性了
 </code></pre></li>
-
-<li><p>泛型函数的类型与非泛型函数的类型</p>
-
+<li>泛型函数的类型与非泛型函数的类型
 <pre><code>function identity&lt;T&gt;(arg: T): T {
     return arg;
 }
-    
+   
 let myIdentity: &lt;T&gt;(arg: T) =&gt; T = identity;
 // let myIdentity: &lt;U&gt;(arg: U) =&gt; U = identity;
 // let myIdentity: {&lt;T&gt;(arg: T): T} = identity;
 </code></pre></li>
-
-<li><p>泛型接口</p>
-
+<li>泛型接口
 <pre><code>interface GenericIdentityFn&lt;T&gt; {
     (arg: T): T;
 }
-   
+  
 function identity&lt;T&gt;(arg: T): T {
     return arg;
 }
-   
+  
 let myIdentity: GenericIdentityFn&lt;number&gt; = identity;
 </code></pre></li>
-
-<li><p>泛型类</p>
-
+<li>泛型类
 <pre><code>class GenericNumber&lt;T&gt; {
     zeroValue: T;
     add: (x: T, y: T) =&gt; T;
 }
-   
+  
 let myGenericNumber = new GenericNumber&lt;number&gt;();
 myGenericNumber.zeroValue = 0;
 myGenericNumber.add = function(x, y) { return x + y; }; 
-</code></pre>
-
-<p>类有静态部分和实例部分。泛型类指的是实例部分的类型，所以 <em>类的静态属性不能使用这个泛型类型</em> 。</p></li>
-
-<li><p>可以创建泛型接口、泛型类，但 <em>无法创建泛型枚举和泛型命名空间</em> 。</p></li>
-
-<li><p>泛型约束，约束传入的 T 的类型</p>
-
+</code></pre><p>类有静态部分和实例部分。泛型类指的是实例部分的类型，所以 <em>类的静态属性不能使用这个泛型类型</em> 。</p>
+</li>
+<li>可以创建泛型接口、泛型类，但 <em>无法创建泛型枚举和泛型命名空间</em> 。</li>
+<li>泛型约束，约束传入的 T 的类型
 <pre><code>interface Lengthwise {
     length: number;
 }
-    
+   
 function loggingIdentity&lt;T extends Lengthwise&gt;(arg: T): T {
     console.log(arg.length);  // Now we know it has a .length property, so no more error
     return arg;
@@ -130,50 +111,44 @@ function loggingIdentity&lt;T extends Lengthwise&gt;(arg: T): T {
 loggingIdentity(3);  // Error, number doesn't have a .length property
 loggingIdentity({length: 10, value: 3}); // Ok， this object have .length property
 </code></pre></li>
-
-<li><p>在泛型约束中使用类型参数（keyof），可声明一个类型参数，且它被另一个类型参数所约束。</p>
-
+<li>在泛型约束中使用类型参数（keyof），可声明一个类型参数，且它被另一个类型参数所约束。
 <pre><code>function getProperty&lt;T, K extends keyof T&gt;(obj: T, key: K) {
     return obj[key];
 }
-    
+   
 let x = { a: 1, b: 2, c: 3, d: 4 };
-    
+   
 getProperty(x, &quot;a&quot;); // okay
 getProperty(x, &quot;m&quot;); // error: Argument of type 'm' isn't assignable to 'a' | 'b' | 'c' | 'd'.
 </code></pre></li>
-
-<li><p>在泛型里使用类类型</p>
-
+<li>在泛型里使用类类型
 <pre><code>function create&lt;T&gt;(c: {new(): T; }): T {
     return new c();
 }
-</code></pre>
-
-<pre><code>class BeeKeeper {
+</code></pre><pre><code>class BeeKeeper {
     hasMask: boolean;
 }
-    
+   
 class ZooKeeper {
     nametag: string;
 }
-    
+   
 class Animal {
     numLegs: number;
 }
-    
+   
 class Bee extends Animal {
     keeper: BeeKeeper;
 }
-    
+   
 class Lion extends Animal {
     keeper: ZooKeeper;
 }
-    
+   
 function createInstance&lt;A extends Animal&gt;(c: new () =&gt; A): A {
     return new c();
 }
-    
+   
 createInstance(Lion).keeper.nametag;  // typechecks!
 createInstance(Bee).keeper.hasMask;   // typechecks!
 </code></pre></li>
@@ -207,6 +182,9 @@ createInstance(Bee).keeper.hasMask;   // typechecks!
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2019/summary-first/">angular 学习心得1</a></h1>
+            <time class="has-text-grey-light is-size-7">3 December 2019</time>
+        
             <h1><a href="https://zhouqian0.github.io/2019/mysql-seventh/">Mysql 必知必会阅读小记7</a></h1>
             <time class="has-text-grey-light is-size-7">22 September 2019</time>
         
@@ -218,9 +196,6 @@ createInstance(Bee).keeper.hasMask;   // typechecks!
         
             <h1><a href="https://zhouqian0.github.io/2019/mysql-fifth/">Mysql 必知必会阅读小记4</a></h1>
             <time class="has-text-grey-light is-size-7">16 September 2019</time>
-        
-            <h1><a href="https://zhouqian0.github.io/2019/mysql-third/">Mysql 必知必会阅读小记3</a></h1>
-            <time class="has-text-grey-light is-size-7">10 September 2019</time>
         
     </div>
 </div>
@@ -265,7 +240,7 @@ createInstance(Bee).keeper.hasMask;   // typechecks!
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (44)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (45)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         

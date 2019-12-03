@@ -46,19 +46,14 @@
     <div class="column is-9">
         <div class="tile is-child box">
             <div class="content">
-                
-
-<h3 id="流程控制语句">流程控制语句</h3>
-
+                <h3 id="heading">流程控制语句</h3>
 <ol>
 <li>Go 只有一种循环结构：for 循环。</li>
-
-<li><p>Go 的 for 语句后面的三个构成部分外没有小括号， 大括号 { } 则是必须的。</p>
-
+<li>Go 的 for 语句后面的三个构成部分外没有小括号， 大括号 { } 则是必须的。
 <pre><code>package main
-    
+   
 import &quot;fmt&quot;
-    
+   
 func main() {
     sum := 0
     for i := 0; i &lt; 10; i++ {
@@ -66,60 +61,48 @@ func main() {
     }
     fmt.Println(sum)
 }
-</code></pre>
-
-<ul>
+</code></pre><ul>
 <li>初始化语句和后置语句是可选的。</li>
-</ul></li>
-
-<li><p>Go 的 if 语句与 for 循环类似，表达式外无需小括号 ( ) ，而大括号 { } 则是必须的。</p></li>
-
-<li><p>if 语句可以在条件表达式前执行一个简单的语句( 该语句声明的变量作用域仅在 if 之内 )。</p>
-
+</ul>
+</li>
+<li>Go 的 if 语句与 for 循环类似，表达式外无需小括号 ( ) ，而大括号 { } 则是必须的。</li>
+<li>if 语句可以在条件表达式前执行一个简单的语句( 该语句声明的变量作用域仅在 if 之内 )。
 <pre><code>    if v := math.Pow(x, n); v &lt; lim {
     }
 </code></pre></li>
-
-<li><p>switch 是编写一连串 if - else 语句的简便方法。它运行第一个值等于条件表达式的 case 语句。</p>
-
+<li>switch 是编写一连串 if - else 语句的简便方法。它运行第一个值等于条件表达式的 case 语句。
 <ul>
 <li>Go 自动提供了在这些语言中每个 case 后面所需的 break 语句。 除非以 fallthrough 语句结束，否则分支会自动终止。</li>
 <li>Go 的另一点重要的不同在于 switch 的 case 无需为常量，且取值不必为整数。</li>
-
-<li><p>没有条件的 switch 同 switch true 一样。该形式能将一长串 if-then-else 写得更加清晰。</p>
-
-<pre><code>switch time.Now().Weekday() {
-    case time.Saturday, time.Sunday:
-        fmt.Println(&quot;It's the weekend&quot;)
-    default:
-        fmt.Println(&quot;It's a weekday&quot;)
+<li>没有条件的 switch 同 switch true 一样。该形式能将一长串 if-then-else 写得更加清晰。</li>
+</ul>
+<pre><code>    switch time.Now().Weekday() {
+        case time.Saturday, time.Sunday:
+            fmt.Println(&quot;It's the weekend&quot;)
+        default:
+            fmt.Println(&quot;It's a weekday&quot;)
+        }
+</code></pre><p>可以用逗号分隔同一个 case 的多个条件</p>
+<pre><code>    whatAmI := func(i interface{}) {
+        switch t := i.(type) {  // 此语法在 switch 域外不可用
+        case bool:
+            fmt.Println(&quot;I'm a bool&quot;)
+        case int:
+            fmt.Println(&quot;I'm an int&quot;)
+        default:
+            fmt.Printf(&quot;Don't know type %T\n&quot;, t)
+        }
     }
-</code></pre>
-
-<p>可以用逗号分隔同一个 case 的多个条件</p>
-
-<pre><code>whatAmI := func(i interface{}) {
-    switch t := i.(type) {  // 此语法在 switch 域外不可用
-    case bool:
-        fmt.Println(&quot;I'm a bool&quot;)
-    case int:
-        fmt.Println(&quot;I'm an int&quot;)
-    default:
-        fmt.Printf(&quot;Don't know type %T\n&quot;, t)
-    }
-}
-whatAmI(true)   // I'm a bool
-whatAmI(1)      // I'm an int
-whatAmI(&quot;hey&quot;)  // Don't know type string
+    whatAmI(true)   // I'm a bool
+    whatAmI(1)      // I'm an int
+    whatAmI(&quot;hey&quot;)  // Don't know type string
 </code></pre></li>
-</ul></li>
-
-<li><p>defer 语句会将函数推迟到外层函数返回之后执行。(感觉有点类似 js 的 setTimeout)</p>
-
+<li>defer 语句会将函数推迟到外层函数返回之后执行。(感觉有点类似 js 的 setTimeout)
 <ul>
 <li>推迟调用的函数其参数会立即求值，但直到外层函数返回前该函数都不会被调用。</li>
 <li>推迟的函数调用会被压入一个栈中。当外层函数返回时，被推迟的函数会按照 <em><strong>后进先出</strong></em> 的顺序调用。</li>
-</ul></li>
+</ul>
+</li>
 </ol>
 
             </div>
@@ -150,6 +133,9 @@ whatAmI(&quot;hey&quot;)  // Don't know type string
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2019/summary-first/">angular 学习心得1</a></h1>
+            <time class="has-text-grey-light is-size-7">3 December 2019</time>
+        
             <h1><a href="https://zhouqian0.github.io/2019/mysql-seventh/">Mysql 必知必会阅读小记7</a></h1>
             <time class="has-text-grey-light is-size-7">22 September 2019</time>
         
@@ -161,9 +147,6 @@ whatAmI(&quot;hey&quot;)  // Don't know type string
         
             <h1><a href="https://zhouqian0.github.io/2019/mysql-fifth/">Mysql 必知必会阅读小记4</a></h1>
             <time class="has-text-grey-light is-size-7">16 September 2019</time>
-        
-            <h1><a href="https://zhouqian0.github.io/2019/mysql-third/">Mysql 必知必会阅读小记3</a></h1>
-            <time class="has-text-grey-light is-size-7">10 September 2019</time>
         
     </div>
 </div>
@@ -199,7 +182,7 @@ whatAmI(&quot;hey&quot;)  // Don't know type string
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (44)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (45)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         

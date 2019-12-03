@@ -46,66 +46,50 @@
     <div class="column is-9">
         <div class="tile is-child box">
             <div class="content">
-                
-
-<h3 id="symbols">Symbols</h3>
-
+                <h3 id="symbols">Symbols</h3>
 <ol>
 <li><a href="https://www.tslang.cn/docs/handbook/symbols.html">https://www.tslang.cn/docs/handbook/symbols.html</a></li>
 <li><a href="https://www.keithcirkel.co.uk/metaprogramming-in-es6-symbols/">https://www.keithcirkel.co.uk/metaprogramming-in-es6-symbols/</a></li>
 <li><a href="http://es6.ruanyifeng.com/#docs/symbol">http://es6.ruanyifeng.com/#docs/symbol</a></li>
-
-<li><p>自 ECMAScript 2015 起，symbol 成为了一种新的原生类型，是 JavaScript 的第七种原始类型。很适合做标识符。</p>
-
+<li>自 ECMAScript 2015 起，symbol 成为了一种新的原生类型，是 JavaScript 的第七种原始类型。很适合做标识符。
 <pre><code>assert(typeof Symbol() === 'symbol')
 </code></pre></li>
-
-<li><p>symbol 类型的值是通过 Symbol 构造函数创建的，无法通过 new 创建</p>
-
+<li>symbol 类型的值是通过 Symbol 构造函数创建的，无法通过 new 创建
 <pre><code>let sym1 = Symbol();      // Ok
 let sym2 = Symbol(&quot;key&quot;); // 可选的字符串key
 let sym3 = new Symbol();  // TypeError
 </code></pre></li>
-
-<li><p>Symbols 是不可改变且唯一的。</p>
-
+<li>Symbols 是不可改变且唯一的。
 <pre><code>let sym2 = Symbol(&quot;key&quot;);
 let sym3 = Symbol(&quot;key&quot;);
 sym2 === sym3; // false, symbols是唯一的
 </code></pre></li>
-
-<li><p>symbols 也可以被用做对象属性的键。
+<li>symbols 也可以被用做对象属性的键。
 它能避免命名冲突的风险。
-这对于一个对象由多个模块构成的情况非常有用，能防止某一个键被不小心改写或覆盖。</p>
-
+这对于一个对象由多个模块构成的情况非常有用，能防止某一个键被不小心改写或覆盖。
 <pre><code>let sym = Symbol();
-   
+  
 let obj = {
    [sym]: &quot;value&quot;
 };
-   
+  
 console.log(obj, obj[sym]); // {}, &quot;value&quot;
-</code></pre>
-
-<p>Symbols key 无法通过 for in、for of 或者 Object.getOwnPropertyNames 获得，获得它们的唯一方式是 Object.getOwnPropertySymbols</p></li>
-
-<li><p>Symbols 也可以与计算出的属性名声明相结合来声明对象的属性和类成员。</p>
-
+</code></pre><p>Symbols key 无法通过 for in、for of 或者 Object.getOwnPropertyNames 获得，获得它们的唯一方式是 Object.getOwnPropertySymbols</p>
+</li>
+<li>Symbols 也可以与计算出的属性名声明相结合来声明对象的属性和类成员。
 <pre><code>const getClassNameSymbol = Symbol();
    
 class C {
-   [getClassNameSymbol](){
-      return &quot;C&quot;;
-   }
+    [getClassNameSymbol](){
+       return &quot;C&quot;;
+    }
 }
    
 let c = new C();
 let className = c[getClassNameSymbol](); // &quot;C&quot;
 </code></pre></li>
-
-<li><p>Symbol 作为属性名，该属性不会出现在 for&hellip;in、for&hellip;of 循环中，也不会被 Object.keys()、Object.getOwnPropertyNames()、JSON.stringify() 返回。
-但是，它也不是私有属性，有一个 Object.getOwnPropertySymbols 方法，可以获取指定对象的所有 Symbol 属性名的数组。</p>
-
+<li>Symbol 作为属性名，该属性不会出现在 for&hellip;in、for&hellip;of 循环中，也不会被 Object.keys()、Object.getOwnPropertyNames()、JSON.stringify() 返回。
+但是，它也不是私有属性，有一个 Object.getOwnPropertySymbols 方法，可以获取指定对象的所有 Symbol 属性名的数组。
 <pre><code>const sym1 = Symbol('1');
 const sym2 = Symbol('2');
 const obj = {
@@ -115,64 +99,54 @@ const obj = {
 }
 const ary = Object.getOwnPropertySymbols(obj);
 console.log(ary); //[ Symbol(1), Symbol(2) ]
-</code></pre>
-
-<p>这意味着 Symbols 能够给对象提供一个隐藏层，帮助对象实现了一种全新的目的 —— 属性不可迭代，也不能够通过现有的反射工具获得，并且能被保证不会和对象任何已有属性冲突。</p></li>
-
-<li><p>Symbol.for() 与Symbol()，都会生成新的 Symbol。
+</code></pre><p>这意味着 Symbols 能够给对象提供一个隐藏层，帮助对象实现了一种全新的目的 —— 属性不可迭代，也不能够通过现有的反射工具获得，并且能被保证不会和对象任何已有属性冲突。</p>
+</li>
+<li>Symbol.for() 与Symbol()，都会生成新的 Symbol。
 它们的区别是，前者会被登记在全局环境中供搜索，后者不会。
 Symbol.for() 不会每次调用就返回一个新的 Symbol 类型的值，而是会先检查给定的 key 是否已经存在，如果不存在才会新建一个值。
-比如，如果你调用 Symbol.for(&ldquo;cat&rdquo;)30 次，每次都会返回同一个 Symbol 值，但是调用 Symbol(&ldquo;cat&rdquo;)30 次，会返回 30 个不同的 Symbol 值。</p>
-
+比如，如果你调用 Symbol.for(&ldquo;cat&rdquo;)30 次，每次都会返回同一个 Symbol 值，但是调用 Symbol(&ldquo;cat&rdquo;)30 次，会返回 30 个不同的 Symbol 值。
 <pre><code>var fooSym = Symbol.for('foo');
 var otherSym = Symbol.for('foo');
 console.log(fooSym === otherSym); // true
 </code></pre></li>
-
-<li><p>Symbol.keyFor 方法返回一个已登记的 Symbol 类型值的 key。
-Symbol.for 为 Symbol 值登记的名字，是全局环境的，可以在不同的 iframe 或 service worker 中取到同一个值。</p>
-
+<li>Symbol.keyFor 方法返回一个已登记的 Symbol 类型值的 key。
+Symbol.for 为 Symbol 值登记的名字，是全局环境的，可以在不同的 iframe 或 service worker 中取到同一个值。
 <pre><code>var localFooSymbol = Symbol('foo');
 var globalFooSymbol = Symbol.for('foo');
-   
+  
 assert(Symbol.keyFor(localFooSymbol) === undefined); // localFooSymbol 属于未登记的 Symbol 值，所以返回undefined。
 assert(Symbol.keyFor(globalFooSymbol) === 'foo');
 assert(Symbol.for(Symbol.keyFor(globalFooSymbol)) === Symbol.for('foo'));
 </code></pre></li>
-
-<li><p>Symbol 值可以显式转为字符串，也可以转为布尔值，但是不能转为数值。</p>
-
+<li>Symbol 值可以显式转为字符串，也可以转为布尔值，但是不能转为数值。
 <pre><code>let sym = Symbol('My symbol');
-   
+  
 'Symbol(My symbol)'
 'Symbol(My symbol)'
 Boolean(sym) // true
 !sym  // false
-   
+  
 if (sym) {
  // ...
 }
-   
+  
 Number(sym) // TypeError
 sym + 2 // TypeError
 
 </code></pre></li>
-
-<li><p>Symbol 值作为对象属性名时，不能用点运算符。</p>
-
+<li>Symbol 值作为对象属性名时，不能用点运算符。
 <pre><code>const mySymbol = Symbol();
 const a = {};
    
 a.mySymbol = 'Hello!';
 a[mySymbol] // undefined
 a['mySymbol'] // &quot;Hello!&quot;
-</code></pre>
-
-<p>因为点运算符后面总是字符串，所以不会读取 mySymbol 作为标识名所指代的那个值，导致 a 的属性名实际上是一个字符串，而不是一个 Symbol 值。</p></li>
-
-<li><pre><code>const COLOR_RED    = Symbol('red');
+</code></pre><p>因为点运算符后面总是字符串，所以不会读取 mySymbol 作为标识名所指代的那个值，导致 a 的属性名实际上是一个字符串，而不是一个 Symbol 值。</p>
+</li>
+<li>
+<pre><code>const COLOR_RED    = Symbol('red');
 const COLOR_GREEN  = Symbol('green');
-   
+  
 function getComplement(color) {
  switch (color) {
    case COLOR_RED:
@@ -184,11 +158,11 @@ function getComplement(color) {
    }
 }
 </code></pre></li>
-
-<li><pre><code>const shapeType = {
+<li>
+<pre><code>const shapeType = {
    triangle: Symbol()
 };
-   
+  
 function getArea(shape, options) {
  let area = 0;
  switch (shape) {
@@ -198,24 +172,19 @@ function getArea(shape, options) {
  }
  return area;
 }
-   
+  
 getArea(shapeType.triangle, { width: 100, height: 100 });
-</code></pre>
-
-<p>shapeType.triangle 等于哪个值并不重要，只要确保不会跟其他 shapeType 属性的值冲突即可。因此，这里就很适合改用 Symbol 值。</p></li>
-
-<li><p>Reflect.ownKeys 方法可以返回所有类型的键名，包括常规键名和 Symbol 键名。</p>
-
+</code></pre>shapeType.triangle 等于哪个值并不重要，只要确保不会跟其他 shapeType 属性的值冲突即可。因此，这里就很适合改用 Symbol 值。</li>
+<li>Reflect.ownKeys 方法可以返回所有类型的键名，包括常规键名和 Symbol 键名。
 <pre><code>let obj = {
  [Symbol('my_key')]: 1,
  enum: 2,
  nonEnum: 3
 };
-   
+  
 console.log(Reflect.ownKeys(obj)) //  [&quot;enum&quot;, &quot;nonEnum&quot;, Symbol]
 </code></pre></li>
-
-<li><p>如果键名使用 Symbol 方法生成，那么外部将无法引用这个值，当然也就无法改写。</p></li>
+<li>如果键名使用 Symbol 方法生成，那么外部将无法引用这个值，当然也就无法改写。</li>
 </ol>
 
             </div>
@@ -246,6 +215,9 @@ console.log(Reflect.ownKeys(obj)) //  [&quot;enum&quot;, &quot;nonEnum&quot;, Sy
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2019/summary-first/">angular 学习心得1</a></h1>
+            <time class="has-text-grey-light is-size-7">3 December 2019</time>
+        
             <h1><a href="https://zhouqian0.github.io/2019/mysql-seventh/">Mysql 必知必会阅读小记7</a></h1>
             <time class="has-text-grey-light is-size-7">22 September 2019</time>
         
@@ -257,9 +229,6 @@ console.log(Reflect.ownKeys(obj)) //  [&quot;enum&quot;, &quot;nonEnum&quot;, Sy
         
             <h1><a href="https://zhouqian0.github.io/2019/mysql-fifth/">Mysql 必知必会阅读小记4</a></h1>
             <time class="has-text-grey-light is-size-7">16 September 2019</time>
-        
-            <h1><a href="https://zhouqian0.github.io/2019/mysql-third/">Mysql 必知必会阅读小记3</a></h1>
-            <time class="has-text-grey-light is-size-7">10 September 2019</time>
         
     </div>
 </div>
@@ -304,7 +273,7 @@ console.log(Reflect.ownKeys(obj)) //  [&quot;enum&quot;, &quot;nonEnum&quot;, Sy
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (44)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (45)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         

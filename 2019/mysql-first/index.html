@@ -50,15 +50,15 @@
 <li>数据库(database) 保存有组织的数据的容器(通常是一个文件或一组文件)。</li>
 <li>我们日常使用的是 DBMS(数据库管理系统)，而非直接操作数据库，mysql 就是一种 DBMS。</li>
 <li>关于主键的好习惯:
-
 <ul>
 <li>不更新主键列中的值;</li>
 <li>不重用主键列的值;</li>
 <li>不在主键列中使用可能会更改的值。</li>
-</ul></li>
+</ul>
+</li>
 <li>SQL 是结构化查询语言(Structured Query Language) 的缩写。</li>
-
-<li><pre><code>SHOW DATABASES;
+<li>
+<pre><code>SHOW DATABASES;
 USE XXX;                                    // 选定特定的数据库;
 SHOW TABLES;                                // 显示选定数据库的所有表;
 SHOW COLUMNS FROM XXX; == DESCRIBE XXX;     // 展示选定数据库表的详情;
@@ -70,49 +70,44 @@ SHOW ERRORS;                                // 用来显示服务器错误消息
 SHOW WARNINGS;                              // 用来显示服务器警告消息;
 HELP SHOW;                                  // 展示所有可以通过 show 来执行的命令;
 </code></pre></li>
-
-<li><pre><code>SELECT DISTINCT vend_id * FROM products; // 去重查找 vend_id
-</code></pre>
-
-<p>DISTINCT 关键字应用于所有列而 不仅是前置它的列。如果给出 SELECT DISTINCT vend_id, prod_price，除非指定的两个列都不同，否则所有行都将被检索出来。</p></li>
-
-<li><pre><code>SELECT prod_name * FROM products LIMIT 5;           // 查找前 5 行
+<li>
+<pre><code>SELECT DISTINCT vend_id * FROM products; // 去重查找 vend_id
+</code></pre>DISTINCT 关键字应用于所有列而 不仅是前置它的列。如果给出 SELECT DISTINCT vend_id, prod_price，除非指定的两个列都不同，否则所有行都将被检索出来。</li>
+<li>
+<pre><code>SELECT prod_name * FROM products LIMIT 5;           // 查找前 5 行
 SELECT prod_name * FROM products LIMIT 5, 5;        // 从第 6 行开始往后查找 5 行（行数从 0 开始）
 SELECT prod_name * FROM products LIMIT 3 OFFSET 5;  // 从第 6 行开始往后查 3 行
 </code></pre></li>
-
-<li><pre><code>SELECT prod_name * FROM products ORDER BY prod_name; // 通过 order by 对检索数据进行排序  
+<li>
+<pre><code>SELECT prod_name * FROM products ORDER BY prod_name; // 通过 order by 对检索数据进行排序  
 SELECT prod_name FROM products ORDER BY prod_price, prod_name; // 先按照 prod_price 排序，当 price 一样时，按照 prod_name 排序
 SELECT prod_name FROM products ORDER BY prod_price DESC LIMIT 1; // 查找价格最贵的一个商品
-</code></pre>
-
-<ul>
+</code></pre><ul>
 <li>order by 所跟数据可以不是 select 的数据。</li>
 <li>order by 所跟数据默认为 ASC 升序。</li>
 <li>ASC、DESC 只对当个列有效，如果需要指定多个列的升降序，需要在每个列前显示指定 ASC/DESC。</li>
-</ul></li>
-
-<li><pre><code>SELECT prod_name FROM products WHERE prod_price BETWEEN 5 AND 10;
+</ul>
+</li>
+<li>
+<pre><code>SELECT prod_name FROM products WHERE prod_price BETWEEN 5 AND 10;
 SELECT prod_name FROM products WHERE prod_price IS NULL;
-</code></pre>
-
-<ul>
+</code></pre><ul>
 <li>where 和 order by 同时出现时，order by 需要在 where 之后。</li>
 <li>where 匹配时默认不区分大小写</li>
-</ul></li>
-
-<li><pre><code>SELECT prod_name FROM Products WHERE prod_id = 'bnbg01' AND prod_price &lt;= 10;
+</ul>
+</li>
+<li>
+<pre><code>SELECT prod_name FROM Products WHERE prod_id = 'bnbg01' AND prod_price &lt;= 10;
 SELECT prod_name FROM Products WHERE prod_price &gt;= 5 OR prod_price &lt;= 3;
 SELECT prod_name FROM Products WHERE prod_price IN (3.49 , 9.49); // 等价于  prod_price = 3.49 or prod_price = 9.49
 SELECT prod_name FROM Products WHERE prod_price NOT IN (3.49 , 9.49);
-</code></pre>
-
-<ul>
+</code></pre><ul>
 <li>当 and 和 or 同时出现时，如果未用括号进行合理分隔，则会优先计算 and 部分语句。</li>
 <li>in 操作符一般比 or 操作符清单执行更快。</li>
 <li><strong>in 可以包含其他 select 语句。</strong></li>
 <li>灵活运用 not 对 in、between、exists 子句取反。</li>
-</ul></li>
+</ul>
+</li>
 </ol>
 
             </div>
@@ -143,6 +138,9 @@ SELECT prod_name FROM Products WHERE prod_price NOT IN (3.49 , 9.49);
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2019/summary-first/">angular 学习心得1</a></h1>
+            <time class="has-text-grey-light is-size-7">3 December 2019</time>
+        
             <h1><a href="https://zhouqian0.github.io/2019/mysql-seventh/">Mysql 必知必会阅读小记7</a></h1>
             <time class="has-text-grey-light is-size-7">22 September 2019</time>
         
@@ -154,9 +152,6 @@ SELECT prod_name FROM Products WHERE prod_price NOT IN (3.49 , 9.49);
         
             <h1><a href="https://zhouqian0.github.io/2019/mysql-fifth/">Mysql 必知必会阅读小记4</a></h1>
             <time class="has-text-grey-light is-size-7">16 September 2019</time>
-        
-            <h1><a href="https://zhouqian0.github.io/2019/mysql-third/">Mysql 必知必会阅读小记3</a></h1>
-            <time class="has-text-grey-light is-size-7">10 September 2019</time>
         
     </div>
 </div>
@@ -198,7 +193,7 @@ SELECT prod_name FROM Products WHERE prod_price NOT IN (3.49 , 9.49);
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (44)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (45)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         

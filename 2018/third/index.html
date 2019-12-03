@@ -46,41 +46,33 @@
     <div class="column is-9">
         <div class="tile is-child box">
             <div class="content">
-                
-
-<h3 id="滚动条-页面抖动">滚动条 页面抖动</h3>
-
+                <h3 id="-">滚动条 页面抖动</h3>
 <p>在网页的实现中，由于页面块的切换导致滚动条出现会使得页面往左挤压（滚动条占有宽度），造成一种抖动的视觉效果。</p>
-
-<hr />
-
+<hr>
 <ol>
-<li><p>最开始的解决办法是在 html 的 body 中加上 css 样式（如下），使得页面的滚动条一直出现，但是这样不仅影响美观效果，还引发了另外一个问题：在网页中打开弹窗时，会出现背景遮罩层，该遮罩层会使滚动条向右挤压隐藏，使弹框出现时看不到网页中有滚动条，但是当弹框消失时，遮罩层消失，滚动条复现，又使页面往左挤压了一点，造成抖动。</p>
-
-<pre><code>body {
-  overflow: scroll;
-} // 第一次的解决方式
-</code></pre></li>
-
-<li><p>所以，为了从根本上解决问题，再次 Google，找到了更加合适的版本（如下），在此版本中，滚动条不会一直出现，并且最重要的是，滚动条不再占用页面宽度。</p>
-
-<pre><code>html{
-    overflow-y: scroll;
-  }
-  :root {
-    overflow-x: auto;
-    overflow-y: hidden
-  }
-  :root body {
-    position: absolute;
-  }
-  body {
-    width: 100vw;
-    overflow: hidden;
-  } // 目前解决方式
-</code></pre></li>
+<li>最开始的解决办法是在 html 的 body 中加上 css 样式（如下），使得页面的滚动条一直出现，但是这样不仅影响美观效果，还引发了另外一个问题：在网页中打开弹窗时，会出现背景遮罩层，该遮罩层会使滚动条向右挤压隐藏，使弹框出现时看不到网页中有滚动条，但是当弹框消失时，遮罩层消失，滚动条复现，又使页面往左挤压了一点，造成抖动。</li>
 </ol>
-
+<pre><code>    body {
+      overflow: scroll;
+    } // 第一次的解决方式
+</code></pre><ol start="2">
+<li>所以，为了从根本上解决问题，再次 Google，找到了更加合适的版本（如下），在此版本中，滚动条不会一直出现，并且最重要的是，滚动条不再占用页面宽度。</li>
+</ol>
+<pre><code>    html{
+        overflow-y: scroll;
+      }
+      :root {
+        overflow-x: auto;
+        overflow-y: hidden
+      }
+      :root body {
+        position: absolute;
+      }
+      body {
+        width: 100vw;
+        overflow: hidden;
+      } // 目前解决方式
+</code></pre>
             </div>
         </div>
     </div>
@@ -109,6 +101,9 @@
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2019/summary-first/">angular 学习心得1</a></h1>
+            <time class="has-text-grey-light is-size-7">3 December 2019</time>
+        
             <h1><a href="https://zhouqian0.github.io/2019/mysql-seventh/">Mysql 必知必会阅读小记7</a></h1>
             <time class="has-text-grey-light is-size-7">22 September 2019</time>
         
@@ -120,9 +115,6 @@
         
             <h1><a href="https://zhouqian0.github.io/2019/mysql-fifth/">Mysql 必知必会阅读小记4</a></h1>
             <time class="has-text-grey-light is-size-7">16 September 2019</time>
-        
-            <h1><a href="https://zhouqian0.github.io/2019/mysql-third/">Mysql 必知必会阅读小记3</a></h1>
-            <time class="has-text-grey-light is-size-7">10 September 2019</time>
         
     </div>
 </div>
@@ -152,7 +144,7 @@
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (44)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (45)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         

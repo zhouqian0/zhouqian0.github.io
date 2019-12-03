@@ -47,96 +47,95 @@
         <div class="tile is-child box">
             <div class="content">
                 <ol>
-<li><p>游标 (cursor) 是一个存储在 MySQL 服务器上的数据库查询，它不是一条SELECT语句，而是被该语句检索出来的结果集。</p>
-
-<p>MySQL 游标只能用于存储过程(和函数)。</p></li>
-
-<li><p>使用游标的步骤:</p>
-
+<li>
+<p>游标 (cursor) 是一个存储在 MySQL 服务器上的数据库查询，它不是一条SELECT语句，而是被该语句检索出来的结果集。</p>
+<p>MySQL 游标只能用于存储过程(和函数)。</p>
+</li>
+<li>
+<p>使用游标的步骤:</p>
 <ul>
 <li>在能够使用游标前，必须声明(定义)它。这个过程实际上没有检索数据，它只是定义要使用的 SELECT 语句。</li>
 <li>一旦声明后，必须打开游标以供使用。这个过程用前面定义的 SELECT 语句把数据实际检索出来。</li>
 <li>对于填有数据的游标，根据需要取出(检索)各行。</li>
 <li>在结束游标使用时，必须关闭游标。</li>
-</ul></li>
-
-<li><p>DECLARE 命名游标，并定义相应的 SELECT 语句:</p>
-
+</ul>
+</li>
+<li>
+<p>DECLARE 命名游标，并定义相应的 SELECT 语句:</p>
 <pre><code>DELIMITER //
 CREATE PROCEDURE processorders()
 BEGIN
-        
+       
     -- Declare local variable
     DECLARE done BOOLEAN DEFAULT 0;
     DECLARE o int;
     DECLARE t DECIMAL(8,2);
-        
+       
     -- Declare the cursor 
     DECLARE ordernumbers CURSOR 
     FOR
     SELECT order_num FROM orders ORDER BY order_num;
-        
+       
     -- Declare continue handler 
     DECLARE CONTINUE HANDLER FOR SQLSTATE '02000' SET done = 1;
-        
+       
     -- Create a table to store the results
     CREATE TABLE IF NOT EXISTS ordertotals (
         order_num INT,
         total DECIMAL(8 , 2 )
     );
-        
+       
     -- Open the cursor 
     OPEN ordernumbers;
-        
+       
     -- Loop throught all rows
     REPEAT
-            
+           
         -- Get order number 
         FETCH ordernumbers INTO o;
-            
+           
         IF NOT done THEN 
             -- Get the total for this order
         CALL ordertotal(o, 1, t);
-            
+           
         -- Insert order and total into ordertotals
         INSERT INTO ordertotals(order_num, total) 
             VALUES(o, t);
         END IF;
-            
+           
     --  End of loop
     UNTIL done END REPEAT;
-        
+       
     -- Close the cursor 
     CLOSE ordernumbers;
 END //
 DELIMITER ; 
-</code></pre>
-
-<ul>
+</code></pre><ul>
 <li>done 默认为 0，通过 CONTINUE HANDLER 将其设为 1。</li>
-<li>SQLSTATE &lsquo;02000&rsquo;是一个未找到条件，当 REPEAT 由于没有更多的行供循环而不能继续时，出现这个条件。
-
+<li>SQLSTATE &lsquo;02000'是一个未找到条件，当 REPEAT 由于没有更多的行供循环而不能继续时，出现这个条件。
 <ul>
-<li>错误代码参考<a href="https://dev.mysql.com/doc/refman/8.0/en/error-handling.html">https://dev.mysql.com/doc/refman/8.0/en/error-handling.html</a></li>
-</ul></li>
+<li>错误代码参考<a href="https://dev.mysql.com/doc/refman/8.0/en/error-handling.html"><a href="https://dev.mysql.com/doc/refman/8.0/en/error-handling.html">https://dev.mysql.com/doc/refman/8.0/en/error-handling.html</a></a></li>
+</ul>
+</li>
 <li>DECLARE 语句的发布存在特定的次序。用 DECLARE 语句定义的局部变量必须在定义任意游标（cursor）或句柄（handle）之前定义，而句柄必须在游标之后定义。</li>
 <li>按照书中代码执行会导致最后一行重复输出，因为当所有已存在的值 fetch 完之后再触发 fetch 才会触发 SQLSTATE &lsquo;02000&rsquo;，
 但是在触发 SQLSTATE &lsquo;02000&rsquo; 这个条件时仍就上次的值执行了 ordertotal 这个 procedure，故而在最后一条有执行了一次，之后才停止 repeat。</li>
-</ul></li>
-
-<li><p>触发器是 MySQL 响应增删改而自动执行的一条 MySQL 语句</p></li>
-
-<li><p>在创建触发器时，需要给出:</p>
-
+</ul>
+</li>
+<li>
+<p>触发器是 MySQL 响应增删改而自动执行的一条 MySQL 语句</p>
+</li>
+<li>
+<p>在创建触发器时，需要给出:</p>
 <ul>
 <li>唯一的触发器名;</li>
 <li>触发器关联的表;</li>
 <li>触发器应该响应的活动 (DELETE、INSERT 或 UPDATE);</li>
 <li>触发器何时执行(处理之前或之后)。</li>
-</ul></li>
-
-<li><p>触发器相关</p>
-
+</ul>
+</li>
+<li>
+<p>触发器相关</p>
 <ul>
 <li>只有表才支持触发器，视图不支持 (临时表也不支持)。</li>
 <li>每个表每个事件每次只允许一个触发器。每个表最多支持 6 个触发器（insert，delete，update 的 after 和 before）。</li>
@@ -146,77 +145,65 @@ DELIMITER ;
 <li>应该用触发器来保证数据的一致性(大小写、格式等)。</li>
 <li>MySQL 触发器中不支持 CALL 语句。这表示不能从触发器内调用存储过程。所需的存储过程代码需要复制到触发器内。</li>
 <li><strong>触发器尽量少的使用，因为其很消耗资源。触发器是针对每一行的；对增删改非常频繁的表上切记不要使用触发器，因为它会非常消耗资源。</strong></li>
-</ul></li>
-
-<li><pre><code>-- mysql5 之后不支持触发器返回结果集，需要用一个变量接收值，原书代码有误
+</ul>
+</li>
+<li>
+<pre><code>-- mysql5 之后不支持触发器返回结果集，需要用一个变量接收值，原书代码有误
 CREATE 
     TRIGGER  newproduct
  AFTER INSERT ON products FOR EACH ROW 
     SELECT 'Product added' INTO @msg;
-</code></pre>
-
-<pre><code>-- 测试插入
+</code></pre><pre><code>-- 测试插入
 insert into products(prod_id,vend_id, prod_name,prod_price)  values('TNT',1003,'test',9.99);
 -- 插入后可以查询到这个变量的值为 'Product added'
 SELECT @msg;
 </code></pre></li>
-
-<li><pre><code>DROP TRIGGER newproduct;
-</code></pre>
-
-<p>要更新触发器需先将其删除后新建。</p></li>
-
-<li><p>INSERT 触发器:</p>
-
+<li>
+<pre><code>DROP TRIGGER newproduct;
+</code></pre><p>要更新触发器需先将其删除后新建。</p>
+</li>
+<li>
+<p>INSERT 触发器:</p>
 <ul>
 <li>在 INSERT 触发器代码内，可引用一个名为 NEW 的虚拟表，访问被插入的行;</li>
 <li>在 BEFORE INSERT 触发器中，NEW 中的值也可以被更新 (允许更改被插入的值);</li>
 <li>对于 AUTO_INCREMENT 列，NEW 在 INSERT BEFORE = 0，在 INSERT 执行之后包含新的自动生成值。</li>
-
-<li><p>BEFORE 用于数据验证和净化 (目的是保证插入表中的数据确实是需要的数据)。也适用于UPDATE触发器。</p>
-
+<li>BEFORE 用于数据验证和净化 (目的是保证插入表中的数据确实是需要的数据)。也适用于UPDATE触发器。</li>
+</ul>
 <pre><code>CREATE 
-TRIGGER  neworder
-AFTER INSERT ON orders FOR EACH ROW 
-SELECT new.order_num INTO @msg;
+    TRIGGER  neworder
+ AFTER INSERT ON orders FOR EACH ROW 
+    SELECT new.order_num INTO @msg;
 </code></pre></li>
-</ul></li>
-
-<li><p>DELETE 触发器:</p>
-
+<li>
+<p>DELETE 触发器:</p>
 <ul>
 <li>在 DELETE 触发器代码内，可引用一个名为 OLD 的虚拟表，访问被删除的行;</li>
 <li>OLD 中的值全都是只读的，不能更新。</li>
-
-<li><p>使用 BEFORE DELETE 触发器可以对删除的数据进行存档。</p>
-
+<li>使用 BEFORE DELETE 触发器可以对删除的数据进行存档。</li>
+</ul>
 <pre><code>DELIMITER //
 create trigger deleteorder before delete on orders
 for each row 
 begin
-insert into archive_orders(order_num,order_date,cust_id) values
-(old.order_num,old.order_date,old.cust_id);
+    insert into archive_orders(order_num,order_date,cust_id) values
+    (old.order_num,old.order_date,old.cust_id);
 end //
 DELIMITER ;
-</code></pre></li>
-</ul>
-
-<p>使用 BEGIN END 块的好处是触发器能容纳多条 SQL 语句 (在 BEGIN END 块中一条挨着一条)。</p></li>
-
-<li><p>UPDATE 触发器:</p>
-
+</code></pre><p>使用 BEGIN END 块的好处是触发器能容纳多条 SQL 语句 (在 BEGIN END 块中一条挨着一条)。</p>
+</li>
+<li>
+<p>UPDATE 触发器:</p>
 <ul>
 <li>在 UPDATE 触发器代码中，可引用一个名为 OLD的虚拟表访问以前 (UPDATE 语句前) 的值，引用一个名为 NEW 的虚拟表访问新更新的值;</li>
 <li>在 BEFORE UPDATE触发器中，NEW 中的值可能也被更新(允许更改将要用于 UPDATE 语句中的值);</li>
-
-<li><p>OLD中的值全都是只读的，不能更新。</p>
-
+<li>OLD中的值全都是只读的，不能更新。</li>
+</ul>
 <pre><code>CREATE 
-TRIGGER  updatevendor
-BEFORE UPDATE ON vendors FOR EACH ROW 
-SET NEW.vend_state = UPPER(NEW.vend_state);
+    TRIGGER  updatevendor
+ BEFORE UPDATE ON vendors FOR EACH ROW 
+    SET NEW.vend_state = UPPER(NEW.vend_state);
 </code></pre></li>
-</ul></li>
 </ol>
 
             </div>
@@ -247,6 +234,9 @@ SET NEW.vend_state = UPPER(NEW.vend_state);
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2019/summary-first/">angular 学习心得1</a></h1>
+            <time class="has-text-grey-light is-size-7">3 December 2019</time>
+        
             <h1><a href="https://zhouqian0.github.io/2019/mysql-seventh/">Mysql 必知必会阅读小记7</a></h1>
             <time class="has-text-grey-light is-size-7">22 September 2019</time>
         
@@ -258,9 +248,6 @@ SET NEW.vend_state = UPPER(NEW.vend_state);
         
             <h1><a href="https://zhouqian0.github.io/2019/mysql-fifth/">Mysql 必知必会阅读小记4</a></h1>
             <time class="has-text-grey-light is-size-7">16 September 2019</time>
-        
-            <h1><a href="https://zhouqian0.github.io/2019/mysql-third/">Mysql 必知必会阅读小记3</a></h1>
-            <time class="has-text-grey-light is-size-7">10 September 2019</time>
         
     </div>
 </div>
@@ -302,7 +289,7 @@ SET NEW.vend_state = UPPER(NEW.vend_state);
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (44)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (45)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         
