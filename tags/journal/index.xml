@@ -34,8 +34,7 @@
       <pubDate>Fri, 14 Dec 2018 15:03:45 +0800</pubDate>
       
       <guid>https://zhouqian0.github.io/2018/third/</guid>
-      <description>滚动条 页面抖动 在网页的实现中，由于页面块的切换导致滚动条出现会使得页面往左挤压（滚动条占有宽度），造成一种抖动的视觉效果。
-  最开始的解决办法是在 html 的 body 中加上 css 样式（如下），使得页面的滚动条一直出现，但是这样不仅影响美观效果，还引发了另外一个问题：在网页中打开弹窗时，会出现背景遮罩层，该遮罩层会使滚动条向右挤压隐藏，使弹框出现时看不到网页中有滚动条，但是当弹框消失时，遮罩层消失，滚动条复现，又使页面往左挤压了一点，造成抖动。   body { overflow: scroll; } // 第一次的解决方式 所以，为了从根本上解决问题，再次 Google，找到了更加合适的版本（如下），在此版本中，滚动条不会一直出现，并且最重要的是，滚动条不再占用页面宽度。   html{ overflow-y: scroll; } :root { overflow-x: auto; overflow-y: hidden } :root body { position: absolute; } body { width: 100vw; overflow: hidden; } // 目前解决方式 </description>
+      <description>&lt;p&gt;滚动条导致的页面抖动的就解决&lt;/p&gt;</description>
     </item>
     
   </channel>

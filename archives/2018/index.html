@@ -73,8 +73,7 @@
                                 Published at December 14, 2018 &middot;
                                 <i class="far fa-clock"></i>&nbsp;1 min read
                             </p>
-                            <p>滚动条 页面抖动 在网页的实现中，由于页面块的切换导致滚动条出现会使得页面往左挤压（滚动条占有宽度），造成一种抖动的视觉效果。
-  最开始的解决办法是在 html 的 body 中加上 css 样式（如下），使得页面的滚动条一直出现，但是这样不仅影响美观效果，还引发了另外一个问题：在网页中打开弹窗时，会出现背景遮罩层，该遮罩层会使滚动条向右挤压隐藏，使弹框出现时看不到网页中有滚动条，但是当弹框消失时，遮罩层消失，滚动条复现，又使页面往左挤压了一点，造成抖动。   body { overflow: scroll; } // 第一次的解决方式 所以，为了从根本上解决问题，再次 Google，找到了更加合适的版本（如下），在此版本中，滚动条不会一直出现，并且最重要的是，滚动条不再占用页面宽度。   html{ overflow-y: scroll; } :root { overflow-x: auto; overflow-y: hidden } :root body { position: absolute; } body { width: 100vw; overflow: hidden; } // 目前解决方式 ...</p>
+                            <p><p>滚动条导致的页面抖动的就解决</p>...</p>
                         </div>
                     </div>
                 </article>
@@ -88,9 +87,7 @@
                                 Published at December 7, 2018 &middot;
                                 <i class="far fa-clock"></i>&nbsp;1 min read
                             </p>
-                            <p>中文排序   如果直接是中文数组，可以采用 arr.sort() 排序。
-  如果对对象数组中的某个属性进行中文排序，可用 js 的 localeCompare() 对中文排序。
-   corps.sort((a, b) =&gt; { return a.shortName.localeCompare(b.shortName, 'zh-Hans-CN',{sensitivity:'accent'}); }); - 不同浏览器可能会出现不同结果 - 无法识别多音字  ...</p>
+                            <p><p>zh-Hans-CN&rsquo;,{sensitivity:&lsquo;accent&rsquo;}</p>...</p>
                         </div>
                     </div>
                 </article>
@@ -113,6 +110,8 @@
         
             <span class="tag"><a href="https://zhouqian0.github.io/tags/journal">journal</a></span>
         
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/linux">linux</a></span>
+        
             <span class="tag"><a href="https://zhouqian0.github.io/tags/mysql">mysql</a></span>
         
             <span class="tag"><a href="https://zhouqian0.github.io/tags/typescript">typescript</a></span>
@@ -123,6 +122,9 @@
         <div class="card">
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/first/">Linux 网络端口知识笔记</a></h1>
+            <time class="has-text-grey-light is-size-7">31 December 2019</time>
         
             <h1><a href="https://zhouqian0.github.io/2019/summary-first/">angular 学习心得1</a></h1>
             <time class="has-text-grey-light is-size-7">3 December 2019</time>
@@ -136,9 +138,6 @@
             <h1><a href="https://zhouqian0.github.io/2019/mysql-fourth/">Mysql 必知必会阅读小记5</a></h1>
             <time class="has-text-grey-light is-size-7">17 September 2019</time>
         
-            <h1><a href="https://zhouqian0.github.io/2019/mysql-fifth/">Mysql 必知必会阅读小记4</a></h1>
-            <time class="has-text-grey-light is-size-7">16 September 2019</time>
-        
     </div>
 </div>
     <br>
@@ -146,7 +145,7 @@
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (45)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (46)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         

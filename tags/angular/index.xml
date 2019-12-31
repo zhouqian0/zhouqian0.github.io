@@ -16,10 +16,7 @@
       <pubDate>Tue, 03 Dec 2019 19:43:53 +0800</pubDate>
       
       <guid>https://zhouqian0.github.io/2019/summary-first/</guid>
-      <description>angular 的变更检测 Angular 引入 Zone.js 以处理变更检测 (ngZone)。ngZone 使 angular 可以决定何时需要刷新UI。
-当我们试着在 angular 项目中将 main.js 中的 ngZone 移除之后，angular 的页面就不再会自动的更新数据。
-// main.js import {enableProdMode} from &amp;#39;@angular/core&amp;#39;; import {platformBrowserDynamic} from &amp;#39;@angular/platform-browser-dynamic&amp;#39;; import {AppModule} from &amp;#39;./app/app.module&amp;#39;; import {environment} from &amp;#39;./environments/environment&amp;#39;; if (environment.production) { enableProdMode(); } platformBrowserDynamic().bootstrapModule(AppModule, {ngZone: &amp;#39;noop&amp;#39;}) .catch(err =&amp;gt; console.error(err)); 但是当我在组件中引入了一个 ApplicationRef 对象之后，并且在需要发生页面数据变更的时候调用其的 tick() 方法，奇迹出现了，页面又能够和往常一样更新数据了。
-import {ApplicationRef, Component} from &amp;#39;@angular/core&amp;#39;; @Component({ selector: &amp;#39;app-root&amp;#39;, template: `&amp;lt;div&amp;gt;{{count}}&amp;lt;/div&amp;gt; &amp;lt;button (click)=&amp;#34;add()&amp;#34;&amp;gt;add&amp;lt;/button&amp;gt; &amp;lt;button (click)=&amp;#34;reset()&amp;#34;&amp;gt;reset&amp;lt;/button&amp;gt; ` }) export class AppComponent { count = 0; constructor(private applicationRef: ApplicationRef) { } add() { this.</description>
+      <description>&lt;p&gt;参加 ngChina2019，并且会后总结写成下文，做个笔记。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -28,7 +25,7 @@ import {ApplicationRef, Component} from &amp;#39;@angular/core&amp;#39;; @Compon
       <pubDate>Mon, 25 Mar 2019 14:34:03 +0800</pubDate>
       
       <guid>https://zhouqian0.github.io/2019/ng-first/</guid>
-      <description>&amp;lt;ng-template&amp;gt; &amp;lt;ng-template&amp;gt; 是一个 Angular 的元素，用作 HTML 的渲染。但在实际在渲染视图之前，Angular 会把 &amp;lt;ng-template&amp;gt; 及其内容替换为一个注释，而这个注释就是 &amp;lt;!&amp;mdash;-&amp;gt;。</description>
+      <description>&lt;p&gt;ng-template 小记&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -37,8 +34,7 @@ import {ApplicationRef, Component} from &amp;#39;@angular/core&amp;#39;; @Compon
       <pubDate>Wed, 27 Feb 2019 14:54:42 +0800</pubDate>
       
       <guid>https://zhouqian0.github.io/2019/ng-second/</guid>
-      <description>errorStateMatcher 在某些情况下，submit 的操作并不能出发整个 form 的验证机制。
- 可以为所有不能通过 submit 触发验证的表单组件添加 [errorStateMatcher]=&amp;quot;matcher&amp;rdquo; ，主动设置它的错误校验机制。 将 matcher 声明为 ErrorStateMatcher，不初始化，在需要触发验证的时候将其变为 this.matcher = new MyErrorStateMatcher(); 即可主动触发所有表单组件的验证状态。   import {ErrorStateMatcher} from &#39;@angular/material&#39;; import {FormControl, FormGroupDirective, NgForm} from &#39;@angular/forms&#39;; export class FormErrorStateMatcher implements ErrorStateMatcher { isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean { return !!(control &amp;amp;&amp;amp; control.invalid &amp;amp;&amp;amp; !control.touched || (control &amp;amp;&amp;amp; (control.errors !== null))); } } </description>
+      <description>&lt;p&gt;自定义 form 错误状态匹配器&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -47,8 +43,7 @@ import {ApplicationRef, Component} from &amp;#39;@angular/core&amp;#39;; @Compon
       <pubDate>Thu, 21 Feb 2019 15:17:24 +0800</pubDate>
       
       <guid>https://zhouqian0.github.io/2019/ng-third/</guid>
-      <description>form 的 disable（） 在angular 的 form 中，如果整个 form 的状态变为 disabled，会使 form.valid 返回的值会变为 false，表单校验不通过（哪怕 form 的所有组件都是验证通过的）。
-import {Component, OnInit} from &#39;@angular/core&#39;; import {FormGroup, FormControl, Validators} from &#39;@angular/forms&#39;; @Component({ selector: &#39;my-app&#39;, templateUrl: &#39;./app.component.html&#39;, styleUrls: [ &#39;./app.component.css&#39; ] }) export class AppComponent implements OnInit{ name = &#39;Angular&#39;; form = new FormGroup({ &#39;test&#39;:new FormControl(&#39;&#39;,Validators.required) }); ngOnInit(){ this.form.get(&#39;test&#39;).setValue(&#39;2&#39;); // this.form.disable(); console.log(this.form.valid); } } </description>
+      <description>&lt;p&gt;form disabled 时 valid 状态会变为 false。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -57,8 +52,7 @@ import {Component, OnInit} from &#39;@angular/core&#39;; import {FormGroup, Form
       <pubDate>Thu, 21 Feb 2019 15:17:24 +0800</pubDate>
       
       <guid>https://zhouqian0.github.io/2019/ng-sixth/</guid>
-      <description>EventEmitter 在 angular 中如果没有对 @Output 的 EventEmitter 变量进行初始化就会报错 Cannot read property ‘subscribe’ of undefined ，并且不会有报错行信息。 （初始化放在 onInit 中也会报错, 必须在声明变量时或者在构造函数中初始化）
-@Output() eventEmit = new EventEmitter(); </description>
+      <description>&lt;p&gt;错误信息&amp;quot;Cannot read property ‘subscribe’ of undefined&amp;quot;的处理&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -67,8 +61,7 @@ import {Component, OnInit} from &#39;@angular/core&#39;; import {FormGroup, Form
       <pubDate>Wed, 13 Feb 2019 15:35:18 +0800</pubDate>
       
       <guid>https://zhouqian0.github.io/2019/ng-fifth/</guid>
-      <description>datepicker 实现点击 input 后会打开日期选择器：由于input标签可点击，可能会触发浏览器的自动联想（autocomplete）,会出现： 先打开可自动联想的下拉框，然后该下拉框消失，出现日期选择 。针对于此，现解决方案为禁用日期选择器的 input 标签的 autocomplete 属性（autocomplete=&#39;off&amp;rsquo;）,然后添加 click 事件 (click)=&amp;quot;picker.open()&amp;quot;。
-&amp;lt;mat-form-field&amp;gt; &amp;lt;label&amp;gt; &amp;lt;input matInput [matDatepicker]=&amp;quot;picker&amp;quot; autocomplete=&amp;quot;off&amp;quot; required formControlName=&amp;quot;date&amp;quot; placeholder=&amp;quot;选择日期&amp;quot; (click)=&amp;quot;picker.open()&amp;quot; [errorStateMatcher]=&amp;quot;matcher&amp;quot;&amp;gt; &amp;lt;/label&amp;gt; &amp;lt;mat-datepicker-toggle matSuffix [for]=&amp;quot;picker&amp;quot;&amp;gt;&amp;lt;/mat-datepicker-toggle&amp;gt; &amp;lt;mat-datepicker #picker&amp;gt;&amp;lt;/mat-datepicker&amp;gt; &amp;lt;/mat-form-field&amp;gt; </description>
+      <description>&lt;p&gt;datepicker 遇到的小问题。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -77,7 +70,7 @@ import {Component, OnInit} from &#39;@angular/core&#39;; import {FormGroup, Form
       <pubDate>Wed, 13 Feb 2019 15:28:20 +0800</pubDate>
       
       <guid>https://zhouqian0.github.io/2019/ng-fourth/</guid>
-      <description>禁用/启用 鼠标滚轮 event scrollFunc(event) { event = event || window.event; if (event.preventDefault) { // Firefox event.preventDefault(); event.stopPropagation(); } else { // IE event.cancelBubble = true; event.returnValue = false; } return false; } // 禁用鼠标滚轮事件 const html = document.querySelector(&#39;html&#39;); if (html.addEventListener) { html.addEventListener(&#39;DOMMouseScroll&#39;, this.scrollFunc, false); //添加事件监听 } //firefox html.onmousewheel = html.onmousewheel = this.scrollFunc; //ie/opera/chrome // 启用鼠标滚轮事件 const html = document.querySelector(&#39;html&#39;); if (html.removeEventListener) { html.removeEventListener(&#39;DOMMouseScroll&#39;, this.scrollFunc, false); //解绑事件监听 } //firefox html.onmousewheel = html.</description>
+      <description>&lt;p&gt;angular 滚轮事件&lt;/p&gt;</description>
     </item>
     
   </channel>

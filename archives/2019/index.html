@@ -54,15 +54,26 @@
                 <article class="media">
                     <div class="media-content">
                         <div class="content">
+                            <p class="title is-4"><a href="/2019/first/">Linux 网络端口知识笔记</a></p>
+                            <p class="subtitle is-size-6 has-text-grey-light">
+                                Published at December 31, 2019 &middot;
+                                <i class="far fa-clock"></i>&nbsp;1 min read
+                            </p>
+                            <p><p>docker 入坑小结，网络端口</p>...</p>
+                        </div>
+                    </div>
+                </article>
+                <br>
+
+                <article class="media">
+                    <div class="media-content">
+                        <div class="content">
                             <p class="title is-4"><a href="/2019/summary-first/">angular 学习心得1</a></p>
                             <p class="subtitle is-size-6 has-text-grey-light">
                                 Published at December 3, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;5 min read
                             </p>
-                            <p>angular 的变更检测 Angular 引入 Zone.js 以处理变更检测 (ngZone)。ngZone 使 angular 可以决定何时需要刷新UI。
-当我们试着在 angular 项目中将 main.js 中的 ngZone 移除之后，angular 的页面就不再会自动的更新数据。
-// main.js import {enableProdMode} from &#39;@angular/core&#39;; import {platformBrowserDynamic} from &#39;@angular/platform-browser-dynamic&#39;; import {AppModule} from &#39;./app/app.module&#39;; import {environment} from &#39;./environments/environment&#39;; if (environment.production) { enableProdMode(); } platformBrowserDynamic().bootstrapModule(AppModule, {ngZone: &#39;noop&#39;}) .catch(err =&gt; console.error(err)); 但是当我在组件中引入了一个 ApplicationRef 对象之后，并且在需要发生页面数据变更的时候调用其的 tick() 方法，奇迹出现了，页面又能够和往常一样更新数据了。
-import {ApplicationRef, Component} from &#39;@angular/core&#39;; @Component({ selector: &#39;app-root&#39;, template: `&lt;div&gt;{{count}}&lt;/div&gt; &lt;button (click)=&#34;add()&#34;&gt;add&lt;/button&gt; &lt;button (click)=&#34;reset()&#34;&gt;reset&lt;/button&gt; ` }) export class AppComponent { count = 0; constructor(private applicationRef: ApplicationRef) { } add() { this....</p>
+                            <p><p>参加 ngChina2019，并且会后总结写成下文，做个笔记。</p>...</p>
                         </div>
                     </div>
                 </article>
@@ -76,11 +87,7 @@ import {ApplicationRef, Component} from &#39;@angular/core&#39;; @Component({ se
                                 Published at September 22, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;3 min read
                             </p>
-                            <p>MyISAM 不支持事务管理，但支持全文本搜索，InnoDB 正好相反。
-  事务处理可以用来维护数据库的完整性，保证 sql 操作要么完全执行，要么不执行（管理成批的 sql 操作）。
-   事务（transaction）：一组 sql 语句。 回退（rollback）：撤销指定 sql 语句的过程。  只能在一个事务处理内使用。 不能回退 create 和 drop。   提交（commit）：将未存储的 sql 语句结果写入数据库表。 保留点（savepoint）：事务处理中设置的临时占位符，可以对它发布回退（与回退整个事务处理不同，为部分回退）。  保留点越多越灵活。 可使用 release savepoint 释放保留点。      默认的 MySQL 行为是自动提交所有更改。
--- 取消自动提交 SET autocommit=0; autocommit 是针对某个连接而不是服务器。
-   字符集：字母和符号的集合。 -- 列出所有可用的字符集 show character set;  编码：某个字符集成员的内部表示。 校对：规定字符如何比较的指令。  校对在对用 order by 子句检索出来的数据排序时重要作用。      使用何种字符集和校对的决定在服务器、数据库和表级中进行。...</p>
+                            <p><p>mysql 语法，基础知识</p>...</p>
                         </div>
                     </div>
                 </article>
@@ -94,11 +101,7 @@ import {ApplicationRef, Component} from &#39;@angular/core&#39;; @Component({ se
                                 Published at September 18, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;2 min read
                             </p>
-                            <p>游标 (cursor) 是一个存储在 MySQL 服务器上的数据库查询，它不是一条SELECT语句，而是被该语句检索出来的结果集。
-MySQL 游标只能用于存储过程(和函数)。
-  使用游标的步骤:
- 在能够使用游标前，必须声明(定义)它。这个过程实际上没有检索数据，它只是定义要使用的 SELECT 语句。 一旦声明后，必须打开游标以供使用。这个过程用前面定义的 SELECT 语句把数据实际检索出来。 对于填有数据的游标，根据需要取出(检索)各行。 在结束游标使用时，必须关闭游标。    DECLARE 命名游标，并定义相应的 SELECT 语句:
-DELIMITER // CREATE PROCEDURE processorders() BEGIN -- Declare local variable DECLARE done BOOLEAN DEFAULT 0; DECLARE o int; DECLARE t DECIMAL(8,2); -- Declare the cursor DECLARE ordernumbers CURSOR FOR SELECT order_num FROM orders ORDER BY order_num; -- Declare continue handler DECLARE CONTINUE HANDLER FOR SQLSTATE '02000' SET done = 1; -- Create a table to store the results CREATE TABLE IF NOT EXISTS ordertotals ( order_num INT, total DECIMAL(8 , 2 ) ); -- Open the cursor OPEN ordernumbers; -- Loop throught all rows REPEAT -- Get order number FETCH ordernumbers INTO o; IF NOT done THEN -- Get the total for this order CALL ordertotal(o, 1, t); -- Insert order and total into ordertotals INSERT INTO ordertotals(order_num, total) VALUES(o, t); END IF; -- End of loop UNTIL done END REPEAT; -- Close the cursor CLOSE ordernumbers; END // DELIMITER ;  done 默认为 0，通过 CONTINUE HANDLER 将其设为 1。 SQLSTATE &lsquo;02000'是一个未找到条件，当 REPEAT 由于没有更多的行供循环而不能继续时，出现这个条件。  错误代码参考https://dev....</p>
+                            <p><p>mysql 语法，游标，触发器</p>...</p>
                         </div>
                     </div>
                 </article>
@@ -112,10 +115,7 @@ DELIMITER // CREATE PROCEDURE processorders() BEGIN -- Declare local variable DE
                                 Published at September 17, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;3 min read
                             </p>
-                            <p>利用 CREATE TABLE 创建表:
- 在关键字 CREATE TABLE 之后给出新表的名字 表列的名字和定义，用逗号分隔  CREATE TABLE IF NOT EXISTS `customers` ( `cust_id` int(11) NOT NULL AUTO_INCREMENT, `cust_name` char(50) NOT NULL, `cust_address` char(50) NULL, `cust_city` char(50) NULL, `cust_state` char(5) NULL, `cust_zip` char(10) NULL, `cust_country` char(50) NULL, `cust_contact` char(50) NULL, `cust_email` char(255) NULL, PRIMARY KEY (`cust_id`) ) ENGINE=InnoDB;   不要把 NULL 值与空串相混淆。NULL 值是没有值，它不是空串。
-  为创建由多个列组成的主键 (多个列的组合值必须唯一)，应该以逗号分隔的列表给出各列名:
-CREATE TABLE `orderitems` ( `order_num` int(11) NOT NULL, `order_item` int(11) NOT NULL, `prod_id` char(10) NOT NULL, `quantity` int(11) NOT NULL, `item_price` decimal(8,2) NOT NULL, PRIMARY KEY (`order_num`,`order_item`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8   主键中只能使用不允许 NULL 值的列。允许 NULL值的列不能作为唯一标识。...</p>
+                            <p><p>mysql 语法，表的基本操作，视图，存储过程</p>...</p>
                         </div>
                     </div>
                 </article>
@@ -129,11 +129,7 @@ CREATE TABLE `orderitems` ( `order_num` int(11) NOT NULL, `order_item` int(11) N
                                 Published at September 16, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;2 min read
                             </p>
-                            <p>插入 INSERT，
-// 指定列名，指定列名会按照指定的顺序进行插入，如果不指定需要按照表中列的顺序给出相应的值。 insert into customers(cust_name, cust_address, cust_city, cust_state, cust_zip, cust_country, cust_contact, cust_email) values('Pep E. LaPew', '100 Main Street', 'Los Angeles', 'CA', '90046', 'USA', null, null)  一般不要使用没有明确给出列的列表的 INSERT 语句。使用列的列表能使 SQL 代码继续发挥作用，即使表结构发生了变化。 如果不提供列名，则必须给每个表列提供一个值。如果提供列名，则必须对每个列出的列给出一个值 (对允许空值或者设定了默认值的列可将其值设为 null)。    INSERT 操作可能很耗时(特别是有很多索引需要更新时)，且它可能降低等待处理的SELECT语句的性能。
-可以通过在 INSERT 和 INTO 之间添加关键字 LOW_PRIORITY，指示 MySQL 降低 INSERT 语句的优先级:
-INSERT LOW_PRIORITY INTO   插入多条：
-// 逗号分隔，推荐（单条 INSERT 语句处理多个插入比使用多条 INSERT 语句快）。 insert into customers(cust_name, cust_address, cust_city, cust_state, cust_zip, cust_country, cust_contact, cust_email) values('Pep E....</p>
+                            <p><p>mysql 语法 insert、update 和 delete</p>...</p>
                         </div>
                     </div>
                 </article>
@@ -147,7 +143,7 @@ INSERT LOW_PRIORITY INTO   插入多条：
                                 Published at September 10, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;2 min read
                             </p>
-                            <p> 相同数据出现多次决不是一件好事，此因素是关系数据库设计的基础。 关系表的设计就是要保证把信息分解成多个表，一类数据 一个表。 各表通过某些常用的值(即关系设计中的关系 (relational) )互 相关联。 外键 为某个表中的一列，它包含另一个表 的主键值，定义了两个表之间的关系。 联结 是一种机制，用来在一条SELECT 语句中关联表，因此称之为联结。使用特殊的语法，可以联结多个表返 回一组输出，联结在运行时关联表中正确的行 SELECT vend_name, prod_name, prod_price FROM vendors, products WHERE products.vend_id = vendors.vend_id  由没有联结条件的表关系返回的结果为 笛卡儿积 。检索出的行的数目将是第一个表中的行数乘 以第二个表中的行数。 等值联结(equijoin)，基于两个表之间的相等测试，这种联结也称为内部联结。（ &hellip; INNER JOIN &hellip; ON &hellip;） 不要联结 不必要的表 。联结的表越多，性能下降越厉害。 自联结通常作为外部语句用来替代从相同表中检索数据时使用的子查询语句。虽然最终的结果是相同的，但有时候处理联结远比处理子查询快得多。 无论何时对表进行联结，应该至少有一个列出现在不止一个表中(被联结的列)。 标准的联结返回所有数据，甚至相同的列多次出现。自然联结排除多次出现，使每个列只返回一次。 左外部联结(&hellip; LEFT OUTER JOIN &hellip; ON &hellip;) 和 右外部联结(&hellip; RIGHT OUTER JOIN &hellip; ON &hellip;) 之间的唯一差别是所关联的表的顺序不同。 换句话说，左外部联结可通过颠倒FROM或WHERE子句中表的顺序转换为右外部联结。因此，两种类型的外部联结可互换使用。  左联结 时从左边的表中选择所有的行 右联结 时从右边的表中选择所有的行   应该总是提供联结条件，否则会得出笛卡儿积。 可用UNION操作符来组合数条 SQL 查询。  UNION 必须由两条或两条以上的 SELECT 语句组成，语句之间用关键字 UNION 分隔 UNION 中的每个查询必须包含相同的列、表达式或聚集函数(次序可不同) 列数据类型必须兼容:类型不必完全相同，但必须是 DBMS 可以隐含地转换的类型 UNION 从查询结果集中自动去除了重复的行(使用 UNION ALL 可以联合全部的数据不去重) 在最后一条 SELECT 语句后使用了 ORDER BY 子句。MySQL 将用它来排序所有 SELECT 语句返回的所有结果。   数据库引擎 MyISAM(前者支持全文本搜索) 和 InnoDB(不支持全文本搜索)。  为了进行全文本搜索，必须索引被搜索的列，而且要随着数据的改变不断地重新索引。 在创建表时启用全文本搜索。CREATE TABLE 语句接受 FULLTEXT 子句 CREATE TABLE `productnotes` ( `note_id` int(11) NOT NULL AUTO_INCREMENT, `prod_id` char(10) NOT NULL, `note_date` datetime NOT NULL, `note_text` text, PRIMARY KEY (`note_id`), FULLTEXT KEY `note_text` (`note_text`) ) ENGINE=MyISAM AUTO_INCREMENT=115 DEFAULT CHARSET=utf8  不要在导入数据时使用 FULLTEXT，使索引数据的总时间小于在导入每行时分别进行索引所需的总时间 Match() 指定被搜索的列(传递给 Match() 的值必须与 FULLTEXT() 定义中的相同。如果指定多个列，则必须列出它们，且次序正确)，Against() 指定要使用的搜索表达式。 SELECT note_text FROM productnotes WHERE MATCH (note_text) AGAINST ('rabbit' )  全文本搜索会对搜索结果排序，会按照特定规则计算目标的等级并按照等级的值进行排序。而 LIKE 并不可以。 查询扩展 WITH QUERY EXPANSION，使用扩展查询，可以以找到关键词的行中的词再对表进行搜索，即搜索了两次，丰富了搜索出的内容。  表中的行越多(这些行中的文本就越多)，使用 查询扩展返回的结果越好。  SELECT note_text FROM productnotes WHERE MATCH (note_text) AGAINST ('anvils' WITH QUERY EXPANSION);      布尔文本搜索，  需要提供：  要匹配的词; 要排斥的词(如果某行包含这个词，则不返回该行，即使它包含其他指定的词也是如此); 排列提示(指定某些词比其他词更重要，更重要的词等级更高); 表达式分组; 另外一些内容。   即使没有定义 FULLTEXT 索引，也可使用。但这是一种非常缓慢的操作(其性能将随着数据量的增加而降低)。  SELECT note_text FROM productnotes WHERE MATCH (note_text) AGAINST ('heavy -rope*' IN BOOLEAN MODE); // -rope* 表示搜索不包含 rope 的行  布尔操作符 + 包含，词必须存在 - 排除，词必须不出现 &gt; 包含，而且增加等级值 &lt; 包含，且减少等级值 () 把词组成子表达式(允许这些子表达式作为一个组被包含、排除、排列等) ~ 取消一个词的排序值 * 词尾的通配符 &quot;&quot; 定义一个短语(与单个词的列表不一样，它匹配整个短语以便包含或排除这个短语)   AGAINST ('+rabbit +bait' IN BOOLEAN MODE); // 搜索同时包含 rabbit 和 bait 的行 AGAINST ('rabbit bait' IN BOOLEAN MODE); // 搜索包含 rabbit 或 bait 的行 AGAINST ('&quot;rabbit bait&quot;' IN BOOLEAN MODE); // 搜索匹配短语 'rabbit bait' 的行 AGAINST ('&gt;rabbit &lt;carrot' IN BOOLEAN MODE); // 匹配 rabbit 和 carrot，增加前者的等级，降低后者的等级。 AGAINST ('+saft +(&lt;combination)carrot' IN BOOLEAN MODE); // 匹配词 safe 和 combination，降低后者的等级。  在布尔方式中，不按等级值降序排序。   全文本搜索的使用说明  在索引全文本数据时，短词被忽略且从索引中排除。短词定义为 那些具有 3 个或 3 个以下字符的词(如果需要，这个数目可以更改)。 MySQL 带有一个内建的非用词(stopword)列表，这些词在索引全文本数据时总是被忽略。如果需要，可以覆盖这个列表。 许多词出现的频率很高，搜索它们没有用处(返回太多的结果)。 因此，MySQL 规定了一条 50% 规则，如果一个词出现在50%以上 的行中，则将它作为一个非用词忽略。50% 规则不用于 IN BOOLEAN MODE。 如果表中的行数少于 3 行，则全文本搜索不返回结果(因为每个词或者不出现，或者至少出现在 50% 的行中)。 忽略词中的单引号。例如，don't 索引为dont。 不具有词分隔符(包括日语和汉语)的语言不能恰当地返回全文本搜索结果。 仅在 MyISAM 数据库引擎中支持全文本搜索。 没有邻近操作符。    ...</p>
+                            <p><p>mysql 基础知识，引擎</p>...</p>
                         </div>
                     </div>
                 </article>
@@ -161,7 +157,7 @@ INSERT LOW_PRIORITY INTO   插入多条：
                                 Published at September 9, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;2 min read
                             </p>
-                            <p>LIKE  % 匹配 0 或多个字符 _ 匹配单个字符 尾空格可能会干扰通配符匹配(可使用 trim() 去除收尾空格) % 不能匹配 null 通配符耗时较其他搜索会更长 通配符放在检索条件开头会极大降低搜索效率 匹配大小写需要使用关键字 BINARY（WHERE BINARY prod_name LIKE &lsquo;Jet%'）   REGEXP  . 匹配任意一个字符 LIKE 匹配整个列，如果不使用 通配符，那么就算查找到匹配的文本也不会返回 REGEXP 在列值内进行匹配，如果查找到匹配的文本就会返回 LIKE 匹配整个串而 REGEXP 匹配子串。 匹配大小写需要使用关键字 BINARY（WHERE BINARY prod_name REGEXP &lsquo;JetPack .000&rsquo;） | (REGEXP &lsquo;1000|2000&rsquo;)，匹配包含 1000 或 2000 的值 [] 匹配特定字符（[123] 定义一组字符，它的意思是匹配 1 或 2 或 3） [1-5] = [12345] 如果需要匹配特殊字符，需要加上\\，如匹配. 需要 REGEXP \\.，匹配 \ 需要 REGEXP \\\\  [:alnum:] 任意字母和数字(同[a-zA-Z0-9]) [:alpha:] 任意字符(同[a-zA-Z]) [:blank:] 空格和制表(同[\\t]) [:cntrl:] ASCII控制字符(ASCII 0到31和127) [:digit:] 任意数字(同[0-9]) [:graph:] 与[:print:]相同，但不包括空格 [:lower:] 任意小写字母(同[a-z]) [:print:] 任意可打印字符 [:punct:] 既不在[:alnum:]又不在[:cntrl:]中的任意字符 [:space:] 包括空格在内的任意空白字符(同[\\f\\n\\r\\t\\v]) [:upper:] 任意大写字母(同[A-Z]) [:xdigit:] 任意十六进制数字(同[a-fA-F0-9])   * 0个或多个匹配 + 1个或多个匹配(等于{1,}) ?...</p>
+                            <p><p>mysql 语法，模糊查找，group by</p>...</p>
                         </div>
                     </div>
                 </article>
@@ -175,7 +171,7 @@ INSERT LOW_PRIORITY INTO   插入多条：
                                 Published at September 4, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;2 min read
                             </p>
-                            <p>数据库(database) 保存有组织的数据的容器(通常是一个文件或一组文件)。 我们日常使用的是 DBMS(数据库管理系统)，而非直接操作数据库，mysql 就是一种 DBMS。 关于主键的好习惯:  不更新主键列中的值; 不重用主键列的值; 不在主键列中使用可能会更改的值。   SQL 是结构化查询语言(Structured Query Language) 的缩写。  SHOW DATABASES; USE XXX; // 选定特定的数据库; SHOW TABLES; // 显示选定数据库的所有表; SHOW COLUMNS FROM XXX; == DESCRIBE XXX; // 展示选定数据库表的详情; SHOW STATUS; // 用于显示广泛的服务器状态信息 SHOW CREATE DATABASE XXX; // 显示创建特定数据库的MySQL语句; SHOW CREATE TABLE XXX; // 显示创建特定表的MySQL语句; SHOW GRANTS; // 用来显示授予用户(所有用户或特定用户)的安全权限; SHOW ERRORS; // 用来显示服务器错误消息; SHOW WARNINGS; // 用来显示服务器警告消息; HELP SHOW; // 展示所有可以通过 show 来执行的命令;   SELECT DISTINCT vend_id * FROM products; // 去重查找 vend_id DISTINCT 关键字应用于所有列而 不仅是前置它的列。如果给出 SELECT DISTINCT vend_id, prod_price，除非指定的两个列都不同，否则所有行都将被检索出来。  SELECT prod_name * FROM products LIMIT 5; // 查找前 5 行 SELECT prod_name * FROM products LIMIT 5, 5; // 从第 6 行开始往后查找 5 行（行数从 0 开始） SELECT prod_name * FROM products LIMIT 3 OFFSET 5; // 从第 6 行开始往后查 3 行   SELECT prod_name * FROM products ORDER BY prod_name; // 通过 order by 对检索数据进行排序 SELECT prod_name FROM products ORDER BY prod_price, prod_name; // 先按照 prod_price 排序，当 price 一样时，按照 prod_name 排序 SELECT prod_name FROM products ORDER BY prod_price DESC LIMIT 1; // 查找价格最贵的一个商品  order by 所跟数据可以不是 select 的数据。 order by 所跟数据默认为 ASC 升序。 ASC、DESC 只对当个列有效，如果需要指定多个列的升降序，需要在每个列前显示指定 ASC/DESC。    SELECT prod_name FROM products WHERE prod_price BETWEEN 5 AND 10; SELECT prod_name FROM products WHERE prod_price IS NULL;  where 和 order by 同时出现时，order by 需要在 where 之后。 where 匹配时默认不区分大小写    SELECT prod_name FROM Products WHERE prod_id = 'bnbg01' AND prod_price &lt;= 10; SELECT prod_name FROM Products WHERE prod_price &gt;= 5 OR prod_price &lt;= 3; SELECT prod_name FROM Products WHERE prod_price IN (3....</p>
+                            <p><p>mysql 基础及 select 语法</p>...</p>
                         </div>
                     </div>
                 </article>
@@ -189,12 +185,7 @@ INSERT LOW_PRIORITY INTO   插入多条：
                                 Published at August 26, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;1 min read
                             </p>
-                            <p>并发   Go 程（goroutine）是由 Go 运行时管理的轻量级线程。
-Go 程在相同的地址空间中运行，因此在访问共享的内存时必须进行同步。
-  信道 是带有类型的管道，你可以通过它用信道操作符 &lt;- 来发送或者接收值。
- ch &lt;- v // 将 v 发送至信道 ch。 v := &lt;-ch // 从 ch 接收值并赋予 v。 ch := make(chan int) // 创建 默认情况下，发送和接收操作在另一端准备好之前都会阻塞。这使得 Go 程可以在没有显式的锁或竞态变量的情况下进行同步。
- 信道可以是 带缓冲的 。将缓冲长度作为第二个参数提供给 make 来初始化一个带缓冲的信道：  ch := make(chan int, 100) // 100 为缓冲区长度 仅当信道的缓冲区填满后，向其发送数据时才会阻塞。当缓冲区为空时，接受方会阻塞。
- 发送者可通过 close 关闭一个信道来表示没有需要发送的值了。  v, ok := &lt;-ch // 检测信道是否关闭  只有发送者才能关闭信道，而接收者不能。向一个已经关闭的信道发送数据会引发程序恐慌（panic）。 信道与文件不同，通常情况下无需关闭它们。只有在必须告诉接收者不再有需要发送的值时才有必要关闭，例如终止一个 range 循环。 信道（channel）关闭后，仍然可以从其中拿到值（val &lt;- channel）。      select 语句使一个 Go 程可以等待多个通信操作。...</p>
+                            <p><p>golang 小记：并发</p>...</p>
                         </div>
                     </div>
                 </article>
@@ -208,11 +199,7 @@ Go 程在相同的地址空间中运行，因此在访问共享的内存时必�
                                 Published at August 16, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;4 min read
                             </p>
-                            <p>方法和接口   Go 没有类。方法 就是一类带特殊的 接收者 参数的函数。方法接收者在它自己的参数列表内，位于 func 关键字和方法名之间。
- type Vertex struct { X, Y float64 } func (v Vertex) Abs() float64 { return math.Sqrt(v.X*v.X + v.Y*v.Y) } func main() { v := Vertex{3, 4} fmt.Println(v.Abs()) }   方法只是个带接收者参数的函数。
- func Abs(v Vertex) float64 { return math.Sqrt(v.X*v.X + v.Y*v.Y) } func main() { v := Vertex{3, 4} fmt.Println(Abs(v)) }   也可以为非结构体类型声明方法
-接收者的类型定义和方法声明必须在同一包内；不能为内建类型声明方法。
- type MyFloat float64 func (f MyFloat) Abs() float64 { if f &lt; 0 { return float64(-f) } return float64(f) } func main() { f := MyFloat(-math....</p>
+                            <p><p>golang 小记：方法和接口</p>...</p>
                         </div>
                     </div>
                 </article>
@@ -226,8 +213,7 @@ Go 程在相同的地址空间中运行，因此在访问共享的内存时必�
                                 Published at August 16, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;3 min read
                             </p>
-                            <p>指针，Struct，Slice 和 Map   Go 拥有指针。指针保存了值的内存地址。
- package main import &quot;fmt&quot; func main() { i, j := 42, 2701 p := &amp;i // 指向 i fmt.Println(*p) // 通过指针读取 i 的值, 42 *p = 21 // 通过指针设置 i 的值 fmt.Println(i) // 查看 i 的值, 21 p = &amp;j // 指向 j *p = *p / 37 // 通过指针对 j 进行除法运算, 73 fmt.Println(j) // 查看 j 的值 }  类型 *T 是指向 T 类型值的指针。其零值为 nil。 &amp; 操作符会生成一个指向其操作数的指针。   操作符表示指针指向的底层值。   与 C 不同，Go 没有指针运算。    一个结构体（struct）就是一组字段（field）。...</p>
+                            <p><p>golang 小记：基础类型</p>...</p>
                         </div>
                     </div>
                 </article>
@@ -241,7 +227,7 @@ Go 程在相同的地址空间中运行，因此在访问共享的内存时必�
                                 Published at August 15, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;1 min read
                             </p>
-                            <p>流程控制语句  Go 只有一种循环结构：for 循环。 Go 的 for 语句后面的三个构成部分外没有小括号， 大括号 { } 则是必须的。 package main import &quot;fmt&quot; func main() { sum := 0 for i := 0; i &lt; 10; i++ { sum += i } fmt.Println(sum) }  初始化语句和后置语句是可选的。   Go 的 if 语句与 for 循环类似，表达式外无需小括号 ( ) ，而大括号 { } 则是必须的。 if 语句可以在条件表达式前执行一个简单的语句( 该语句声明的变量作用域仅在 if 之内 )。  if v := math.Pow(x, n); v &lt; lim { }  switch 是编写一连串 if - else 语句的简便方法。它运行第一个值等于条件表达式的 case 语句。  Go 自动提供了在这些语言中每个 case 后面所需的 break 语句。 除非以 fallthrough 语句结束，否则分支会自动终止。 Go 的另一点重要的不同在于 switch 的 case 无需为常量，且取值不必为整数。 没有条件的 switch 同 switch true 一样。该形式能将一长串 if-then-else 写得更加清晰。   switch time....</p>
+                            <p><p>golang 小记：流程控制语法</p>...</p>
                         </div>
                     </div>
                 </article>
@@ -255,11 +241,7 @@ Go 程在相同的地址空间中运行，因此在访问共享的内存时必�
                                 Published at August 15, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;5 min read
                             </p>
-                            <p>实用类型   https://www.typescriptlang.org/docs/handbook/utility-types.html
-  Partial&lt;T&gt;
-构造一个类型，其所有属性 T 都设置为 optional。此实用程序将返回表示给定类型的所有子集的类型。
-interface Todo { title: string; description: string; } function updateTodo(todo: Todo, fieldsToUpdate: Partial&lt;Todo&gt;) { // T: Todo return { ...todo, ...fieldsToUpdate }; } const todo1 = { title: 'organize desk', description: 'clear clutter', }; const todo2 = updateTodo(todo1, { description: 'throw out trash', }); console.log(todo2); // { title: 'organize desk', description: 'throw out trash' }   Readonly&lt;T&gt;
-构造一个所有属性 T 都设置为的类型 readonly，这意味着无法重新分配构造类型的属性。...</p>
+                            <p><p>实用类型</p>...</p>
                         </div>
                     </div>
                 </article>
@@ -273,10 +255,7 @@ interface Todo { title: string; description: string; } function updateTodo(todo:
                                 Published at August 14, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;2 min read
                             </p>
-                            <p>基础   https://tour.go-zh.org/basics/1
-  在 Go 中，如果一个名字以大写字母开头，那么它就是已导出的。例如 math.Pi
- package main import ( &quot;fmt&quot; &quot;math&quot; ) func main() { fmt.Println(math.Pi) // 3.14.... }   函数可以没有参数或接受多个参数(类型在变量名 之后)。
- package main import &quot;fmt&quot; func add(x int, y int) int { return x + y } func main() { fmt.Println(add(42, 13)) // 55 }  函数可以返回任意数量的返回值。 package main import &quot;fmt&quot; func swap(x, y string) (string, string) { return y, x } func main() { a, b := swap(&quot;hello&quot;, &quot;world&quot;) fmt....</p>
+                            <p><p>golang 小记：基础</p>...</p>
                         </div>
                     </div>
                 </article>
@@ -290,10 +269,7 @@ interface Todo { title: string; description: string; } function updateTodo(todo:
                                 Published at August 14, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;1 min read
                             </p>
-                            <p>三斜线指令（triple-slash-directives）  https://www.tslang.cn/docs/handbook/triple-slash-directives.html 三斜线指令是包含单个 XML 标签的单行注释。 注释的内容会做为编译器指令使用。 三斜线指令仅可放在包含它的文件的最顶端。 一个三斜线指令的前面只能出现单行或多行注释，这包括其它的三斜线指令。 如果它们出现在一个语句或声明之后，那么它们会被当做普通的单行注释，并且不具有特殊的涵义。 /// &lt;reference path=&quot;...&quot; /&gt; 指令是三斜线指令中最常见的一种。 用于声明文件间的 依赖。 预处理输入文件  编译器会对输入文件进行预处理来解析所有三斜线引用指令。 在这个过程中，额外的文件会加到编译过程中。 这个过程会以一些根文件开始； 它们是在命令行中指定的文件或是在 tsconfig.json 中的 &ldquo;files&rdquo; 列表里的文件。 这些根文件按指定的顺序进行预处理。 在一个文件被加入列表前，它包含的所有三斜线引用都要被处理，还有它们包含的目标。 三斜线引用以它们在文件里出现的顺序，使用深度优先的方式解析。 一个三斜线引用路径是相对于包含它的文件的，如果不是根文件。   引用不存在的文件会报错。 一个文件用三斜线指令引用自己会报错。 如果指定了--noResolve 编译选项，三斜线引用会被忽略（它们不会增加新文件，也不会改变给定文件的顺序）。 /// &lt;reference types=&quot;...&quot; /&gt;   该指令则声明了对某个包的依赖（可以简单地把三斜线类型引用指令当做 import 声明的包）。
-eg：把 /// &lt;reference types=&quot;node&quot; /&gt; 引入到声明文件，表明这个文件使用了 @types/node/index.d.ts 里面声明的名字； 并且，这个包需要在编译阶段与声明文件一起被包含进来。
-  仅当在需要写一个 d.ts 文件时才使用这个指令。
-  对于那些在编译阶段生成的声明文件，编译器会自动地添加/// &lt;reference types=&quot;...&quot; /&gt;； 当且仅当结果文件中使用了引用的包里的声明时才会在生成的声明文件里添加/// &lt;reference types=&quot;...&quot; /&gt;语句。...</p>
+                            <p><p>triple-slash-directives</p>...</p>
                         </div>
                     </div>
                 </article>
@@ -307,7 +283,7 @@ eg：把 /// &lt;reference types=&quot;node&quot; /&gt; 引入到声明文件，
                                 Published at August 14, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;3 min read
                             </p>
-                            <p>混入（Mixins）  https://www.typescriptlang.org/docs/handbook/mixins.html https://mariusschulz.com/blog/mixin-classes-in-typescript Mixins 提供了一种基于组合行为的代码重用形式。   // Disposable Mixin class Disposable { isDisposed: boolean; dispose() { this.isDisposed = true; } } // Activatable Mixin class Activatable { isActive: boolean; activate() { this.isActive = true; } deactivate() { this.isActive = false; } } class SmartObject { constructor() { setInterval(() =&gt; console.log(this.isActive + &quot; : &quot; + this.isDisposed), 500); } interact() { this.activate(); } } interface SmartObject extends Disposable, Activatable {} applyMixins(SmartObject, [Disposable, Activatable]); let smartObj = new SmartObject(); setTimeout(() =&gt; smartObj....</p>
+                            <p><p>Mixins</p>...</p>
                         </div>
                     </div>
                 </article>
@@ -321,13 +297,7 @@ eg：把 /// &lt;reference types=&quot;node&quot; /&gt; 引入到声明文件，
                                 Published at August 8, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;7 min read
                             </p>
-                            <p>装饰器（Decorators）   https://www.tslang.cn/docs/handbook/decorators.html
-  https://juejin.im/post/5d15e13fe51d45108f254242
-  装饰器（Decorators）为我们在类的声明及成员上通过元编程语法添加标注提供了一种方式。
-  启用实验性的装饰器特性，必须在 命令行 或 tsconfig.json 里启用 experimentalDecorators 编译器选项：
-tsc --target ES5 --experimentalDecorators { &quot;compilerOptions&quot;: { &quot;target&quot;: &quot;ES5&quot;, &quot;experimentalDecorators&quot;: true } }   装饰器是一种特殊类型的声明，它能够被附加到类声明，方法，访问符，属性或参数上。 它使用 @expression 这种形式，expression 求值后必须为一个函数 ，它会在运行时被调用，被装饰的声明信息做为参数传入。
-  装饰器工厂就是一个简单的函数，它返回一个表达式，以供装饰器在运行时调用。 1.
-function color(value: string) { // 这是一个装饰器工厂 return function (target) { // 这是装饰器 // do something with &quot;target&quot; and &quot;value&quot;... } }     import { logClass } from '....</p>
+                            <p><p>装饰器</p>...</p>
                         </div>
                     </div>
                 </article>
@@ -341,10 +311,7 @@ function color(value: string) { // 这是一个装饰器工厂 return function (
                                 Published at August 8, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;3 min read
                             </p>
-                            <p>声明合并   https://typescript.bootcss.com/declaration-merging.html
-  “声明合并”是指编译器将针对同一个名字的两个独立声明合并为单一声明。 合并后的声明同时拥有原先两个声明的特性。 任何数量的声明都可被合并；不局限于两个声明。
-  接口合并
-interface Box { height: number; width: number; } interface Box { scale: number; width: string; // error, property 'width' must be of type 'number' } let box: Box = {height: 5, width: 6, scale: 10};  合并的机制是把双方的成员放到一个同名的接口里。 接口的非函数的成员应该是唯一的。 如果它们不是唯一的，那么它们必须是相同的类型。   interface Cloner { clone(animal: Animal): Animal; } interface Cloner { clone(animal: Sheep): Sheep; } interface Cloner { clone(animal: Dog): Dog; clone(animal: Cat): Cat; } // ---------------------- interface Cloner { clone(animal: Dog): Dog; clone(animal: Cat): Cat; clone(animal: Sheep): Sheep; clone(animal: Animal): Animal; }  对于函数成员，每个同名函数声明都会被当成这个函数的一个重载。后面的接口具有更高的优先级。   interface Document { createElement(tagName: any): Element; } interface Document { createElement(tagName: &quot;div&quot;): HTMLDivElement; createElement(tagName: &quot;span&quot;): HTMLSpanElement; } interface Document { createElement(tagName: string): HTMLElement; createElement(tagName: &quot;canvas&quot;): HTMLCanvasElement; } // ---------------------- interface Document { createElement(tagName: &quot;canvas&quot;): HTMLCanvasElement; createElement(tagName: &quot;div&quot;): HTMLDivElement; createElement(tagName: &quot;span&quot;): HTMLSpanElement; createElement(tagName: string): HTMLElement; createElement(tagName: any): Element; }  如果签名里有一个参数的类型是单一的字符串字面量（比如，不是字符串字面量的联合类型），那么它将会被提升到重载列表的最顶端。    命名空间合并...</p>
+                            <p><p>声明合并</p>...</p>
                         </div>
                     </div>
                 </article>
@@ -358,7 +325,7 @@ interface Box { height: number; width: number; } interface Box { scale: number; 
                                 Published at August 7, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;1 min read
                             </p>
-                            <p>Safari Date Invalid  safari 浏览器在对 js Date 函数的支持与 Chrome 和 Firefox 不同，  在 Safari 中，如果日期格式为 YYYY-MM-DD HH:mm:ss，那么对该时间的 string 使用 new Date(timeString) 时，返回的结果将是 invalid。 但此现象在其他两种浏览器中并未出现。 如果日期格式为 YYYY-MM-DD（无时分秒信息）， 此时 new Date(timeString) 返回的结果值也正常。   改进：将日期格式改为 YYYY/MM/DD HH:mm:ss，此时 new Date(timeString) 返回的时间结果正常。  ...</p>
+                            <p><p>Safari date format error</p>...</p>
                         </div>
                     </div>
                 </article>
@@ -372,20 +339,7 @@ interface Box { height: number; width: number; } interface Box { scale: number; 
                                 Published at August 7, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;3 min read
                             </p>
-                            <p>模块解析   https://typescript.bootcss.com/module-resolution.html
-  模块解析就是指编译器所要依据的一个流程，用它来找出某个导入操作所引用的具体值。
-假设有一个导入语句 import { a } from &ldquo;moduleA&rdquo;; 为了去检查任何对 a 的使用，编译器需要准确的知道它表示什么，并且会需要检查它的定义 moduleA。
-  根据模块引用是相对的还是非相对的，模块导入会以不同的方式解析。
-  相对导入是以/，./或../开头的。
-相对导入解析时是相对于导入它的文件来的，并且不能解析为一个外部模块声明。 你应该为你自己写的模块使用相对导入，这样能确保它们在运行时的相对位置。
-  所有其它形式的导入被当作非相对的。
-非相对模块的导入可以相对于baseUrl或通过下文会讲到的路径映射来进行解析。 它们还可以被解析能外部模块声明。 使用非相对路径来导入你的外部依赖。
-    共有两种可用的模块解析策略：Node 和 Classic。
-可以使用 &ndash;moduleResolution 标记指定使用哪种模块解析策略。 若未指定，那么在使用了 &ndash;module AMD | System | ES2015 时的默认值为 Classic，其它情况时则为 Node。
-  Classic
-以前是 TypeScript 默认的解析策略。 现在，它存在的理由主要是为了向后兼容。
-  相对导入
-eg: 查找 /root/src/folder/A.ts 文件里的 import { b } from &ldquo;....</p>
+                            <p><p>模块解析</p>...</p>
                         </div>
                     </div>
                 </article>
@@ -399,15 +353,7 @@ eg: 查找 /root/src/folder/A.ts 文件里的 import { b } from &ldquo;....</p>
                                 Published at August 1, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;1 min read
                             </p>
-                            <p>命名空间和模块   https://www.tslang.cn/docs/handbook/namespaces-and-modules.html
-  命名空间是位于全局命名空间下的一个普通的带有名字的 JavaScript 对象。
- 可以在多文件中同时使用，并通过 &ndash;outFile 结合在一起。 命名空间是组织 Web 应用不错的方式，你可以把所有依赖都放在 HTML 页面的 &lt;script&gt; 标签里。 但就像其它的全局命名空间污染一样，它很难去识别组件之间的依赖关系，尤其是在大型的应用中。    模块可以包含代码和声明。不同的是模块可以 声明它的依赖 。
-  模块会把依赖添加到模块加载器上（例如 CommonJs / Require.js）。
-对于大型应用，这一点点的花费会带来长久的模块化和可维护性上的便利。 模块也提供了更好的代码重用，更强的封闭性以及更好的使用工具进行优化。
-    对于新项目来说推荐使用模块做为组织代码的方式。
-  引用模块文件应该使用 import，而不是 /// &lt;reference&gt;。
-编译器首先尝试去查找相应路径下的 .ts，.tsx 再或者 .d.ts。 如果这些文件都找不到，编译器会查找 外部模块声明。
- myModules.d.ts   // In a .d.ts file or .ts file that is not a module: declare module &quot;SomeModule&quot; { export function fn(): string; }  myOtherModule....</p>
+                            <p><p>命名空间和模块</p>...</p>
                         </div>
                     </div>
                 </article>
@@ -421,8 +367,7 @@ eg: 查找 /root/src/folder/A.ts 文件里的 import { b } from &ldquo;....</p>
                                 Published at August 1, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;3 min read
                             </p>
-                            <p>命名空间   https://www.tslang.cn/docs/handbook/namespaces.html
-   命名空间可以组织代码，以便于在记录它们类型的同时还不用担心与其它对象产生命名冲突。 把类型归集到一个命名空间内，而不是把它们放在全局命名空间下。 当应用变得越来越大时，我们需要将代码分离到不同的文件中以便于维护。    // single file interface StringValidator { isAcceptable(s: string): boolean; } let lettersRegexp = /^[A-Za-z]+$/; let numberRegexp = /^[0-9]+$/; class LettersOnlyValidator implements StringValidator { isAcceptable(s: string) { return lettersRegexp.test(s); } } class ZipCodeValidator implements StringValidator { isAcceptable(s: string) { return s.length === 5 &amp;&amp; numberRegexp.test(s); } } // Some samples to try let strings = [&quot;Hello&quot;, &quot;98052&quot;, &quot;101&quot;]; // Validators to use let validators: { [s: string]: StringValidator; } = {}; validators[&quot;ZIP code&quot;] = new ZipCodeValidator(); validators[&quot;Letters only&quot;] = new LettersOnlyValidator(); // Show whether each string passed each validator for (let s of strings) { for (let name in validators) { let isMatch = validators[name]....</p>
+                            <p><p>命名空间</p>...</p>
                         </div>
                     </div>
                 </article>
@@ -436,11 +381,7 @@ eg: 查找 /root/src/folder/A.ts 文件里的 import { b } from &ldquo;....</p>
                                 Published at July 31, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;3 min read
                             </p>
-                            <p>模块   https://www.tslang.cn/docs/handbook/modules.html
-  TypeScript 与 ECMAScript 2015 一样，任何包含顶级 import 或者 export 的文件都被当成一个模块。 相反地，如果一个文件不带有顶级的 import 或者 export 声明，那么它的内容被视为全局可见的（因此对模块也是可见的）。
-  任何声明（比如变量，函数，类，类型别名或接口）都能够通过添加 export 关键字来导出。
-// Validation.ts export interface StringValidator { isAcceptable(s: string): boolean; } // ZipCodeValidator.ts export const numberRegexp = /^[0-9]+$/; export class ZipCodeValidator implements StringValidator { isAcceptable(s: string) { return s.length === 5 &amp;&amp; numberRegexp.test(s); } }   导出语句，可能需要对导出的部分重命名
-class ZipCodeValidator implements StringValidator { isAcceptable(s: string) { return s....</p>
+                            <p><p>模块</p>...</p>
                         </div>
                     </div>
                 </article>
@@ -454,7 +395,7 @@ class ZipCodeValidator implements StringValidator { isAcceptable(s: string) { re
                                 Published at July 31, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;2 min read
                             </p>
-                            <p>迭代器和生成器  https://www.tslang.cn/docs/handbook/iterators-and-generators.html 可迭代性: 当一个对象实现了 Symbol.iterator 属性时，我们认为它是可迭代的。 一些内置的类型如 Array，Map，Set，String，Int32Array，Uint32Array 等都已经实现了各自的 Symbol.iterator。 对象上的 Symbol.iterator函数负责返回供迭代的值。  Symbol.iterator, A method that returns the default iterator for an object. Called by the semantics of the for-of statement.   for..of 会遍历可迭代的对象，调用对象上的 Symbol.iterator 方法。 let someArray = [1, &quot;string&quot;, false]; for (let entry of someArray) { console.log(entry); // 1, &quot;string&quot;, false }  for..of 和 for..in 均可迭代一个列表； 但是用于迭代的值却不同，for..in 迭代的是对象的 键 的列表，而 for..of 则迭代对象的键对应的 值 。 let list = [4, 5, 6]; for (let i in list) { console....</p>
+                            <p><p>迭代器和生成器</p>...</p>
                         </div>
                     </div>
                 </article>
@@ -468,7 +409,7 @@ class ZipCodeValidator implements StringValidator { isAcceptable(s: string) { re
                                 Published at July 30, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;2 min read
                             </p>
-                            <p>Symbols  https://www.tslang.cn/docs/handbook/symbols.html https://www.keithcirkel.co.uk/metaprogramming-in-es6-symbols/ http://es6.ruanyifeng.com/#docs/symbol 自 ECMAScript 2015 起，symbol 成为了一种新的原生类型，是 JavaScript 的第七种原始类型。很适合做标识符。 assert(typeof Symbol() === 'symbol')  symbol 类型的值是通过 Symbol 构造函数创建的，无法通过 new 创建 let sym1 = Symbol(); // Ok let sym2 = Symbol(&quot;key&quot;); // 可选的字符串key let sym3 = new Symbol(); // TypeError  Symbols 是不可改变且唯一的。 let sym2 = Symbol(&quot;key&quot;); let sym3 = Symbol(&quot;key&quot;); sym2 === sym3; // false, symbols是唯一的  symbols 也可以被用做对象属性的键。 它能避免命名冲突的风险。 这对于一个对象由多个模块构成的情况非常有用，能防止某一个键被不小心改写或覆盖。 let sym = Symbol(); let obj = { [sym]: &quot;value&quot; }; console....</p>
+                            <p><p>Symbols</p>...</p>
                         </div>
                     </div>
                 </article>
@@ -482,10 +423,7 @@ class ZipCodeValidator implements StringValidator { isAcceptable(s: string) { re
                                 Published at July 17, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;9 min read
                             </p>
-                            <p>高级类型   https://www.tslang.cn/docs/handbook/advanced-types.html
-  交叉类型（Intersection Types），将多个类型合并为一个类型。
-例如， Person &amp; Serializable &amp; Loggable 同时是 Person 和 Serializable 和 Loggable。 就是说这个类型的对象同时拥有了这三种类型的成员。
-function extend&lt;First, Second&gt;(first: First, second: Second): First &amp; Second { const result: Partial&lt;First &amp; Second&gt; = {}; for (const prop in first) { if (first.hasOwnProperty(prop)) { (result as First)[prop] = first[prop]; } } for (const prop in second) { if (second.hasOwnProperty(prop)) { (result as Second)[prop] = second[prop]; } } return result as First &amp; Second; } class Person { constructor(public name: string) { } } interface Loggable { log(name: string): void; } class ConsoleLogger implements Loggable { log(name) { console....</p>
+                            <p><p>高级类型</p>...</p>
                         </div>
                     </div>
                 </article>
@@ -499,11 +437,7 @@ function extend&lt;First, Second&gt;(first: First, second: Second): First &amp; 
                                 Published at July 16, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;2 min read
                             </p>
-                            <p>类型兼容性   https://www.tslang.cn/docs/handbook/type-compatibility.html
-  TypeScript 里的类型兼容性是基于结构子类型的（只使用其成员来描述类型的方式）。C#、Java 等语言使用的是基于名义类型的类型系统。
-interface Named { name: string; } class Person { name: string; } let p: Named; p = new Person(); // OK, because of structural typing   TypeScript 结构化类型系统的基本规则是，如果 x 要兼容 y，那么 y 至少具有与 x 相同的属性。
-属性少的类型（例如只含有属性 x）可以赋值给属性多的类型（例如含有属性 x，y），但是属性多的类型不能赋值给属性少的类型。
-interface Named { name: string; } let x: Named; let y = { name: 'Alice', location: 'Seattle' }; // y's inferred type is { name: string; location: string; } x = y; // y = x; // Error!...</p>
+                            <p><p>类型兼容性</p>...</p>
                         </div>
                     </div>
                 </article>
@@ -517,11 +451,7 @@ interface Named { name: string; } let x: Named; let y = { name: 'Alice', locatio
                                 Published at July 15, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;1 min read
                             </p>
-                            <p>类型推论   https://www.tslang.cn/docs/handbook/type-inference.html
-  let x = 3; 变量 x 的类型被推断为 number。 这种推断发生在初始化变量和成员，设置默认参数值和决定函数返回值时。
-  最佳通用类型 1. let x = [0, 1, null];  推断 x 的类型需要考虑其中所有元素的类型，当前包括 number 和 null。 计算通用类型算法会考虑所有的候选类型，并给出一个兼容所有候选类型的类型（最终的通用类型取自候选类型）。
- 当前例子中， number 兼容 null（Null、Undefined 和 Never 是其它类型的子类型），故而 x 的类型 应为 number[]。    let zoo = [new Rhino(), new Elephant(), new Snake()]; zoo 中元素都继承自 Animal 类型，但是 zoo 里的元素没有是Animal类型的，因此不能推断出这个结果。
-当候选类型不能使用时需要明确的指出类型：let zoo: Animal[]，否则系统进行类型推断的结果将为联合数组类型：(Rhino | Elephant | Snake)[]。...</p>
+                            <p><p>类型推论</p>...</p>
                         </div>
                     </div>
                 </article>
@@ -535,12 +465,7 @@ interface Named { name: string; } let x: Named; let y = { name: 'Alice', locatio
                                 Published at July 14, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;2 min read
                             </p>
-                            <p>枚举   https://www.tslang.cn/docs/handbook/enums.html
-  使用枚举（enum）我们可以定义一些有名字的数字常量。
-  数字枚举可以混入函数的和常量成员。
-不带初始化器的枚举或者被放在第一的位置，或者被放在使用了数字常量或其它常量初始化了的枚举后面。
-enum E { A = getSomeValue(), B, // error! 'A' is not constant-initialized, so 'B' needs an initializer } enum E { A, // A = 1 is also possible B = getSomeValue(); // ok! }   字符串枚举，每个成员都必须用字符串字面量，或另外一个字符串枚举成员进行初始化。
-enum Direction { Up = &quot;UP&quot;, Down = &quot;DOWN&quot;, Left = &quot;LEFT&quot;, // Left = 1 is also possible Right = &quot;RIGHT&quot;, }   异构枚举，就是上个例子中 Left = 1 的情景，可以混合字符串和数字成员，一般不建议 。...</p>
+                            <p><p>枚举</p>...</p>
                         </div>
                     </div>
                 </article>
@@ -554,8 +479,7 @@ enum Direction { Up = &quot;UP&quot;, Down = &quot;DOWN&quot;, Left = &quot;LEFT
                                 Published at July 13, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;2 min read
                             </p>
-                            <p>泛型  https://typescript.bootcss.com/generics.html 泛型，类型变量，是一种特殊的变量，只用于表示类型而不是值。 定义了泛型函数后，可以用两种方法使用。  第一种是，传入所有的参数，包含类型参数  let output = identity&lt;string&gt;(&quot;myString&quot;); // type of output will be 'string' 利用类型推论 – 即编译器会根据传入的参数自动地帮助我们确定 T 的类型  let output = identity(&quot;myString&quot;); // type of output will be 'string'  编译器要求你在泛型函数的函数体必须正确的使用这个通用的类型。 换句话说，你必须把这些参数当做是任意或所有类型。
-否则可能将 T 类型定义为 number， 然后去调用 T 的 length 属性，但是 number 类型是没有 length 属性。 function loggingIdentity&lt;T&gt;(arg: T): T { console.log(arg.length); // Error: T doesn't have .length return arg; } // 这里可以将 arg 定义为 T[] 或 Array&lt;T&gt; 类型， 这样就可以使用 length 属性了  泛型函数的类型与非泛型函数的类型 function identity&lt;T&gt;(arg: T): T { return arg; } let myIdentity: &lt;T&gt;(arg: T) =&gt; T = identity; // let myIdentity: &lt;U&gt;(arg: U) =&gt; U = identity; // let myIdentity: {&lt;T&gt;(arg: T): T} = identity;  泛型接口 interface GenericIdentityFn&lt;T&gt; { (arg: T): T; } function identity&lt;T&gt;(arg: T): T { return arg; } let myIdentity: GenericIdentityFn&lt;number&gt; = identity;  泛型类 class GenericNumber&lt;T&gt; { zeroValue: T; add: (x: T, y: T) =&gt; T; } let myGenericNumber = new GenericNumber&lt;number&gt;(); myGenericNumber....</p>
+                            <p><p>泛型</p>...</p>
                         </div>
                     </div>
                 </article>
@@ -569,10 +493,7 @@ enum Direction { Up = &quot;UP&quot;, Down = &quot;DOWN&quot;, Left = &quot;LEFT
                                 Published at July 12, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;2 min read
                             </p>
-                            <p>函数   https://typescript.bootcss.com/functions.html
-  完整函数类型，包含参数类型和返回值类型。
-let myAdd: (x:number, y:number) =&gt; number = function(x: number, y: number): number { return x + y; };  以参数列表的形式写出参数类型，为每个参数指定一个名字和类型。名字只是为了增加可读性，只要参数类型是匹配即有效 在函数和返回值类型之前使用（=&gt;）符号，返回值类型是函数类型的必要部分，即使函数没有返回任何值也必须指定返回值类型为 void    TypeScript 编译器会检查用户是否为每个参数都传入了值，所以每个函数参数都是必须的（可输入 null or undefined）。
- 可选参数（?） 必须跟在必须参数后面 有默认初始化值的参数， 在所有必须参数后面的带默认初始化的参数都是可选的。共享同样的类型 function buildName(firstName: string, lastName = &quot;Smith&quot;) { return firstName + &quot; &quot; + lastName; }  带默认值的参数不需要放在必须参数的后面。如果带默认值的参数出现在必须参数前面，用户必须明确的传入 undefined 值来获得默认值。 剩余参数 会被当做个数不限的可选参数。编译器创建参数数组，名字是你在省略号（&hellip;）后面给定的名字，你可以在函数体内使用这个数组。    JavaScript 里 this 的工作原理，它的值在函数被调用的时候才会指定。...</p>
+                            <p><p>函数</p>...</p>
                         </div>
                     </div>
                 </article>
@@ -586,10 +507,7 @@ let myAdd: (x:number, y:number) =&gt; number = function(x: number, y: number): n
                                 Published at July 11, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;2 min read
                             </p>
-                            <p>类   https://typescript.bootcss.com/classes.html
-  在 TypeScript 里，使用面向对象模式，允许使用继承来扩展现有的类。
-  派生类(子类)包含了一个构造函数，它必须调用 super() 方法（会执行基类的构造函数）。
- class Animal { name: string; constructor(theName: string) { this.name = theName; } move(distanceInMeters: number = 0) { console.log(`${this.name} moved ${distanceInMeters}m.`); } } class Snake extends Animal { constructor(name: string) { super(name); } move(distanceInMeters = 5) { console.log(&quot;Slithering...&quot;); super.move(distanceInMeters); } } class Horse extends Animal { constructor(name: string) { super(name); } move(distanceInMeters = 45) { console.log(&quot;Galloping...&quot;); super....</p>
+                            <p><p>类</p>...</p>
                         </div>
                     </div>
                 </article>
@@ -603,14 +521,7 @@ let myAdd: (x:number, y:number) =&gt; number = function(x: number, y: number): n
                                 Published at July 10, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;2 min read
                             </p>
-                            <p>接口   https://typescript.bootcss.com/interfaces.html
-  在 TypeScript 里，接口的作用就是定义结构。
-  可选属性名字( ? ), 可以对可能存在的属性进行预定义，以及捕获引用了不存在的属性时的错误。
-  可以将接口属性定义为 readonly，定义后只能在初始化时接口对象时赋值。
-  ReadonlyArray，只读数组，定义后不可更改，同时也不可将其复制给普通数组。
-  变量使用 const，属性使用 readonly。
-  对象字面量会被特殊对待且会额外属性检查，当将其赋值给变量或作为参数传递的时候。 如果一个对象字面量存在任何“目标类型”不包含的属性时，会报错，可以用以下方法规避：
- 类型断言（使用类型断言可以绕开类型检查） 字符串索引签名（eg: man[&lsquo;canRead&rsquo;]） 将该对象赋值给一个另一个变量 interface SquareConfig { color?: string; width?: number; } function createSquare(config: SquareConfig): { color: string; area: number } { // ... } let squareOptions = { colour: &quot;red&quot;, width: 100 }; let mySquare = createSquare(squareOptions);     接口表示函数类型，需给接口定义一个调用签名。...</p>
+                            <p><p>接口</p>...</p>
                         </div>
                     </div>
                 </article>
@@ -624,7 +535,7 @@ let myAdd: (x:number, y:number) =&gt; number = function(x: number, y: number): n
                                 Published at July 5, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;2 min read
                             </p>
-                            <p>变量声明  https://typescript.bootcss.com/variable-declarations.html var 声明可以在包含它的函数，模块，命名空间或全局作用域内部任何位置被访问。  多次声明同一个变量并不会报错 声明的变量可以在包含它们的函数外访问   let 声明的变量使用的是词法作用域或块作用域。  块作用域变量在包含它们的块或 for 循环之外无法访问 不能在被声明之前读或写(仍可在一个拥有块作用域变量被声明前获取它，只是我们不能在变量声明前去调用此函数) 在同一作用域只能声明一次 每进入一个作用域就会创建一个变量的环境，就算作用域内代码已经执行完毕，这个环境与其捕获的变量依然存在   const 拥有与 let 相同的作用域规则，但不能对它们重新赋值。  变量内部状态可修改(可通过设置对象成员为只读改变)   使用最小特权原则，所有变量除了计划去修改的都应使用const。  基本原则：如果一个变量不需要对它写入，那么其它使用这些代码的人也不能够写入它们，并且要思考为什么会需要对这些变量重新赋值。 使用 const 可更容易推测数据的流动。   解构数组：  let input = [1, 2]; let [first, second] = input; [first, second] = [second, first]; // wap variavle function f([first, second]: [number, number]) let [, second, , fourth] = [1, 2, 3, 4]; 可用作在一行内声明多个数组变量，用作自解释   元组解构  let tuple: [number, string, boolean] = [7, &quot;hello&quot;, true]; let [a, ....</p>
+                            <p><p>变量声明</p>...</p>
                         </div>
                     </div>
                 </article>
@@ -638,7 +549,7 @@ let myAdd: (x:number, y:number) =&gt; number = function(x: number, y: number): n
                                 Published at June 24, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;1 min read
                             </p>
-                            <p>基础类型  https://typescript.bootcss.com/basic-types.html TypeScript 里的所有数字都是浮点数。 模版字符串，可以定义多行文本和内嵌表达式。 其被反引号包围（ `），并且以 ${ expr } 这种形式嵌入表达式。 数组，使用后跟[]元素的类型来表示该元素类型的数组或者使用通用数组类型Array。 元组类型( Tuple )允许表示一个已知元素数量和类型的数组，各元素的类型不必相同。  eg: let x: [string, number]; x = [&lsquo;hello&rsquo;, 10]; // 必须要按照定义类型的顺序赋值 访问越界元素会出现错误提示: x[3] = &quot;world&quot;; // Error, Property '3' does not exist on type '[string, number]'. console.log(x[5].toString()); // Error, Property '5' does not exist on type '[string, number]'.    枚举类型提供的一个便利是你可以由枚举的值得到它的名字。 类型检查器不对 any 类型的值进行检查而是直接让它们通过编译阶段的检查。Object 类型的变量只允许给它赋任意值 ，但是却不能够在它上面调用任意的方法，即便它真的有这些方法。 指定了 &ndash;strictNullChecks 标记(编译选项)，null 和 undefined 只能赋值给 void 和它们各自。 never 类型表示的是那些永不存在的值的类型，即使 any 也不能赋值给 never。  可作为 error 函数 (return Error()) 的返回值   类型断言( as , 尖括号 (&lt;String&gt;)) 类似 JAVA 中的类型转换，但是不进行特殊的数据检查和解构。不影响运行，只干预编译阶段。 推荐使用 let 代替 var（和作用域有关）  ...</p>
+                            <p><p>基础类型</p>...</p>
                         </div>
                     </div>
                 </article>
@@ -652,7 +563,7 @@ let myAdd: (x:number, y:number) =&gt; number = function(x: number, y: number): n
                                 Published at March 25, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;1 min read
                             </p>
-                            <p>&lt;ng-template&gt; &lt;ng-template&gt; 是一个 Angular 的元素，用作 HTML 的渲染。但在实际在渲染视图之前，Angular 会把 &lt;ng-template&gt; 及其内容替换为一个注释，而这个注释就是 &lt;!&mdash;-&gt;。...</p>
+                            <p><p>ng-template 小记</p>...</p>
                         </div>
                     </div>
                 </article>
@@ -666,7 +577,7 @@ let myAdd: (x:number, y:number) =&gt; number = function(x: number, y: number): n
                                 Published at March 21, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;1 min read
                             </p>
-                            <p>await  通过将 observable 转换为 promise，调用 promise 的 then() 方法，达到同步效果（在异步函数中）。 在异步函数中使用同步，需要加上 await 等待 promise 结束后再执行下一步操作。   getALLReportData() { return (this.reportService.getReportBlockData() as Observable).toPromise(); } （await） this.getALLReportData().then(res =&gt; this.bkDataList = res['data'] || []); ...</p>
+                            <p><p>await</p>...</p>
                         </div>
                     </div>
                 </article>
@@ -694,8 +605,7 @@ let myAdd: (x:number, y:number) =&gt; number = function(x: number, y: number): n
                                 Published at February 27, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;1 min read
                             </p>
-                            <p>errorStateMatcher 在某些情况下，submit 的操作并不能出发整个 form 的验证机制。
- 可以为所有不能通过 submit 触发验证的表单组件添加 [errorStateMatcher]=&quot;matcher&rdquo; ，主动设置它的错误校验机制。 将 matcher 声明为 ErrorStateMatcher，不初始化，在需要触发验证的时候将其变为 this.matcher = new MyErrorStateMatcher(); 即可主动触发所有表单组件的验证状态。   import {ErrorStateMatcher} from '@angular/material'; import {FormControl, FormGroupDirective, NgForm} from '@angular/forms'; export class FormErrorStateMatcher implements ErrorStateMatcher { isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean { return !!(control &amp;&amp; control.invalid &amp;&amp; !control.touched || (control &amp;&amp; (control.errors !== null))); } } ...</p>
+                            <p><p>自定义 form 错误状态匹配器</p>...</p>
                         </div>
                     </div>
                 </article>
@@ -709,8 +619,7 @@ let myAdd: (x:number, y:number) =&gt; number = function(x: number, y: number): n
                                 Published at February 21, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;1 min read
                             </p>
-                            <p>form 的 disable（） 在angular 的 form 中，如果整个 form 的状态变为 disabled，会使 form.valid 返回的值会变为 false，表单校验不通过（哪怕 form 的所有组件都是验证通过的）。
-import {Component, OnInit} from '@angular/core'; import {FormGroup, FormControl, Validators} from '@angular/forms'; @Component({ selector: 'my-app', templateUrl: './app.component.html', styleUrls: [ './app.component.css' ] }) export class AppComponent implements OnInit{ name = 'Angular'; form = new FormGroup({ 'test':new FormControl('',Validators.required) }); ngOnInit(){ this.form.get('test').setValue('2'); // this.form.disable(); console.log(this.form.valid); } } ...</p>
+                            <p><p>form disabled 时 valid 状态会变为 false。</p>...</p>
                         </div>
                     </div>
                 </article>
@@ -724,8 +633,7 @@ import {Component, OnInit} from '@angular/core'; import {FormGroup, FormControl,
                                 Published at February 21, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;1 min read
                             </p>
-                            <p>EventEmitter 在 angular 中如果没有对 @Output 的 EventEmitter 变量进行初始化就会报错 Cannot read property ‘subscribe’ of undefined ，并且不会有报错行信息。 （初始化放在 onInit 中也会报错, 必须在声明变量时或者在构造函数中初始化）
-@Output() eventEmit = new EventEmitter(); ...</p>
+                            <p><p>错误信息&quot;Cannot read property ‘subscribe’ of undefined&quot;的处理</p>...</p>
                         </div>
                     </div>
                 </article>
@@ -739,9 +647,7 @@ import {Component, OnInit} from '@angular/core'; import {FormGroup, FormControl,
                                 Published at February 21, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;1 min read
                             </p>
-                            <p>两个 Date 之间的相互对比   js 中 new Date() 得到的日期为当前日期时分秒。但是用 new Date(&ldquo;yy-mm-dd&rdquo;) 得到的日期却为 yy-mm-dd 那天的八点，非零点。
-  两个Date日期比较采用getTime()方法。
-  ...</p>
+                            <p><p>date compare</p>...</p>
                         </div>
                     </div>
                 </article>
@@ -755,8 +661,7 @@ import {Component, OnInit} from '@angular/core'; import {FormGroup, FormControl,
                                 Published at February 13, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;1 min read
                             </p>
-                            <p>datepicker 实现点击 input 后会打开日期选择器：由于input标签可点击，可能会触发浏览器的自动联想（autocomplete）,会出现： 先打开可自动联想的下拉框，然后该下拉框消失，出现日期选择 。针对于此，现解决方案为禁用日期选择器的 input 标签的 autocomplete 属性（autocomplete='off&rsquo;）,然后添加 click 事件 (click)=&quot;picker.open()&quot;。
-&lt;mat-form-field&gt; &lt;label&gt; &lt;input matInput [matDatepicker]=&quot;picker&quot; autocomplete=&quot;off&quot; required formControlName=&quot;date&quot; placeholder=&quot;选择日期&quot; (click)=&quot;picker.open()&quot; [errorStateMatcher]=&quot;matcher&quot;&gt; &lt;/label&gt; &lt;mat-datepicker-toggle matSuffix [for]=&quot;picker&quot;&gt;&lt;/mat-datepicker-toggle&gt; &lt;mat-datepicker #picker&gt;&lt;/mat-datepicker&gt; &lt;/mat-form-field&gt; ...</p>
+                            <p><p>datepicker 遇到的小问题。</p>...</p>
                         </div>
                     </div>
                 </article>
@@ -770,7 +675,7 @@ import {Component, OnInit} from '@angular/core'; import {FormGroup, FormControl,
                                 Published at February 13, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;1 min read
                             </p>
-                            <p>js 隐藏/显示 网页滚动条  隐藏：  document.querySelector('html').style.overflow = 'hidden'; 显示：  document.querySelector('html').style.overflow = 'scroll'; ...</p>
+                            <p><p>js 隐藏/显示 网页滚动条</p>...</p>
                         </div>
                     </div>
                 </article>
@@ -784,7 +689,7 @@ import {Component, OnInit} from '@angular/core'; import {FormGroup, FormControl,
                                 Published at February 13, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;1 min read
                             </p>
-                            <p>禁用/启用 鼠标滚轮 event scrollFunc(event) { event = event || window.event; if (event.preventDefault) { // Firefox event.preventDefault(); event.stopPropagation(); } else { // IE event.cancelBubble = true; event.returnValue = false; } return false; } // 禁用鼠标滚轮事件 const html = document.querySelector('html'); if (html.addEventListener) { html.addEventListener('DOMMouseScroll', this.scrollFunc, false); //添加事件监听 } //firefox html.onmousewheel = html.onmousewheel = this.scrollFunc; //ie/opera/chrome // 启用鼠标滚轮事件 const html = document.querySelector('html'); if (html.removeEventListener) { html.removeEventListener('DOMMouseScroll', this.scrollFunc, false); //解绑事件监听 } //firefox html.onmousewheel = html....</p>
+                            <p><p>angular 滚轮事件</p>...</p>
                         </div>
                     </div>
                 </article>
@@ -807,6 +712,8 @@ import {Component, OnInit} from '@angular/core'; import {FormGroup, FormControl,
         
             <span class="tag"><a href="https://zhouqian0.github.io/tags/journal">journal</a></span>
         
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/linux">linux</a></span>
+        
             <span class="tag"><a href="https://zhouqian0.github.io/tags/mysql">mysql</a></span>
         
             <span class="tag"><a href="https://zhouqian0.github.io/tags/typescript">typescript</a></span>
@@ -817,6 +724,9 @@ import {Component, OnInit} from '@angular/core'; import {FormGroup, FormControl,
         <div class="card">
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/first/">Linux 网络端口知识笔记</a></h1>
+            <time class="has-text-grey-light is-size-7">31 December 2019</time>
         
             <h1><a href="https://zhouqian0.github.io/2019/summary-first/">angular 学习心得1</a></h1>
             <time class="has-text-grey-light is-size-7">3 December 2019</time>
@@ -830,9 +740,6 @@ import {Component, OnInit} from '@angular/core'; import {FormGroup, FormControl,
             <h1><a href="https://zhouqian0.github.io/2019/mysql-fourth/">Mysql 必知必会阅读小记5</a></h1>
             <time class="has-text-grey-light is-size-7">17 September 2019</time>
         
-            <h1><a href="https://zhouqian0.github.io/2019/mysql-fifth/">Mysql 必知必会阅读小记4</a></h1>
-            <time class="has-text-grey-light is-size-7">16 September 2019</time>
-        
     </div>
 </div>
     <br>
@@ -840,7 +747,7 @@ import {Component, OnInit} from '@angular/core'; import {FormGroup, FormControl,
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (45)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (46)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         

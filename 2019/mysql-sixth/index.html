@@ -46,7 +46,8 @@
     <div class="column is-9">
         <div class="tile is-child box">
             <div class="content">
-                <ol>
+                <p>mysql 语法，游标，触发器</p>
+<ol>
 <li>
 <p>游标 (cursor) 是一个存储在 MySQL 服务器上的数据库查询，它不是一条SELECT语句，而是被该语句检索出来的结果集。</p>
 <p>MySQL 游标只能用于存储过程(和函数)。</p>
@@ -114,7 +115,7 @@ DELIMITER ;
 <li>done 默认为 0，通过 CONTINUE HANDLER 将其设为 1。</li>
 <li>SQLSTATE &lsquo;02000'是一个未找到条件，当 REPEAT 由于没有更多的行供循环而不能继续时，出现这个条件。
 <ul>
-<li>错误代码参考<a href="https://dev.mysql.com/doc/refman/8.0/en/error-handling.html"><a href="https://dev.mysql.com/doc/refman/8.0/en/error-handling.html">https://dev.mysql.com/doc/refman/8.0/en/error-handling.html</a></a></li>
+<li>错误代码参考<a href="https://dev.mysql.com/doc/refman/8.0/en/error-handling.html">https://dev.mysql.com/doc/refman/8.0/en/error-handling.html</a></li>
 </ul>
 </li>
 <li>DECLARE 语句的发布存在特定的次序。用 DECLARE 语句定义的局部变量必须在定义任意游标（cursor）或句柄（handle）之前定义，而句柄必须在游标之后定义。</li>
@@ -205,7 +206,6 @@ DELIMITER ;
     SET NEW.vend_state = UPPER(NEW.vend_state);
 </code></pre></li>
 </ol>
-
             </div>
         </div>
     </div>
@@ -223,6 +223,8 @@ DELIMITER ;
         
             <span class="tag"><a href="https://zhouqian0.github.io/tags/journal">journal</a></span>
         
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/linux">linux</a></span>
+        
             <span class="tag"><a href="https://zhouqian0.github.io/tags/mysql">mysql</a></span>
         
             <span class="tag"><a href="https://zhouqian0.github.io/tags/typescript">typescript</a></span>
@@ -233,6 +235,9 @@ DELIMITER ;
         <div class="card">
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/first/">Linux 网络端口知识笔记</a></h1>
+            <time class="has-text-grey-light is-size-7">31 December 2019</time>
         
             <h1><a href="https://zhouqian0.github.io/2019/summary-first/">angular 学习心得1</a></h1>
             <time class="has-text-grey-light is-size-7">3 December 2019</time>
@@ -245,9 +250,6 @@ DELIMITER ;
         
             <h1><a href="https://zhouqian0.github.io/2019/mysql-fourth/">Mysql 必知必会阅读小记5</a></h1>
             <time class="has-text-grey-light is-size-7">17 September 2019</time>
-        
-            <h1><a href="https://zhouqian0.github.io/2019/mysql-fifth/">Mysql 必知必会阅读小记4</a></h1>
-            <time class="has-text-grey-light is-size-7">16 September 2019</time>
         
     </div>
 </div>
@@ -289,7 +291,7 @@ DELIMITER ;
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (45)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (46)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         

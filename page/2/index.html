@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
-	<meta name="generator" content="Hugo 0.60.1" />
+	<meta name="generator" content="Hugo 0.62.0" />
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Let&#39;s finish what we started  | Let&#39;s finish what we started</title>
@@ -57,13 +57,25 @@
                     <article class="media">
                         <div class="media-content">
                             <div class="content">
+                                <p class="title is-4"><a href="https://zhouqian0.github.io/2019/go-fourth/">Go 指南阅读笔记4 方法和接口</a></p>
+                                <p class="subtitle is-size-6 has-text-grey-light">
+                                    Published at August 16, 2019 &middot;
+                                    <i class="far fa-clock"></i>&nbsp;4 min read
+                                </p>
+                                <p><p>golang 小记：方法和接口</p>...</p>
+                            </div>
+                        </div>
+                    </article>
+                
+                    <article class="media">
+                        <div class="media-content">
+                            <div class="content">
                                 <p class="title is-4"><a href="https://zhouqian0.github.io/2019/go-third/">Go 指南阅读笔记3 基础类型</a></p>
                                 <p class="subtitle is-size-6 has-text-grey-light">
                                     Published at August 16, 2019 &middot;
                                     <i class="far fa-clock"></i>&nbsp;3 min read
                                 </p>
-                                <p>指针，Struct，Slice 和 Map   Go 拥有指针。指针保存了值的内存地址。
- package main import &quot;fmt&quot; func main() { i, j := 42, 2701 p := &amp;i // 指向 i fmt.Println(*p) // 通过指针读取 i 的值, 42 *p = 21 // 通过指针设置 i 的值 fmt.Println(i) // 查看 i 的值, 21 p = &amp;j // 指向 j *p = *p / 37 // 通过指针对 j 进行除法运算, 73 fmt.Println(j) // 查看 j 的值 }  类型 *T 是指向 T 类型值的指针。其零值为 nil。 &amp; 操作符会生成一个指向其操作数的指针。   操作符表示指针指向的底层值。   与 C 不同，Go 没有指针运算。    一个结构体（struct）就是一组字段（field）。...</p>
+                                <p><p>golang 小记：基础类型</p>...</p>
                             </div>
                         </div>
                     </article>
@@ -76,7 +88,7 @@
                                     Published at August 15, 2019 &middot;
                                     <i class="far fa-clock"></i>&nbsp;1 min read
                                 </p>
-                                <p>流程控制语句  Go 只有一种循环结构：for 循环。 Go 的 for 语句后面的三个构成部分外没有小括号， 大括号 { } 则是必须的。 package main import &quot;fmt&quot; func main() { sum := 0 for i := 0; i &lt; 10; i++ { sum += i } fmt.Println(sum) }  初始化语句和后置语句是可选的。   Go 的 if 语句与 for 循环类似，表达式外无需小括号 ( ) ，而大括号 { } 则是必须的。 if 语句可以在条件表达式前执行一个简单的语句( 该语句声明的变量作用域仅在 if 之内 )。  if v := math.Pow(x, n); v &lt; lim { }  switch 是编写一连串 if - else 语句的简便方法。它运行第一个值等于条件表达式的 case 语句。  Go 自动提供了在这些语言中每个 case 后面所需的 break 语句。 除非以 fallthrough 语句结束，否则分支会自动终止。 Go 的另一点重要的不同在于 switch 的 case 无需为常量，且取值不必为整数。 没有条件的 switch 同 switch true 一样。该形式能将一长串 if-then-else 写得更加清晰。   switch time....</p>
+                                <p><p>golang 小记：流程控制语法</p>...</p>
                             </div>
                         </div>
                     </article>
@@ -89,11 +101,7 @@
                                     Published at August 15, 2019 &middot;
                                     <i class="far fa-clock"></i>&nbsp;5 min read
                                 </p>
-                                <p>实用类型   https://www.typescriptlang.org/docs/handbook/utility-types.html
-  Partial&lt;T&gt;
-构造一个类型，其所有属性 T 都设置为 optional。此实用程序将返回表示给定类型的所有子集的类型。
-interface Todo { title: string; description: string; } function updateTodo(todo: Todo, fieldsToUpdate: Partial&lt;Todo&gt;) { // T: Todo return { ...todo, ...fieldsToUpdate }; } const todo1 = { title: 'organize desk', description: 'clear clutter', }; const todo2 = updateTodo(todo1, { description: 'throw out trash', }); console.log(todo2); // { title: 'organize desk', description: 'throw out trash' }   Readonly&lt;T&gt;
-构造一个所有属性 T 都设置为的类型 readonly，这意味着无法重新分配构造类型的属性。...</p>
+                                <p><p>实用类型</p>...</p>
                             </div>
                         </div>
                     </article>
@@ -106,10 +114,7 @@ interface Todo { title: string; description: string; } function updateTodo(todo:
                                     Published at August 14, 2019 &middot;
                                     <i class="far fa-clock"></i>&nbsp;2 min read
                                 </p>
-                                <p>基础   https://tour.go-zh.org/basics/1
-  在 Go 中，如果一个名字以大写字母开头，那么它就是已导出的。例如 math.Pi
- package main import ( &quot;fmt&quot; &quot;math&quot; ) func main() { fmt.Println(math.Pi) // 3.14.... }   函数可以没有参数或接受多个参数(类型在变量名 之后)。
- package main import &quot;fmt&quot; func add(x int, y int) int { return x + y } func main() { fmt.Println(add(42, 13)) // 55 }  函数可以返回任意数量的返回值。 package main import &quot;fmt&quot; func swap(x, y string) (string, string) { return y, x } func main() { a, b := swap(&quot;hello&quot;, &quot;world&quot;) fmt....</p>
+                                <p><p>golang 小记：基础</p>...</p>
                             </div>
                         </div>
                     </article>
@@ -122,10 +127,7 @@ interface Todo { title: string; description: string; } function updateTodo(todo:
                                     Published at August 14, 2019 &middot;
                                     <i class="far fa-clock"></i>&nbsp;1 min read
                                 </p>
-                                <p>三斜线指令（triple-slash-directives）  https://www.tslang.cn/docs/handbook/triple-slash-directives.html 三斜线指令是包含单个 XML 标签的单行注释。 注释的内容会做为编译器指令使用。 三斜线指令仅可放在包含它的文件的最顶端。 一个三斜线指令的前面只能出现单行或多行注释，这包括其它的三斜线指令。 如果它们出现在一个语句或声明之后，那么它们会被当做普通的单行注释，并且不具有特殊的涵义。 /// &lt;reference path=&quot;...&quot; /&gt; 指令是三斜线指令中最常见的一种。 用于声明文件间的 依赖。 预处理输入文件  编译器会对输入文件进行预处理来解析所有三斜线引用指令。 在这个过程中，额外的文件会加到编译过程中。 这个过程会以一些根文件开始； 它们是在命令行中指定的文件或是在 tsconfig.json 中的 &ldquo;files&rdquo; 列表里的文件。 这些根文件按指定的顺序进行预处理。 在一个文件被加入列表前，它包含的所有三斜线引用都要被处理，还有它们包含的目标。 三斜线引用以它们在文件里出现的顺序，使用深度优先的方式解析。 一个三斜线引用路径是相对于包含它的文件的，如果不是根文件。   引用不存在的文件会报错。 一个文件用三斜线指令引用自己会报错。 如果指定了--noResolve 编译选项，三斜线引用会被忽略（它们不会增加新文件，也不会改变给定文件的顺序）。 /// &lt;reference types=&quot;...&quot; /&gt;   该指令则声明了对某个包的依赖（可以简单地把三斜线类型引用指令当做 import 声明的包）。
-eg：把 /// &lt;reference types=&quot;node&quot; /&gt; 引入到声明文件，表明这个文件使用了 @types/node/index.d.ts 里面声明的名字； 并且，这个包需要在编译阶段与声明文件一起被包含进来。
-  仅当在需要写一个 d.ts 文件时才使用这个指令。
-  对于那些在编译阶段生成的声明文件，编译器会自动地添加/// &lt;reference types=&quot;...&quot; /&gt;； 当且仅当结果文件中使用了引用的包里的声明时才会在生成的声明文件里添加/// &lt;reference types=&quot;...&quot; /&gt;语句。...</p>
+                                <p><p>triple-slash-directives</p>...</p>
                             </div>
                         </div>
                     </article>
@@ -138,7 +140,7 @@ eg：把 /// &lt;reference types=&quot;node&quot; /&gt; 引入到声明文件，
                                     Published at August 14, 2019 &middot;
                                     <i class="far fa-clock"></i>&nbsp;3 min read
                                 </p>
-                                <p>混入（Mixins）  https://www.typescriptlang.org/docs/handbook/mixins.html https://mariusschulz.com/blog/mixin-classes-in-typescript Mixins 提供了一种基于组合行为的代码重用形式。   // Disposable Mixin class Disposable { isDisposed: boolean; dispose() { this.isDisposed = true; } } // Activatable Mixin class Activatable { isActive: boolean; activate() { this.isActive = true; } deactivate() { this.isActive = false; } } class SmartObject { constructor() { setInterval(() =&gt; console.log(this.isActive + &quot; : &quot; + this.isDisposed), 500); } interact() { this.activate(); } } interface SmartObject extends Disposable, Activatable {} applyMixins(SmartObject, [Disposable, Activatable]); let smartObj = new SmartObject(); setTimeout(() =&gt; smartObj....</p>
+                                <p><p>Mixins</p>...</p>
                             </div>
                         </div>
                     </article>
@@ -151,13 +153,7 @@ eg：把 /// &lt;reference types=&quot;node&quot; /&gt; 引入到声明文件，
                                     Published at August 8, 2019 &middot;
                                     <i class="far fa-clock"></i>&nbsp;7 min read
                                 </p>
-                                <p>装饰器（Decorators）   https://www.tslang.cn/docs/handbook/decorators.html
-  https://juejin.im/post/5d15e13fe51d45108f254242
-  装饰器（Decorators）为我们在类的声明及成员上通过元编程语法添加标注提供了一种方式。
-  启用实验性的装饰器特性，必须在 命令行 或 tsconfig.json 里启用 experimentalDecorators 编译器选项：
-tsc --target ES5 --experimentalDecorators { &quot;compilerOptions&quot;: { &quot;target&quot;: &quot;ES5&quot;, &quot;experimentalDecorators&quot;: true } }   装饰器是一种特殊类型的声明，它能够被附加到类声明，方法，访问符，属性或参数上。 它使用 @expression 这种形式，expression 求值后必须为一个函数 ，它会在运行时被调用，被装饰的声明信息做为参数传入。
-  装饰器工厂就是一个简单的函数，它返回一个表达式，以供装饰器在运行时调用。 1.
-function color(value: string) { // 这是一个装饰器工厂 return function (target) { // 这是装饰器 // do something with &quot;target&quot; and &quot;value&quot;... } }     import { logClass } from '....</p>
+                                <p><p>装饰器</p>...</p>
                             </div>
                         </div>
                     </article>
@@ -170,10 +166,7 @@ function color(value: string) { // 这是一个装饰器工厂 return function (
                                     Published at August 8, 2019 &middot;
                                     <i class="far fa-clock"></i>&nbsp;3 min read
                                 </p>
-                                <p>声明合并   https://typescript.bootcss.com/declaration-merging.html
-  “声明合并”是指编译器将针对同一个名字的两个独立声明合并为单一声明。 合并后的声明同时拥有原先两个声明的特性。 任何数量的声明都可被合并；不局限于两个声明。
-  接口合并
-interface Box { height: number; width: number; } interface Box { scale: number; width: string; // error, property 'width' must be of type 'number' } let box: Box = {height: 5, width: 6, scale: 10};  合并的机制是把双方的成员放到一个同名的接口里。 接口的非函数的成员应该是唯一的。 如果它们不是唯一的，那么它们必须是相同的类型。   interface Cloner { clone(animal: Animal): Animal; } interface Cloner { clone(animal: Sheep): Sheep; } interface Cloner { clone(animal: Dog): Dog; clone(animal: Cat): Cat; } // ---------------------- interface Cloner { clone(animal: Dog): Dog; clone(animal: Cat): Cat; clone(animal: Sheep): Sheep; clone(animal: Animal): Animal; }  对于函数成员，每个同名函数声明都会被当成这个函数的一个重载。后面的接口具有更高的优先级。   interface Document { createElement(tagName: any): Element; } interface Document { createElement(tagName: &quot;div&quot;): HTMLDivElement; createElement(tagName: &quot;span&quot;): HTMLSpanElement; } interface Document { createElement(tagName: string): HTMLElement; createElement(tagName: &quot;canvas&quot;): HTMLCanvasElement; } // ---------------------- interface Document { createElement(tagName: &quot;canvas&quot;): HTMLCanvasElement; createElement(tagName: &quot;div&quot;): HTMLDivElement; createElement(tagName: &quot;span&quot;): HTMLSpanElement; createElement(tagName: string): HTMLElement; createElement(tagName: any): Element; }  如果签名里有一个参数的类型是单一的字符串字面量（比如，不是字符串字面量的联合类型），那么它将会被提升到重载列表的最顶端。    命名空间合并...</p>
+                                <p><p>声明合并</p>...</p>
                             </div>
                         </div>
                     </article>
@@ -186,33 +179,7 @@ interface Box { height: number; width: number; } interface Box { scale: number; 
                                     Published at August 7, 2019 &middot;
                                     <i class="far fa-clock"></i>&nbsp;1 min read
                                 </p>
-                                <p>Safari Date Invalid  safari 浏览器在对 js Date 函数的支持与 Chrome 和 Firefox 不同，  在 Safari 中，如果日期格式为 YYYY-MM-DD HH:mm:ss，那么对该时间的 string 使用 new Date(timeString) 时，返回的结果将是 invalid。 但此现象在其他两种浏览器中并未出现。 如果日期格式为 YYYY-MM-DD（无时分秒信息）， 此时 new Date(timeString) 返回的结果值也正常。   改进：将日期格式改为 YYYY/MM/DD HH:mm:ss，此时 new Date(timeString) 返回的时间结果正常。  ...</p>
-                            </div>
-                        </div>
-                    </article>
-                
-                    <article class="media">
-                        <div class="media-content">
-                            <div class="content">
-                                <p class="title is-4"><a href="https://zhouqian0.github.io/2019/ts-sixteenth/">TS文档阅读小结16 模块解析</a></p>
-                                <p class="subtitle is-size-6 has-text-grey-light">
-                                    Published at August 7, 2019 &middot;
-                                    <i class="far fa-clock"></i>&nbsp;3 min read
-                                </p>
-                                <p>模块解析   https://typescript.bootcss.com/module-resolution.html
-  模块解析就是指编译器所要依据的一个流程，用它来找出某个导入操作所引用的具体值。
-假设有一个导入语句 import { a } from &ldquo;moduleA&rdquo;; 为了去检查任何对 a 的使用，编译器需要准确的知道它表示什么，并且会需要检查它的定义 moduleA。
-  根据模块引用是相对的还是非相对的，模块导入会以不同的方式解析。
-  相对导入是以/，./或../开头的。
-相对导入解析时是相对于导入它的文件来的，并且不能解析为一个外部模块声明。 你应该为你自己写的模块使用相对导入，这样能确保它们在运行时的相对位置。
-  所有其它形式的导入被当作非相对的。
-非相对模块的导入可以相对于baseUrl或通过下文会讲到的路径映射来进行解析。 它们还可以被解析能外部模块声明。 使用非相对路径来导入你的外部依赖。
-    共有两种可用的模块解析策略：Node 和 Classic。
-可以使用 &ndash;moduleResolution 标记指定使用哪种模块解析策略。 若未指定，那么在使用了 &ndash;module AMD | System | ES2015 时的默认值为 Classic，其它情况时则为 Node。
-  Classic
-以前是 TypeScript 默认的解析策略。 现在，它存在的理由主要是为了向后兼容。
-  相对导入
-eg: 查找 /root/src/folder/A.ts 文件里的 import { b } from &ldquo;....</p>
+                                <p><p>Safari date format error</p>...</p>
                             </div>
                         </div>
                     </article>
@@ -234,6 +201,8 @@ eg: 查找 /root/src/folder/A.ts 文件里的 import { b } from &ldquo;....</p>
         
             <span class="tag"><a href="https://zhouqian0.github.io/tags/journal">journal</a></span>
         
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/linux">linux</a></span>
+        
             <span class="tag"><a href="https://zhouqian0.github.io/tags/mysql">mysql</a></span>
         
             <span class="tag"><a href="https://zhouqian0.github.io/tags/typescript">typescript</a></span>
@@ -244,6 +213,9 @@ eg: 查找 /root/src/folder/A.ts 文件里的 import { b } from &ldquo;....</p>
         <div class="card">
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
+        
+            <h1><a href="https://zhouqian0.github.io/2019/first/">Linux 网络端口知识笔记</a></h1>
+            <time class="has-text-grey-light is-size-7">31 December 2019</time>
         
             <h1><a href="https://zhouqian0.github.io/2019/summary-first/">angular 学习心得1</a></h1>
             <time class="has-text-grey-light is-size-7">3 December 2019</time>
@@ -257,9 +229,6 @@ eg: 查找 /root/src/folder/A.ts 文件里的 import { b } from &ldquo;....</p>
             <h1><a href="https://zhouqian0.github.io/2019/mysql-fourth/">Mysql 必知必会阅读小记5</a></h1>
             <time class="has-text-grey-light is-size-7">17 September 2019</time>
         
-            <h1><a href="https://zhouqian0.github.io/2019/mysql-fifth/">Mysql 必知必会阅读小记4</a></h1>
-            <time class="has-text-grey-light is-size-7">16 September 2019</time>
-        
     </div>
 </div>
     <br>
@@ -267,7 +236,7 @@ eg: 查找 /root/src/folder/A.ts 文件里的 import { b } from &ldquo;....</p>
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (45)<br>
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (46)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
         
