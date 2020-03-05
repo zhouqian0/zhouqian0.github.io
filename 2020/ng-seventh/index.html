@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Let&#39;s finish what we started  | 异步方法中的同步</title>
+    <title>Let&#39;s finish what we started  | angular 路由错误 Cannot activate an already activated outlet</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -29,7 +29,7 @@
                 <br>
                 <h1 class="title is-size-1">
                     
-                        异步方法中的同步
+                        angular 路由错误 Cannot activate an already activated outlet
                     
                 </h1>
                 
@@ -46,18 +46,14 @@
     <div class="column is-9">
         <div class="tile is-child box">
             <div class="content">
-                <p>await</p>
-<h3 id="await">await</h3>
-<ol>
-<li>通过将 observable 转换为 promise，调用 promise 的 then() 方法，达到同步效果（在异步函数中）。</li>
-<li>在异步函数中使用同步，需要加上 await 等待 promise 结束后再执行下一步操作。</li>
-</ol>
-<pre><code>    getALLReportData() {
-      return (this.reportService.getReportBlockData() as Observable).toPromise();
-    }
-    
-    （await） this.getALLReportData().then(res =&gt; this.bkDataList = res['data'] || []);
-</code></pre>
+                <p>angular 路由错误 Cannot activate an already activated outlet&hellip;</p>
+<h3 id="cannot-activate-an-already-activated-outlet">Cannot activate an already activated outlet</h3>
+<p>angular 路由错误 Cannot activate an already activated outlet 出现的原因时，重复将同一个
+<!-- raw HTML omitted --> 重复路由导航到一个目标地址。</p>
+<p>本人出现该错误的原因时因为需要在一个页面内进行身份切换后在快速更新页面的内容，而在用户切换身份后
+我使用了路由功能重新导航回了当前 url 地址，导致在同一个 <!-- raw HTML omitted --> 重复路由导航到一个目标地址，
+故而报错。</p>
+<p>本人该项需求的解决方案为，将其链接到另一个路由地址，再由被链接地址重新 redirect 到原来的路由。</p>
             </div>
         </div>
     </div>
@@ -116,17 +112,26 @@
         <h1 class="title is-5">Related posts</h1>
       
       
-            <h1><a href="https://zhouqian0.github.io/2019/js-fifth/">Safari Date 处理</a></h1>
-            <time class="has-text-grey-light is-size-7">7 August 2019</time>
+            <h1><a href="https://zhouqian0.github.io/2019/summary-first/">angular 学习心得1</a></h1>
+            <time class="has-text-grey-light is-size-7">3 December 2019</time>
       
-            <h1><a href="https://zhouqian0.github.io/2019/js-second/">js Date 类型的比较</a></h1>
+            <h1><a href="https://zhouqian0.github.io/2019/ng-first/">angular 项目编译成的网页源码中的注释</a></h1>
+            <time class="has-text-grey-light is-size-7">25 March 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ng-second/">关于主动触发 angular 的表单验证机制</a></h1>
+            <time class="has-text-grey-light is-size-7">27 February 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ng-third/">angular form 中的 disable() 导致 form valid 结果为 false</a></h1>
             <time class="has-text-grey-light is-size-7">21 February 2019</time>
       
-            <h1><a href="https://zhouqian0.github.io/2019/js-third/">隐藏/显示 网页滚动条</a></h1>
+            <h1><a href="https://zhouqian0.github.io/2019/ng-sixth/">Cannot read property &#39;subscribe&#39; of undefined</a></h1>
+            <time class="has-text-grey-light is-size-7">21 February 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ng-fifth/">angular datepicker 使用建议</a></h1>
             <time class="has-text-grey-light is-size-7">13 February 2019</time>
       
-            <h1><a href="https://zhouqian0.github.io/2018/js-fourth/">js 中文排序</a></h1>
-            <time class="has-text-grey-light is-size-7">7 December 2018</time>
+            <h1><a href="https://zhouqian0.github.io/2019/ng-fourth/">angular 禁用/启用 鼠标滚轮事件</a></h1>
+            <time class="has-text-grey-light is-size-7">13 February 2019</time>
       
     </div>
 </div>

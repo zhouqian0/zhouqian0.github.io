@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Let&#39;s finish what we started  | 异步方法中的同步</title>
+    <title>Let&#39;s finish what we started  | 2020</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
     <link rel="stylesheet" href="https://zhouqian0.github.io/css/blog.css" />
     
+  <link href="https://zhouqian0.github.io/archives/2020/index.xml" rel="alternate" type="application/rss+xml" title="Let&#39;s finish what we started" />
+  <link href="https://zhouqian0.github.io/archives/2020/index.xml" rel="feed" type="application/rss+xml" title="Let&#39;s finish what we started" />
+
 </head>
 <body>
 
@@ -29,7 +32,7 @@
                 <br>
                 <h1 class="title is-size-1">
                     
-                        异步方法中的同步
+                        Archive 2020
                     
                 </h1>
                 
@@ -42,22 +45,26 @@
     <div class="section">
     
 
+
 <div class="columns">
     <div class="column is-9">
         <div class="tile is-child box">
             <div class="content">
-                <p>await</p>
-<h3 id="await">await</h3>
-<ol>
-<li>通过将 observable 转换为 promise，调用 promise 的 then() 方法，达到同步效果（在异步函数中）。</li>
-<li>在异步函数中使用同步，需要加上 await 等待 promise 结束后再执行下一步操作。</li>
-</ol>
-<pre><code>    getALLReportData() {
-      return (this.reportService.getReportBlockData() as Observable).toPromise();
-    }
-    
-    （await） this.getALLReportData().then(res =&gt; this.bkDataList = res['data'] || []);
-</code></pre>
+
+                <article class="media">
+                    <div class="media-content">
+                        <div class="content">
+                            <p class="title is-4"><a href="/2020/ng-seventh/">angular 路由错误 Cannot activate an already activated outlet</a></p>
+                            <p class="subtitle is-size-6 has-text-grey-light">
+                                Published at March 5, 2020 &middot;
+                                <i class="far fa-clock"></i>&nbsp;1 min read
+                            </p>
+                            <p><p>angular 路由错误 Cannot activate an already activated outlet&hellip;</p>...</p>
+                        </div>
+                    </div>
+                </article>
+                <br>
+
             </div>
         </div>
     </div>
@@ -106,33 +113,6 @@
     </div>
 </div>
     <br>
-                
-  
-
-
-
-<div class="card">
-    <div class="card-content">
-        <h1 class="title is-5">Related posts</h1>
-      
-      
-            <h1><a href="https://zhouqian0.github.io/2019/js-fifth/">Safari Date 处理</a></h1>
-            <time class="has-text-grey-light is-size-7">7 August 2019</time>
-      
-            <h1><a href="https://zhouqian0.github.io/2019/js-second/">js Date 类型的比较</a></h1>
-            <time class="has-text-grey-light is-size-7">21 February 2019</time>
-      
-            <h1><a href="https://zhouqian0.github.io/2019/js-third/">隐藏/显示 网页滚动条</a></h1>
-            <time class="has-text-grey-light is-size-7">13 February 2019</time>
-      
-            <h1><a href="https://zhouqian0.github.io/2018/js-fourth/">js 中文排序</a></h1>
-            <time class="has-text-grey-light is-size-7">7 December 2018</time>
-      
-    </div>
-</div>
-
-    
-<br>
         <div class="card">
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
@@ -148,6 +128,7 @@
 
     </div>
 </div>
+
 
 
     </div>

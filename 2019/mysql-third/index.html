@@ -169,7 +169,7 @@ AGAINST ('+saft +(&lt;combination)carrot' IN BOOLEAN MODE);    // 匹配词 safe
 <li>许多词出现的频率很高，搜索它们没有用处(返回太多的结果)。
 因此，MySQL 规定了一条 50% 规则，如果一个词出现在50%以上 的行中，则将它作为一个非用词忽略。50% 规则不用于 IN BOOLEAN MODE。</li>
 <li>如果表中的行数少于 3 行，则全文本搜索不返回结果(因为每个词或者不出现，或者至少出现在 50% 的行中)。</li>
-<li>忽略词中的单引号。例如，don't 索引为dont。</li>
+<li>忽略词中的单引号。例如，don&rsquo;t 索引为dont。</li>
 <li>不具有词分隔符(包括日语和汉语)的语言不能恰当地返回全文本搜索结果。</li>
 <li>仅在 MyISAM 数据库引擎中支持全文本搜索。</li>
 <li>没有邻近操作符。</li>
@@ -206,6 +206,9 @@ AGAINST ('+saft +(&lt;combination)carrot' IN BOOLEAN MODE);    // 匹配词 safe
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2020/ng-seventh/">angular 路由错误 Cannot activate an already activated outlet</a></h1>
+            <time class="has-text-grey-light is-size-7">5 March 2020</time>
+        
             <h1><a href="https://zhouqian0.github.io/2019/first/">Linux 网络端口知识笔记</a></h1>
             <time class="has-text-grey-light is-size-7">31 December 2019</time>
         
@@ -217,9 +220,6 @@ AGAINST ('+saft +(&lt;combination)carrot' IN BOOLEAN MODE);    // 匹配词 safe
         
             <h1><a href="https://zhouqian0.github.io/2019/mysql-sixth/">Mysql 必知必会阅读小记6</a></h1>
             <time class="has-text-grey-light is-size-7">18 September 2019</time>
-        
-            <h1><a href="https://zhouqian0.github.io/2019/mysql-fourth/">Mysql 必知必会阅读小记5</a></h1>
-            <time class="has-text-grey-light is-size-7">17 September 2019</time>
         
     </div>
 </div>
@@ -261,6 +261,8 @@ AGAINST ('+saft +(&lt;combination)carrot' IN BOOLEAN MODE);    // 匹配词 safe
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
+            <a href="https://zhouqian0.github.io/archives/2020">2020</a> (1)<br>
+        
             <a href="https://zhouqian0.github.io/archives/2019">2019</a> (46)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
@@ -282,7 +284,7 @@ AGAINST ('+saft +(&lt;combination)carrot' IN BOOLEAN MODE);    // 匹配词 safe
             <span class="icon is-large"><a href="https://www.youtube.com/" class="mysocial" rel="me"><i class="fab fa-youtube fa-3x"></i></a></span>&nbsp;&nbsp;
             <span class="icon is-large"><a href="https://github.com/" class="mysocial" rel="me"><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;
             <br><br>
-            Copyright &copy; Let&#39;s finish what we started 2019 - Theme by <a href="https://jeffprod.com" class="mysocial">JeffProd.com</a>
+            Copyright &copy; Let&#39;s finish what we started 2020 - Theme by <a href="https://jeffprod.com" class="mysocial">JeffProd.com</a>
             - <a class="mysocial" href="https://zhouqian0.github.io/about">About</a>
         </p>
     </div>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Let&#39;s finish what we started  | 条件判断语句优化</title>
+    <title>Let&#39;s finish what we started  | Linux 网络端口知识笔记</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -29,7 +29,7 @@
                 <br>
                 <h1 class="title is-size-1">
                     
-                        条件判断语句优化
+                        Linux 网络端口知识笔记
                     
                 </h1>
                 
@@ -46,9 +46,26 @@
     <div class="column is-9">
         <div class="tile is-child box">
             <div class="content">
-                <h3 id="heading">判断语句</h3>
-<p>在对变量进行判断的时候，尽量将变量置于左侧，统一方向。</p>
-
+                <p>docker 入坑小结，网络端口</p>
+<p>起因：初次使用 docker 时，因为使用的环境为 mac，导致容器和宿主机不能直接 ping 通，遂想到使用 Linux 虚拟机。
+故而遇到以下问题，做个笔记。</p>
+<ul>
+<li>
+<p>由于我所使用的 docker container 是通过端口访问，在 container 中是监听 localhost 来返回相应服务的。
+所以通过 container 建立的端口映射进行访问时，发现请求不能响应。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">  由于 container 通过监听 localhost 实现服务，所以当我在 container 中访问端口时可以得到响应，
+  但是我通过 虚拟机 访问 虚拟机 中的 container的ip 的相应端口 会得不到响应，故而需要 修改监听地址 localhost 为 0.0.0.0。
+</code></pre></div></li>
+<li>
+<p>通过 宿主机 访问 虚拟机 中的端口来获得 虚拟机中container提供的服务时，发现访问被拒绝。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">  因为 虚拟机 中的防火墙并未开放相应端口，故而 宿主机对 虚拟机的特定端口 的访问被拒绝。
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">  systemctl status firewalld <span style="color:#75715e"># 查询防火墙状态</span>
+  firewall-cmd --query-port<span style="color:#f92672">=</span>9119/tcp <span style="color:#75715e"># 查询相应端口是否开放</span>
+  firewall-cmd --add-port<span style="color:#f92672">=</span>9119/tcp --permanent  <span style="color:#75715e"># 开放特定端口</span>
+  firewall-cmd --permanent --remove-port<span style="color:#f92672">=</span>999/tcp <span style="color:#75715e"># 关闭特定端口</span>
+  firewall-cmd --reload <span style="color:#75715e"># 重载防火墙规则</span>
+</code></pre></div></li>
+</ul>
             </div>
         </div>
     </div>
@@ -79,6 +96,9 @@
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2020/ng-seventh/">angular 路由错误 Cannot activate an already activated outlet</a></h1>
+            <time class="has-text-grey-light is-size-7">5 March 2020</time>
+        
             <h1><a href="https://zhouqian0.github.io/2019/first/">Linux 网络端口知识笔记</a></h1>
             <time class="has-text-grey-light is-size-7">31 December 2019</time>
         
@@ -91,36 +111,19 @@
             <h1><a href="https://zhouqian0.github.io/2019/mysql-sixth/">Mysql 必知必会阅读小记6</a></h1>
             <time class="has-text-grey-light is-size-7">18 September 2019</time>
         
-            <h1><a href="https://zhouqian0.github.io/2019/mysql-fourth/">Mysql 必知必会阅读小记5</a></h1>
-            <time class="has-text-grey-light is-size-7">17 September 2019</time>
-        
     </div>
 </div>
     <br>
                 
-  
 
-
-
-<div class="card">
-    <div class="card-content">
-        <h1 class="title is-5">Related posts</h1>
-      
-      
-            <h1><a href="https://zhouqian0.github.io/2018/second/">无顺序优先级的比较表达式优化</a></h1>
-            <time class="has-text-grey-light is-size-7">28 December 2018</time>
-      
-            <h1><a href="https://zhouqian0.github.io/2018/third/">由于滚动条引起的页面抖动</a></h1>
-            <time class="has-text-grey-light is-size-7">14 December 2018</time>
-      
-    </div>
-</div>
 
     
 <br>
         <div class="card">
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
+        
+            <a href="https://zhouqian0.github.io/archives/2020">2020</a> (1)<br>
         
             <a href="https://zhouqian0.github.io/archives/2019">2019</a> (46)<br>
         
@@ -143,7 +146,7 @@
             <span class="icon is-large"><a href="https://www.youtube.com/" class="mysocial" rel="me"><i class="fab fa-youtube fa-3x"></i></a></span>&nbsp;&nbsp;
             <span class="icon is-large"><a href="https://github.com/" class="mysocial" rel="me"><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;
             <br><br>
-            Copyright &copy; Let&#39;s finish what we started 2019 - Theme by <a href="https://jeffprod.com" class="mysocial">JeffProd.com</a>
+            Copyright &copy; Let&#39;s finish what we started 2020 - Theme by <a href="https://jeffprod.com" class="mysocial">JeffProd.com</a>
             - <a class="mysocial" href="https://zhouqian0.github.io/about">About</a>
         </p>
     </div>

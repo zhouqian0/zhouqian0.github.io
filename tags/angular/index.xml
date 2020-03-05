@@ -5,10 +5,19 @@
     <description>Recent content in angular on Let&#39;s finish what we started</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 03 Dec 2019 19:43:53 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 05 Mar 2020 14:21:53 +0800</lastBuildDate>
     
         <atom:link href="https://zhouqian0.github.io/tags/angular/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>angular 路由错误 Cannot activate an already activated outlet</title>
+      <link>https://zhouqian0.github.io/2020/ng-seventh/</link>
+      <pubDate>Thu, 05 Mar 2020 14:21:53 +0800</pubDate>
+      
+      <guid>https://zhouqian0.github.io/2020/ng-seventh/</guid>
+      <description>&lt;p&gt;angular 路由错误 Cannot activate an already activated outlet&amp;hellip;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>angular 学习心得1</title>

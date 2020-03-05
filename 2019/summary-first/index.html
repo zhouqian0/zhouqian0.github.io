@@ -47,7 +47,7 @@
         <div class="tile is-child box">
             <div class="content">
                 <p>参加 ngChina2019，并且会后总结写成下文，做个笔记。</p>
-<h3 id="angular-">angular 的变更检测</h3>
+<h3 id="angular-的变更检测">angular 的变更检测</h3>
 <p>Angular 引入 Zone.js 以处理变更检测 (ngZone)。ngZone 使 angular 可以决定何时需要刷新UI。</p>
 <p>当我们试着在 angular 项目中将 main.js 中的 ngZone 移除之后，angular 的页面就不再会自动的更新数据。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// main.js
@@ -69,11 +69,11 @@
 
 <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">Component</span>({
     <span style="color:#a6e22e">selector</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;app-root&#39;</span>,
-    <span style="color:#a6e22e">template</span><span style="color:#f92672">:</span> <span style="color:#e6db74">`</span><span style="color:#e6db74">
+    <span style="color:#a6e22e">template</span><span style="color:#f92672">:</span> <span style="color:#e6db74">`
 </span><span style="color:#e6db74">        &lt;div&gt;{{count}}&lt;/div&gt;
 </span><span style="color:#e6db74">        &lt;button (click)=&#34;add()&#34;&gt;add&lt;/button&gt;
 </span><span style="color:#e6db74">        &lt;button (click)=&#34;reset()&#34;&gt;reset&lt;/button&gt;
-</span><span style="color:#e6db74">    </span><span style="color:#e6db74">`</span>
+</span><span style="color:#e6db74">    `</span>
 })
 <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AppComponent</span> {
     <span style="color:#a6e22e">count</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
@@ -216,13 +216,13 @@
 </li>
 </ol>
 <hr>
-<h3 id="heading">脏值检测</h3>
+<h3 id="脏值检测">脏值检测</h3>
 <p>ExpressionChangedAfterItHasBeenCheckedError，这个错误想必用过 angular 的人基本都遇到过，那么为什么会出现这个错误呢？这里需要讲下 angular 使用的数据流：单向数据流，它指的是从组件树的顶部到底部渲染扫描过程中应用程序数据流转到由渲染过程生成的输出 DOM 数据结构的流程。并且在开发环境下，这个数据流在一次变更检测中会出现两次。所以一旦我们在开发环境下，且对一个数据在同一次变更检测中修改了两次值，导致它两次数据流扫过这个数据值时值不统一，故而出现了这个错误ExpressionChangedAfterItHasBeenCheckedError,感兴趣的话可以去看看 <a href="https://stackblitz.com/edit/ng8-change-detection-demo?file=src%2Fapp%2Fapp.component.ts">stackblitz 的 demo</a>。那么可能有用过 angularJs 的人会有疑问，为什么 angularJs 中没有这个错误呢，那是因为 angularJs 使用的不是单向数据流，它会再一次检测中进行十数次的数据检测，这也造成了 angularJs 的性能下降。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">Component</span>({
   <span style="color:#a6e22e">selector</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;app-root&#39;</span>,
-  <span style="color:#a6e22e">template</span><span style="color:#f92672">:</span> <span style="color:#e6db74">`</span><span style="color:#e6db74">
+  <span style="color:#a6e22e">template</span><span style="color:#f92672">:</span> <span style="color:#e6db74">`
 </span><span style="color:#e6db74">      &lt;app-test [title]=&#34;title&#34;&gt;&lt;/app-test&gt;
-</span><span style="color:#e6db74">  </span><span style="color:#e6db74">`</span>
+</span><span style="color:#e6db74">  `</span>
 })
 <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AppComponent</span> {
   <span style="color:#a6e22e">title</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">string</span>;
@@ -235,9 +235,9 @@
 
 <span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">Component</span>({
   <span style="color:#a6e22e">selector</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;app-test&#39;</span>,
-  <span style="color:#a6e22e">template</span><span style="color:#f92672">:</span> <span style="color:#e6db74">`</span><span style="color:#e6db74">
+  <span style="color:#a6e22e">template</span><span style="color:#f92672">:</span> <span style="color:#e6db74">`
 </span><span style="color:#e6db74">      &lt;p&gt;{{title}}&lt;/p&gt;
-</span><span style="color:#e6db74">  </span><span style="color:#e6db74">`</span>
+</span><span style="color:#e6db74">  `</span>
 })
 <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TestComponent</span> <span style="color:#66d9ef">implements</span> <span style="color:#a6e22e">OnInit</span>, <span style="color:#a6e22e">AfterViewInit</span>, <span style="color:#a6e22e">AfterContentInit</span>, <span style="color:#a6e22e">AfterContentChecked</span> {
 
@@ -281,7 +281,7 @@
 <span style="color:#a6e22e">enableProdMode</span>(); <span style="color:#75715e">//启用产品环境
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">platformBrowserDynamic</span>().<span style="color:#a6e22e">bootstrapModule</span>(<span style="color:#a6e22e">AppModule</span>) .<span style="color:#66d9ef">catch</span>(<span style="color:#a6e22e">err</span> =&gt; <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>(<span style="color:#a6e22e">err</span>));
 </code></pre></div><hr>
-<h3 id="heading-1">路由器预加载策略</h3>
+<h3 id="路由器预加载策略">路由器预加载策略</h3>
 <p>路由器预加载策略：<a href="https://www.npmjs.com/package/ngx-quicklink">ngx-quicklink</a>。它提供了路由器预加载策略，该策略可自动下载与屏幕上所有可见链接关联的延迟加载模块。这里的预加载涉及到了[异步路由概念](<a href="https://www.angular.cn/guide/router#milestone-6-asynchronous-routing">https://www.angular.cn/guide/router#milestone-6-asynchronous-routing</a>。</p>
 <p>既然提到了预加载就要讲讲懒加载，因为没有懒加载就没有预加载，所谓的预加载就是在浏览器空闲的时候去加载懒加载模块。那么来讲讲懒加载吧，它有什么优点呢？当我们在使用懒加载时，它加载必须的模块，这就会让首次加载的包体积将会大大减小，加快应用的启动速度。那相应的，缺点就是，当懒加载的包过大时，加载的时候会相对较慢，影响用户体验。正是因为有这个缺点，预加载这个概念就诞生了，他解决了懒加载缺点，让浏览器在空闲的时候先吧懒加载的包慢慢加载起来，进而提升用户点击加载这个模块时的速度和体验。</p>
 <h3 id="angular-service-worker">angular service worker</h3>
@@ -310,9 +310,9 @@
       <span style="color:#e6db74">&#34;patterns&#34;</span><span style="color:#f92672">:</span> []
     },
 </code></pre></div><hr>
-<h3 id="component-">Component 体积的有辅助优化</h3>
+<h3 id="component-体积的有辅助优化">Component 体积的有辅助优化</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// angular.json
-</span><span style="color:#75715e"></span><span style="color:#75715e">// v8.2
+</span><span style="color:#75715e">// v8.2
 </span><span style="color:#75715e"></span><span style="color:#e6db74">&#34;budgets&#34;</span><span style="color:#f92672">:</span> [
   {
     <span style="color:#e6db74">&#34;type&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;initial&#34;</span>,
@@ -326,24 +326,24 @@
   }
 ],
 </code></pre></div><hr>
-<h3 id="ssr-">首屏性能优化（SSR 服务器端渲染）</h3>
+<h3 id="首屏性能优化ssr-服务器端渲染">首屏性能优化（SSR 服务器端渲染）</h3>
 <p>什么是服务端渲染（SSR）？服务端渲染是当用户第一次请求页面时，由服务器把页面渲染成 html 字符串，然后把它返回给客户端。客户端可以直接将其边解析边渲染，更快的将内容呈现给用户，而不需要为了生成 dom 再去运行 js 逻辑。</p>
 <p>使用 SSR 渲染页面可以让用户可以减少因首屏加载而等待的时间。
 但是由于是由服务器渲染 view 成 html 字符串发送给客户，这便会导致服务器的压力增大，增加了服务的成本。其次，由于页面是通过服务器计算而来的，发送给客户端需要一定的时间，故而客户端接受到第一个 bit 的时间便会延长，增加了 First Content Paint 的时间。</p>
 <hr>
-<h3 id="heading-2">图像优化</h3>
+<h3 id="图像优化">图像优化</h3>
 <p>首先 <a href="https://developer.mozilla.org/zh-CN/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images">mozilla</a> 已经有一篇系统的文章阐述响应式图像了。先推荐两个可以在线优化图片的工具 <a href="https://jakearchibald.github.io/svgomg/">svgomg</a> 和 <a href="https://squoosh.app/">squoosh</a>。</p>
 <p>再来讲讲 <a href="https://zh.wikipedia.org/zh-hans/WebP">WebP</a>，这是一种由谷歌开发的一种图像格式，这种格式对比 JPEG ,PNG 体积能少 25%-35%，从而显著优化页面加载时间和带宽使用情况。具有更优的图像数据压缩算法，能带来更小的图片体积，而且拥有肉眼识别无差异的图像质量；同时具备了无损和有损的压缩模式、Alpha 透明以及动画的特性，在 JPEG 和 PNG 上的转化效果都非常优秀、稳定和统一。</p>
 <p>WebP 的缺点就是解码速度相对于 JPEG ,PNG 慢，但是由于其带来的更小的体积缩短了加载时间，其实文件渲染速度然而是更快了。其次就是它目前支持了市面上的约 78% 的浏览器，还有部分浏览器尚未支持，如safari。</p>
 <p>再者对图像而言，压缩色彩质量至原来的 80%-85% 将会将体积压缩 30%-40%，且对图像的影响最小。</p>
 <p>还有就是在 img 标签上使用 loading=&quot;lazy&rdquo; 可以将图片设置为懒加载，如 Medium 就是将图片设置为该格式，但是缺点就是该格式目前只支持 Chrome。</p>
 <hr>
-<h3 id="-js">异步加载 js</h3>
+<h3 id="异步加载-js">异步加载 js</h3>
 <p>在 script 标签中使用 defer 可以讲不需要立刻使用的 js 推迟加载。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span> <span style="color:#a6e22e">defer</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://www.googletagmanager.com/gtag/js?id=xxx&#34;</span><span style="color:#f92672">&gt;</span>
-<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#960050;background-color:#1e0010">s</span><span style="color:#960050;background-color:#1e0010">c</span><span style="color:#960050;background-color:#1e0010">r</span><span style="color:#960050;background-color:#1e0010">i</span><span style="color:#960050;background-color:#1e0010">p</span><span style="color:#960050;background-color:#1e0010">t</span><span style="color:#960050;background-color:#1e0010">&gt;</span>
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
 </code></pre></div><hr>
-<h3 id="heading-3">字体</h3>
+<h3 id="字体">字体</h3>
 <p>对字体使用 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/@font-face/font-display">swap</a> 可以为字体提供一个非常小的阻塞周期和无限的交换周期。可以设置让程序加载时使用默认字体，然后等原本指定的字体 ready 之后 将其 swap（因为原本的默认字体加载速度一定会比非默认字体加载快）。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#960050;background-color:#1e0010">@</span><span style="color:#a6e22e">font</span><span style="color:#f92672">-</span><span style="color:#a6e22e">face</span> {
   <span style="color:#a6e22e">font</span><span style="color:#f92672">-</span><span style="color:#a6e22e">family</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Source</span> <span style="color:#a6e22e">Sans</span> <span style="color:#a6e22e">Pro</span><span style="color:#e6db74">&#39;, sans-serif;
@@ -381,6 +381,9 @@
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2020/ng-seventh/">angular 路由错误 Cannot activate an already activated outlet</a></h1>
+            <time class="has-text-grey-light is-size-7">5 March 2020</time>
+        
             <h1><a href="https://zhouqian0.github.io/2019/first/">Linux 网络端口知识笔记</a></h1>
             <time class="has-text-grey-light is-size-7">31 December 2019</time>
         
@@ -392,9 +395,6 @@
         
             <h1><a href="https://zhouqian0.github.io/2019/mysql-sixth/">Mysql 必知必会阅读小记6</a></h1>
             <time class="has-text-grey-light is-size-7">18 September 2019</time>
-        
-            <h1><a href="https://zhouqian0.github.io/2019/mysql-fourth/">Mysql 必知必会阅读小记5</a></h1>
-            <time class="has-text-grey-light is-size-7">17 September 2019</time>
         
     </div>
 </div>
@@ -408,6 +408,9 @@
     <div class="card-content">
         <h1 class="title is-5">Related posts</h1>
       
+      
+            <h1><a href="https://zhouqian0.github.io/2020/ng-seventh/">angular 路由错误 Cannot activate an already activated outlet</a></h1>
+            <time class="has-text-grey-light is-size-7">5 March 2020</time>
       
             <h1><a href="https://zhouqian0.github.io/2019/ng-first/">angular 项目编译成的网页源码中的注释</a></h1>
             <time class="has-text-grey-light is-size-7">25 March 2019</time>
@@ -436,6 +439,8 @@
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
+            <a href="https://zhouqian0.github.io/archives/2020">2020</a> (1)<br>
+        
             <a href="https://zhouqian0.github.io/archives/2019">2019</a> (46)<br>
         
             <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
@@ -457,7 +462,7 @@
             <span class="icon is-large"><a href="https://www.youtube.com/" class="mysocial" rel="me"><i class="fab fa-youtube fa-3x"></i></a></span>&nbsp;&nbsp;
             <span class="icon is-large"><a href="https://github.com/" class="mysocial" rel="me"><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;
             <br><br>
-            Copyright &copy; Let&#39;s finish what we started 2019 - Theme by <a href="https://jeffprod.com" class="mysocial">JeffProd.com</a>
+            Copyright &copy; Let&#39;s finish what we started 2020 - Theme by <a href="https://jeffprod.com" class="mysocial">JeffProd.com</a>
             - <a class="mysocial" href="https://zhouqian0.github.io/about">About</a>
         </p>
     </div>
