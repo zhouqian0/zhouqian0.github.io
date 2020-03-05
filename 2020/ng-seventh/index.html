@@ -48,10 +48,10 @@
             <div class="content">
                 <p>angular 路由错误 Cannot activate an already activated outlet&hellip;</p>
 <h3 id="cannot-activate-an-already-activated-outlet">Cannot activate an already activated outlet</h3>
-<p>angular 路由错误 Cannot activate an already activated outlet 出现的原因时，重复将同一个
-<!-- raw HTML omitted --> 重复路由导航到一个目标地址。</p>
-<p>本人出现该错误的原因时因为需要在一个页面内进行身份切换后在快速更新页面的内容，而在用户切换身份后
-我使用了路由功能重新导航回了当前 url 地址，导致在同一个 <!-- raw HTML omitted --> 重复路由导航到一个目标地址，
+<p>angular 路由错误 Cannot activate an already activated outlet 出现的原因是，重复将同一个
+&lt;router-outlet&gt; 重复路由导航到一个目标地址。</p>
+<p>本人出现该错误的原因是因为需要在一个页面内进行身份切换后在快速更新页面的内容，而在用户切换身份后
+我使用了路由功能重新导航回了当前 url 地址，导致在同一个 &lt;router-outlet&gt; 重复路由导航到一个目标地址，
 故而报错。</p>
 <p>本人该项需求的解决方案为，将其链接到另一个路由地址，再由被链接地址重新 redirect 到原来的路由。</p>
             </div>
@@ -84,6 +84,9 @@
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2020/js-sixth/">.every() method</a></h1>
+            <time class="has-text-grey-light is-size-7">5 March 2020</time>
+        
             <h1><a href="https://zhouqian0.github.io/2020/ng-seventh/">angular 路由错误 Cannot activate an already activated outlet</a></h1>
             <time class="has-text-grey-light is-size-7">5 March 2020</time>
         
@@ -95,9 +98,6 @@
         
             <h1><a href="https://zhouqian0.github.io/2019/mysql-seventh/">Mysql 必知必会阅读小记7</a></h1>
             <time class="has-text-grey-light is-size-7">22 September 2019</time>
-        
-            <h1><a href="https://zhouqian0.github.io/2019/mysql-sixth/">Mysql 必知必会阅读小记6</a></h1>
-            <time class="has-text-grey-light is-size-7">18 September 2019</time>
         
     </div>
 </div>
@@ -142,7 +142,7 @@
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2020">2020</a> (1)<br>
+            <a href="https://zhouqian0.github.io/archives/2020">2020</a> (2)<br>
         
             <a href="https://zhouqian0.github.io/archives/2019">2019</a> (46)<br>
         

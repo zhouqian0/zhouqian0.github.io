@@ -5,10 +5,19 @@
     <description>Recent content in javascript on Let&#39;s finish what we started</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 07 Aug 2019 18:22:23 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 05 Mar 2020 14:38:32 +0800</lastBuildDate>
     
         <atom:link href="https://zhouqian0.github.io/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>.every() method</title>
+      <link>https://zhouqian0.github.io/2020/js-sixth/</link>
+      <pubDate>Thu, 05 Mar 2020 14:38:32 +0800</pubDate>
+      
+      <guid>https://zhouqian0.github.io/2020/js-sixth/</guid>
+      <description>&lt;p&gt;.every() Method&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Safari Date 处理</title>

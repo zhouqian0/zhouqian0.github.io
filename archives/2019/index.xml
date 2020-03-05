@@ -5,10 +5,19 @@
     <description>Recent content in 2019 on Let&#39;s finish what we started</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 31 Dec 2019 13:41:08 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 05 Mar 2020 14:38:32 +0800</lastBuildDate>
     
         <atom:link href="https://zhouqian0.github.io/archives/2019/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>.every() method</title>
+      <link>https://zhouqian0.github.io/2020/js-sixth/</link>
+      <pubDate>Thu, 05 Mar 2020 14:38:32 +0800</pubDate>
+      
+      <guid>https://zhouqian0.github.io/2020/js-sixth/</guid>
+      <description>&lt;p&gt;.every() Method&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Linux 网络端口知识笔记</title>
