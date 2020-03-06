@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Let&#39;s finish what we started  | Go 学习小记</title>
+    <title>Let&#39;s finish what we started  | Vim</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -29,7 +29,7 @@
                 <br>
                 <h1 class="title is-size-1">
                     
-                        Go 学习小记
+                        Vim
                     
                 </h1>
                 
@@ -46,80 +46,166 @@
     <div class="column is-9">
         <div class="tile is-child box">
             <div class="content">
-                <p>本文将介绍 golang 的优势，基本类型和常量&hellip;</p>
+                <p>本文将介绍 Vim 基础操作</p>
+<h3 id="vim-操作">Vim 操作</h3>
 <blockquote>
-<p>Go is a strongly typed language.</p>
+<p>命令行键入 vimtutor zh 阅读中文教程</p>
 </blockquote>
-<h3 id="advantages-of-golang">Advantages of golang</h3>
 <ol>
-<li>Simple syntax</li>
-<li>Easy to write concurrent programs</li>
-<li>Compiled language</li>
-<li>Fast compilation</li>
-<li>Static linking</li>
-<li>Go Tooling</li>
-<li>Garbage collection</li>
-<li>Simple language specification</li>
-<li>Opensource</li>
-</ol>
-<h3 id="basic-types-available-in-golang">Basic types available in golang</h3>
-<ol>
-<li>bool</li>
-<li>Numeric Types
+<li>移动
+<pre><code>        ^
+        k            
+  &lt; h       l &gt;             
+        j                  
+        v
+</code></pre></li>
+<li>删除：
 <ul>
-<li>int
+<li>x 删除光标位置字符</li>
+<li>dw 从当前光标当前位置直到下一个单词起始处，不包括它的第一个字符
 <ul>
-<li>int8 (-128 to 127)</li>
-<li>int16 (-32768 to 32767)</li>
-<li>int32 (-2147483648 to 2147483647)</li>
-<li>int64 (-9223372036854775808 to 9223372036854775807),</li>
-<li>int (the size of int is 32 bit in 32 bit systems and 64 bit in 64 bit systems)</li>
+<li>&ldquo;hello world&rdquo; 光标选中 h，则删除后光标选中 w</li>
 </ul>
 </li>
-<li>uint
+<li>de 从当前光标当前位置直到单词末尾，包括最后一个字符
 <ul>
-<li>uint8 (0 to 255)</li>
-<li>uint16 (0 to 65535)</li>
-<li>uint32 (0 to 4294967295)</li>
-<li>uint64 (0 to 18446744073709551615)</li>
-<li>uint (the size of uint is 32 bit in 32 bit systems and 64 bit in 64 bit systems)</li>
+<li>&ldquo;hello world&rdquo; 光标选中 h，则删除后光标选中 w 前面的空格</li>
 </ul>
 </li>
-<li>float
-<ul>
-<li>float32</li>
-<li>float64</li>
+<li>d$ 删除当前光标所在行以光标位置开头的的行后的所有内容</li>
+<li>dd 删除整行</li>
 </ul>
 </li>
-<li>complex
+<li>插入：
 <ul>
-<li>complex64 (float32 real and imaginary parts, both the real and imaginary parts must be of the same type)
-<ul>
-<li>complex(5, 7) = 5 + 7i</li>
+<li>a 光标后插入字符</li>
+<li>i 光标前插入字符</li>
+<li>A 在光标行所在的末尾插入字符</li>
 </ul>
 </li>
-<li>complex128 (float64 real and imaginary parts, both the real and imaginary parts must be of the same type)</li>
-</ul>
-</li>
-<li>byte (alias of uint8)</li>
-<li>rune (alias of int3)</li>
-</ul>
-</li>
-<li>string (collection of bytes)</li>
-</ol>
-<h3 id="type-convert-in-golang">Type convert in golang</h3>
-<ol>
-<li>Go is very strict about explicit typing.</li>
-<li>T(v) is the syntax to convert a value v to type T.</li>
-</ol>
-<h3 id="constants-in-golang">Constants in golang</h3>
-<ol>
-<li>The value of a constant should be known at compile time.
-Hence it cannot be assigned to a value returned by a function call since the function call takes place at run time.</li>
-<li>Any value enclosed between double quotes is a string constant in Go.</li>
-<li>The constant still doesn&rsquo;t have a type.
+<li>使光标回到行首
 <ul>
-<li>The untyped constants have a default type associated with them and they supply it if and only if a line of code demands it.</li>
+<li>0 光标选中行内任意字符，键入 0 则光标移动到行首</li>
+</ul>
+</li>
+<li>motion 操作对象
+<ul>
+<li>w 光标转跳到下一个单词的开头</li>
+<li>e 光标转跳到当前单词的结尾</li>
+<li>$ 光标转跳到当前行的结尾</li>
+<li>数字加上 motion 表示执行的次数，如 2w 表示执行两次 w</li>
+<li>行为 + 数字 + 操作对象
+<ul>
+<li>d2w，表示执行两次 dw</li>
+<li>2dd，表示删除当前行开始的两行</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>撤销
+<ul>
+<li>u 撤销上次操作</li>
+<li>U 撤销在当前行的所有操作</li>
+<li>CTRL-R，撤消以前的撤消命令</li>
+</ul>
+</li>
+<li>置入
+<ul>
+<li>p 重新置入已经删除（d）/复制（y）的文本内容</li>
+</ul>
+</li>
+<li>替换
+<ul>
+<li>r 在光标所在处键入 r，再键入目标字符，可将光标处的字符替换为目标字符（单个字符）</li>
+<li>R 在光标所在处键入 R，可从光标处练习替换多个字母，退格则会撤销上一个修改，按 esc 退出</li>
+</ul>
+</li>
+<li>更改
+<ul>
+<li>c
+<ul>
+<li>cw 更改光标处开始到下个单词开始处的文本，键入后需要再输入目标字符</li>
+<li>ce 更改光标处开始到当前单词结尾处的文本，键入后需要再输入目标字符</li>
+<li>可组合 motion 和 number
+<ul>
+<li>c$</li>
+<li>c2w</li>
+<li>键入后会删除被选中的内容</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>定位及文件状态
+<ul>
+<li>CTRL-G 显示的内容是当前编辑的文件名和文件中光标位置</li>
+<li>G 当前光标直接跳转到文件最后一行</li>
+<li>gg 使当前光标直接跳转到文件第一行</li>
+<li>number G 使光标调到行号为 number 的行</li>
+</ul>
+</li>
+<li>搜索
+<ul>
+<li>/target 向下查找 target 字符
+<ul>
+<li>/\ctarget 不忽略大小写查找 target（单次查找）</li>
+<li>/\Ctarget 忽略大小写查找 target（单次查找）</li>
+</ul>
+</li>
+<li>？target 向上查找 target 字符</li>
+<li>n 跳转到上一次 target 字符的位置</li>
+<li>N 跳转到相反方向查找同上一次的字 target 字符的位置</li>
+<li>CTRL-O 回退到上一次的查找</li>
+<li>CTRL-I 跳转到较新的位置</li>
+</ul>
+</li>
+<li>查找配对括号
+<ul>
+<li>% 光标选中 )、]、}，查找配对的括号</li>
+</ul>
+</li>
+<li>批量替换
+<ul>
+<li>:s/old/new 将替换 old 为 new，只改变光标所在行的第一个匹配串</li>
+<li>:s/old/new/g 替换光标所在行全行的匹配串</li>
+<li>#,#s/old/new/g 替换制定行匹配串，其中 #,# 代表的是替换操作的若干行中首尾两行的行号。</li>
+<li>%s/old/new/g 替换整个文件中的每个匹配串。</li>
+<li>%s/old/new/gc 找到整个文件中的每个匹配串，并且对每个匹配串提示是否进行替换。</li>
+</ul>
+</li>
+<li>执行外部命令
+<ul>
+<li>:!  键入:!，然后紧接着输入一个外部命令可以执行该外部命令</li>
+</ul>
+</li>
+<li>保存文件
+<ul>
+<li>w filename 将更改保存到另一个文件</li>
+<li>键入 v， 移动光标可高亮选中行，然后键入 : ，会发现底部出现<code>:'&lt;,'&gt;</code>，然后键入 w filename，可讲选中内容保存到 filename 中</li>
+<li>:r FILENAME 向当前文件中插入另外的文件的内容</li>
+<li>:r !ls 可以读取 ls 命令的输出，并把它放置在光标下面（同理可读取外部命令的输出）</li>
+</ul>
+</li>
+<li>打开类命令
+<ul>
+<li>o 在当前光标行下插入一个新行，并进入编辑模式</li>
+<li>O 在当前光标行上插入一个新行，并进入编辑模式</li>
+</ul>
+</li>
+<li>复制文本
+<ul>
+<li>y 用v高亮目标文本，键入 y，则可复制内容，再键入 p 实现复制粘贴</li>
+<li>可使用 yw 复制单词</li>
+</ul>
+</li>
+<li>设置类命令
+<ul>
+<li>:set ic 忽略大小写(Ignore Case，忽略大小写)</li>
+<li>:set noic 禁用忽略大小写</li>
+<li>:set hls is 高亮搜索结果</li>
+<li>:nohlsearch 解除高亮搜索结果 = :set nohls</li>
+<li>no + 设置选项可关闭之前开启的选项</li>
 </ul>
 </li>
 </ol>
@@ -181,23 +267,8 @@ Hence it cannot be assigned to a value returned by a function call since the fun
         <h1 class="title is-5">Related posts</h1>
       
       
-            <h1><a href="https://zhouqian0.github.io/2020/go-seventh/">golang fmt格式&#34;占位符&#34;</a></h1>
-            <time class="has-text-grey-light is-size-7">6 March 2020</time>
-      
-            <h1><a href="https://zhouqian0.github.io/2019/go-fifth/">Go 指南阅读笔记5 并发</a></h1>
-            <time class="has-text-grey-light is-size-7">26 August 2019</time>
-      
-            <h1><a href="https://zhouqian0.github.io/2019/go-fourth/">Go 指南阅读笔记4 方法和接口</a></h1>
-            <time class="has-text-grey-light is-size-7">16 August 2019</time>
-      
-            <h1><a href="https://zhouqian0.github.io/2019/go-third/">Go 指南阅读笔记3 基础类型</a></h1>
-            <time class="has-text-grey-light is-size-7">16 August 2019</time>
-      
-            <h1><a href="https://zhouqian0.github.io/2019/go-second/">Go 指南阅读笔记2 流程控制语句</a></h1>
-            <time class="has-text-grey-light is-size-7">15 August 2019</time>
-      
-            <h1><a href="https://zhouqian0.github.io/2019/go-first/">Go 指南阅读笔记1 基础</a></h1>
-            <time class="has-text-grey-light is-size-7">14 August 2019</time>
+            <h1><a href="https://zhouqian0.github.io/2019/first/">Linux 网络端口知识笔记</a></h1>
+            <time class="has-text-grey-light is-size-7">31 December 2019</time>
       
     </div>
 </div>
