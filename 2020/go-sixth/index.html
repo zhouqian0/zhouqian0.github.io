@@ -46,8 +46,11 @@
     <div class="column is-9">
         <div class="tile is-child box">
             <div class="content">
-                <p>golang 的优势&hellip;</p>
-<h3 id="advantages-of-go">Advantages of Go</h3>
+                <p>golang 的优势，基本类型和常量&hellip;</p>
+<blockquote>
+<p>Go is a strongly typed language.</p>
+</blockquote>
+<h3 id="advantages-of-golang">Advantages of golang</h3>
 <ol>
 <li>Simple syntax</li>
 <li>Easy to write concurrent programs</li>
@@ -58,6 +61,67 @@
 <li>Garbage collection</li>
 <li>Simple language specification</li>
 <li>Opensource</li>
+</ol>
+<h3 id="basic-types-available-in-golang">Basic types available in golang</h3>
+<ol>
+<li>bool</li>
+<li>Numeric Types
+<ul>
+<li>int
+<ul>
+<li>int8 (-128 to 127)</li>
+<li>int16 (-32768 to 32767)</li>
+<li>int32 (-2147483648 to 2147483647)</li>
+<li>int64 (-9223372036854775808 to 9223372036854775807),</li>
+<li>int (the size of int is 32 bit in 32 bit systems and 64 bit in 64 bit systems)</li>
+</ul>
+</li>
+<li>uint
+<ul>
+<li>uint8 (0 to 255)</li>
+<li>uint16 (0 to 65535)</li>
+<li>uint32 (0 to 4294967295)</li>
+<li>uint64 (0 to 18446744073709551615)</li>
+<li>uint (the size of uint is 32 bit in 32 bit systems and 64 bit in 64 bit systems)</li>
+</ul>
+</li>
+<li>float
+<ul>
+<li>float32</li>
+<li>float64</li>
+</ul>
+</li>
+<li>complex
+<ul>
+<li>complex64 (float32 real and imaginary parts, both the real and imaginary parts must be of the same type)
+<ul>
+<li>complex(5, 7) = 5 + 7i</li>
+</ul>
+</li>
+<li>complex128 (float64 real and imaginary parts, both the real and imaginary parts must be of the same type)</li>
+</ul>
+</li>
+<li>byte (alias of uint8)</li>
+<li>rune (alias of int3)</li>
+</ul>
+</li>
+<li>string (collection of bytes)</li>
+</ol>
+<h3 id="type-convert-in-golang">Type convert in golang</h3>
+<ol>
+<li>Go is very strict about explicit typing.</li>
+<li>T(v) is the syntax to convert a value v to type T.</li>
+</ol>
+<h3 id="constants-in-golang">Constants in golang</h3>
+<ol>
+<li>The value of a constant should be known at compile time.
+Hence it cannot be assigned to a value returned by a function call since the function call takes place at run time.</li>
+<li>Any value enclosed between double quotes is a string constant in Go.</li>
+<li>The constant still doesn&rsquo;t have a type.
+<ul>
+<li>The untyped constants have a default type associated with them and they supply it if and only if a line of code demands it.</li>
+</ul>
+</li>
 </ol>
             </div>
         </div>
@@ -89,6 +153,9 @@
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2020/go-seventh/">golang fmt格式&#34;占位符&#34;</a></h1>
+            <time class="has-text-grey-light is-size-7">6 March 2020</time>
+        
             <h1><a href="https://zhouqian0.github.io/2020/go-sixth/">Go 学习小记</a></h1>
             <time class="has-text-grey-light is-size-7">6 March 2020</time>
         
@@ -100,9 +167,6 @@
         
             <h1><a href="https://zhouqian0.github.io/2019/first/">Linux 网络端口知识笔记</a></h1>
             <time class="has-text-grey-light is-size-7">31 December 2019</time>
-        
-            <h1><a href="https://zhouqian0.github.io/2019/summary-first/">angular 学习心得1</a></h1>
-            <time class="has-text-grey-light is-size-7">3 December 2019</time>
         
     </div>
 </div>
@@ -116,6 +180,9 @@
     <div class="card-content">
         <h1 class="title is-5">Related posts</h1>
       
+      
+            <h1><a href="https://zhouqian0.github.io/2020/go-seventh/">golang fmt格式&#34;占位符&#34;</a></h1>
+            <time class="has-text-grey-light is-size-7">6 March 2020</time>
       
             <h1><a href="https://zhouqian0.github.io/2019/go-fifth/">Go 指南阅读笔记5 并发</a></h1>
             <time class="has-text-grey-light is-size-7">26 August 2019</time>
@@ -141,7 +208,7 @@
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2020">2020</a> (3)<br>
+            <a href="https://zhouqian0.github.io/archives/2020">2020</a> (4)<br>
         
             <a href="https://zhouqian0.github.io/archives/2019">2019</a> (46)<br>
         

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Let&#39;s finish what we started  | js Date 类型的比较</title>
+    <title>Let&#39;s finish what we started  | golang fmt格式&#34;占位符&#34;</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -29,7 +29,7 @@
                 <br>
                 <h1 class="title is-size-1">
                     
-                        js Date 类型的比较
+                        golang fmt格式&#34;占位符&#34;
                     
                 </h1>
                 
@@ -46,16 +46,198 @@
     <div class="column is-9">
         <div class="tile is-child box">
             <div class="content">
-                <p>date compare</p>
-<h3 id="两个-date-之间的相互对比">两个 Date 之间的相互对比</h3>
-<ol>
+                <p>golang fmt格式&quot;占位符&rdquo;</p>
+<h3 id="golang-fmt格式占位符">golang fmt格式&quot;占位符&rdquo;</h3>
+<ul>
 <li>
-<p>js 中 new Date() 得到的日期为当前日期时分秒。但是用 new Date(&ldquo;yy-mm-dd&rdquo;) 得到的日期却为 yy-mm-dd 那天的八点，非零点。</p>
+<h3 id="普通占位符">普通占位符</h3>
 </li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>占位符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>%v</td>
+<td>打印相应值的默认格式</td>
+</tr>
+<tr>
+<td>%+v</td>
+<td>打印添加字段名的结构体</td>
+</tr>
+<tr>
+<td>%#v</td>
+<td>打印相应值的语法表示</td>
+</tr>
+<tr>
+<td>%T</td>
+<td>打印相应值的类型的语法表示</td>
+</tr>
+<tr>
+<td>%%</td>
+<td>打印 %（转义 %）</td>
+</tr>
+</tbody>
+</table>
+<ul>
 <li>
-<p>两个Date日期比较采用getTime()方法。</p>
+<h3 id="布尔占位符">布尔占位符</h3>
 </li>
-</ol>
+</ul>
+<table>
+<thead>
+<tr>
+<th>占位符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>%t</td>
+<td>打印相应 Bool 类型</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<h3 id="整数占位符">整数占位符</h3>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>占位符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>%b</td>
+<td>打印二进制表示</td>
+</tr>
+<tr>
+<td>%c</td>
+<td>打印相应 Unicode 码所表示的字符</td>
+</tr>
+<tr>
+<td>%d</td>
+<td>打印十进制表示</td>
+</tr>
+<tr>
+<td>%o</td>
+<td>打印八进制表示</td>
+</tr>
+<tr>
+<td>%q</td>
+<td>打印单引号围绕的字符字面值,安全转义</td>
+</tr>
+<tr>
+<td>%x</td>
+<td>打印十六进制表示,字母为小写</td>
+</tr>
+<tr>
+<td>%X</td>
+<td>打印十六进制表示,字母为大写</td>
+</tr>
+<tr>
+<td>%U</td>
+<td>打印 Unicode 格式</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<h3 id="浮点数和复数占位符">浮点数和复数占位符</h3>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>占位符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>%b</td>
+<td>打印二进制表示</td>
+</tr>
+<tr>
+<td>%e</td>
+<td>打印科学计数法,小写字母 e,默认精度为 6</td>
+</tr>
+<tr>
+<td>%E</td>
+<td>打印科学计数法,大写字母 E,默认精度为 6</td>
+</tr>
+<tr>
+<td>%f</td>
+<td>打印完整 float 类型,默认精度为 6,例如:123.45,%6.2f 会打印123.45</td>
+</tr>
+<tr>
+<td>%g</td>
+<td>根据情况选择 %e 或 %f 以产生更紧凑的(无末尾的 0)输出,精度为所有数字的总数,例如:123.45,%.4g 会打印123.5</td>
+</tr>
+<tr>
+<td>%G</td>
+<td>根据情况选择 %e 或 %f 以产生更紧凑的(无末尾的 0)输出,精度为所有数字的总数,例如:123.45,%.4g 会打印123.5</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<h3 id="字符串与字节切片">字符串与字节切片</h3>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>占位符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>%s</td>
+<td>打印字符串表示(string 或 []byte)</td>
+</tr>
+<tr>
+<td>%q</td>
+<td>打印双引号围绕的字符串,安全转义</td>
+</tr>
+<tr>
+<td>%x</td>
+<td>打印十六进制,小写字母,每字节两个字符</td>
+</tr>
+<tr>
+<td>%X</td>
+<td>打印十六进制,大写字母,每字节两个字符</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<h3 id="指针">指针</h3>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>占位符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>%p</td>
+<td>打印十六进制表示,带前缀 0x</td>
+</tr>
+</tbody>
+</table>
             </div>
         </div>
     </div>
@@ -114,20 +296,23 @@
         <h1 class="title is-5">Related posts</h1>
       
       
-            <h1><a href="https://zhouqian0.github.io/2020/js-sixth/">.every() method</a></h1>
-            <time class="has-text-grey-light is-size-7">5 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2020/go-sixth/">Go 学习小记</a></h1>
+            <time class="has-text-grey-light is-size-7">6 March 2020</time>
       
-            <h1><a href="https://zhouqian0.github.io/2019/js-fifth/">Safari Date 处理</a></h1>
-            <time class="has-text-grey-light is-size-7">7 August 2019</time>
+            <h1><a href="https://zhouqian0.github.io/2019/go-fifth/">Go 指南阅读笔记5 并发</a></h1>
+            <time class="has-text-grey-light is-size-7">26 August 2019</time>
       
-            <h1><a href="https://zhouqian0.github.io/2019/js-first/">异步方法中的同步</a></h1>
-            <time class="has-text-grey-light is-size-7">21 March 2019</time>
+            <h1><a href="https://zhouqian0.github.io/2019/go-fourth/">Go 指南阅读笔记4 方法和接口</a></h1>
+            <time class="has-text-grey-light is-size-7">16 August 2019</time>
       
-            <h1><a href="https://zhouqian0.github.io/2019/js-third/">隐藏/显示 网页滚动条</a></h1>
-            <time class="has-text-grey-light is-size-7">13 February 2019</time>
+            <h1><a href="https://zhouqian0.github.io/2019/go-third/">Go 指南阅读笔记3 基础类型</a></h1>
+            <time class="has-text-grey-light is-size-7">16 August 2019</time>
       
-            <h1><a href="https://zhouqian0.github.io/2018/js-fourth/">js 中文排序</a></h1>
-            <time class="has-text-grey-light is-size-7">7 December 2018</time>
+            <h1><a href="https://zhouqian0.github.io/2019/go-second/">Go 指南阅读笔记2 流程控制语句</a></h1>
+            <time class="has-text-grey-light is-size-7">15 August 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/go-first/">Go 指南阅读笔记1 基础</a></h1>
+            <time class="has-text-grey-light is-size-7">14 August 2019</time>
       
     </div>
 </div>
