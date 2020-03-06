@@ -54,15 +54,15 @@
 <p>由于我所使用的 docker container 是通过端口访问，在 container 中是监听 localhost 来返回相应服务的。
 所以通过 container 建立的端口映射进行访问时，发现请求不能响应。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">  由于 container 通过监听 localhost 实现服务，所以当我在 container 中访问端口时可以得到响应，
-  但是我通过 虚拟机 访问 虚拟机 中的 container的ip 的相应端口 会得不到响应，故而需要 修改监听地址 localhost 为 0.0.0.0。
+  但是我通过 虚拟机 访问 虚拟机 中的 container 的ip 的相应端口 会得不到响应，故而需要 修改监听地址 localhost 为 0.0.0.0。
 </code></pre></div></li>
 <li>
-<p>通过 宿主机 访问 虚拟机 中的端口来获得 虚拟机中container提供的服务时，发现访问被拒绝。</p>
+<p>通过 宿主机 访问 虚拟机 中的端口来获得 虚拟机中 container 提供的服务时，发现访问被拒绝。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">  因为 虚拟机 中的防火墙并未开放相应端口，故而 宿主机对 虚拟机的特定端口 的访问被拒绝。
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">  systemctl status firewalld <span style="color:#75715e"># 查询防火墙状态</span>
   firewall-cmd --query-port<span style="color:#f92672">=</span>9119/tcp <span style="color:#75715e"># 查询相应端口是否开放</span>
   firewall-cmd --add-port<span style="color:#f92672">=</span>9119/tcp --permanent  <span style="color:#75715e"># 开放特定端口</span>
-  firewall-cmd --permanent --remove-port<span style="color:#f92672">=</span>999/tcp <span style="color:#75715e"># 关闭特定端口</span>
+  firewall-cmd --permanent --remove-port<span style="color:#f92672">=</span>9119/tcp <span style="color:#75715e"># 关闭特定端口</span>
   firewall-cmd --reload <span style="color:#75715e"># 重载防火墙规则</span>
 </code></pre></div></li>
 </ul>
