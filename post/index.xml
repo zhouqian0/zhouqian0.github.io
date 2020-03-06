@@ -5,10 +5,19 @@
     <description>Recent content in Posts on Let&#39;s finish what we started</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 05 Mar 2020 14:38:32 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 06 Mar 2020 10:08:36 +0800</lastBuildDate>
     
         <atom:link href="https://zhouqian0.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Go 学习小记</title>
+      <link>https://zhouqian0.github.io/2020/go-sixth/</link>
+      <pubDate>Fri, 06 Mar 2020 10:08:36 +0800</pubDate>
+      
+      <guid>https://zhouqian0.github.io/2020/go-sixth/</guid>
+      <description>&lt;p&gt;golang 的优势&amp;hellip;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>.every() method</title>
@@ -124,7 +133,12 @@
       <pubDate>Fri, 16 Aug 2019 16:15:01 +0800</pubDate>
       
       <guid>https://zhouqian0.github.io/2019/go-fourth/</guid>
-      <description>&lt;p&gt;golang 小记：方法和接口&lt;/p&gt;</description>
+      <description>golang 小记：方法和接口
+方法和接口   Go 没有类。方法 就是一类带特殊的 接收者 参数的函数。方法接收者在它自己的参数列表内，位于 func 关键字和方法名之间。
+ type Vertex struct { X, Y float64 } func (v Vertex) Abs() float64 { return math.Sqrt(v.X*v.X + v.Y*v.Y) } func main() { v := Vertex{3, 4} fmt.Println(v.Abs()) }   方法只是个带接收者参数的函数。
+ func Abs(v Vertex) float64 { return math.Sqrt(v.X*v.X + v.Y*v.Y) } func main() { v := Vertex{3, 4} fmt.Println(Abs(v)) }   也可以为非结构体类型声明方法
+接收者的类型定义和方法声明必须在同一包内；不能为内建类型声明方法。
+ type MyFloat float64 func (f MyFloat) Abs() float64 { if f &amp;lt; 0 { return float64(-f) } return float64(f) } func main() { f := MyFloat(-math.</description>
     </item>
     
     <item>

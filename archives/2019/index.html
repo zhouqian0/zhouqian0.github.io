@@ -213,7 +213,12 @@
                                 Published at August 16, 2019 &middot;
                                 <i class="far fa-clock"></i>&nbsp;4 min read
                             </p>
-                            <p><p>golang 小记：方法和接口</p>...</p>
+                            <p>golang 小记：方法和接口
+方法和接口   Go 没有类。方法 就是一类带特殊的 接收者 参数的函数。方法接收者在它自己的参数列表内，位于 func 关键字和方法名之间。
+ type Vertex struct { X, Y float64 } func (v Vertex) Abs() float64 { return math.Sqrt(v.X*v.X + v.Y*v.Y) } func main() { v := Vertex{3, 4} fmt.Println(v.Abs()) }   方法只是个带接收者参数的函数。
+ func Abs(v Vertex) float64 { return math.Sqrt(v.X*v.X + v.Y*v.Y) } func main() { v := Vertex{3, 4} fmt.Println(Abs(v)) }   也可以为非结构体类型声明方法
+接收者的类型定义和方法声明必须在同一包内；不能为内建类型声明方法。
+ type MyFloat float64 func (f MyFloat) Abs() float64 { if f &lt; 0 { return float64(-f) } return float64(f) } func main() { f := MyFloat(-math....</p>
                         </div>
                     </div>
                 </article>
@@ -739,6 +744,9 @@
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2020/go-sixth/">Go 学习小记</a></h1>
+            <time class="has-text-grey-light is-size-7">6 March 2020</time>
+        
             <h1><a href="https://zhouqian0.github.io/2020/js-sixth/">.every() method</a></h1>
             <time class="has-text-grey-light is-size-7">5 March 2020</time>
         
@@ -751,9 +759,6 @@
             <h1><a href="https://zhouqian0.github.io/2019/summary-first/">angular 学习心得1</a></h1>
             <time class="has-text-grey-light is-size-7">3 December 2019</time>
         
-            <h1><a href="https://zhouqian0.github.io/2019/mysql-seventh/">Mysql 必知必会阅读小记7</a></h1>
-            <time class="has-text-grey-light is-size-7">22 September 2019</time>
-        
     </div>
 </div>
     <br>
@@ -761,7 +766,7 @@
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2020">2020</a> (2)<br>
+            <a href="https://zhouqian0.github.io/archives/2020">2020</a> (3)<br>
         
             <a href="https://zhouqian0.github.io/archives/2019">2019</a> (46)<br>
         
