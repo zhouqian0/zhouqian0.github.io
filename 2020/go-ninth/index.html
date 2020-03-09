@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Let&#39;s finish what we started  | angular 禁用/启用 鼠标滚轮事件</title>
+    <title>Let&#39;s finish what we started  | Go 学习小记2</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -29,7 +29,7 @@
                 <br>
                 <h1 class="title is-size-1">
                     
-                        angular 禁用/启用 鼠标滚轮事件
+                        Go 学习小记2
                     
                 </h1>
                 
@@ -46,40 +46,68 @@
     <div class="column is-9">
         <div class="tile is-child box">
             <div class="content">
-                <p>angular 滚轮事件</p>
-<h3 id="禁用启用-鼠标滚轮-event">禁用/启用 鼠标滚轮 event</h3>
-<pre><code>scrollFunc(event) {
-  event = event || window.event;
-  if (event.preventDefault) {
-    // Firefox
-    event.preventDefault();
-    event.stopPropagation();
-  } else {
-    // IE
-    event.cancelBubble = true;
-    event.returnValue = false;
-  }
-  return false;
-}
-</code></pre><pre><code>// 禁用鼠标滚轮事件
-const html = document.querySelector('html');
-if (html.addEventListener) { 
-  html.addEventListener('DOMMouseScroll', this.scrollFunc, false); //添加事件监听
-} //firefox
-html.onmousewheel = html.onmousewheel = this.scrollFunc; //ie/opera/chrome
-</code></pre><pre><code>// 启用鼠标滚轮事件
-const html = document.querySelector('html');
-if (html.removeEventListener) {
-  html.removeEventListener('DOMMouseScroll', this.scrollFunc, false); //解绑事件监听
-} //firefox
-html.onmousewheel = html.onmousewheel = null; //ie/opera/chrome
-</code></pre><ol>
-<li>refer:
+                <p>本文将介绍 golang 的 Packages, Switch, Array, Slices, Variadic Functions&hellip;</p>
+<h3 id="packages">Packages</h3>
+<ol>
+<li>The order of initialisation of the main package:
+<ol>
+<li>The imported packages are first initialised.</li>
+<li>Package level variables are initialised next.</li>
+<li>init function is called.</li>
+<li>main function is called at last.</li>
+</ol>
+</li>
+</ol>
+<h3 id="switch">Switch</h3>
+<ol>
+<li>A fallthrough statement is used to transfer control to the first statement of the case that is present
+immediately after the case which has been executed.
 <ul>
-<li><a href="https://blog.csdn.net/ouyangxie/article/details/79005423">https://blog.csdn.net/ouyangxie/article/details/79005423</a></li>
-<li><a href="http://www.cnblogs.com/yangwenbin/p/4565541.html">http://www.cnblogs.com/yangwenbin/p/4565541.html</a></li>
+<li>fallthrough should be the last statement in a case.</li>
+<li>fallthrough should not appear in the last case.</li>
 </ul>
 </li>
+</ol>
+<h3 id="array">Array</h3>
+<ol>
+<li>Array can even ignore the length in the declaration and replace it with &hellip; and let the compiler find the length for you.
+<ul>
+<li><code>a := [...]int{12, 78, 50}</code></li>
+</ul>
+</li>
+<li>The size of the array is a part of the type.
+<ul>
+<li>Hence [5]int and [25]int are distinct types.</li>
+</ul>
+</li>
+<li>Arrays in Go are value types and not reference types.</li>
+</ol>
+<h3 id="slices">Slices</h3>
+<ol>
+<li>Slices is just references to existing arrays.</li>
+<li>The capacity of the slice is the number of elements in the underlying array starting from the index from which the slice is created.</li>
+<li>
+<pre><code>veggies := []string{&quot;potatoes&quot;, &quot;tomatoes&quot;, &quot;brinjal&quot;}
+fruits := []string{&quot;oranges&quot;, &quot;apples&quot;}
+food := append(veggies, fruits...)
+</code></pre></li>
+<li>When a slice is passed to a function, even though it’s passed by value, the pointer variable will refer to the same underlying array.</li>
+<li>Slices hold a reference to the underlying array. As long as the slice is in memory, the array cannot be garbage collected.
+<ul>
+<li>One way to solve this problem is to use the copy function to make a copy of that slice (original array can be garbage collected.).</li>
+</ul>
+</li>
+</ol>
+<h3 id="variadic-functions">Variadic Functions</h3>
+<ol>
+<li>Only the last parameter of a function can be variadic.</li>
+<li>The way variadic functions work is by converting the variable number of arguments to a slice of the type of the variadic parameter.</li>
+<li>A way to pass a slice to a variadic function:
+<ul>
+<li>suffix the slice with ellipsis &hellip;</li>
+</ul>
+</li>
+<li><a href="https://play.golang.org/p/gxs-8drH3dq">append returns a new slice if the capacity is not enough</a>.</li>
 </ol>
             </div>
         </div>
@@ -139,26 +167,26 @@ html.onmousewheel = html.onmousewheel = null; //ie/opera/chrome
         <h1 class="title is-5">Related posts</h1>
       
       
-            <h1><a href="https://zhouqian0.github.io/2020/ng-seventh/">angular 路由错误 Cannot activate an already activated outlet</a></h1>
-            <time class="has-text-grey-light is-size-7">5 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2020/go-seventh/">golang fmt格式&#34;占位符&#34;</a></h1>
+            <time class="has-text-grey-light is-size-7">6 March 2020</time>
       
-            <h1><a href="https://zhouqian0.github.io/2019/summary-first/">angular 学习心得1</a></h1>
-            <time class="has-text-grey-light is-size-7">3 December 2019</time>
+            <h1><a href="https://zhouqian0.github.io/2020/go-sixth/">Go 学习小记1</a></h1>
+            <time class="has-text-grey-light is-size-7">6 March 2020</time>
       
-            <h1><a href="https://zhouqian0.github.io/2019/ng-first/">angular 项目编译成的网页源码中的注释</a></h1>
-            <time class="has-text-grey-light is-size-7">25 March 2019</time>
+            <h1><a href="https://zhouqian0.github.io/2019/go-fifth/">Go 指南阅读笔记5 并发</a></h1>
+            <time class="has-text-grey-light is-size-7">26 August 2019</time>
       
-            <h1><a href="https://zhouqian0.github.io/2019/ng-second/">关于主动触发 angular 的表单验证机制</a></h1>
-            <time class="has-text-grey-light is-size-7">27 February 2019</time>
+            <h1><a href="https://zhouqian0.github.io/2019/go-fourth/">Go 指南阅读笔记4 方法和接口</a></h1>
+            <time class="has-text-grey-light is-size-7">16 August 2019</time>
       
-            <h1><a href="https://zhouqian0.github.io/2019/ng-third/">angular form 中的 disable() 导致 form valid 结果为 false</a></h1>
-            <time class="has-text-grey-light is-size-7">21 February 2019</time>
+            <h1><a href="https://zhouqian0.github.io/2019/go-third/">Go 指南阅读笔记3 基础类型</a></h1>
+            <time class="has-text-grey-light is-size-7">16 August 2019</time>
       
-            <h1><a href="https://zhouqian0.github.io/2019/ng-sixth/">Cannot read property &#39;subscribe&#39; of undefined</a></h1>
-            <time class="has-text-grey-light is-size-7">21 February 2019</time>
+            <h1><a href="https://zhouqian0.github.io/2019/go-second/">Go 指南阅读笔记2 流程控制语句</a></h1>
+            <time class="has-text-grey-light is-size-7">15 August 2019</time>
       
-            <h1><a href="https://zhouqian0.github.io/2019/ng-fifth/">angular datepicker 使用建议</a></h1>
-            <time class="has-text-grey-light is-size-7">13 February 2019</time>
+            <h1><a href="https://zhouqian0.github.io/2019/go-first/">Go 指南阅读笔记1 基础</a></h1>
+            <time class="has-text-grey-light is-size-7">14 August 2019</time>
       
     </div>
 </div>
