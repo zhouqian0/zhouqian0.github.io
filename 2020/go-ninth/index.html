@@ -94,7 +94,13 @@ food := append(veggies, fruits...)
 <li>When a slice is passed to a function, even though it’s passed by value, the pointer variable will refer to the same underlying array.</li>
 <li>Slices hold a reference to the underlying array. As long as the slice is in memory, the array cannot be garbage collected.
 <ul>
-<li>One way to solve this problem is to use the copy function to make a copy of that slice (original array can be garbage collected.).</li>
+<li>One way to solve this problem is to use the copy function to make a copy of that slice (original array can be garbage collected.).
+<pre><code>countries := []string{&quot;USA&quot;, &quot;Singapore&quot;, &quot;Germany&quot;, &quot;India&quot;, &quot;Australia&quot;}
+neededCountries := countries[:len(countries)-2]
+countriesCpy := make([]string, len(neededCountries))
+copy(countriesCpy, neededCountries) //copies neededCountries to countriesCpy
+return countriesCpy
+</code></pre></li>
 </ul>
 </li>
 </ol>
