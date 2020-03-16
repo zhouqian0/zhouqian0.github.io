@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Let&#39;s finish what we started  | Go 指南阅读笔记2 流程控制语句</title>
+    <title>Let&#39;s finish what we started  | Go 学习小记3</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -29,7 +29,7 @@
                 <br>
                 <h1 class="title is-size-1">
                     
-                        Go 指南阅读笔记2 流程控制语句
+                        Go 学习小记3
                     
                 </h1>
                 
@@ -46,64 +46,160 @@
     <div class="column is-9">
         <div class="tile is-child box">
             <div class="content">
-                <p>golang 小记：流程控制语法</p>
-<h3 id="流程控制语句">流程控制语句</h3>
+                <p>本文将介绍 golang 的 Map, Strings, Pointers, Structures, Methods&hellip;</p>
+<h3 id="map">Map</h3>
 <ol>
-<li>Go 只有一种循环结构：for 循环。</li>
-<li>Go 的 for 语句后面的三个构成部分外没有小括号， 大括号 { } 则是必须的。
-<pre><code>package main
-   
-import &quot;fmt&quot;
-   
-func main() {
-    sum := 0
-    for i := 0; i &lt; 10; i++ {
-        sum += i
-    }
-    fmt.Println(sum)
-}
+<li>
+<pre><code> for key, value := range mapObj {
+    // XXX
+ }
 </code></pre><ul>
-<li>初始化语句和后置语句是可选的。</li>
+<li>Using range is not guaranteed to be the same for each execution of the program.</li>
 </ul>
 </li>
-<li>Go 的 if 语句与 for 循环类似，表达式外无需小括号 ( ) ，而大括号 { } 则是必须的。</li>
-<li>if 语句可以在条件表达式前执行一个简单的语句( 该语句声明的变量作用域仅在 if 之内 )。
-<pre><code>    if v := math.Pow(x, n); v &lt; lim {
+<li>Maps are reference types.</li>
+<li>One way to check whether two maps are equal is to compare each one&rsquo;s individual elements one by one.</li>
+</ol>
+<h3 id="strings">Strings</h3>
+<ol>
+<li>A string in Go is a slice of bytes.</li>
+<li>Strings in Go are Unicode compliant and are UTF-8 Encoded.</li>
+<li>It does not matter how many bytes the code point occupies, it can be represented by a rune.
+<pre><code>func printChars(s string) { // Can print special characters, like ñ (its UTF-8 encoding occupies 2 bytes).
+    runes := []rune(s)
+    for i:= 0; i &lt; len(runes); i++ {
+        fmt.Printf(&quot;%c &quot;,runes[i])
     }
+}
+   
+func printCharsAndBytes(s string) {  
+    for index, rune := range s {
+        fmt.Printf(&quot;%c starts at byte %d\n&quot;, rune, index)
+    }
+}
 </code></pre></li>
-<li>switch 是编写一连串 if - else 语句的简便方法。它运行第一个值等于条件表达式的 case 语句。
+<li>The func <code>RuneCountInString(s string) (n int)</code> function of the <code>utf8 package</code> is used to find the length of the string.</li>
+<li>Strings are immutable in Go.
 <ul>
-<li>Go 自动提供了在这些语言中每个 case 后面所需的 break 语句。 除非以 fallthrough 语句结束，否则分支会自动终止。</li>
-<li>Go 的另一点重要的不同在于 switch 的 case 无需为常量，且取值不必为整数。</li>
-<li>没有条件的 switch 同 switch true 一样。该形式能将一长串 if-then-else 写得更加清晰。</li>
+<li>To workaround this string immutability, strings are converted to a slice of runes.</li>
 </ul>
-<pre><code>    switch time.Now().Weekday() {
-        case time.Saturday, time.Sunday:
-            fmt.Println(&quot;It's the weekend&quot;)
-        default:
-            fmt.Println(&quot;It's a weekday&quot;)
-        }
-</code></pre><p>可以用逗号分隔同一个 case 的多个条件</p>
-<pre><code>    whatAmI := func(i interface{}) {
-        switch t := i.(type) {  // 此语法在 switch 域外不可用
-        case bool:
-            fmt.Println(&quot;I'm a bool&quot;)
-        case int:
-            fmt.Println(&quot;I'm an int&quot;)
-        default:
-            fmt.Printf(&quot;Don't know type %T\n&quot;, t)
-        }
-    }
-    whatAmI(true)   // I'm a bool
-    whatAmI(1)      // I'm an int
-    whatAmI(&quot;hey&quot;)  // Don't know type string
+<pre><code>func mutate(s []rune) string {  
+    s[0] = 'a' 
+    return string(s)
+}
+func main() {  
+    h := &quot;hello&quot;
+    fmt.Println(mutate([]rune(h)))
+}
 </code></pre></li>
-<li>defer 语句会将函数推迟到外层函数返回之后执行。(感觉有点类似 js 的 setTimeout)
+</ol>
+<h3 id="pointers">Pointers</h3>
+<ol>
+<li>A pointer is a variable which stores the memory address of another variable.</li>
+<li>*T is the type of the pointer variable which points to a value of type T.</li>
+<li>The new function to create a pointer of type T.
+<pre><code>func new(Type) *Type
+</code></pre></li>
+<li>Dereferencing a pointer means accessing the value of the variable which the pointer points to. *a is the syntax to deference a.</li>
+<li>Do not pass a pointer to an array as a argument to a function. Use slice instead.</li>
+<li>Go does not support pointer arithmetic</li>
+</ol>
+<h3 id="structures">Structures</h3>
+<ol>
+<li>It is possible to declare structures without declaring a new type and these type of structures are called anonymous structures.
+<pre><code>var employee struct {  
+        firstName, lastName string
+        age int
+}
+</code></pre></li>
+<li>It is possible to create structs with fields which contain only a type without the field name. These kind of fields are called anonymous fields.
+<pre><code>type Person struct {  
+    string
+    int
+}
+   
+func main() {  
+    // p := Person{&quot;Naveen&quot;, 50}
+    var p Person
+    p.string = &quot;naveen&quot;
+    p.int = 50
+    fmt.Println(p)
+}
+</code></pre></li>
+<li>Fields that belong to a anonymous struct field in a structure are called promoted fields.
+<pre><code>type Address struct {  
+    city, state string
+}
+type Person struct {  
+    name string
+    age  int
+    Address
+}
+   
+func main() {  
+    var p Person
+    p.name = &quot;Naveen&quot;
+    p.age = 50
+    p.Address = Address{
+        city:  &quot;Chicago&quot;,
+        state: &quot;Illinois&quot;,
+    }
+    fmt.Println(&quot;Name:&quot;, p.name)
+    fmt.Println(&quot;Age:&quot;, p.age)
+    fmt.Println(&quot;City:&quot;, p.city) //city is promoted field
+    fmt.Println(&quot;State:&quot;, p.state) //state is promoted field
+}
+</code></pre></li>
+<li>Structs are value types and are comparable if each of their fields are comparable. Two struct variables are considered equal if their corresponding fields are equal.
 <ul>
-<li>推迟调用的函数其参数会立即求值，但直到外层函数返回前该函数都不会被调用。</li>
-<li>推迟的函数调用会被压入一个栈中。当外层函数返回时，被推迟的函数会按照 <em><strong>后进先出</strong></em> 的顺序调用。</li>
+<li><em>Struct variables are not comparable if they contain fields which are not comparable.</em> Maps are not comparable.</li>
 </ul>
 </li>
+</ol>
+<h3 id="methods">Methods</h3>
+<ol>
+<li>Go is not a pure object-oriented programming language and it does not support classes.
+<ul>
+<li>Hence methods on types are a way to achieve behavior similar to classes.</li>
+</ul>
+</li>
+<li>Methods with the same name can be defined on different types whereas functions with the same names are not allowed.</li>
+<li>The difference between value and pointer receiver is, changes made inside a method with a pointer receiver is visible to the caller whereas this is not the case in value receiver.</li>
+<li>Pointers receivers can used in places where it&rsquo;s expensive to copy a data structure.
+<ul>
+<li>The struct will not be copied and only a pointer to it will be used in the method.</li>
+</ul>
+</li>
+<li>Methods belonging to anonymous fields of a struct can be called as if they belong to the structure where the anonymous field is defined.</li>
+<li>Value receivers in methods vs Value arguments in functions
+<ol>
+<li>When a function has a value argument, it will accept only a value argument.</li>
+<li>When a method has a value receiver, it will accept both pointer and value receivers.</li>
+</ol>
+<pre><code>func area(r rectangle) {  
+    fmt.Printf(&quot;Area Function result: %d\n&quot;, (r.length * r.width))
+}
+   
+func (r rectangle) area() {  
+    fmt.Printf(&quot;Area Method result: %d\n&quot;, (r.length * r.width))
+}
+</code></pre></li>
+<li>Functions with pointer arguments will accept only pointers whereas methods with pointer receivers will accept both pointer and value receiver.</li>
+<li>To define a method on a type, the definition of the receiver type and the definition of the method should be present in the same package.</li>
+<li>Cannot define new methods on non-local type.
+<pre><code>type myInt int
+   
+func (a myInt) add(b myInt) myInt {  
+    return a + b
+}
+   
+func main() {  
+    num1 := myInt(5)
+    num2 := myInt(10)
+    sum := num1.add(num2)
+    fmt.Println(&quot;Sum is&quot;, sum)
+}
+</code></pre></li>
 </ol>
             </div>
         </div>
@@ -163,9 +259,6 @@ func main() {
         <h1 class="title is-5">Related posts</h1>
       
       
-            <h1><a href="https://zhouqian0.github.io/2020/go-tenth/">Go 学习小记3</a></h1>
-            <time class="has-text-grey-light is-size-7">15 March 2020</time>
-      
             <h1><a href="https://zhouqian0.github.io/2020/go-ninth/">Go 学习小记2</a></h1>
             <time class="has-text-grey-light is-size-7">9 March 2020</time>
       
@@ -183,6 +276,9 @@ func main() {
       
             <h1><a href="https://zhouqian0.github.io/2019/go-third/">Go 指南阅读笔记3 基础类型</a></h1>
             <time class="has-text-grey-light is-size-7">16 August 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/go-second/">Go 指南阅读笔记2 流程控制语句</a></h1>
+            <time class="has-text-grey-light is-size-7">15 August 2019</time>
       
     </div>
 </div>
