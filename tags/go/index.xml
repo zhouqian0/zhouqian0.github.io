@@ -5,10 +5,19 @@
     <description>Recent content in go on Let&#39;s finish what we started</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 16 Mar 2020 10:31:53 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 24 Mar 2020 10:42:30 +0800</lastBuildDate>
     
         <atom:link href="https://zhouqian0.github.io/tags/go/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Go 学习小记5</title>
+      <link>https://zhouqian0.github.io/2020/go-twelfth/</link>
+      <pubDate>Tue, 24 Mar 2020 10:42:30 +0800</pubDate>
+      
+      <guid>https://zhouqian0.github.io/2020/go-twelfth/</guid>
+      <description>&lt;p&gt;本文将介绍 golang 的 Concurrency, Goroutines, Channels, Buffered Channels and Worker Pools, Select, Mutex&amp;hellip;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Go 学习小记4</title>

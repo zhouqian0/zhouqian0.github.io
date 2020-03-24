@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Let&#39;s finish what we started  | Go 学习小记4</title>
+    <title>Let&#39;s finish what we started  | Go 学习小记5</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -29,7 +29,7 @@
                 <br>
                 <h1 class="title is-size-1">
                     
-                        Go 学习小记4
+                        Go 学习小记5
                     
                 </h1>
                 
@@ -46,73 +46,102 @@
     <div class="column is-9">
         <div class="tile is-child box">
             <div class="content">
-                <p>本文将介绍 golang 的 Interfaces&hellip;</p>
-<h3 id="interfaces">Interfaces</h3>
+                <p>本文将介绍 golang 的 Concurrency, Goroutines, Channels, Buffered Channels and Worker Pools, Select, Mutex&hellip;</p>
+<h3 id="concurrency">Concurrency</h3>
 <ol>
-<li>In Go, an interface is a set of method signatures. When a type provides definition for all the methods in the interface, it is said to implement the interface.</li>
-<li>Go interfaces are implemented implicitly if a type contains all the methods declared in the interface.</li>
-<li>An interface that has zero methods is called an empty interface. It is represented as interface{}.</li>
-<li>i.(T) is the syntax which is used to get the underlying value of interface i whose concrete type is T.
-<pre><code>v, ok := i.(T) 
-</code></pre><p>If the concrete type of i is not T then ok will be false and v will have the zero value of type T and the program will not panic.</p>
-</li>
-<li>
-<pre><code>switch i.(type) {
-    case string:
-        fmt.Printf(&quot;I am a string and my value is %s\n&quot;, i.(string))
-    case int:
-        fmt.Printf(&quot;I am an int and my value is %d\n&quot;, i.(int))
-    default:
-        fmt.Printf(&quot;Unknown type\n&quot;)
-    }
-</code></pre></li>
-<li>
-<pre><code>type Describer interface {  
-    Describe()
-}
-   
-func findType(i interface{}) {  
-    switch v := i.(type) {
-    case Describer:
-        v.Describe()
-    default:
-        fmt.Printf(&quot;unknown type\n&quot;)
-    }
-}
-</code></pre></li>
-<li>The concrete value stored in an interface is not addressable.
-<pre><code>type Address struct {  
-    state   string
-    country string
-}
-   
-func (a *Address) Describe() { //implemented using pointer receiver  
-    fmt.Printf(&quot;State %s Country %s&quot;, a.state, a.country)
-}
-   
-func main() {  
-    var d Describer
-    a := Address{&quot;Washington&quot;, &quot;USA&quot;}
-   
-    /* compilation error if the following line is
-       uncommented
-       cannot use a (type Address) as type Describer
-       in assignment: Address does not implement
-       Describer (Describe method has pointer
-       receiver)
-    */
-    //d = a
-   
-    dd = &amp;a //This works since Describer interface
-    //is implemented by Address pointer in line 22
-    d.Describe()
-}
-</code></pre></li>
-<li>The zero value of a interface is nil. A nil interface has both its underlying value and as well as concrete type as nil.
+<li>Concurrency is the capability to deal with lots of things <em>at once</em>.</li>
+<li>Parallelism is doing lots of things <em>at the same time</em>.</li>
+<li>Parallel programs do not always result in faster execution times.</li>
+</ol>
+<h3 id="goroutines">Goroutines</h3>
+<ol>
+<li>Goroutines are functions or methods that run concurrently with other functions or methods.</li>
+<li>Advantages:
 <ul>
-<li>If we try to call a method on the nil interface, the program will panic since the nil interface neither has a underlying value nor a concrete type.</li>
+<li>Goroutines are extremely cheap when compared to threads.</li>
+<li>The Goroutines are multiplexed to fewer number of OS threads.</li>
+<li>Goroutines communicate using channels.
+<ul>
+<li>Channels by design prevent race conditions from happening when accessing shared memory using Goroutines.</li>
 </ul>
 </li>
+</ul>
+</li>
+<li>When a new Goroutine is started, the goroutine call returns immediately. Unlike functions, the control does not wait for the Goroutine to finish executing. The control returns immediately to the next line of code after the Goroutine call and any return values from the Goroutine are ignored.</li>
+<li>The main Goroutine should be running for any other Goroutines to run. If the main Goroutine terminates then the program will be terminated and no other Goroutine will run.
+<ul>
+<li>The main function runs in its own Goroutine and its called the main Goroutine.</li>
+</ul>
+</li>
+</ol>
+<h3 id="channels">Channels</h3>
+<ol>
+<li>
+<p>Channels can be thought as pipes using which Goroutines communicate.</p>
+</li>
+<li>
+<p>Each channel has a type associated with it. No other type is allowed to be transported using the channel.</p>
+</li>
+<li>
+<pre><code>a := make(chan int) 
+data := &lt;- a // read from channel a  
+a &lt;- data // write to channel a  
+</code></pre></li>
+<li>
+<p>When a data is sent to a channel, the control is blocked in the send statement until some other Goroutine reads from that channel. Similarly when data is read from a channel, the read is blocked until some Goroutine writes data to that channel.</p>
+</li>
+<li>
+<p>If a Goroutine is sending data on a channel, then it is expected that some other Goroutine should be receiving the data. If this does not happen, then the program will panic at runtime with Deadlock.</p>
+<p>Similarly if a Goroutine is waiting to receive data from a channel, then some other Goroutine is expected to write data on that channel, else the program will panic.</p>
+</li>
+<li>
+<p>It is also possible to create unidirectional channels, that is channels that only send or receive data.
+<code>func unidirectional(ch chan&lt;- int)</code></p>
+</li>
+<li>
+<p>It is possible to convert a bidirectional channel to a send only or receive only channel but not the vice versa.</p>
+</li>
+<li>
+<p>The for range loop receives data from the channel until it is closed. Once channel is closed, the loop automatically exits.</p>
+</li>
+</ol>
+<h3 id="buffered-channels-and-worker-pools">Buffered Channels and Worker Pools</h3>
+<ol>
+<li>Sends to a buffered channel are blocked only when the buffer is full. Similarly receives from a buffered channel are blocked only when the buffer is empty.</li>
+<li><code>ch := make(chan type, capacity) </code></li>
+<li>The capacity of a buffered channel is the number of values that the channel can hold.</li>
+<li>The length of the buffered channel is the number of elements currently queued in it.</li>
+<li>A WaitGroup is used to wait for a collection of Goroutines to finish executing. The control is blocked until all Goroutines finish executing.</li>
+<li>It is important to pass the address of WaitGroup. If the address is not passed, then each Goroutine will have its own copy of the WaitGroup and main will not be notified when they finish executing.
+<pre><code>func process(i int, wg *sync.WaitGroup) { 
+    XXX
+}
+</code></pre></li>
+<li>We will implement worker pool using buffered channels.
+<ol>
+<li>Creation of a pool of Goroutines which listen on an input buffered channel waiting for jobs to be assigned</li>
+<li>Addition of jobs to the input buffered channel</li>
+<li>Writing results to an output buffered channel after job completion</li>
+<li>Read and print results from the output buffered channel</li>
+</ol>
+</li>
+</ol>
+<h3 id="select">Select</h3>
+<ol>
+<li>The select statement is used to choose from multiple send/receive channel operations. The select statement blocks <em>until one of the send/receive operation is ready</em>. If multiple operations are ready, one of them is chosen at random.</li>
+<li>Practical use of select: The server which responds first is chosen by the select and the other response is ignored.</li>
+<li>The default case in a select statement is executed when none of the other case is ready. This is generally used to prevent the select statement from blocking.</li>
+</ol>
+<h3 id="mutex">Mutex</h3>
+<ol>
+<li>A Mutex is used to provide a locking mechanism to ensure that only one Goroutine is running the critical section of code at any point of time to prevent race condition from happening.</li>
+<li>
+<pre><code>mutex.Lock()  
+x = x + 1  
+mutex.Unlock() 
+</code></pre>If one Goroutine already holds the lock and if a new Goroutine is trying to acquire a lock, the new Goroutine will be blocked until the mutex is unlocked.</li>
+<li>It is important to pass the address of the mutex. If the mutex is passed by value instead of passing the address, each Goroutine will have its own copy of the mutex and the race condition will still occur.</li>
+<li>In general use channels when Goroutines need to communicate with each other and mutexes when only one Goroutine should access the critical section of code.</li>
 </ol>
             </div>
         </div>
@@ -172,8 +201,8 @@ func main() {
         <h1 class="title is-5">Related posts</h1>
       
       
-            <h1><a href="https://zhouqian0.github.io/2020/go-twelfth/">Go 学习小记5</a></h1>
-            <time class="has-text-grey-light is-size-7">24 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2020/go-eleventh/">Go 学习小记4</a></h1>
+            <time class="has-text-grey-light is-size-7">16 March 2020</time>
       
             <h1><a href="https://zhouqian0.github.io/2020/go-tenth/">Go 学习小记3</a></h1>
             <time class="has-text-grey-light is-size-7">15 March 2020</time>
