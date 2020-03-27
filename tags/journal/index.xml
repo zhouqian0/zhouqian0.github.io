@@ -5,10 +5,19 @@
     <description>Recent content in journal on Let&#39;s finish what we started</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 27 Feb 2019 15:03:45 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 27 Mar 2020 11:06:48 +0800</lastBuildDate>
     
         <atom:link href="https://zhouqian0.github.io/tags/journal/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>gRPC 学习小记</title>
+      <link>https://zhouqian0.github.io/2020/fourth/</link>
+      <pubDate>Fri, 27 Mar 2020 11:06:48 +0800</pubDate>
+      
+      <guid>https://zhouqian0.github.io/2020/fourth/</guid>
+      <description>&lt;p&gt;初次接触 gRPC 的学习过程记录。&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>条件判断语句优化</title>
