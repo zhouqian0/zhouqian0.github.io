@@ -94,22 +94,22 @@
 </code></pre></div><p>这是为什么呢？原来 NgZone 只是一种便捷机制，它是通过自动调用 applicationRef.tick() 这个方法，来实现变更检测，刷新页面数据的。</p>
 <p>在浏览器中打上断点，进入到 <a href="https://github.com/angular/angular/blob/30d5a2ca83c9cf44f602462597a58547b05b75dd/packages/core/src/application_ref.ts#L509">tick()</a> 这个方法之后就会发现，它遍历了所有的 view，并且对它进行了数据的变更检测，如果发生了数据对象的更新，就回去更新页面。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">  <span style="color:#a6e22e">tick</span>()<span style="color:#f92672">:</span> <span style="color:#66d9ef">void</span> {
-    <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_runningTick</span>) {
+    <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">this</span>.<span style="color:#ae81ff">_</span><span style="color:#a6e22e">runningTick</span>) {
       <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> Error(<span style="color:#e6db74">&#39;ApplicationRef.tick is called recursively&#39;</span>);
     }
 
-    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">scope</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ApplicationRef</span>.<span style="color:#a6e22e">_tickScope</span>();
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">scope</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ApplicationRef</span>.<span style="color:#ae81ff">_</span><span style="color:#a6e22e">tickScope</span>();
     <span style="color:#66d9ef">try</span> {
-      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_runningTick</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
-      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_views</span>.<span style="color:#a6e22e">forEach</span>((<span style="color:#a6e22e">view</span>) =&gt; <span style="color:#a6e22e">view</span>.<span style="color:#a6e22e">detectChanges</span>());
-      <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_enforceNoNewChanges</span>) {
-        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_views</span>.<span style="color:#a6e22e">forEach</span>((<span style="color:#a6e22e">view</span>) =&gt; <span style="color:#a6e22e">view</span>.<span style="color:#a6e22e">checkNoChanges</span>());
+      <span style="color:#66d9ef">this</span>.<span style="color:#ae81ff">_</span><span style="color:#a6e22e">runningTick</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+      <span style="color:#66d9ef">this</span>.<span style="color:#ae81ff">_</span><span style="color:#a6e22e">views</span>.<span style="color:#a6e22e">forEach</span>((<span style="color:#a6e22e">view</span>) =&gt; <span style="color:#a6e22e">view</span>.<span style="color:#a6e22e">detectChanges</span>());
+      <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">this</span>.<span style="color:#ae81ff">_</span><span style="color:#a6e22e">enforceNoNewChanges</span>) {
+        <span style="color:#66d9ef">this</span>.<span style="color:#ae81ff">_</span><span style="color:#a6e22e">views</span>.<span style="color:#a6e22e">forEach</span>((<span style="color:#a6e22e">view</span>) =&gt; <span style="color:#a6e22e">view</span>.<span style="color:#a6e22e">checkNoChanges</span>());
       }
     } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">e</span>) {
       <span style="color:#75715e">// Attention: Don&#39;t rethrow as it could cancel subscriptions to Observables!
-</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_zone</span>.<span style="color:#a6e22e">runOutsideAngular</span>(() =&gt; <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_exceptionHandler</span>.<span style="color:#a6e22e">handleError</span>(<span style="color:#a6e22e">e</span>));
+</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">this</span>.<span style="color:#ae81ff">_</span><span style="color:#a6e22e">zone</span>.<span style="color:#a6e22e">runOutsideAngular</span>(() =&gt; <span style="color:#66d9ef">this</span>.<span style="color:#ae81ff">_</span><span style="color:#a6e22e">exceptionHandler</span>.<span style="color:#a6e22e">handleError</span>(<span style="color:#a6e22e">e</span>));
     } <span style="color:#66d9ef">finally</span> {
-      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_runningTick</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+      <span style="color:#66d9ef">this</span>.<span style="color:#ae81ff">_</span><span style="color:#a6e22e">runningTick</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
       <span style="color:#a6e22e">wtfLeave</span>(<span style="color:#a6e22e">scope</span>);
     }
   }
@@ -141,8 +141,8 @@
 </span><span style="color:#75715e"> */</span>
 <span style="color:#a6e22e">readonly</span> <span style="color:#a6e22e">onMicrotaskEmpty</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">EventEmitter</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">any</span><span style="color:#f92672">&gt;</span>;
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// ApplicationRef
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_zone</span>.<span style="color:#a6e22e">onMicrotaskEmpty</span>.<span style="color:#a6e22e">subscribe</span>(
-        {<span style="color:#a6e22e">next</span><span style="color:#f92672">:</span> () =&gt; { <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_zone</span>.<span style="color:#a6e22e">run</span>(() =&gt; { <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">tick</span>(); }); }});
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">this</span>.<span style="color:#ae81ff">_</span><span style="color:#a6e22e">zone</span>.<span style="color:#a6e22e">onMicrotaskEmpty</span>.<span style="color:#a6e22e">subscribe</span>(
+        {<span style="color:#a6e22e">next</span><span style="color:#f92672">:</span> () =&gt; { <span style="color:#66d9ef">this</span>.<span style="color:#ae81ff">_</span><span style="color:#a6e22e">zone</span>.<span style="color:#a6e22e">run</span>(() =&gt; { <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">tick</span>(); }); }});
 </code></pre></div><p>那么问题来了？为什么是 microtaskEmpty 呢，我在网上查找了一些文章后发现了这个：<a href="https://html.spec.whatwg.org/multipage/webappapis.html#event-loop-processing-model">HTML Standard - event loop processing model</a> ，这个一个来描述浏览器的事件循环的进程模型，在这篇文档里大致解释了原因：在页面更新渲染之前的上一步就是执行 microtask（涉及相关的 micro task 和 macro task 本文不作介绍）。而且触发这个 onMicrotaskEmpty 的函数也叫 <a href="https://github.com/angular/angular/blob/44623a116158c8048ce61a873ed63a290c039202/packages/core/src/zone/ng_zone.ts#L246">checkStable()</a>。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">/*
 </span><span style="color:#75715e">  Notifies when the last onMicrotaskEmpty has run and there are no more microtasks, 
@@ -150,12 +150,12 @@
 </span><span style="color:#75715e">  This event gets called just once.
 </span><span style="color:#75715e">*/</span>
 <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">checkStable</span>(<span style="color:#a6e22e">zone</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">NgZonePrivate</span>) {
-  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">zone</span>.<span style="color:#a6e22e">_nesting</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span><span style="color:#a6e22e">zone</span>.<span style="color:#a6e22e">hasPendingMicrotasks</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span><span style="color:#a6e22e">zone</span>.<span style="color:#a6e22e">isStable</span>) {
+  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">zone</span>.<span style="color:#ae81ff">_</span><span style="color:#a6e22e">nesting</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span><span style="color:#a6e22e">zone</span>.<span style="color:#a6e22e">hasPendingMicrotasks</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span><span style="color:#a6e22e">zone</span>.<span style="color:#a6e22e">isStable</span>) {
     <span style="color:#66d9ef">try</span> {
-      <span style="color:#a6e22e">zone</span>.<span style="color:#a6e22e">_nesting</span><span style="color:#f92672">++</span>;
+      <span style="color:#a6e22e">zone</span>.<span style="color:#ae81ff">_</span><span style="color:#a6e22e">nesting</span><span style="color:#f92672">++</span>;
       <span style="color:#a6e22e">zone</span>.<span style="color:#a6e22e">onMicrotaskEmpty</span>.<span style="color:#a6e22e">emit</span>(<span style="color:#66d9ef">null</span>);
     } <span style="color:#66d9ef">finally</span> {
-      <span style="color:#a6e22e">zone</span>.<span style="color:#a6e22e">_nesting</span><span style="color:#f92672">--</span>;
+      <span style="color:#a6e22e">zone</span>.<span style="color:#ae81ff">_</span><span style="color:#a6e22e">nesting</span><span style="color:#f92672">--</span>;
       <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">zone</span>.<span style="color:#a6e22e">hasPendingMicrotasks</span>) {
         <span style="color:#66d9ef">try</span> {
           <span style="color:#a6e22e">zone</span>.<span style="color:#a6e22e">runOutsideAngular</span>(() =&gt; <span style="color:#a6e22e">zone</span>.<span style="color:#a6e22e">onStable</span>.<span style="color:#a6e22e">emit</span>(<span style="color:#66d9ef">null</span>));
@@ -167,17 +167,17 @@
   }
 }
 </code></pre></div><p>讲完异步触发的场景，再来看 component 初始化加载时页面是为什么刷新的。看了一看 ApplicationRef 这个类，就找到了这个 <a href="https://github.com/angular/angular/blob/30d5a2ca83c9cf44f602462597a58547b05b75dd/packages/core/src/application_ref.ts#L550">_loadComponent</a>，并且这个函数也调用了 tick 函数，且引用这个 _loadComponent 函数的函数叫 <a href="https://github.com/angular/angular/blob/30d5a2ca83c9cf44f602462597a58547b05b75dd/packages/core/src/application_ref.ts#L462">bootstrap</a> ,这是个引导加载 component 的函数。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">  <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">_loadComponent</span>(<span style="color:#a6e22e">componentRef</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">ComponentRef</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">any</span><span style="color:#f92672">&gt;</span>)<span style="color:#f92672">:</span> <span style="color:#66d9ef">void</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">  <span style="color:#66d9ef">private</span> <span style="color:#ae81ff">_</span><span style="color:#a6e22e">loadComponent</span>(<span style="color:#a6e22e">componentRef</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">ComponentRef</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">any</span><span style="color:#f92672">&gt;</span>)<span style="color:#f92672">:</span> <span style="color:#66d9ef">void</span> {
     <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">attachView</span>(<span style="color:#a6e22e">componentRef</span>.<span style="color:#a6e22e">hostView</span>);
     <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">tick</span>();
     <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">components</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">componentRef</span>);
     <span style="color:#75715e">// Get the listeners lazily to prevent DI cycles.
 </span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">listeners</span> <span style="color:#f92672">=</span>
-        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_injector</span>.<span style="color:#a6e22e">get</span>(<span style="color:#a6e22e">APP_BOOTSTRAP_LISTENER</span>, []).<span style="color:#a6e22e">concat</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_bootstrapListeners</span>);
+        <span style="color:#66d9ef">this</span>.<span style="color:#ae81ff">_</span><span style="color:#a6e22e">injector</span>.<span style="color:#a6e22e">get</span>(<span style="color:#a6e22e">APP_BOOTSTRAP_LISTENER</span>, []).<span style="color:#a6e22e">concat</span>(<span style="color:#66d9ef">this</span>.<span style="color:#ae81ff">_</span><span style="color:#a6e22e">bootstrapListeners</span>);
     <span style="color:#a6e22e">listeners</span>.<span style="color:#a6e22e">forEach</span>((<span style="color:#a6e22e">listener</span>) =&gt; <span style="color:#a6e22e">listener</span>(<span style="color:#a6e22e">componentRef</span>));
   }
 
-  <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">_unloadComponent</span>(<span style="color:#a6e22e">componentRef</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">ComponentRef</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">any</span><span style="color:#f92672">&gt;</span>)<span style="color:#f92672">:</span> <span style="color:#66d9ef">void</span> {
+  <span style="color:#66d9ef">private</span> <span style="color:#ae81ff">_</span><span style="color:#a6e22e">unloadComponent</span>(<span style="color:#a6e22e">componentRef</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">ComponentRef</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">any</span><span style="color:#f92672">&gt;</span>)<span style="color:#f92672">:</span> <span style="color:#66d9ef">void</span> {
     <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">detachView</span>(<span style="color:#a6e22e">componentRef</span>.<span style="color:#a6e22e">hostView</span>);
     <span style="color:#a6e22e">remove</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">components</span>, <span style="color:#a6e22e">componentRef</span>);
   }
@@ -336,7 +336,7 @@
 <p>再来讲讲 <a href="https://zh.wikipedia.org/zh-hans/WebP">WebP</a>，这是一种由谷歌开发的一种图像格式，这种格式对比 JPEG ,PNG 体积能少 25%-35%，从而显著优化页面加载时间和带宽使用情况。具有更优的图像数据压缩算法，能带来更小的图片体积，而且拥有肉眼识别无差异的图像质量；同时具备了无损和有损的压缩模式、Alpha 透明以及动画的特性，在 JPEG 和 PNG 上的转化效果都非常优秀、稳定和统一。</p>
 <p>WebP 的缺点就是解码速度相对于 JPEG ,PNG 慢，但是由于其带来的更小的体积缩短了加载时间，其实文件渲染速度然而是更快了。其次就是它目前支持了市面上的约 78% 的浏览器，还有部分浏览器尚未支持，如safari。</p>
 <p>再者对图像而言，压缩色彩质量至原来的 80%-85% 将会将体积压缩 30%-40%，且对图像的影响最小。</p>
-<p>还有就是在 img 标签上使用 loading=&quot;lazy&rdquo; 可以将图片设置为懒加载，如 Medium 就是将图片设置为该格式，但是缺点就是该格式目前只支持 Chrome。</p>
+<p>还有就是在 img 标签上使用 loading=&ldquo;lazy&rdquo; 可以将图片设置为懒加载，如 Medium 就是将图片设置为该格式，但是缺点就是该格式目前只支持 Chrome。</p>
 <hr>
 <h3 id="异步加载-js">异步加载 js</h3>
 <p>在 script 标签中使用 defer 可以讲不需要立刻使用的 js 推迟加载。</p>
@@ -360,6 +360,8 @@
         <h1 class="title is-5">Tags</h1>
         <div class="tags">
         
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/algorithm">algorithm</a></span>
+        
             <span class="tag"><a href="https://zhouqian0.github.io/tags/angular">angular</a></span>
         
             <span class="tag"><a href="https://zhouqian0.github.io/tags/go">go</a></span>
@@ -381,20 +383,20 @@
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
-            <h1><a href="https://zhouqian0.github.io/2020/fourth/">gRPC 学习小记</a></h1>
-            <time class="has-text-grey-light is-size-7">27 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/stack/">栈</a></h1>
+            <time class="has-text-grey-light is-size-7">5 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-twelfth/">Go 学习小记5</a></h1>
-            <time class="has-text-grey-light is-size-7">24 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/linked-list/">链表</a></h1>
+            <time class="has-text-grey-light is-size-7">5 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-eleventh/">Go 学习小记4</a></h1>
-            <time class="has-text-grey-light is-size-7">16 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/array/">数组</a></h1>
+            <time class="has-text-grey-light is-size-7">4 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-tenth/">Go 学习小记3</a></h1>
-            <time class="has-text-grey-light is-size-7">15 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/abstract/">算法入门摘要</a></h1>
+            <time class="has-text-grey-light is-size-7">4 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-ninth/">Go 学习小记2</a></h1>
-            <time class="has-text-grey-light is-size-7">9 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2020/prom-first/">Prometheus 小记1</a></h1>
+            <time class="has-text-grey-light is-size-7">18 September 2020</time>
         
     </div>
 </div>
@@ -439,7 +441,9 @@
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2020">2020</a> (10)<br>
+            <a href="https://zhouqian0.github.io/archives/2021">2021</a> (4)<br>
+        
+            <a href="https://zhouqian0.github.io/archives/2020">2020</a> (11)<br>
         
             <a href="https://zhouqian0.github.io/archives/2019">2019</a> (46)<br>
         
@@ -462,7 +466,7 @@
             <span class="icon is-large"><a href="https://www.youtube.com/" class="mysocial" rel="me"><i class="fab fa-youtube fa-3x"></i></a></span>&nbsp;&nbsp;
             <span class="icon is-large"><a href="https://github.com/" class="mysocial" rel="me"><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;
             <br><br>
-            Copyright &copy; Let&#39;s finish what we started 2020 - Theme by <a href="https://jeffprod.com" class="mysocial">JeffProd.com</a>
+            Copyright &copy; Let&#39;s finish what we started 2021 - Theme by <a href="https://jeffprod.com" class="mysocial">JeffProd.com</a>
             - <a class="mysocial" href="https://zhouqian0.github.io/about">About</a>
         </p>
     </div>

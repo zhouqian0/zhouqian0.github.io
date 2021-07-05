@@ -77,11 +77,11 @@
     color?: string;
     width?: number;
 }
-       
+
 function createSquare(config: SquareConfig): { color: string; area: number } {
     // ...
 }
-       
+
 let squareOptions = { colour: &quot;red&quot;, width: 100 };
 let mySquare = createSquare(squareOptions);
 </code></pre></li>
@@ -92,7 +92,7 @@ let mySquare = createSquare(squareOptions);
 <pre><code>interface SearchFunc {
     (source: string, subString: string): boolean;
 }
-   
+
 let mySearch: SearchFunc;
 mySearch = function(source: string, subString: string) {
     let result = source.search(subString);
@@ -140,11 +140,11 @@ mySearch = function(source: string, subString: string) {
     interface ClockInterface {
         tick();
     }
-       
+
     function createClock(ctor: ClockConstructor, hour: number, minute: number): ClockInterface {
         return new ctor(hour, minute);
     }
-       
+
     class DigitalClock implements ClockInterface {
         constructor(h: number, m: number) { }
         tick() {
@@ -157,7 +157,7 @@ mySearch = function(source: string, subString: string) {
             console.log(&quot;tick tock&quot;);
         }
     }
-       
+
     let digital = createClock(DigitalClock, 12, 17);
     let analog = createClock(AnalogClock, 7, 32);
 </code></pre><ol>
@@ -166,11 +166,11 @@ mySearch = function(source: string, subString: string) {
 <pre><code>   interface ClockConstructor {
      new (hour: number, minute: number);
    }
-      
+
    interface ClockInterface {
      tick();
    }
-      
+
    const Clock: ClockConstructor = class Clock implements ClockInterface {
      constructor(h: number, m: number) {}
      tick() {
@@ -188,14 +188,14 @@ mySearch = function(source: string, subString: string) {
     interval: number;
     reset(): void;
 }
-   
+
 function getCounter(): Counter {
     let counter = &lt;Counter&gt;function (start: number) { };
     counter.interval = 123;
     counter.reset = function () { };
     return counter;
 }
-   
+
 let c = getCounter();
 c(10);
 c.reset();
@@ -219,6 +219,8 @@ c.interval = 5.0;
         <h1 class="title is-5">Tags</h1>
         <div class="tags">
         
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/algorithm">algorithm</a></span>
+        
             <span class="tag"><a href="https://zhouqian0.github.io/tags/angular">angular</a></span>
         
             <span class="tag"><a href="https://zhouqian0.github.io/tags/go">go</a></span>
@@ -240,20 +242,20 @@ c.interval = 5.0;
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
-            <h1><a href="https://zhouqian0.github.io/2020/fourth/">gRPC 学习小记</a></h1>
-            <time class="has-text-grey-light is-size-7">27 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/stack/">栈</a></h1>
+            <time class="has-text-grey-light is-size-7">5 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-twelfth/">Go 学习小记5</a></h1>
-            <time class="has-text-grey-light is-size-7">24 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/linked-list/">链表</a></h1>
+            <time class="has-text-grey-light is-size-7">5 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-eleventh/">Go 学习小记4</a></h1>
-            <time class="has-text-grey-light is-size-7">16 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/array/">数组</a></h1>
+            <time class="has-text-grey-light is-size-7">4 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-tenth/">Go 学习小记3</a></h1>
-            <time class="has-text-grey-light is-size-7">15 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/abstract/">算法入门摘要</a></h1>
+            <time class="has-text-grey-light is-size-7">4 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-ninth/">Go 学习小记2</a></h1>
-            <time class="has-text-grey-light is-size-7">9 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2020/prom-first/">Prometheus 小记1</a></h1>
+            <time class="has-text-grey-light is-size-7">18 September 2020</time>
         
     </div>
 </div>
@@ -298,7 +300,9 @@ c.interval = 5.0;
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2020">2020</a> (10)<br>
+            <a href="https://zhouqian0.github.io/archives/2021">2021</a> (4)<br>
+        
+            <a href="https://zhouqian0.github.io/archives/2020">2020</a> (11)<br>
         
             <a href="https://zhouqian0.github.io/archives/2019">2019</a> (46)<br>
         
@@ -321,7 +325,7 @@ c.interval = 5.0;
             <span class="icon is-large"><a href="https://www.youtube.com/" class="mysocial" rel="me"><i class="fab fa-youtube fa-3x"></i></a></span>&nbsp;&nbsp;
             <span class="icon is-large"><a href="https://github.com/" class="mysocial" rel="me"><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;
             <br><br>
-            Copyright &copy; Let&#39;s finish what we started 2020 - Theme by <a href="https://jeffprod.com" class="mysocial">JeffProd.com</a>
+            Copyright &copy; Let&#39;s finish what we started 2021 - Theme by <a href="https://jeffprod.com" class="mysocial">JeffProd.com</a>
             - <a class="mysocial" href="https://zhouqian0.github.io/about">About</a>
         </p>
     </div>

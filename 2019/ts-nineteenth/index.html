@@ -59,9 +59,9 @@
       dispose() {
           this.isDisposed = true;
       }
-     
+
   }
-     
+
   // Activatable Mixin
   class Activatable {
       isActive: boolean;
@@ -72,27 +72,27 @@
           this.isActive = false;
       }
   }
-     
+
   class SmartObject {
       constructor() {
           setInterval(() =&gt; console.log(this.isActive + &quot; : &quot; + this.isDisposed), 500);
       }
-     
+
       interact() {
           this.activate();
       }
   }
-     
+
   interface SmartObject extends Disposable, Activatable {}
   applyMixins(SmartObject, [Disposable, Activatable]);
-     
+
   let smartObj = new SmartObject();
   setTimeout(() =&gt; smartObj.interact(), 1000);
-     
+
   ////////////////////////////////////////
   // In your runtime library somewhere
   ////////////////////////////////////////
-     
+
   function applyMixins(derivedCtor: any, baseCtors: any[]) {
       baseCtors.forEach(baseCtor =&gt; {
           Object.getOwnPropertyNames(baseCtor.prototype).forEach(name =&gt; {
@@ -108,7 +108,7 @@
 </li>
 <li>
 <pre><code>type Constructor&lt;T = {}&gt; = new (...args: any[]) =&gt; T;
-  
+
 function Timestamped&lt;TBase extends Constructor&gt;(Base: TBase) {
  return class Timestamped extends Base {
    timestamp = Date.now();
@@ -117,18 +117,18 @@ function Timestamped&lt;TBase extends Constructor&gt;(Base: TBase) {
 
 class User {
  name: string;
-  
+
  constructor(name: string) {
    this.name = name;
  }
 }
-  
+
 // Create a new class by mixing &quot;Timestamped&quot; into &quot;User&quot;
 const TimestampedUser = Timestamped(User);
-  
+
 // Instantiate the new &quot;TimestampedUser&quot; class
 const user = new TimestampedUser(&quot;John Doe&quot;);
-  
+
 // We can now access properties from both the &quot;User&quot; class
 // and our &quot;Timestamped&quot; mixin in a type-safe manner
 console.log(user.name);  // John Doe
@@ -136,31 +136,31 @@ console.log(user.timestamp); // 1565752687614
 </code></pre></li>
 <li>Mixins with a Constructor
 <pre><code>   type Constructor&lt;T = {}&gt; = new (...args: any[]) =&gt; T;
-      
+
    function Tagged&lt;TBase extends Constructor&gt;(Base: TBase) {
      return class extends Base {
        tag: string | null;
-      
+
        constructor(...args: any[]) {
          super(...args);
          this.tag = null;
        }
      };
    }
-  
+
    class User {
     name: string;
-         
+
     constructor(name: string) {
       this.name = name;
     }
    }
 </code></pre><pre><code>   // Create a new class by mixing &quot;Tagged&quot; into &quot;User&quot;
    const TaggedUser = Tagged(User);
-      
+
    // Instantiate the new &quot;TaggedUser&quot; class
    const user = new TaggedUser(&quot;John Doe&quot;);
-      
+
    // We can now access properties from both the &quot;User&quot; class
    // and our &quot;Tagged&quot; mixin in a type-safe manner
    user.name = &quot;Jane Doe&quot;;
@@ -172,35 +172,35 @@ console.log(user.timestamp); // 1565752687614
    function Activatable&lt;TBase extends Constructor&gt;(Base: TBase) {
      return class extends Base {
        isActivated = false;
-      
+
        activate() {
          this.isActivated = true;
        }
-      
+
        deactivate() {
          this.isActivated = false;
        }
      };
    }
-  
+
    class User {
      name: string;
-             
+
      constructor(name: string) {
        this.name = name;
      }
    }
 </code></pre><pre><code>   const ActivatableUser = Activatable(User);
-      
+
    // Instantiate the new &quot;ActivatableUser&quot; class
    const user = new ActivatableUser(&quot;John Doe&quot;);
-      
+
    // Initially, the &quot;isActivated&quot; property is false
    console.log(user.isActivated);
-      
+
    // Activate the user
    user.activate();
-      
+
    // Now, &quot;isActivated&quot; is true
    console.log(user.isActivated);
 </code></pre></li>
@@ -223,6 +223,8 @@ const user = new SpecialUser(&quot;John Doe&quot;);
         <h1 class="title is-5">Tags</h1>
         <div class="tags">
         
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/algorithm">algorithm</a></span>
+        
             <span class="tag"><a href="https://zhouqian0.github.io/tags/angular">angular</a></span>
         
             <span class="tag"><a href="https://zhouqian0.github.io/tags/go">go</a></span>
@@ -244,20 +246,20 @@ const user = new SpecialUser(&quot;John Doe&quot;);
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
-            <h1><a href="https://zhouqian0.github.io/2020/fourth/">gRPC 学习小记</a></h1>
-            <time class="has-text-grey-light is-size-7">27 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/stack/">栈</a></h1>
+            <time class="has-text-grey-light is-size-7">5 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-twelfth/">Go 学习小记5</a></h1>
-            <time class="has-text-grey-light is-size-7">24 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/linked-list/">链表</a></h1>
+            <time class="has-text-grey-light is-size-7">5 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-eleventh/">Go 学习小记4</a></h1>
-            <time class="has-text-grey-light is-size-7">16 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/array/">数组</a></h1>
+            <time class="has-text-grey-light is-size-7">4 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-tenth/">Go 学习小记3</a></h1>
-            <time class="has-text-grey-light is-size-7">15 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/abstract/">算法入门摘要</a></h1>
+            <time class="has-text-grey-light is-size-7">4 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-ninth/">Go 学习小记2</a></h1>
-            <time class="has-text-grey-light is-size-7">9 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2020/prom-first/">Prometheus 小记1</a></h1>
+            <time class="has-text-grey-light is-size-7">18 September 2020</time>
         
     </div>
 </div>
@@ -271,6 +273,9 @@ const user = new SpecialUser(&quot;John Doe&quot;);
     <div class="card-content">
         <h1 class="title is-5">Related posts</h1>
       
+      
+            <h1><a href="https://zhouqian0.github.io/2020/prom-first/">Prometheus 小记1</a></h1>
+            <time class="has-text-grey-light is-size-7">18 September 2020</time>
       
             <h1><a href="https://zhouqian0.github.io/2019/ts-twenty-first/">TS文档阅读小结21 实用类型</a></h1>
             <time class="has-text-grey-light is-size-7">15 August 2019</time>
@@ -296,7 +301,9 @@ const user = new SpecialUser(&quot;John Doe&quot;);
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2020">2020</a> (10)<br>
+            <a href="https://zhouqian0.github.io/archives/2021">2021</a> (4)<br>
+        
+            <a href="https://zhouqian0.github.io/archives/2020">2020</a> (11)<br>
         
             <a href="https://zhouqian0.github.io/archives/2019">2019</a> (46)<br>
         
@@ -319,7 +326,7 @@ const user = new SpecialUser(&quot;John Doe&quot;);
             <span class="icon is-large"><a href="https://www.youtube.com/" class="mysocial" rel="me"><i class="fab fa-youtube fa-3x"></i></a></span>&nbsp;&nbsp;
             <span class="icon is-large"><a href="https://github.com/" class="mysocial" rel="me"><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;
             <br><br>
-            Copyright &copy; Let&#39;s finish what we started 2020 - Theme by <a href="https://jeffprod.com" class="mysocial">JeffProd.com</a>
+            Copyright &copy; Let&#39;s finish what we started 2021 - Theme by <a href="https://jeffprod.com" class="mysocial">JeffProd.com</a>
             - <a class="mysocial" href="https://zhouqian0.github.io/about">About</a>
         </p>
     </div>

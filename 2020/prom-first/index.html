@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Let&#39;s finish what we started  | Prometheus 小记1</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://zhouqian0.github.io/css/blog.css" />
+    
+</head>
+<body>
+
+    
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://zhouqian0.github.io/">Home</a>
+        </div>
+    </nav>
+    
+
+    
+    <section class="hero is-info is-medium">
+        <div class="hero-body" style="background-image: url(https://zhouqian0.github.io/img/bg-blog.jpg);">
+            <div class="container has-text-centered">
+                <br>
+                <h1 class="title is-size-1">
+                    
+                        Prometheus 小记1
+                    
+                </h1>
+                
+            </div>
+        </div>
+    </section>
+
+
+<div class="container">
+    <div class="section">
+    
+
+<div class="columns">
+    <div class="column is-9">
+        <div class="tile is-child box">
+            <div class="content">
+                <p>Prometheus是一个开放性的监控解决方案&hellip;</p>
+<h3 id="简介">简介</h3>
+<p>Prometheus 是一个开源的完整监控解决方案，其对传统监控系统的测试和告警模型进行了彻底的颠覆，形成了基于中央化的规则计算、统一分析和告警的新模型。</p>
+<ul>
+<li>Prometheus 既适用于以机器为中心的监控，也适用于高度动态的面向服务架构的监控，但其无法保证对数据有百分百精确度。</li>
+<li>Prometheus 作为一个时间序列数据库(提供promQL查询数据)，其采集的数据以文件的形式存储在本地，默认的存储路径为为启动目录下的 data 目录中(需手动创建),或者通过命令<code>--storage.tsdb.path=&quot;data/&quot;</code>指定数据目录。
+<ul>
+<li>其数据按照两个小时为一个时间窗口，将两小时内产生的数据存储在一个块（Block）中。</li>
+<li>通过预写日志文件（保存在 wal 目录）快速在发生崩溃或重启时能够恢复数据。</li>
+<li>在本地存储发生故障时，可以尝试通过删除个别块目录来解决问题。删除每个块目录将会丢失大约两个小时时间窗口的样本数据。所以，Prometheus 的本地存储并不能实现长期的持久化存储。
+<ul>
+<li>Prometheus 可以通过两种方式来集成远程存储（Remote Storage）。
+<ul>
+<li>Remote Write。</li>
+<li>Remote Read。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="核心组件">核心组件</h3>
+<h5 id="prometheus-server">Prometheus Server</h5>
+<ul>
+<li>Prometheus Server 是 Prometheus 组件中的核心部分，负责实现对监控数据的获取，存储以及查询。 通过静态配置管理监控目标，也可以配合使用 Service Discovery 的方式动态管理监控目标，并从这些监控目标中获取数据。</li>
+<li>Prometheus Server 本身也是一个时序数据库，将采集到的监控数据按照时间序列的方式存储在本地磁盘当中。</li>
+<li>Prometheus Server 对外提供了自定义的 PromQL 语言，实现对数据的查询以及分析。</li>
+</ul>
+<h5 id="exporters">Exporters</h5>
+<ul>
+<li>Exporter 将监控数据采集的端点通过 HTTP 服务的形式暴露给 Prometheus Server，Prometheus Server 通过访问该 Exporter 提供的 Endpoint 端点，获取到需要采集的监控数据（如 CPU, 内存，磁盘等信息）。</li>
+<li>Exporter 可以分为 直接采集（直接内置了对 Prometheus 监控的支持）和 间接采集（需要通过 Prometheus 提供的 Client Library 编写该监控目标的监控采集程序）。</li>
+<li>不同版本的 node exporter 会有一定的差异，如指标名称可能不一致。
+<ul>
+<li>解决方法，启动两个多个版本的 node exporter，让 prometheus 采集。或者使用<a href="https://github.com/prometheus/node_exporter/blob/master/docs/example-16-compatibility-rules.yml">指标转换器</a></li>
+</ul>
+</li>
+<li>不建议使用 docker 容器，因为 node exporter 采集的是主机的运行指标。</li>
+</ul>
+<h4 id="alertmanager">AlertManager</h4>
+<ul>
+<li>在 Prometheus Server 中支持基于 PromQL 创建告警规则，如果满足 PromQL 定义的规则，则会产生一条告警，而告警的后续处理流程则由 AlertManager 进行管理（有内置的的通知方式，也可以自定义）。</li>
+</ul>
+<h4 id="pushgateway">PushGateway</h4>
+<ul>
+<li>通过 PushGateway 将内部网络的监控数据主动 Push 到 Gateway 当中。而 Prometheus Server 则可以采用同样 Pull 的方式从 PushGateway 中获取到监控数据。</li>
+</ul>
+<h3 id="可视化监控">可视化监控</h3>
+<h4 id="grafana">Grafana</h4>
+<ol>
+<li>Grafana 是一个开源的可视化平台，并且提供了对 Prometheus 的完整支持。</li>
+<li>可以使用docker运行```docker run -d -p 3000:3000 grafana/grafana``</li>
+<li>选择数据源时，在 HTTP-URL 这一栏中不能不能填 <code>http://127.0.0.1:9090</code>，需要使用机器对应的 ip，否则会出现错误 &ldquo;HTTP Error Bad Gateway&rdquo;。</li>
+<li>社区有大量分享的<a href="https://grafana.com/grafana/dashboards">dashboard</a>可以引用。</li>
+</ol>
+<h3 id="promql">PromQL</h3>
+<ul>
+<li>
+<p>Prometheus 将所有采集到的样本数据以时间序列（time-series）的方式保存在内存数据库中，并且定时保存到硬盘上。
+time-series 是按照时间戳和值的序列顺序存放的，称之为向量(vector). 每条 time-series 通过指标名称(metrics name)和一组标签集(labelset)命名</p>
+<pre><code>  ^
+  │   . . . . . . . . . . . . . . . . .   . .   node_cpu{cpu=&quot;cpu0&quot;,mode=&quot;idle&quot;}
+  │     . . . . . . . . . . . . . . . . . . .   node_cpu{cpu=&quot;cpu0&quot;,mode=&quot;system&quot;}
+  │     . . . . . . . . . .   . . . . . . . .   node_load1{}
+  │     . . . . . . . . . . . . . . . .   . .  
+  v
+    &lt;------------------ 时间 ----------------&gt;
+</code></pre><p>在 time-series 中的每一个点称为一个样本（sample），样本由以下三部分组成：</p>
+<ul>
+<li>指标(metric)：metric name 和描述当前样本特征的 labelsets;</li>
+<li>时间戳(timestamp)：一个精确到毫秒的时间戳;</li>
+<li>样本值(value)： 一个 float64 的浮点型数据表示当前样本的值。</li>
+</ul>
+<pre><code>&lt;--------------- metric ---------------------&gt;&lt;-timestamp -&gt;&lt;-value-&gt;
+http_request_total{status=&quot;200&quot;, method=&quot;GET&quot;}@1434417560938 =&gt; 94355
+http_request_total{status=&quot;200&quot;, method=&quot;GET&quot;}@1434417561287 =&gt; 94334
+
+http_request_total{status=&quot;404&quot;, method=&quot;GET&quot;}@1434417560938 =&gt; 38473
+http_request_total{status=&quot;404&quot;, method=&quot;GET&quot;}@1434417561287 =&gt; 38544
+
+http_request_total{status=&quot;200&quot;, method=&quot;POST&quot;}@1434417560938 =&gt; 4748
+http_request_total{status=&quot;200&quot;, method=&quot;POST&quot;}@1434417561287 =&gt; 4785
+</code></pre></li>
+<li>
+<p>Prometheus 定义了4种不同的指标类型(metric type)：Counter（计数器）、Gauge（仪表盘）、Histogram（直方图）、Summary（摘要）。</p>
+<ul>
+<li>Counter 类型的指标其工作方式和计数器一样，只增不减（除非系统发生重置）。例如 prometheus_http_requests_total。</li>
+<li>Gauge 类型的指标侧重于反应系统的当前状态。因此该指标的样本数据可增可减。例如：node_memory_free_bytes。</li>
+<li>Histogram 和 Summary 主用用于统计和分析样本的分布情况。Histogram 通过 histogram_quantile 函数是在服务器端计算的分位数。 而 Summary 的分位数则是直接在客户端计算完成</li>
+</ul>
+</li>
+<li>
+<p>PromQL 支持使用正则表达式作为匹配条件，多个表达式之间使用 | 进行分离：</p>
+<ul>
+<li>使用 label=~regx 表示选择那些标签符合正则表达式定义的时间序列。</li>
+<li>反之使用 label!~regx 进行排除。</li>
+</ul>
+</li>
+<li>
+<p>直接通过类似于 PromQL表达式 <code>prometheus_http_requests_total</code> 查询时间序列时，返回值中只会包含该时间序列中的最新的一个样本值，这样的返回结果称之为瞬时向量，相应的这样的表达式称之为瞬时向量表达式。</p>
+<p><code>prometheus_http_requests_total{}[5m]</code> 为区间向量表达式，会返回时间序列中最近5分钟的所有样本数据。</p>
+<p><code>prometheus_http_requests_total{} offset 5m</code> 表示查询五分钟前的瞬时数据。</p>
+</li>
+<li>
+<p>标量只有一个数字，没有时序。可以通过内置函数 scalar() 将单个瞬时向量转换为标量。</p>
+</li>
+<li>
+<p>使用 bool 修改符后，布尔运算不会对时间序列进行过滤，而是直接依次瞬时向量中的各个样本数据与标量的比较结果 0 或者 1。从而形成一条新的时间序列。<code>prometheus_http_requests_total &gt; bool 100</code></p>
+<ul>
+<li>如果是在两个标量之间使用布尔运算，则必须使用bool修饰符。</li>
+</ul>
+</li>
+<li>
+<p>集合运算，可以在两个瞬时向量与瞬时向量之间进行相应的集合操作。</p>
+<ul>
+<li>vector1 and vector2 会产生一个由 vector1 的元素组成的新的向量。该向量包含 vector1 中完全匹配 vector2 中的元素组成。</li>
+<li>vector1 or vector2 会产生一个新的向量，该向量包含 vector1 中所有的样本数据，以及 vector2 中没有与 vector1 匹配到的样本数据。</li>
+<li>vector1 unless vector2 会产生一个新的向量，新向量中的元素由 vector1 中没有与 vector2 匹配的元素组成。</li>
+</ul>
+</li>
+<li>
+<p>操作符优先级</p>
+<pre><code>1. ^
+2. *, /, %
+3. +, -
+4. ==, !=, &lt;=, &lt;, &gt;=, &gt;
+5. and, unless
+6. or
+</code></pre></li>
+<li>
+<p>在操作符两边表达式标签不一致的情况下，使用 ignoreing 可以在匹配时忽略某些便签，而 on 则用于将匹配行为限定在某些便签之内。</p>
+<p>group_left 或 group_right 来确定哪一个向量具有更高的基数（充当“多”的角色）。（group 修饰符只能在比较和数学运算符中使用。在逻辑运算 and,unless 和 or 才注意操作中默认与右向量中的所有元素进行匹配。）</p>
+</li>
+</ul>
+<h3 id="prometheus告警处理">Prometheus告警处理</h3>
+<ul>
+<li>
+<p>在 Prometheus 中一条告警规则主要由以下几部分组成：</p>
+<ul>
+<li>告警名称：用户需要为告警规则命名，当然对于命名而言，需要能够直接表达出该告警的主要内容。</li>
+<li>告警规则：告警规则实际上主要由 PromQL 进行定义，其实际意义是当表达式（PromQL）查询结果持续多长时间（During）后出发告警。</li>
+</ul>
+</li>
+<li>
+<p>AlertManager 除了提供基本的告警通知能力以外，还主要提供了以下特性</p>
+<ul>
+<li>分组：被触发的告警合并为一个告警通知，避免一次性接受大量的告警通知，而无法对问题进行快速定位。</li>
+<li>抑制：当某一告警发出后，可以停止重复发送由此告警引发的其它告警的机制。</li>
+<li>静默：提供了一个简单的机制可以快速根据标签对告警进行静默处理。如果接收到的告警符合静默的配置，AlertManager 则不会发送告警通知。</li>
+</ul>
+</li>
+<li>
+<p>在 Prometheus 全局配置文件中通过 rule_files 指定一组告警规则文件的访问路径。</p>
+<ul>
+<li>默认情况下 Prometheus 会每分钟对这些告警规则进行计算，可以通过 evaluation_interval 自定义计算周期。</li>
+</ul>
+</li>
+<li>
+<p>AlertManager 会将数据保存到本地中，默认的存储路径为 data/，在启动 AlertManager 之前需要创建相应的目录。</p>
+</li>
+<li>
+<p>每一个告警都会从配置文件中 顶级的route(必须匹配所有告警) 进入路由树，每一个路由都可以定义自己的接受人以及匹配规则。</p>
+<p>默认情况下，告警进入到顶级 route 后会遍历所有的子节点，直到找到最深的匹配 route，并将告警发送到该 route 定义的 receiver 中。
+但如果 route 中设置continue的值为false，那么告警在匹配到第一个子节点之后就直接停止。如果 continue 为 true，报警则会继续进行后续子节点的匹配。
+如果当前告警匹配不到任何的子节点，那该告警将会基于当前路由节点的接收器配置方式进行处理。</p>
+<ul>
+<li>告警匹配有两种方式：基于字符串验证和基于正则表达式验证。</li>
+<li>配置 repeat_interval 参数以再次发起警告。</li>
+</ul>
+</li>
+<li>
+<p>警告分组使用 group_by 来定义分组规则，如果满足 group_by 中定义标签名称，那么这些告警将会合并为一个通知发送给接收器。</p>
+<p>group_wait 参数设置等待时间，如果在等待时间内当前 group 接收到了新的告警，这些告警将会合并为一个通知向 receiver 发送。</p>
+<p>group_interval 配置，定义相同的 Group 之间发送告警通知的时间间隔。</p>
+</li>
+<li>
+<p>默认情况下所有的告警都会发送给集群管理员 default-receiver。</p>
+</li>
+<li>
+<p>Recoding Rules 支持后台计算方式，可以实现对复杂查询的性能优化，提高查询效率。</p>
+<p>Prometheus 会根据规则文件中的定义在后台完成 expr 中定义的 PromQL 表达式计算，并且将计算结果保存到新的时间序列 record 中。同时还可以通过 labels 为这些样本添加额外的标签。</p>
+<p>这些规则文件的计算频率与告警规则计算频率一致，都通过 global.evaluation_interval 定义。</p>
+</li>
+</ul>
+            </div>
+        </div>
+    </div>
+    <div class="column is-3">
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Tags</h1>
+        <div class="tags">
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/algorithm">algorithm</a></span>
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/angular">angular</a></span>
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/go">go</a></span>
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/javascript">javascript</a></span>
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/journal">journal</a></span>
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/linux">linux</a></span>
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/mysql">mysql</a></span>
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/typescript">typescript</a></span>
+        
+        </div>          
+    </div>
+</div><br>
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Recent posts</h1>
+        
+            <h1><a href="https://zhouqian0.github.io/2021/stack/">栈</a></h1>
+            <time class="has-text-grey-light is-size-7">5 July 2021</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2021/linked-list/">链表</a></h1>
+            <time class="has-text-grey-light is-size-7">5 July 2021</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2021/array/">数组</a></h1>
+            <time class="has-text-grey-light is-size-7">4 July 2021</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2021/abstract/">算法入门摘要</a></h1>
+            <time class="has-text-grey-light is-size-7">4 July 2021</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2020/prom-first/">Prometheus 小记1</a></h1>
+            <time class="has-text-grey-light is-size-7">18 September 2020</time>
+        
+    </div>
+</div>
+    <br>
+                
+  
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Related posts</h1>
+      
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ts-twenty-first/">TS文档阅读小结21 实用类型</a></h1>
+            <time class="has-text-grey-light is-size-7">15 August 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ts-twenty/">TS文档阅读小结20 三斜线指令</a></h1>
+            <time class="has-text-grey-light is-size-7">14 August 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ts-nineteenth/">TS文档阅读小结19 混入</a></h1>
+            <time class="has-text-grey-light is-size-7">14 August 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ts-eighteenth/">TS文档阅读小结18 装饰器</a></h1>
+            <time class="has-text-grey-light is-size-7">8 August 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ts-seventeenth/">TS文档阅读小结17 声明合并</a></h1>
+            <time class="has-text-grey-light is-size-7">8 August 2019</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2019/ts-sixteenth/">TS文档阅读小结16 模块解析</a></h1>
+            <time class="has-text-grey-light is-size-7">7 August 2019</time>
+      
+    </div>
+</div>
+
+    
+<br>
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Archives</h1>
+        
+            <a href="https://zhouqian0.github.io/archives/2021">2021</a> (4)<br>
+        
+            <a href="https://zhouqian0.github.io/archives/2020">2020</a> (11)<br>
+        
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (46)<br>
+        
+            <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
+        
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+    </div>
+</div>
+
+<footer class="footer has-background-grey-darker has-text-white">
+    <div class="content has-text-centered">
+        <p>
+            <span class="icon is-large"><a href="https://twitter.com/" class="mysocial" rel="me"><i class="fab fa-twitter fa-3x"></i></a></span>&nbsp;&nbsp;
+            <span class="icon is-large"><a href="https://www.youtube.com/" class="mysocial" rel="me"><i class="fab fa-youtube fa-3x"></i></a></span>&nbsp;&nbsp;
+            <span class="icon is-large"><a href="https://github.com/" class="mysocial" rel="me"><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;
+            <br><br>
+            Copyright &copy; Let&#39;s finish what we started 2021 - Theme by <a href="https://jeffprod.com" class="mysocial">JeffProd.com</a>
+            - <a class="mysocial" href="https://zhouqian0.github.io/about">About</a>
+        </p>
+    </div>
+</footer>
+
+<script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+</body>
+</html>

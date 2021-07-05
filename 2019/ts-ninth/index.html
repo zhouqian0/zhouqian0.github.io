@@ -57,11 +57,11 @@
 <pre><code>interface Named {
     name: string;
 }
-   
+
 class Person {
     name: string;
 }
-   
+
 let p: Named;
 p = new Person(); // OK, because of structural typing
 </code></pre></li>
@@ -71,7 +71,7 @@ p = new Person(); // OK, because of structural typing
 <pre><code>interface Named {
     name: string;
 }
-   
+
 let x: Named;
 let y = { name: 'Alice', location: 'Seattle' }; // y's inferred type is { name: string; location: string; }
 x = y;
@@ -86,7 +86,7 @@ x = y;
 <p>参数类型少的函数（例如只含有一个 number 参数）可以赋值给参数类型多的函数（含有一个 number 参数，一个 string 参数），但是参数类型多的不能赋值给参数类型少的。</p>
 <pre><code>let x = (a: number) =&gt; 0;
 let y = (b: number, s: string) =&gt; 0;
-      
+
 y = x; // OK
 x = y; // Error
 </code></pre></li>
@@ -95,7 +95,7 @@ x = y; // Error
 <p>返回值类型中包含元素多（例如返回值包含属性x， y）的可以返回给返回值包含元素少的（返回值只包含属性 x），反之则不行。</p>
 <pre><code>let x = () =&gt; ({name: 'Alice'});
 let y = () =&gt; ({name: 'Alice', location: 'Seattle'});
-      
+
 x = y; // OK
 y = x; // Error, because x() lacks a location property
 </code></pre></li>
@@ -111,10 +111,10 @@ y = x; // Error, because x() lacks a location property
 <pre><code>function invokeLater(args: any[], callback: (...args: any[]) =&gt; void) {
     /* ... Invoke callback with 'args' ... */
 }
-   
+
 // Unsound - invokeLater &quot;might&quot; provide any number of arguments
 invokeLater([1, 2], (x, y) =&gt; console.log(x + ', ' + y));
-   
+
 // Confusing (x and y are actually required) and undiscoverable
 invokeLater([1, 2], (x?, y?) =&gt; console.log(x + ', ' + y));
 </code></pre></li>
@@ -125,7 +125,7 @@ invokeLater([1, 2], (x?, y?) =&gt; console.log(x + ', ' + y));
 <p>枚举类型与数字类型兼容，并且数字类型与枚举类型兼容。不同枚举类型之间是不兼容的。</p>
 <pre><code>enum Status { Ready, Waiting };
 enum Color { Red, Blue, Green };
-   
+
 let status = Status.Ready;
 status = Color.Green;  // Error
 </code></pre></li>
@@ -135,15 +135,15 @@ status = Color.Green;  // Error
     feet: number;
     constructor(name: string, numFeet: number) { }
 }
-   
+
 class Size {
     feet: number;
     constructor(numFeet: number) { }
 }
-   
+
 let a: Animal;
 let s: Size;
-   
+
 a = s;  // OK
 s = a;  // OK
 </code></pre></li>
@@ -160,26 +160,26 @@ s = a;  // OK
 }
 let x: Empty&lt;number&gt;;
 let y: Empty&lt;string&gt;;
-   
+
 x = y;  // OK, because y matches structure of x
 </code></pre><pre><code>interface NotEmpty&lt;T&gt; {
     data: T;
 }
 let x: NotEmpty&lt;number&gt;;
 let y: NotEmpty&lt;string&gt;;
-   
+
 x = y;  // Error, because x and y are not compatible
 </code></pre><p>对于没指定泛型类型的泛型参数时，会把所有泛型参数当成 any 比较。</p>
 <pre><code>let identity = function &lt;T&gt;(x: T): T {
    // ...
    return x;
 }
-   
+
 let reverse = function &lt;U&gt;(y: U): U {
    // ...
    return y;
 }
-   
+
 identity = reverse;  // OK, because (x: any) =&gt; any matches (y: any) =&gt; any
 </code></pre></li>
 <li>
@@ -195,6 +195,8 @@ identity = reverse;  // OK, because (x: any) =&gt; any matches (y: any) =&gt; an
     <div class="card-content">
         <h1 class="title is-5">Tags</h1>
         <div class="tags">
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/algorithm">algorithm</a></span>
         
             <span class="tag"><a href="https://zhouqian0.github.io/tags/angular">angular</a></span>
         
@@ -217,20 +219,20 @@ identity = reverse;  // OK, because (x: any) =&gt; any matches (y: any) =&gt; an
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
-            <h1><a href="https://zhouqian0.github.io/2020/fourth/">gRPC 学习小记</a></h1>
-            <time class="has-text-grey-light is-size-7">27 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/stack/">栈</a></h1>
+            <time class="has-text-grey-light is-size-7">5 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-twelfth/">Go 学习小记5</a></h1>
-            <time class="has-text-grey-light is-size-7">24 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/linked-list/">链表</a></h1>
+            <time class="has-text-grey-light is-size-7">5 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-eleventh/">Go 学习小记4</a></h1>
-            <time class="has-text-grey-light is-size-7">16 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/array/">数组</a></h1>
+            <time class="has-text-grey-light is-size-7">4 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-tenth/">Go 学习小记3</a></h1>
-            <time class="has-text-grey-light is-size-7">15 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/abstract/">算法入门摘要</a></h1>
+            <time class="has-text-grey-light is-size-7">4 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-ninth/">Go 学习小记2</a></h1>
-            <time class="has-text-grey-light is-size-7">9 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2020/prom-first/">Prometheus 小记1</a></h1>
+            <time class="has-text-grey-light is-size-7">18 September 2020</time>
         
     </div>
 </div>
@@ -275,7 +277,9 @@ identity = reverse;  // OK, because (x: any) =&gt; any matches (y: any) =&gt; an
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2020">2020</a> (10)<br>
+            <a href="https://zhouqian0.github.io/archives/2021">2021</a> (4)<br>
+        
+            <a href="https://zhouqian0.github.io/archives/2020">2020</a> (11)<br>
         
             <a href="https://zhouqian0.github.io/archives/2019">2019</a> (46)<br>
         
@@ -298,7 +302,7 @@ identity = reverse;  // OK, because (x: any) =&gt; any matches (y: any) =&gt; an
             <span class="icon is-large"><a href="https://www.youtube.com/" class="mysocial" rel="me"><i class="fab fa-youtube fa-3x"></i></a></span>&nbsp;&nbsp;
             <span class="icon is-large"><a href="https://github.com/" class="mysocial" rel="me"><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;
             <br><br>
-            Copyright &copy; Let&#39;s finish what we started 2020 - Theme by <a href="https://jeffprod.com" class="mysocial">JeffProd.com</a>
+            Copyright &copy; Let&#39;s finish what we started 2021 - Theme by <a href="https://jeffprod.com" class="mysocial">JeffProd.com</a>
             - <a class="mysocial" href="https://zhouqian0.github.io/about">About</a>
         </p>
     </div>

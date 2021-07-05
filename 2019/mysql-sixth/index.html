@@ -66,54 +66,53 @@
 <pre><code>DELIMITER //
 CREATE PROCEDURE processorders()
 BEGIN
-       
+
     -- Declare local variable
     DECLARE done BOOLEAN DEFAULT 0;
     DECLARE o int;
     DECLARE t DECIMAL(8,2);
-       
+
     -- Declare the cursor 
-    DECLARE ordernumbers CURSOR 
-    FOR
-    SELECT order_num FROM orders ORDER BY order_num;
-       
+    ARE ordernumbers CURSOR 
+        SELECT order_num FROM orders ORDER BY order_num;
+
     -- Declare continue handler 
     DECLARE CONTINUE HANDLER FOR SQLSTATE '02000' SET done = 1;
-       
+
     -- Create a table to store the results
     CREATE TABLE IF NOT EXISTS ordertotals (
         order_num INT,
         total DECIMAL(8 , 2 )
     );
-       
-    -- Open the cursor 
+
+    pen the cursor 
     OPEN ordernumbers;
-       
+
     -- Loop throught all rows
     REPEAT
-           
+
         -- Get order number 
         FETCH ordernumbers INTO o;
-           
+
         IF NOT done THEN 
             -- Get the total for this order
         CALL ordertotal(o, 1, t);
-           
+
         -- Insert order and total into ordertotals
         INSERT INTO ordertotals(order_num, total) 
             VALUES(o, t);
         END IF;
-           
+
     --  End of loop
     UNTIL done END REPEAT;
-       
+
     -- Close the cursor 
-    CLOSE ordernumbers;
+    E ordernumbers;
 END //
 DELIMITER ; 
 </code></pre><ul>
 <li>done 默认为 0，通过 CONTINUE HANDLER 将其设为 1。</li>
-<li>SQLSTATE &lsquo;02000'是一个未找到条件，当 REPEAT 由于没有更多的行供循环而不能继续时，出现这个条件。
+<li>SQLSTATE &lsquo;02000&rsquo;是一个未找到条件，当 REPEAT 由于没有更多的行供循环而不能继续时，出现这个条件。
 <ul>
 <li>错误代码参考<a href="https://dev.mysql.com/doc/refman/8.0/en/error-handling.html">https://dev.mysql.com/doc/refman/8.0/en/error-handling.html</a></li>
 </ul>
@@ -187,7 +186,7 @@ SELECT @msg;
 create trigger deleteorder before delete on orders
 for each row 
 begin
-    insert into archive_orders(order_num,order_date,cust_id) values
+    rt into archive_orders(order_num,order_date,cust_id) values
     (old.order_num,old.order_date,old.cust_id);
 end //
 DELIMITER ;
@@ -215,6 +214,8 @@ DELIMITER ;
         <h1 class="title is-5">Tags</h1>
         <div class="tags">
         
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/algorithm">algorithm</a></span>
+        
             <span class="tag"><a href="https://zhouqian0.github.io/tags/angular">angular</a></span>
         
             <span class="tag"><a href="https://zhouqian0.github.io/tags/go">go</a></span>
@@ -236,20 +237,20 @@ DELIMITER ;
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
-            <h1><a href="https://zhouqian0.github.io/2020/fourth/">gRPC 学习小记</a></h1>
-            <time class="has-text-grey-light is-size-7">27 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/stack/">栈</a></h1>
+            <time class="has-text-grey-light is-size-7">5 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-twelfth/">Go 学习小记5</a></h1>
-            <time class="has-text-grey-light is-size-7">24 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/linked-list/">链表</a></h1>
+            <time class="has-text-grey-light is-size-7">5 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-eleventh/">Go 学习小记4</a></h1>
-            <time class="has-text-grey-light is-size-7">16 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/array/">数组</a></h1>
+            <time class="has-text-grey-light is-size-7">4 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-tenth/">Go 学习小记3</a></h1>
-            <time class="has-text-grey-light is-size-7">15 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/abstract/">算法入门摘要</a></h1>
+            <time class="has-text-grey-light is-size-7">4 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-ninth/">Go 学习小记2</a></h1>
-            <time class="has-text-grey-light is-size-7">9 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2020/prom-first/">Prometheus 小记1</a></h1>
+            <time class="has-text-grey-light is-size-7">18 September 2020</time>
         
     </div>
 </div>
@@ -291,7 +292,9 @@ DELIMITER ;
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2020">2020</a> (10)<br>
+            <a href="https://zhouqian0.github.io/archives/2021">2021</a> (4)<br>
+        
+            <a href="https://zhouqian0.github.io/archives/2020">2020</a> (11)<br>
         
             <a href="https://zhouqian0.github.io/archives/2019">2019</a> (46)<br>
         
@@ -314,7 +317,7 @@ DELIMITER ;
             <span class="icon is-large"><a href="https://www.youtube.com/" class="mysocial" rel="me"><i class="fab fa-youtube fa-3x"></i></a></span>&nbsp;&nbsp;
             <span class="icon is-large"><a href="https://github.com/" class="mysocial" rel="me"><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;
             <br><br>
-            Copyright &copy; Let&#39;s finish what we started 2020 - Theme by <a href="https://jeffprod.com" class="mysocial">JeffProd.com</a>
+            Copyright &copy; Let&#39;s finish what we started 2021 - Theme by <a href="https://jeffprod.com" class="mysocial">JeffProd.com</a>
             - <a class="mysocial" href="https://zhouqian0.github.io/about">About</a>
         </p>
     </div>

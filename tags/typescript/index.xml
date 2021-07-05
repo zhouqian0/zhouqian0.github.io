@@ -5,10 +5,19 @@
     <description>Recent content in typescript on Let&#39;s finish what we started</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 15 Aug 2019 14:54:29 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 18 Sep 2020 09:49:04 +0800</lastBuildDate>
     
         <atom:link href="https://zhouqian0.github.io/tags/typescript/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Prometheus 小记1</title>
+      <link>https://zhouqian0.github.io/2020/prom-first/</link>
+      <pubDate>Fri, 18 Sep 2020 09:49:04 +0800</pubDate>
+      
+      <guid>https://zhouqian0.github.io/2020/prom-first/</guid>
+      <description>&lt;p&gt;Prometheus是一个开放性的监控解决方案&amp;hellip;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>TS文档阅读小结21 实用类型</title>

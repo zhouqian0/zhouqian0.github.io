@@ -52,17 +52,17 @@
 <li>
 <p>Go 拥有指针。指针保存了值的内存地址。</p>
 <pre><code>   package main
-      
+
    import &quot;fmt&quot;
-      
+
    func main() {
     i, j := 42, 2701
-      
+
     p := &amp;i         // 指向 i
     fmt.Println(*p) // 通过指针读取 i 的值, 42
     *p = 21         // 通过指针设置 i 的值
     fmt.Println(i)  // 查看 i 的值, 21
-      
+
     p = &amp;j         // 指向 j
     *p = *p / 37   // 通过指针对 j 进行除法运算, 73
     fmt.Println(j) // 查看 j 的值
@@ -81,14 +81,14 @@
 <li>
 <p>一个结构体（struct）就是一组字段（field）。</p>
 <pre><code>   package main
-      
+
    import &quot;fmt&quot;
-      
+
    type Vertex struct {
     X int
     Y int
    }
-      
+
    func main() {
     fmt.Println(Vertex{1, 2})
    }
@@ -103,20 +103,20 @@
 <p>使用 Name: 语法可以仅列出部分字段。（字段名的顺序无关。）</p>
 <p>特殊的前缀 &amp; 返回一个指向结构体的指针。</p>
 <pre><code>   package main
-      
+
    import &quot;fmt&quot;
-      
+
    type Vertex struct {
     X, Y int
    }
-      
+
    var (
     v1 = Vertex{1, 2}  // 创建一个 Vertex 类型的结构体
     v2 = Vertex{X: 1}  // Y:0 被隐式地赋予
     v3 = Vertex{}      // X:0 Y:0
     p  = &amp;Vertex{1, 2} // 创建一个 *Vertex 类型的结构体（指针）
    )
-      
+
    func main() {
     fmt.Println(v1, v2, v3, p) // {1 2} {1 0} {0 0} &amp;{1 2}
    }
@@ -149,26 +149,26 @@ a[1:4] // 包含 a 中下标从 1 到 3 的元素
 <p>切片的长度就是它所包含的元素个数。 len(s)</p>
 <p>切片的容量是从它的第一个元素开始数，到其底层数组元素末尾的个数。 cap(s)</p>
 <pre><code>package main
-    
+
 import &quot;fmt&quot;
-    
+
 func main() {
 s := []int{2, 3, 5, 7, 11, 13}
 printSlice(s) // len=6 cap=6 [2 3 5 7 11 13]
-    
+
 // 截取切片使其长度为 0
 s = s[:0]
 printSlice(s) // len=0 cap=6 []
-    
+
 // 拓展其长度
 s = s[:4]
 printSlice(s) // len=4 cap=6 [2 3 5 7]
-    
+
 // 舍弃前两个值
 s = s[2:]
 printSlice(s) // len=2 cap=4 [5 7], 容量应该是从切片最左边算起，到数组末尾
 }
-    
+
 func printSlice(s []int) {
 fmt.Printf(&quot;len=%d cap=%d %v\n&quot;, len(s), cap(s), s)
 }
@@ -190,26 +190,26 @@ b := make([]int, 0, 5) // len(b)=0, cap(b)=5
 <pre><code>func append(s []T, vs ...T) []T
 </code></pre><p>当 s 的底层数组太小，不足以容纳所有给定的值时，它就会分配一个更大的数组 (一般为两倍)。返回的切片会指向这个新分配的数组。</p>
 <pre><code>package main
-    
+
 import &quot;fmt&quot;
-    
+
 func main() {
 var s []int
 printSlice(s) // len=0 cap=0 []
-    
+
 // 添加一个空切片
 s = append(s, 0)
 printSlice(s) // len=1 cap=1 [0]
-    
+
 // 这个切片会按需增长
 s = append(s, 1)
 printSlice(s) // len=2 cap=2 [0 1]
-    
+
 // 可以一次性添加多个元素
 s = append(s, 2, 3, 4)
 printSlice(s) // len=5 cap=6 [0 1 2 3 4], 此时为添加一个 2 之后， 容量到 3 ； 再往里面添加一个 3 时， 容量翻倍变为 6， 因为 6 已经足够容纳所有元素，故不在变大
 }
-    
+
 func printSlice(s []int) {
 fmt.Printf(&quot;len=%d cap=%d %v\n&quot;, len(s), cap(s), s)
 }
@@ -238,13 +238,13 @@ for _, value := range pow
 <pre><code>   type Vertex struct {
     Lat, Long float64
    }
-      
+
    // var m map[string]Vertex
    // m = make(map[string]Vertex)
    // m[&quot;Bell Labs&quot;] = Vertex{
    //     40.68433, -74.39967,
    // }
-  
+
    var m = map[string]Vertex{
        &quot;Bell Labs&quot;: {40.68433, -74.39967},
        &quot;Google&quot;:    {37.42202, -122.08408},
@@ -269,13 +269,13 @@ for _, value := range pow
 <pre><code>   func compute(fn func(float64, float64) float64) float64 {
     return fn(3, 4)
    }
-      
+
    func main() {
     hypot := func(x, y float64) float64 {
         return math.Sqrt(x*x + y*y)
     }
     fmt.Println(hypot(5, 12))
-      
+
     fmt.Println(compute(hypot))
     fmt.Println(compute(math.Pow))
    }
@@ -288,7 +288,7 @@ for _, value := range pow
         return sum
     }
    }
-         
+
    func main() {
     pos, neg := adder(), adder()
     for i := 0; i &lt; 10; i++ {
@@ -311,6 +311,8 @@ for _, value := range pow
         <h1 class="title is-5">Tags</h1>
         <div class="tags">
         
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/algorithm">algorithm</a></span>
+        
             <span class="tag"><a href="https://zhouqian0.github.io/tags/angular">angular</a></span>
         
             <span class="tag"><a href="https://zhouqian0.github.io/tags/go">go</a></span>
@@ -332,20 +334,20 @@ for _, value := range pow
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
-            <h1><a href="https://zhouqian0.github.io/2020/fourth/">gRPC 学习小记</a></h1>
-            <time class="has-text-grey-light is-size-7">27 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/stack/">栈</a></h1>
+            <time class="has-text-grey-light is-size-7">5 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-twelfth/">Go 学习小记5</a></h1>
-            <time class="has-text-grey-light is-size-7">24 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/linked-list/">链表</a></h1>
+            <time class="has-text-grey-light is-size-7">5 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-eleventh/">Go 学习小记4</a></h1>
-            <time class="has-text-grey-light is-size-7">16 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/array/">数组</a></h1>
+            <time class="has-text-grey-light is-size-7">4 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-tenth/">Go 学习小记3</a></h1>
-            <time class="has-text-grey-light is-size-7">15 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/abstract/">算法入门摘要</a></h1>
+            <time class="has-text-grey-light is-size-7">4 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-ninth/">Go 学习小记2</a></h1>
-            <time class="has-text-grey-light is-size-7">9 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2020/prom-first/">Prometheus 小记1</a></h1>
+            <time class="has-text-grey-light is-size-7">18 September 2020</time>
         
     </div>
 </div>
@@ -390,7 +392,9 @@ for _, value := range pow
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2020">2020</a> (10)<br>
+            <a href="https://zhouqian0.github.io/archives/2021">2021</a> (4)<br>
+        
+            <a href="https://zhouqian0.github.io/archives/2020">2020</a> (11)<br>
         
             <a href="https://zhouqian0.github.io/archives/2019">2019</a> (46)<br>
         
@@ -413,7 +417,7 @@ for _, value := range pow
             <span class="icon is-large"><a href="https://www.youtube.com/" class="mysocial" rel="me"><i class="fab fa-youtube fa-3x"></i></a></span>&nbsp;&nbsp;
             <span class="icon is-large"><a href="https://github.com/" class="mysocial" rel="me"><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;
             <br><br>
-            Copyright &copy; Let&#39;s finish what we started 2020 - Theme by <a href="https://jeffprod.com" class="mysocial">JeffProd.com</a>
+            Copyright &copy; Let&#39;s finish what we started 2021 - Theme by <a href="https://jeffprod.com" class="mysocial">JeffProd.com</a>
             - <a class="mysocial" href="https://zhouqian0.github.io/about">About</a>
         </p>
     </div>

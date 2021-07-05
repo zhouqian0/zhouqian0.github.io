@@ -59,20 +59,20 @@
    title: string;
    description: string;
 }
-  
+
 function updateTodo(todo: Todo, fieldsToUpdate: Partial&lt;Todo&gt;) { // T: Todo
    return { ...todo, ...fieldsToUpdate };
 }
-  
+
 const todo1 = {
    title: 'organize desk',
    description: 'clear clutter',
 };
-  
+
 const todo2 = updateTodo(todo1, {
    description: 'throw out trash',
 });
-  
+
 console.log(todo2); // { title: 'organize desk', description: 'throw out trash' }
 </code></pre></li>
 <li>
@@ -82,11 +82,11 @@ console.log(todo2); // { title: 'organize desk', description: 'throw out trash' 
 <pre><code>interface Todo {
    title: string;
 }
-  
+
 const todo: Readonly&lt;Todo&gt; = { // T: Todo
    title: 'Delete inactive users',
 };
-  
+
 todo.title = 'Hello'; // Error: Cannot assign to 'title' because it is a read-only property.ts
 </code></pre></li>
 <li>
@@ -95,9 +95,9 @@ todo.title = 'Hello'; // Error: Cannot assign to 'title' because it is a read-on
 <pre><code>interface PageInfo {
    title: string;
 }
-  
+
 type Page = 'home' | 'about' | 'contact';
-  
+
 const x: Record&lt;Page, PageInfo&gt; = { // K: Page, T: PageInfo
    about: { title: 'about' },
    contact: { title: 'contact' },
@@ -113,15 +113,15 @@ const x: Record&lt;Page, PageInfo&gt; = { // K: Page, T: PageInfo
    description: string;
    completed: boolean;
 }
-  
+
 type TodoPreview = Pick&lt;Todo, 'title' | 'completed'&gt;; // K: Todo; T: 'title' | 'completed'
-  
+
 const todo: TodoPreview = {
    title: 'Clean room',
    completed: false,
    description: 'lol' // Error, Type '{ title: string; completed: false; description: string; }' is not assignable to type 'Pick&lt;Todo, &quot;title&quot; | &quot;completed&quot;&gt;'.
 };
-  
+
 </code></pre></li>
 <li>
 <p><strong>Omit&lt;K,T&gt;</strong></p>
@@ -131,9 +131,9 @@ const todo: TodoPreview = {
    description: string;
    completed: boolean;
 }
-  
+
 type TodoPreview = Omit&lt;Todo, 'description'&gt;; // K: Todo; T: 'description'
-  
+
 const todo: TodoPreview = {
    title: 'Clean room',
    completed: false,
@@ -146,14 +146,14 @@ const todo: TodoPreview = {
 <pre><code>type T0 = Exclude&lt;&quot;a&quot; | &quot;b&quot; | &quot;c&quot;, &quot;a&quot;&gt;;  // &quot;b&quot; | &quot;c&quot;
 type T1 = Exclude&lt;&quot;a&quot; | &quot;b&quot; | &quot;c&quot;, &quot;a&quot; | &quot;b&quot;&gt;;  // &quot;c&quot;
 type T2 = Exclude&lt;string | number | (() =&gt; void), Function&gt;;  // string | number
-  
+
 let t0: T0 = 'b';
 t0 = 'c';
 t0 = 'a' // Error, Type '&quot;a&quot;' is not assignable to type '&quot;b&quot; | &quot;c&quot;'
-  
+
 let t1: T1 = 'c';
 t1 = 'a' // Error, Type '&quot;a&quot;' is not assignable to type '&quot;c&quot;'
-  
+
 let t2: T2 = 666;
 t2 = 'lol';
 t2 = (a, b) =&gt; a + b; // Error, Type '(a: any, b: any) =&gt; any' is not assignable to type 'string | number'.
@@ -163,10 +163,10 @@ t2 = (a, b) =&gt; a + b; // Error, Type '(a: any, b: any) =&gt; any' is not assi
 <p>通过从 T 可分配给的所有属性中提取共通的属性来构造类型 U。</p>
 <pre><code>type T0 = Extract&lt;&quot;a&quot; | &quot;b&quot; | &quot;c&quot;, &quot;a&quot; | &quot;f&quot;&gt;;  // &quot;a&quot;
 type T1 = Extract&lt;string | number | (() =&gt; void), Function&gt;;  // () =&gt; void
-  
+
 let t0: T0 = 'a';
 t0 = 'b'; // Error, Type '&quot;b&quot;' is not assignable to type '&quot;a&quot;'
-  
+
 let t1: T1 = () =&gt; { };
 t1 = 'lol'; // Error, Type '&quot;lol&quot;' is not assignable to type '() =&gt; void'
 </code></pre></li>
@@ -175,7 +175,7 @@ t1 = 'lol'; // Error, Type '&quot;lol&quot;' is not assignable to type '() =&gt;
 <p>通过排除 null 和 undefined 从中构造一个类型 T。</p>
 <pre><code>type T0 = NonNullable&lt;string | number | undefined&gt;;  // string | number
 type T1 = NonNullable&lt;string[] | null | undefined&gt;;  // string[]
-  
+
 let t0: T0 = 'lol';
 t0 = 1;
 t0 = null; // 编译器不报错，但是当使用严格模式编译时（--strictNullChecks）出现错误：Type 'null' is not assignable to type 'string | number'.
@@ -184,7 +184,7 @@ t0 = null; // 编译器不报错，但是当使用严格模式编译时（--stri
 <p><strong>ReturnType&lt;T&gt;</strong></p>
 <p>构造一个由返回类型的函数组成的类型 T。</p>
 <pre><code>const f1 = (a: Number, b: string) =&gt; { return { a, b } };
-  
+
 type T0 = ReturnType&lt;() =&gt; string&gt;;  // string
 type T1 = ReturnType&lt;(s: string) =&gt; void&gt;;  // void
 type T2 = ReturnType&lt;(&lt;T&gt;() =&gt; T)&gt;;  // {}
@@ -202,13 +202,13 @@ type T8 = ReturnType&lt;Function&gt;;  // Error, Type 'Function' does not satisf
    x = 0;
    y = 0;
 }
-  
+
 type T0 = InstanceType&lt;typeof C&gt;;  // C
 type T1 = InstanceType&lt;any&gt;;  // any
 type T2 = InstanceType&lt;never&gt;;  // never
 type T3 = InstanceType&lt;string&gt;;  // Error, Type 'string' does not satisfy the constraint 'new (...args: any) =&gt; any'
 type T4 = InstanceType&lt;Function&gt;;  // Error, Type 'Function' does not satisfy the constraint 'new (...args: any) =&gt; any'
-  
+
 let t0: T0 = {
    x: 1,
    y: 2,
@@ -222,11 +222,11 @@ let t0: T0 = {
    a?: number;
    b?: string;
 };
-  
+
 const obj: Props = { a: 5 }; // OK
-  
+
 const obj2: Required&lt;Props&gt; = { a: 5}; // Error, Property 'b' is missing in type '{ a: number; }' but required in type 'Required&lt;Props&gt;'
-  
+
 const obj3: Required&lt;Props&gt; = { a: 5, b: 'lol' }; // OK
 </code></pre></li>
 <li>
@@ -241,13 +241,13 @@ const obj3: Required&lt;Props&gt; = { a: 5, b: 'lol' }; // OK
    data?: D;
    methods?: M &amp; ThisType&lt;D &amp; M&gt;;  // Type of 'this' in methods is D &amp; M
 }
-     
+
 function makeObject&lt;D, M&gt;(desc: ObjectDescriptor&lt;D, M&gt;): D &amp; M {
    let data: object = desc.data || {};
    let methods: object = desc.methods || {};
    return { ...data, ...methods } as D &amp; M;
 }
-     
+
 let obj = makeObject({
    data: { x: 0, y: 0 },
    methods: {
@@ -257,7 +257,7 @@ let obj = makeObject({
        }
    }
 });
-     
+
 obj.x = 10;
 obj.y = 20;
 obj.moveBy(5, 5);
@@ -278,6 +278,8 @@ console.log(obj); // { x: 15, y: 25, moveBy: [Function: moveBy] }
     <div class="card-content">
         <h1 class="title is-5">Tags</h1>
         <div class="tags">
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/algorithm">algorithm</a></span>
         
             <span class="tag"><a href="https://zhouqian0.github.io/tags/angular">angular</a></span>
         
@@ -300,20 +302,20 @@ console.log(obj); // { x: 15, y: 25, moveBy: [Function: moveBy] }
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
-            <h1><a href="https://zhouqian0.github.io/2020/fourth/">gRPC 学习小记</a></h1>
-            <time class="has-text-grey-light is-size-7">27 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/stack/">栈</a></h1>
+            <time class="has-text-grey-light is-size-7">5 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-twelfth/">Go 学习小记5</a></h1>
-            <time class="has-text-grey-light is-size-7">24 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/linked-list/">链表</a></h1>
+            <time class="has-text-grey-light is-size-7">5 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-eleventh/">Go 学习小记4</a></h1>
-            <time class="has-text-grey-light is-size-7">16 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/array/">数组</a></h1>
+            <time class="has-text-grey-light is-size-7">4 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-tenth/">Go 学习小记3</a></h1>
-            <time class="has-text-grey-light is-size-7">15 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/abstract/">算法入门摘要</a></h1>
+            <time class="has-text-grey-light is-size-7">4 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-ninth/">Go 学习小记2</a></h1>
-            <time class="has-text-grey-light is-size-7">9 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2020/prom-first/">Prometheus 小记1</a></h1>
+            <time class="has-text-grey-light is-size-7">18 September 2020</time>
         
     </div>
 </div>
@@ -327,6 +329,9 @@ console.log(obj); // { x: 15, y: 25, moveBy: [Function: moveBy] }
     <div class="card-content">
         <h1 class="title is-5">Related posts</h1>
       
+      
+            <h1><a href="https://zhouqian0.github.io/2020/prom-first/">Prometheus 小记1</a></h1>
+            <time class="has-text-grey-light is-size-7">18 September 2020</time>
       
             <h1><a href="https://zhouqian0.github.io/2019/ts-twenty/">TS文档阅读小结20 三斜线指令</a></h1>
             <time class="has-text-grey-light is-size-7">14 August 2019</time>
@@ -352,7 +357,9 @@ console.log(obj); // { x: 15, y: 25, moveBy: [Function: moveBy] }
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2020">2020</a> (10)<br>
+            <a href="https://zhouqian0.github.io/archives/2021">2021</a> (4)<br>
+        
+            <a href="https://zhouqian0.github.io/archives/2020">2020</a> (11)<br>
         
             <a href="https://zhouqian0.github.io/archives/2019">2019</a> (46)<br>
         
@@ -375,7 +382,7 @@ console.log(obj); // { x: 15, y: 25, moveBy: [Function: moveBy] }
             <span class="icon is-large"><a href="https://www.youtube.com/" class="mysocial" rel="me"><i class="fab fa-youtube fa-3x"></i></a></span>&nbsp;&nbsp;
             <span class="icon is-large"><a href="https://github.com/" class="mysocial" rel="me"><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;
             <br><br>
-            Copyright &copy; Let&#39;s finish what we started 2020 - Theme by <a href="https://jeffprod.com" class="mysocial">JeffProd.com</a>
+            Copyright &copy; Let&#39;s finish what we started 2021 - Theme by <a href="https://jeffprod.com" class="mysocial">JeffProd.com</a>
             - <a class="mysocial" href="https://zhouqian0.github.io/about">About</a>
         </p>
     </div>

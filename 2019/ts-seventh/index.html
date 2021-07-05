@@ -58,24 +58,26 @@
 <li>
 <p>数字枚举可以混入函数的和常量成员。</p>
 <p>不带初始化器的枚举或者被放在第一的位置，或者被放在使用了数字常量或其它常量初始化了的枚举后面。</p>
-<pre><code>enum E {
-    A = getSomeValue(),
-    B, // error! 'A' is not constant-initialized, so 'B' needs an initializer
-}
+<pre><code>    enum E {
+        A = getSomeValue(),
+        B, // error! 'A' is not constant-initialized, so 'B' needs an initializer
+    }
 
-</code></pre><pre><code>enum E {
-    A, // A = 1 is also possible
-    B = getSomeValue(); // ok!
-}
+    ```
+    ```
+    enum E {
+        A, // A = 1 is also possible
+        B = getSomeValue(); // ok!
+    }
 </code></pre></li>
 <li>
 <p>字符串枚举，每个成员都必须用字符串字面量，或另外一个字符串枚举成员进行初始化。</p>
-<pre><code>enum Direction {
-    Up = &quot;UP&quot;,
-    Down = &quot;DOWN&quot;,
-    Left = &quot;LEFT&quot;, // Left = 1 is also possible
-    Right = &quot;RIGHT&quot;,
-}
+<pre><code>    enum Direction {
+        Up = &quot;UP&quot;,
+        Down = &quot;DOWN&quot;,
+        Left = &quot;LEFT&quot;, // Left = 1 is also possible
+        Right = &quot;RIGHT&quot;,
+    }
 </code></pre></li>
 <li>
 <p>异构枚举，就是上个例子中 Left = 1 的情景，可以混合字符串和数字成员，<em>一般不建议</em> 。</p>
@@ -101,15 +103,15 @@
 </li>
 <li>
 <p>所有其它情况的枚举成员被当作是需要计算得出的值。</p>
-<pre><code>enum FileAccess {
-    // constant members
-    None,
-    Read    = 1 &lt;&lt; 1,
-    Write   = 1 &lt;&lt; 2,
-    ReadWrite  = Read | Write,
-    // computed member
-    G = &quot;123&quot;.length
-}
+<pre><code>    enum FileAccess {
+        // constant members
+        None,
+        Read    = 1 &lt;&lt; 1,
+        Write   = 1 &lt;&lt; 2,
+        ReadWrite  = Read | Write,
+        // computed member
+        G = &quot;123&quot;.length
+    }
 </code></pre></li>
 <li>
 <p>字面量枚举成员是指不带有初始值的常量枚举成员，或者是值被初始化为</p>
@@ -126,12 +128,12 @@
         Circle,
         Square,
     }
-        
+
     interface Circle {
         kind: ShapeKind.Circle;
         radius: number;
     }
-        
+
     let c: Circle = {
         kind: ShapeKind.Square, // Error!
         // kind: ShapeKind.Circle, // Ok!
@@ -144,7 +146,7 @@
         Foo,
         Bar,
     }
-        
+
     function f(x: E) {
         if (x !== E.Foo || x !== E.Bar) {
             //             ~~~~~~~~~~~
@@ -154,31 +156,31 @@
 </code></pre></li>
 <li>
 <p>枚举是在运行时真正存在的对象。</p>
-<pre><code>enum E {
-    X, Y, Z
-}
-   
-function f(obj: { X: number }) {
-    return obj.X;
-}
-   
-f(E); // Works, since 'E' has a property named 'X' which is a number.
+<pre><code>    enum E {
+        X, Y, Z
+    }
+
+    function f(obj: { X: number }) {
+        return obj.X;
+    }
+
+    f(E); // Works, since 'E' has a property named 'X' which is a number.
 </code></pre></li>
 <li>
 <p>除了创建一个以属性名做为对象成员的对象之外，<em>数字枚举成员（非字符串枚举成员）</em> 还具有了 反向映射，从枚举值到枚举名字。</p>
 <p>引用枚举成员总会生成为对属性访问并且永远也不会内联代码。</p>
-<pre><code>enum Enum {
-    A
-}
-let a = Enum.A;
-let nameOfA = Enum[a]; // &quot;A&quot;
+<pre><code>    enum Enum {
+        A
+    }
+    let a = Enum.A;
+    let nameOfA = Enum[a]; // &quot;A&quot;
 </code></pre></li>
 <li>
 <p>const 枚举，避免在额外生成的代码上的开销和额外的非直接的对枚举成员的访问，它们在使用的地方会被内联进来（因为不允许包含计算成员）。</p>
-<pre><code>const enum Enum {
-    A = 1,
-    B = A * 2
-}
+<pre><code>    const enum Enum {
+        A = 1,
+        B = A * 2
+    }
 </code></pre><p>常量枚举只能使用常量枚举表达式，且它们在编译阶段会被删除。</p>
 </li>
 <li>
@@ -187,43 +189,43 @@ let nameOfA = Enum[a]; // &quot;A&quot;
 <li>
 <p>外部枚举用来描述已经存在的枚举类型的形状。</p>
 <p>外部枚举和非外部枚举之间有一个重要的区别，在正常的枚举里，没有初始化方法的成员被当成常数成员。 对于非常数的外部枚举而言，没有初始化方法时被当做需要经过计算的。</p>
-<pre><code>declare const enum Directions {
-    Up,
-    Down,
-    Left,
-    Right
-}
-   
-let directions = [Directions.Up, Directions.Down, Directions.Left, Directions.Right]; 
-// [0 /* Up */, 1 /* Down */, 2 /* Left */, 3 /* Right */];
+<pre><code>    declare const enum Directions {
+        Up,
+        Down,
+        Left,
+        Right
+    }
+
+    let directions = [Directions.Up, Directions.Down, Directions.Left, Directions.Right]; 
+    // [0 /* Up */, 1 /* Down */, 2 /* Left */, 3 /* Right */];
 </code></pre><hr>
 <p><a href="https://medium.com/codessert/typescript-enums-e58a536fe9d1">使用 Ambient Enums 的主要原因是不希望 TypeScript 在 JavaScript 中生成查找对象，而是通过第三方服务（例如：从服务器获取）将提供它。</a></p>
-<pre><code>declare enum State {
-   applied = 1,
-   interview = 2,
-   hired = 3 ,
-   rejected = 4
-}
-var application
-   
-function changeStatus (application, newState) {
- application.status = State[newState]
-}
-   
-window.fetch('https://goo.gl/ToR5OV')
- .then(res =&gt; res.json())
- .then(data =&gt; {
-    var State = data
-    application = {
-     name: 'Sami Najar',
-     status: State.applied
+<pre><code>    declare enum State {
+       applied = 1,
+       interview = 2,
+       hired = 3 ,
+       rejected = 4
     }
-    changeStatus(application, 'hired')
-})
+    var application
 
-interface Window {
-    fetch(url: any, init?: any): any;
-}
+    function changeStatus (application, newState) {
+     application.status = State[newState]
+    }
+
+    window.fetch('https://goo.gl/ToR5OV')
+     .then(res =&gt; res.json())
+     .then(data =&gt; {
+        var State = data
+        application = {
+         name: 'Sami Najar',
+         status: State.applied
+        }
+        changeStatus(application, 'hired')
+    })
+
+    interface Window {
+        fetch(url: any, init?: any): any;
+    }
 </code></pre></li>
 </ol>
             </div>
@@ -234,6 +236,8 @@ interface Window {
     <div class="card-content">
         <h1 class="title is-5">Tags</h1>
         <div class="tags">
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/algorithm">algorithm</a></span>
         
             <span class="tag"><a href="https://zhouqian0.github.io/tags/angular">angular</a></span>
         
@@ -256,20 +260,20 @@ interface Window {
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
-            <h1><a href="https://zhouqian0.github.io/2020/fourth/">gRPC 学习小记</a></h1>
-            <time class="has-text-grey-light is-size-7">27 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/stack/">栈</a></h1>
+            <time class="has-text-grey-light is-size-7">5 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-twelfth/">Go 学习小记5</a></h1>
-            <time class="has-text-grey-light is-size-7">24 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/linked-list/">链表</a></h1>
+            <time class="has-text-grey-light is-size-7">5 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-eleventh/">Go 学习小记4</a></h1>
-            <time class="has-text-grey-light is-size-7">16 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/array/">数组</a></h1>
+            <time class="has-text-grey-light is-size-7">4 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-tenth/">Go 学习小记3</a></h1>
-            <time class="has-text-grey-light is-size-7">15 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/abstract/">算法入门摘要</a></h1>
+            <time class="has-text-grey-light is-size-7">4 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-ninth/">Go 学习小记2</a></h1>
-            <time class="has-text-grey-light is-size-7">9 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2020/prom-first/">Prometheus 小记1</a></h1>
+            <time class="has-text-grey-light is-size-7">18 September 2020</time>
         
     </div>
 </div>
@@ -314,7 +318,9 @@ interface Window {
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2020">2020</a> (10)<br>
+            <a href="https://zhouqian0.github.io/archives/2021">2021</a> (4)<br>
+        
+            <a href="https://zhouqian0.github.io/archives/2020">2020</a> (11)<br>
         
             <a href="https://zhouqian0.github.io/archives/2019">2019</a> (46)<br>
         
@@ -337,7 +343,7 @@ interface Window {
             <span class="icon is-large"><a href="https://www.youtube.com/" class="mysocial" rel="me"><i class="fab fa-youtube fa-3x"></i></a></span>&nbsp;&nbsp;
             <span class="icon is-large"><a href="https://github.com/" class="mysocial" rel="me"><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;
             <br><br>
-            Copyright &copy; Let&#39;s finish what we started 2020 - Theme by <a href="https://jeffprod.com" class="mysocial">JeffProd.com</a>
+            Copyright &copy; Let&#39;s finish what we started 2021 - Theme by <a href="https://jeffprod.com" class="mysocial">JeffProd.com</a>
             - <a class="mysocial" href="https://zhouqian0.github.io/about">About</a>
         </p>
     </div>

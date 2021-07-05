@@ -64,30 +64,30 @@
 interface StringValidator {
    isAcceptable(s: string): boolean;
 }
-  
+
 let lettersRegexp = /^[A-Za-z]+$/;
 let numberRegexp = /^[0-9]+$/;
-  
+
 class LettersOnlyValidator implements StringValidator {
    isAcceptable(s: string) {
        return lettersRegexp.test(s);
    }
 }
-  
+
 class ZipCodeValidator implements StringValidator {
    isAcceptable(s: string) {
        return s.length === 5 &amp;&amp; numberRegexp.test(s);
    }
 }
-  
+
 // Some samples to try
 let strings = [&quot;Hello&quot;, &quot;98052&quot;, &quot;101&quot;];
-  
+
 // Validators to use
 let validators: { [s: string]: StringValidator; } = {};
 validators[&quot;ZIP code&quot;] = new ZipCodeValidator();
 validators[&quot;Letters only&quot;] = new LettersOnlyValidator();
-  
+
 // Show whether each string passed each validator
 for (let s of strings) {
    for (let name in validators) {
@@ -97,14 +97,14 @@ for (let s of strings) {
 }
 </code></pre><p>分离后：</p>
 <pre><code>// Validation.ts
-   
+
 namespace Validation {
     export interface StringValidator {
         isAcceptable(s: string): boolean;
     }
 }
 </code></pre><pre><code>// LettersOnlyValidator.ts
-   
+
 /// &lt;reference path=&quot;Validation.ts&quot; /&gt;
 namespace Validation {
     const lettersRegexp = /^[A-Za-z]+$/;
@@ -115,7 +115,7 @@ namespace Validation {
     }
 }
 </code></pre><pre><code>// ZipCodeValidator.ts
-   
+
 /// &lt;reference path=&quot;Validation.ts&quot; /&gt;
 namespace Validation {
     const numberRegexp = /^[0-9]+$/;
@@ -126,19 +126,19 @@ namespace Validation {
     }
 }
 </code></pre><pre><code>// Test.ts
-   
+
 /// &lt;reference path=&quot;Validation.ts&quot; /&gt;
 /// &lt;reference path=&quot;LettersOnlyValidator.ts&quot; /&gt;
 /// &lt;reference path=&quot;ZipCodeValidator.ts&quot; /&gt;
-   
+
 // Some samples to try
 let strings = [&quot;Hello&quot;, &quot;98052&quot;, &quot;101&quot;];
-   
+
 // Validators to use
 let validators: { [s: string]: Validation.StringValidator; } = {};
 validators[&quot;ZIP code&quot;] = new Validation.ZipCodeValidator();
 validators[&quot;Letters only&quot;] = new Validation.LettersOnlyValidator();
-   
+
 // Show whether each string passed each validator
 for (let s of strings) {
     for (let name in validators) {
@@ -169,7 +169,7 @@ for (let s of strings) {
        export class Square { }
    }
 }
-  
+
 import polygons = Shapes.Polygons; // 与使用 var相似
 let sq = new polygons.Square(); // Same as &quot;new Shapes.Polygons.Square()&quot;
 </code></pre><p>对于值来讲， <em>import 会生成与原始符号不同的引用</em> ，所以改变别名的 var 值并不会影响原始变量的值。</p>
@@ -184,17 +184,17 @@ let sq = new polygons.Square(); // Same as &quot;new Shapes.Polygons.Square()&qu
            (element: EventTarget): Selection;
        };
    }
-  
+
    export interface Event {
        x: number;
        y: number;
    }
-  
+
    export interface Base extends Selectors {
        event: Event;
    }
 }
-  
+
 declare var d3: D3.Base; // 
 </code></pre></li>
 </ol>
@@ -206,6 +206,8 @@ declare var d3: D3.Base; //
     <div class="card-content">
         <h1 class="title is-5">Tags</h1>
         <div class="tags">
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/algorithm">algorithm</a></span>
         
             <span class="tag"><a href="https://zhouqian0.github.io/tags/angular">angular</a></span>
         
@@ -228,20 +230,20 @@ declare var d3: D3.Base; //
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
-            <h1><a href="https://zhouqian0.github.io/2020/fourth/">gRPC 学习小记</a></h1>
-            <time class="has-text-grey-light is-size-7">27 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/stack/">栈</a></h1>
+            <time class="has-text-grey-light is-size-7">5 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-twelfth/">Go 学习小记5</a></h1>
-            <time class="has-text-grey-light is-size-7">24 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/linked-list/">链表</a></h1>
+            <time class="has-text-grey-light is-size-7">5 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-eleventh/">Go 学习小记4</a></h1>
-            <time class="has-text-grey-light is-size-7">16 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/array/">数组</a></h1>
+            <time class="has-text-grey-light is-size-7">4 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-tenth/">Go 学习小记3</a></h1>
-            <time class="has-text-grey-light is-size-7">15 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/abstract/">算法入门摘要</a></h1>
+            <time class="has-text-grey-light is-size-7">4 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-ninth/">Go 学习小记2</a></h1>
-            <time class="has-text-grey-light is-size-7">9 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2020/prom-first/">Prometheus 小记1</a></h1>
+            <time class="has-text-grey-light is-size-7">18 September 2020</time>
         
     </div>
 </div>
@@ -286,7 +288,9 @@ declare var d3: D3.Base; //
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2020">2020</a> (10)<br>
+            <a href="https://zhouqian0.github.io/archives/2021">2021</a> (4)<br>
+        
+            <a href="https://zhouqian0.github.io/archives/2020">2020</a> (11)<br>
         
             <a href="https://zhouqian0.github.io/archives/2019">2019</a> (46)<br>
         
@@ -309,7 +313,7 @@ declare var d3: D3.Base; //
             <span class="icon is-large"><a href="https://www.youtube.com/" class="mysocial" rel="me"><i class="fab fa-youtube fa-3x"></i></a></span>&nbsp;&nbsp;
             <span class="icon is-large"><a href="https://github.com/" class="mysocial" rel="me"><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;
             <br><br>
-            Copyright &copy; Let&#39;s finish what we started 2020 - Theme by <a href="https://jeffprod.com" class="mysocial">JeffProd.com</a>
+            Copyright &copy; Let&#39;s finish what we started 2021 - Theme by <a href="https://jeffprod.com" class="mysocial">JeffProd.com</a>
             - <a class="mysocial" href="https://zhouqian0.github.io/about">About</a>
         </p>
     </div>

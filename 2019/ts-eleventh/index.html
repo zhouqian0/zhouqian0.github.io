@@ -69,23 +69,23 @@ sym2 === sym3; // false, symbols是唯一的
 它能避免命名冲突的风险。
 这对于一个对象由多个模块构成的情况非常有用，能防止某一个键被不小心改写或覆盖。
 <pre><code>let sym = Symbol();
-  
+
 let obj = {
    [sym]: &quot;value&quot;
 };
-  
+
 console.log(obj, obj[sym]); // {}, &quot;value&quot;
 </code></pre><p>Symbols key 无法通过 for in、for of 或者 Object.getOwnPropertyNames 获得，获得它们的唯一方式是 Object.getOwnPropertySymbols</p>
 </li>
 <li>Symbols 也可以与计算出的属性名声明相结合来声明对象的属性和类成员。
 <pre><code>const getClassNameSymbol = Symbol();
-   
+
 class C {
     [getClassNameSymbol](){
        return &quot;C&quot;;
     }
 }
-   
+
 let c = new C();
 let className = c[getClassNameSymbol](); // &quot;C&quot;
 </code></pre></li>
@@ -114,23 +114,23 @@ console.log(fooSym === otherSym); // true
 Symbol.for 为 Symbol 值登记的名字，是全局环境的，可以在不同的 iframe 或 service worker 中取到同一个值。
 <pre><code>var localFooSymbol = Symbol('foo');
 var globalFooSymbol = Symbol.for('foo');
-  
+
 assert(Symbol.keyFor(localFooSymbol) === undefined); // localFooSymbol 属于未登记的 Symbol 值，所以返回undefined。
 assert(Symbol.keyFor(globalFooSymbol) === 'foo');
 assert(Symbol.for(Symbol.keyFor(globalFooSymbol)) === Symbol.for('foo'));
 </code></pre></li>
 <li>Symbol 值可以显式转为字符串，也可以转为布尔值，但是不能转为数值。
 <pre><code>let sym = Symbol('My symbol');
-  
+
 'Symbol(My symbol)'
 'Symbol(My symbol)'
 Boolean(sym) // true
 !sym  // false
-  
+
 if (sym) {
  // ...
 }
-  
+
 Number(sym) // TypeError
 sym + 2 // TypeError
 
@@ -138,7 +138,7 @@ sym + 2 // TypeError
 <li>Symbol 值作为对象属性名时，不能用点运算符。
 <pre><code>const mySymbol = Symbol();
 const a = {};
-   
+
 a.mySymbol = 'Hello!';
 a[mySymbol] // undefined
 a['mySymbol'] // &quot;Hello!&quot;
@@ -147,7 +147,7 @@ a['mySymbol'] // &quot;Hello!&quot;
 <li>
 <pre><code>const COLOR_RED    = Symbol('red');
 const COLOR_GREEN  = Symbol('green');
-  
+
 function getComplement(color) {
  switch (color) {
    case COLOR_RED:
@@ -163,7 +163,7 @@ function getComplement(color) {
 <pre><code>const shapeType = {
    triangle: Symbol()
 };
-  
+
 function getArea(shape, options) {
  let area = 0;
  switch (shape) {
@@ -173,7 +173,7 @@ function getArea(shape, options) {
  }
  return area;
 }
-  
+
 getArea(shapeType.triangle, { width: 100, height: 100 });
 </code></pre>shapeType.triangle 等于哪个值并不重要，只要确保不会跟其他 shapeType 属性的值冲突即可。因此，这里就很适合改用 Symbol 值。</li>
 <li>Reflect.ownKeys 方法可以返回所有类型的键名，包括常规键名和 Symbol 键名。
@@ -182,7 +182,7 @@ getArea(shapeType.triangle, { width: 100, height: 100 });
  enum: 2,
  nonEnum: 3
 };
-  
+
 console.log(Reflect.ownKeys(obj)) //  [&quot;enum&quot;, &quot;nonEnum&quot;, Symbol]
 </code></pre></li>
 <li>如果键名使用 Symbol 方法生成，那么外部将无法引用这个值，当然也就无法改写。</li>
@@ -195,6 +195,8 @@ console.log(Reflect.ownKeys(obj)) //  [&quot;enum&quot;, &quot;nonEnum&quot;, Sy
     <div class="card-content">
         <h1 class="title is-5">Tags</h1>
         <div class="tags">
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/algorithm">algorithm</a></span>
         
             <span class="tag"><a href="https://zhouqian0.github.io/tags/angular">angular</a></span>
         
@@ -217,20 +219,20 @@ console.log(Reflect.ownKeys(obj)) //  [&quot;enum&quot;, &quot;nonEnum&quot;, Sy
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
-            <h1><a href="https://zhouqian0.github.io/2020/fourth/">gRPC 学习小记</a></h1>
-            <time class="has-text-grey-light is-size-7">27 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/stack/">栈</a></h1>
+            <time class="has-text-grey-light is-size-7">5 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-twelfth/">Go 学习小记5</a></h1>
-            <time class="has-text-grey-light is-size-7">24 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/linked-list/">链表</a></h1>
+            <time class="has-text-grey-light is-size-7">5 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-eleventh/">Go 学习小记4</a></h1>
-            <time class="has-text-grey-light is-size-7">16 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/array/">数组</a></h1>
+            <time class="has-text-grey-light is-size-7">4 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-tenth/">Go 学习小记3</a></h1>
-            <time class="has-text-grey-light is-size-7">15 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/abstract/">算法入门摘要</a></h1>
+            <time class="has-text-grey-light is-size-7">4 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-ninth/">Go 学习小记2</a></h1>
-            <time class="has-text-grey-light is-size-7">9 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2020/prom-first/">Prometheus 小记1</a></h1>
+            <time class="has-text-grey-light is-size-7">18 September 2020</time>
         
     </div>
 </div>
@@ -275,7 +277,9 @@ console.log(Reflect.ownKeys(obj)) //  [&quot;enum&quot;, &quot;nonEnum&quot;, Sy
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2020">2020</a> (10)<br>
+            <a href="https://zhouqian0.github.io/archives/2021">2021</a> (4)<br>
+        
+            <a href="https://zhouqian0.github.io/archives/2020">2020</a> (11)<br>
         
             <a href="https://zhouqian0.github.io/archives/2019">2019</a> (46)<br>
         
@@ -298,7 +302,7 @@ console.log(Reflect.ownKeys(obj)) //  [&quot;enum&quot;, &quot;nonEnum&quot;, Sy
             <span class="icon is-large"><a href="https://www.youtube.com/" class="mysocial" rel="me"><i class="fab fa-youtube fa-3x"></i></a></span>&nbsp;&nbsp;
             <span class="icon is-large"><a href="https://github.com/" class="mysocial" rel="me"><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;
             <br><br>
-            Copyright &copy; Let&#39;s finish what we started 2020 - Theme by <a href="https://jeffprod.com" class="mysocial">JeffProd.com</a>
+            Copyright &copy; Let&#39;s finish what we started 2021 - Theme by <a href="https://jeffprod.com" class="mysocial">JeffProd.com</a>
             - <a class="mysocial" href="https://zhouqian0.github.io/about">About</a>
         </p>
     </div>

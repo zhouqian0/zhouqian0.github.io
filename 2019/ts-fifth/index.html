@@ -98,15 +98,15 @@ let deck: Deck = {
         return () =&gt; {
             let pickedCard = Math.floor(Math.random() * 52);
             let pickedSuit = Math.floor(pickedCard / 13);
-       
+
             return {suit: this.suits[pickedSuit], card: pickedCard % 13};
         }
     }
 }
-       
+
 let cardPicker = deck.createCardPicker();
 let pickedCard = cardPicker();
-       
+
 alert(&quot;card: &quot; + pickedCard.card + &quot; of &quot; + pickedCard.suit);
 </code></pre></li>
 <li>将 this: void 作为函数参数意味着函数不需要一个 this 类型。</li>
@@ -123,7 +123,7 @@ alert(&quot;card: &quot; + pickedCard.card + &quot; of &quot; + pickedCard.suit)
 <p>方法是为同一个函数提供多个函数类型定义来进行函数重载。编译器会根据这个列表去处理函数的调用。</p>
 <p>它与 JavaScript 里的处理流程相似，它查找重载列表，尝试使用第一个重载定义，因此，一定要把最精确的定义放在最前面。</p>
 <pre><code>let suits = [&quot;hearts&quot;, &quot;spades&quot;, &quot;clubs&quot;, &quot;diamonds&quot;];
-   
+
 function pickCard(x: {suit: string; card: number; }[]): number;
 function pickCard(x: number): {suit: string; card: number; };
 function pickCard(x): any {
@@ -139,11 +139,11 @@ function pickCard(x): any {
         return { suit: suits[pickedSuit], card: x % 13 };
     }
 }
-   
+
 let myDeck = [{ suit: &quot;diamonds&quot;, card: 2 }, { suit: &quot;spades&quot;, card: 10 }, { suit: &quot;hearts&quot;, card: 4 }];
 let pickedCard1 = myDeck[pickCard(myDeck)];
 alert(&quot;card: &quot; + pickedCard1.card + &quot; of &quot; + pickedCard1.suit);
-   
+
 let pickedCard2 = pickCard(15);
 alert(&quot;card: &quot; + pickedCard2.card + &quot; of &quot; + pickedCard2.suit);
 </code></pre></li>
@@ -156,6 +156,8 @@ alert(&quot;card: &quot; + pickedCard2.card + &quot; of &quot; + pickedCard2.sui
     <div class="card-content">
         <h1 class="title is-5">Tags</h1>
         <div class="tags">
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/algorithm">algorithm</a></span>
         
             <span class="tag"><a href="https://zhouqian0.github.io/tags/angular">angular</a></span>
         
@@ -178,20 +180,20 @@ alert(&quot;card: &quot; + pickedCard2.card + &quot; of &quot; + pickedCard2.sui
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
-            <h1><a href="https://zhouqian0.github.io/2020/fourth/">gRPC 学习小记</a></h1>
-            <time class="has-text-grey-light is-size-7">27 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/stack/">栈</a></h1>
+            <time class="has-text-grey-light is-size-7">5 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-twelfth/">Go 学习小记5</a></h1>
-            <time class="has-text-grey-light is-size-7">24 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/linked-list/">链表</a></h1>
+            <time class="has-text-grey-light is-size-7">5 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-eleventh/">Go 学习小记4</a></h1>
-            <time class="has-text-grey-light is-size-7">16 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/array/">数组</a></h1>
+            <time class="has-text-grey-light is-size-7">4 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-tenth/">Go 学习小记3</a></h1>
-            <time class="has-text-grey-light is-size-7">15 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/abstract/">算法入门摘要</a></h1>
+            <time class="has-text-grey-light is-size-7">4 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-ninth/">Go 学习小记2</a></h1>
-            <time class="has-text-grey-light is-size-7">9 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2020/prom-first/">Prometheus 小记1</a></h1>
+            <time class="has-text-grey-light is-size-7">18 September 2020</time>
         
     </div>
 </div>
@@ -236,7 +238,9 @@ alert(&quot;card: &quot; + pickedCard2.card + &quot; of &quot; + pickedCard2.sui
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2020">2020</a> (10)<br>
+            <a href="https://zhouqian0.github.io/archives/2021">2021</a> (4)<br>
+        
+            <a href="https://zhouqian0.github.io/archives/2020">2020</a> (11)<br>
         
             <a href="https://zhouqian0.github.io/archives/2019">2019</a> (46)<br>
         
@@ -259,7 +263,7 @@ alert(&quot;card: &quot; + pickedCard2.card + &quot; of &quot; + pickedCard2.sui
             <span class="icon is-large"><a href="https://www.youtube.com/" class="mysocial" rel="me"><i class="fab fa-youtube fa-3x"></i></a></span>&nbsp;&nbsp;
             <span class="icon is-large"><a href="https://github.com/" class="mysocial" rel="me"><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;
             <br><br>
-            Copyright &copy; Let&#39;s finish what we started 2020 - Theme by <a href="https://jeffprod.com" class="mysocial">JeffProd.com</a>
+            Copyright &copy; Let&#39;s finish what we started 2021 - Theme by <a href="https://jeffprod.com" class="mysocial">JeffProd.com</a>
             - <a class="mysocial" href="https://zhouqian0.github.io/about">About</a>
         </p>
     </div>

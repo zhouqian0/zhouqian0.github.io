@@ -55,11 +55,11 @@
 <pre><code>   type Vertex struct {
     X, Y float64
    }
-      
+
    func (v Vertex) Abs() float64 {
     return math.Sqrt(v.X*v.X + v.Y*v.Y)
    }
-      
+
    func main() {
     v := Vertex{3, 4}
     fmt.Println(v.Abs())
@@ -70,7 +70,7 @@
 <pre><code>   func Abs(v Vertex) float64 {
     return math.Sqrt(v.X*v.X + v.Y*v.Y)
    }
-          
+
    func main() {
     v := Vertex{3, 4}
     fmt.Println(Abs(v))
@@ -80,14 +80,14 @@
 <p>也可以为非结构体类型声明方法</p>
 <p>接收者的类型定义和方法声明必须在同一包内；不能为内建类型声明方法。</p>
 <pre><code>  type MyFloat float64
-         
+
   func (f MyFloat) Abs() float64 {
     if f &lt; 0 {
         return float64(-f)
     }
     return float64(f)
   }
-         
+
   func main() {
     f := MyFloat(-math.Sqrt2)
     fmt.Println(f.Abs())
@@ -117,35 +117,35 @@
 <pre><code>   type Abser interface {
     Abs() float64
    }
-      
+
    func main() {
     var a Abser
     f := MyFloat(-math.Sqrt2)
     v := Vertex{3, 4}
-      
+
     a = f  // a MyFloat 实现了 Abser
     a = &amp;v // a *Vertex 实现了 Abser
-      
+
     // 下面一行，v 是一个 Vertex（而不是 *Vertex）
     // 所以没有实现 Abser。
     a = v // Error, Vertex does not implement Abser (Abs method has pointer receiver)go
 
     fmt.Println(a.Abs())
    }
-      
+
    type MyFloat float64
-      
+
    func (f MyFloat) Abs() float64 {
     if f &lt; 0 {
         return float64(-f)
     }
     return float64(f)
    }
-      
+
    type Vertex struct {
     X, Y float64
    }
-      
+
    func (v *Vertex) Abs() float64 {
     return math.Sqrt(v.X*v.X + v.Y*v.Y)
    }
@@ -163,11 +163,11 @@
 <pre><code>  type I interface {
     M()
   }
-          
+
   type T struct {
     S string
   }
-        
+
   func (t *T) M() {
     if t == nil {
         fmt.Println(&quot;&lt;nil&gt;&quot;)
@@ -175,15 +175,15 @@
     }
     fmt.Println(t.S)
   }
-            
+
   func main() {
     var i I
-            
+
     var t *T
     i = t // i 有具体实现
     describe(i)
     i.M()
-            
+
     i = &amp;T{S: &quot;hello&quot;}
     describe(i)
     i.M()
@@ -197,13 +197,13 @@
 <pre><code>  type I interface {
     M()
   }
-            
+
   func main() {
     var i I
     describe(i)
     i.M()
   }
-            
+
   func describe(i I) {
     fmt.Println(i == nil) // true
     fmt.Printf(&quot;(%v, %T)\n&quot;, i, i) // runtime error, i no implementation
@@ -219,14 +219,14 @@
 <pre><code>    func main() {
         var i interface{}
         describe(i) // (&lt;nil&gt;, &lt;nil&gt;)
-             
+
         i = 42
         describe(i) // (42, int)
-             
+
         i = &quot;hello&quot;
         describe(i) // (hello, string)
     }
-             
+
     func describe(i interface{}) {
         fmt.Printf(&quot;(%v, %T)\n&quot;, i, i)
     }
@@ -250,16 +250,16 @@
 </code></pre><p>若 i 保存了一个 T，那么 t 将会是其底层值，而 ok 为 true。</p>
 <p>否则，ok 将为 false 而 t 将为 T 类型的零值。</p>
 <pre><code>    var i interface{} = &quot;hello&quot;
-           
+
     s := i.(string)
     fmt.Println(s) // hello
-       
+
     s, ok := i.(string)
     fmt.Println(s, ok) // hello true
-       
+
     f, ok := i.(float64)
     fmt.Println(f, ok) // false, 0
-       
+
     f = i.(float64) // 报错(panic)
     fmt.Println(f)
 </code></pre></li>
@@ -280,7 +280,7 @@
             fmt.Printf(&quot;I don't know about type %T!\n&quot;, v)
         }
     }
-       
+
     func main() {
         do(21) // Twice 21 is 42
         do(&quot;hello&quot;) // &quot;hello&quot; is 5 bytes long
@@ -294,11 +294,11 @@
         Name string
         Age  int
     }
-       
+
     func (p Person) String() string { // like java toString()
         return fmt.Sprintf(&quot;%v (%v years)&quot;, p.Name, p.Age)
     }
-       
+
     func main() {
         a := Person{&quot;Arthur Dent&quot;, 42}
         z := Person{&quot;Zaphod Beeblebrox&quot;, 9001}
@@ -321,19 +321,19 @@
         When time.Time
         What string
     }
-       
+
     func (e *MyError) Error() string {
         return fmt.Sprintf(&quot;at %v, %s&quot;,
             e.When, e.What)
     }
-       
+
     func run() error {
         return &amp;MyError{ // because MyError implements the Error method.
             time.Now(),
             &quot;it didn't work&quot;,
         }
     }
-       
+
     func main() {
         if err := run(); err != nil {
             fmt.Println(err)
@@ -346,7 +346,7 @@
 </code></pre><p>Read 用数据填充给定的字节切片并返回填充的字节数和错误值。在遇到数据流的结尾时，它会返回一个 io.EOF 错误。</p>
 <pre><code>    func main() {
         r := strings.NewReader(&quot;Hello, Reader!&quot;)
-       
+
         b := make([]byte, 8)
         for {
             n, err := r.Read(b) // 如果读取失败，则不会覆盖 b 中的内容；每次读取 长度为8的字节数组，直到下一次读取到的为空
@@ -367,7 +367,7 @@
 <li>
 <p>image 包定义了 <strong>Image</strong> 接口：</p>
 <pre><code>    package image
-       
+
     type Image interface {
         ColorModel() color.Model
         Bounds() Rectangle // Rectangle 实际上是一个 image.Rectangle，它在 image 包中声明。                                  
@@ -385,6 +385,8 @@
     <div class="card-content">
         <h1 class="title is-5">Tags</h1>
         <div class="tags">
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/algorithm">algorithm</a></span>
         
             <span class="tag"><a href="https://zhouqian0.github.io/tags/angular">angular</a></span>
         
@@ -407,20 +409,20 @@
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
-            <h1><a href="https://zhouqian0.github.io/2020/fourth/">gRPC 学习小记</a></h1>
-            <time class="has-text-grey-light is-size-7">27 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/stack/">栈</a></h1>
+            <time class="has-text-grey-light is-size-7">5 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-twelfth/">Go 学习小记5</a></h1>
-            <time class="has-text-grey-light is-size-7">24 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/linked-list/">链表</a></h1>
+            <time class="has-text-grey-light is-size-7">5 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-eleventh/">Go 学习小记4</a></h1>
-            <time class="has-text-grey-light is-size-7">16 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/array/">数组</a></h1>
+            <time class="has-text-grey-light is-size-7">4 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-tenth/">Go 学习小记3</a></h1>
-            <time class="has-text-grey-light is-size-7">15 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/abstract/">算法入门摘要</a></h1>
+            <time class="has-text-grey-light is-size-7">4 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-ninth/">Go 学习小记2</a></h1>
-            <time class="has-text-grey-light is-size-7">9 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2020/prom-first/">Prometheus 小记1</a></h1>
+            <time class="has-text-grey-light is-size-7">18 September 2020</time>
         
     </div>
 </div>
@@ -465,7 +467,9 @@
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2020">2020</a> (10)<br>
+            <a href="https://zhouqian0.github.io/archives/2021">2021</a> (4)<br>
+        
+            <a href="https://zhouqian0.github.io/archives/2020">2020</a> (11)<br>
         
             <a href="https://zhouqian0.github.io/archives/2019">2019</a> (46)<br>
         
@@ -488,7 +492,7 @@
             <span class="icon is-large"><a href="https://www.youtube.com/" class="mysocial" rel="me"><i class="fab fa-youtube fa-3x"></i></a></span>&nbsp;&nbsp;
             <span class="icon is-large"><a href="https://github.com/" class="mysocial" rel="me"><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;
             <br><br>
-            Copyright &copy; Let&#39;s finish what we started 2020 - Theme by <a href="https://jeffprod.com" class="mysocial">JeffProd.com</a>
+            Copyright &copy; Let&#39;s finish what we started 2021 - Theme by <a href="https://jeffprod.com" class="mysocial">JeffProd.com</a>
             - <a class="mysocial" href="https://zhouqian0.github.io/about">About</a>
         </p>
     </div>

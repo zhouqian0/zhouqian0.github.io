@@ -63,12 +63,12 @@
    height: number;
    width: number;
 }
-  
+
 interface Box {
    scale: number;
    width: string; // error, property 'width' must be of type 'number'
 }
-  
+
 let box: Box = {height: 5, width: 6, scale: 10};
 </code></pre><ol>
 <li>合并的机制是把双方的成员放到一个同名的接口里。</li>
@@ -77,16 +77,16 @@ let box: Box = {height: 5, width: 6, scale: 10};
 <pre><code> interface Cloner {
     clone(animal: Animal): Animal;
  }
-    
+
  interface Cloner {
     clone(animal: Sheep): Sheep;
  }
-    
+
  interface Cloner {
     clone(animal: Dog): Dog;
     clone(animal: Cat): Cat;
  }
-   
+
 // ----------------------
  interface Cloner {
     clone(animal: Dog): Dog;
@@ -108,7 +108,7 @@ let box: Box = {height: 5, width: 6, scale: 10};
     createElement(tagName: string): HTMLElement;
     createElement(tagName: &quot;canvas&quot;): HTMLCanvasElement;
  }
-   
+
 // ----------------------
  interface Document {
      createElement(tagName: &quot;canvas&quot;): HTMLCanvasElement;
@@ -126,7 +126,7 @@ let box: Box = {height: 5, width: 6, scale: 10};
 <pre><code>namespace Animals {
    export class Zebra { }
 }
-   
+
 namespace Animals {
    export interface Legged { numberOfLegs: number; }
    export class Dog { }
@@ -134,7 +134,7 @@ namespace Animals {
 // ----------------------
 namespace Animals {
     export interface Legged { numberOfLegs: number; }
-   
+
     export class Zebra { }
     export class Dog { }
 }
@@ -144,12 +144,12 @@ namespace Animals {
 </ol>
 <pre><code>namespace Animal {
    let haveMuscles = true;
-   
+
    export function animalsHaveMuscles() {
        return haveMuscles;
    }
 }
-   
+
 namespace Animal {
    export function doAnimalsHaveMuscles() {
        return haveMuscles;  // &lt;-- error, cannot find name 'haveMuscles'.
@@ -176,12 +176,12 @@ namespace Animal {
 <pre><code>function buildLabel(name: string): string {
     return buildLabel.prefix + name + buildLabel.suffix;
 }
-   
+
 namespace buildLabel {
     export let suffix = &quot;&quot;;
     export let prefix = &quot;Hello, &quot;;
 }
-   
+
 console.log(buildLabel(&quot;Sam Smith&quot;)); // Hello, Sam Smith
 </code></pre><ol>
 <li>命名空间可以用来扩展枚举型</li>
@@ -191,7 +191,7 @@ console.log(buildLabel(&quot;Sam Smith&quot;)); // Hello, Sam Smith
        green = 2,
        blue = 4
    }
-      
+
    namespace Color {
        export function mixColor(colorName: string) {
            if (colorName == &quot;yellow&quot;) {
@@ -219,7 +219,7 @@ console.log(buildLabel(&quot;Sam Smith&quot;)); // Hello, Sam Smith
 export class Observable&lt;T&gt; {
    // ... implementation left as an exercise for the reader ...
 }
-  
+
 // map.js
 import { Observable } from &quot;./observable&quot;;
 Observable.prototype.map = function (f) {
@@ -238,8 +238,8 @@ declare module &quot;./observable&quot; {
 Observable.prototype.map = function (f) {
    // ... another exercise for the reader
 }
-  
-  
+
+
 // consumer.ts
 import { Observable } from &quot;./observable&quot;;
 import &quot;./map&quot;;
@@ -258,13 +258,13 @@ o.map(x =&gt; x.toFixed());
 export class Observable&lt;T&gt; {
    // ... still no implementation ...
 }
-  
+
 declare global {
    interface Array&lt;T&gt; {
        toObservable(): Observable&lt;T&gt;;
    }
 }
-  
+
 Array.prototype.toObservable = function () {
    // ...
 }
@@ -278,6 +278,8 @@ Array.prototype.toObservable = function () {
     <div class="card-content">
         <h1 class="title is-5">Tags</h1>
         <div class="tags">
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/algorithm">algorithm</a></span>
         
             <span class="tag"><a href="https://zhouqian0.github.io/tags/angular">angular</a></span>
         
@@ -300,20 +302,20 @@ Array.prototype.toObservable = function () {
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
-            <h1><a href="https://zhouqian0.github.io/2020/fourth/">gRPC 学习小记</a></h1>
-            <time class="has-text-grey-light is-size-7">27 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/stack/">栈</a></h1>
+            <time class="has-text-grey-light is-size-7">5 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-twelfth/">Go 学习小记5</a></h1>
-            <time class="has-text-grey-light is-size-7">24 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/linked-list/">链表</a></h1>
+            <time class="has-text-grey-light is-size-7">5 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-eleventh/">Go 学习小记4</a></h1>
-            <time class="has-text-grey-light is-size-7">16 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/array/">数组</a></h1>
+            <time class="has-text-grey-light is-size-7">4 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-tenth/">Go 学习小记3</a></h1>
-            <time class="has-text-grey-light is-size-7">15 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/abstract/">算法入门摘要</a></h1>
+            <time class="has-text-grey-light is-size-7">4 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-ninth/">Go 学习小记2</a></h1>
-            <time class="has-text-grey-light is-size-7">9 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2020/prom-first/">Prometheus 小记1</a></h1>
+            <time class="has-text-grey-light is-size-7">18 September 2020</time>
         
     </div>
 </div>
@@ -327,6 +329,9 @@ Array.prototype.toObservable = function () {
     <div class="card-content">
         <h1 class="title is-5">Related posts</h1>
       
+      
+            <h1><a href="https://zhouqian0.github.io/2020/prom-first/">Prometheus 小记1</a></h1>
+            <time class="has-text-grey-light is-size-7">18 September 2020</time>
       
             <h1><a href="https://zhouqian0.github.io/2019/ts-twenty-first/">TS文档阅读小结21 实用类型</a></h1>
             <time class="has-text-grey-light is-size-7">15 August 2019</time>
@@ -352,7 +357,9 @@ Array.prototype.toObservable = function () {
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2020">2020</a> (10)<br>
+            <a href="https://zhouqian0.github.io/archives/2021">2021</a> (4)<br>
+        
+            <a href="https://zhouqian0.github.io/archives/2020">2020</a> (11)<br>
         
             <a href="https://zhouqian0.github.io/archives/2019">2019</a> (46)<br>
         
@@ -375,7 +382,7 @@ Array.prototype.toObservable = function () {
             <span class="icon is-large"><a href="https://www.youtube.com/" class="mysocial" rel="me"><i class="fab fa-youtube fa-3x"></i></a></span>&nbsp;&nbsp;
             <span class="icon is-large"><a href="https://github.com/" class="mysocial" rel="me"><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;
             <br><br>
-            Copyright &copy; Let&#39;s finish what we started 2020 - Theme by <a href="https://jeffprod.com" class="mysocial">JeffProd.com</a>
+            Copyright &copy; Let&#39;s finish what we started 2021 - Theme by <a href="https://jeffprod.com" class="mysocial">JeffProd.com</a>
             - <a class="mysocial" href="https://zhouqian0.github.io/about">About</a>
         </p>
     </div>

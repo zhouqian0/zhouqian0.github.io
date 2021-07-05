@@ -87,7 +87,7 @@
     import { logMethod } from './method-decorator';
     import { logProperty } from './property-decorator';
     import { logParameter } from './parameter-decorator';
-       
+
     // 装饰器工厂，根据传入的参数调用相应的装饰器
     export function log(...args) {
         switch (args.length) {
@@ -105,16 +105,16 @@
                 throw new Error('Not a valid decorator');
         }
     }
-       
+
     @log
     class Employee {
         @log
         private name: string;
-       
+
         constructor(name: string) {
             this.name = name;
         }
-       
+
         @log
         greet(@log message: string): string {
             return `${this.name} says: ${message}`;
@@ -129,14 +129,14 @@
        console.log(&quot;f(): called&quot;);
    }
 }
-  
+
 function g() {
    console.log(&quot;g(): evaluated&quot;);
    return function (target, propertyKey: string, descriptor: PropertyDescriptor) {
        console.log(&quot;g(): called&quot;);
    }
 }
-  
+
 class C {
    @f()
    @g()
@@ -179,7 +179,7 @@ class C {
            return &quot;Hello, &quot; + this.greeting;
        }
    }
-      
+
    function sealed(constructor: Function) {
        Object.seal(constructor);
        Object.seal(constructor.prototype);
@@ -193,7 +193,7 @@ class C {
            hello = &quot;override&quot;;
        }
    }
-      
+
    @classDecorator
    class Greeter {
        property = &quot;property&quot;;
@@ -202,7 +202,7 @@ class C {
            this.hello = m;
        }
    }
-      
+
    console.log(new Greeter(&quot;world&quot;));
    // class_1 {
    //   property: 'property',
@@ -215,7 +215,7 @@ class C {
 <pre><code>    export function logClass(target: Function) {
         // 保存一份原构造器的引用
         const original = target;
-       
+
         // 生成类的实例的辅助函数
         function construct(constructor, args) {
             const c: any = function () {
@@ -224,23 +224,23 @@ class C {
             c.prototype = constructor.prototype;
             return new c();
         }
-       
+
         // 新构造器行为
         const f: any = function (...args) {
             console.log(`New: ${original['name']} is created`);
             return construct(original, args);
         }
-       
+
         // 复制 prototype 属性，保持 intanceof 操作符可用
         f.prototype = original.prototype;
-       
+
         // 返回新构造器（将覆盖原构造器）
         return f;
     }
-       
+
     @logClass
     class Employee {}
-       
+
     let emp = new Employee();
     console.log('emp instanceof Employee');
     console.log(emp instanceof Employee);
@@ -280,7 +280,7 @@ class C {
  // propertyName === &quot;greet&quot;
  // propertyDescriptor === Object.getOwnPropertyDescriptor(Employee.prototype, &quot;greet&quot;)
  const method = propertyDescriptor.value;
-  
+
  propertyDescriptor.value = function (...args: any[]) {
    // 将 greet 的参数列表转换为字符串
    const params = args.map(a =&gt; JSON.stringify(a)).join();
@@ -295,17 +295,17 @@ class C {
  }
  return propertyDescriptor;
 };
-  
+
 class Employee {
    constructor(private firstName: string, private lastName: string
    ) {}
-  
+
    @logMethod
    greet(message: string): string {
        return `${this.firstName} ${this.lastName} says: ${message}`;
    }
 }
-  
+
 const emp = new Employee('Mohan Ram', 'Ratnakumar');
 emp.greet('hello'); // Call: greet(&quot;hello&quot;) =&gt; &quot;Mohan Ram Ratnakumar says: hello&quot;
 </code></pre></li>
@@ -335,14 +335,14 @@ emp.greet('hello'); // Call: greet(&quot;hello&quot;) =&gt; &quot;Mohan Ram Ratn
            this._x = x;
            this._y = y;
        }
-       
+
        @configurable(false)
        get x() { return this._x; }
-       
+
        @configurable(false)
        get y() { return this._y; }
     }
-      
+
     function configurable(value: boolean) {
        return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
            descriptor.configurable = value;
@@ -358,27 +358,27 @@ emp.greet('hello'); // Call: greet(&quot;hello&quot;) =&gt; &quot;Mohan Ram Ratn
             descriptor.enumerable = value;
         };
     }
-       
+
     class Employee {
         private _salary: number;
         private _name: string;
-       
+
         @enumerable(false)
         get salary() { return `Rs. ${this._salary}`; }
-       
+
         set salary(salary: any) { this._salary = +salary; }
-       
+
         @enumerable(true)
         get name() {
             return `Sir/Madam, ${this._name}`;
         }
-       
+
         set name(name: string) {
             this._name = name;
         }
-       
+
     }
-       
+
     const emp = new Employee();
     emp.salary = 1000;
     for (let prop in emp) {
@@ -418,7 +418,7 @@ emp.greet('hello'); // Call: greet(&quot;hello&quot;) =&gt; &quot;Mohan Ram Ratn
 <pre><code>    class Greeter {
         @format(&quot;Hello, %s&quot;)
         greeting: string;
-       
+
         constructor(message: string) {
             this.greeting = message;
         }
@@ -428,13 +428,13 @@ emp.greet('hello'); // Call: greet(&quot;hello&quot;) =&gt; &quot;Mohan Ram Ratn
         }
     }
 </code></pre><pre><code>   import &quot;reflect-metadata&quot;;
-      
+
    const formatMetadataKey = Symbol(&quot;format&quot;);
-      
+
    function format(formatString: string) {
        return Reflect.metadata(formatMetadataKey, formatString);
    }
-      
+
    function getFormat(target: any, propertyKey: string) {
        return Reflect.getMetadata(formatMetadataKey, target, propertyKey);
    }
@@ -444,19 +444,19 @@ emp.greet('hello'); // Call: greet(&quot;hello&quot;) =&gt; &quot;Mohan Ram Ratn
 <pre><code>function logParameter(target: Object, propertyName: string) {
    // 属性值
    let _val = this[propertyName];
-  
+
    // 属性读取访问器
    const getter = () =&gt; {
        console.log(`Get: ${propertyName} =&gt; ${_val}`);
        return _val;
    };
-  
+
    // 属性写入访问器
    const setter = newVal =&gt; {
        console.log(`Set: ${propertyName} =&gt; ${newVal}`);
        _val = newVal;
    };
-  
+
    // 删除属性
    if (delete this[propertyName]) {
        // 创建新属性及其读取访问器、写入访问器
@@ -469,12 +469,12 @@ emp.greet('hello'); // Call: greet(&quot;hello&quot;) =&gt; &quot;Mohan Ram Ratn
        });
    }
 }
-  
+
 class Employee {
    @logParameter
    name: string;
 }
-  
+
 const emp = new Employee();
 emp.name = 'Mohan Ram';
 console.log(emp.name);
@@ -512,26 +512,26 @@ console.log(emp.name);
 </ol>
 <pre><code>   class Greeter {
        greeting: string;
-      
+
        constructor(message: string) {
            this.greeting = message;
        }
-      
+
        @validate
        greet(@required name: string) {
            return &quot;Hello &quot; + name + &quot;, &quot; + this.greeting;
        }
    }
 </code></pre><pre><code>   import &quot;reflect-metadata&quot;;
-      
+
    const requiredMetadataKey = Symbol(&quot;required&quot;);
-      
+
    function required(target: Object, propertyKey: string | symbol, parameterIndex: number) {
        let existingRequiredParameters: number[] = Reflect.getOwnMetadata(requiredMetadataKey, target, propertyKey) || [];
        existingRequiredParameters.push(parameterIndex);
        Reflect.defineMetadata(requiredMetadataKey, existingRequiredParameters, target, propertyKey);
    }
-      
+
    function validate(target: any, propertyName: string, descriptor: TypedPropertyDescriptor&lt;Function&gt;) {
        let method = descriptor.value;
        descriptor.value = function () {
@@ -543,7 +543,7 @@ console.log(emp.name);
                    }
                }
            }
-      
+
            return method.apply(this, arguments);
        }
    }
@@ -561,7 +561,7 @@ console.log(emp.name);
         }
         console.log('target:', target);
     }
-       
+
     class Employee {
         greet(@logParameter message: string): string {
             return `hello ${message}`;
@@ -595,25 +595,25 @@ console.log(emp.name);
 </ol>
 <p>启用后：</p>
 <pre><code>   import &quot;reflect-metadata&quot;;
-      
+
    class Point {
        x: number;
        y: number;
    }
-      
+
    class Line {
        private _p0: Point;
        private _p1: Point;
-      
+
        @validate
        set p0(value: Point) { this._p0 = value; }
        get p0() { return this._p0; }
-      
+
        @validate
        set p1(value: Point) { this._p1 = value; }
        get p1() { return this._p1; }
    }
-      
+
    function validate&lt;T&gt;(target: any, propertyKey: string, descriptor: TypedPropertyDescriptor&lt;T&gt;) {
        let set = descriptor.set;
        descriptor.set = function (value: T) {
@@ -628,12 +628,12 @@ console.log(emp.name);
 <pre><code>   class Line {
        private _p0: Point;
        private _p1: Point;
-      
+
        @validate
        @Reflect.metadata(&quot;design:type&quot;, Point)
        set p0(value: Point) { this._p0 = value; }
        get p0() { return this._p0; }
-      
+
        @validate
        @Reflect.metadata(&quot;design:type&quot;, Point)
        set p1(value: Point) { this._p1 = value; }
@@ -642,7 +642,7 @@ console.log(emp.name);
 </code></pre><p>eg：</p>
 <pre><code>```
 import &quot;reflect-metadata&quot;;
-   
+
 // 参数装饰器使用反射 api 存储被装饰参数的索引
 export function logParameter(target: Object, propertyName: string, index: number) {
     // 获取目标对象的元信息
@@ -652,23 +652,23 @@ export function logParameter(target: Object, propertyName: string, index: number
     Reflect.defineMetadata(`log_${propertyName}_parameters`, indices, target, propertyName);
     console.log(`log_${propertyName}_parameters; index = ${index}`); // name type: String
 }
-   
+
 // 属性装饰器使用反射 api 获取属性的运行时类型
 export function logProperty(target: Object, propertyName: string): void {
     // 获取对象属性的设计类型
     var t = Reflect.getMetadata(&quot;design:type&quot;, target, propertyName);
     console.log(`${propertyName} type: ${t.name}`); // name type: String
 }
-   
-   
+
+
 class Employee {
     @logProperty
     private name: string;
-       
+
     constructor(name: string) {
         this.name = name;
     }
-   
+
     greet(@logParameter message: string): string {
         return `${this.name} says: ${message}`;
     }
@@ -715,6 +715,8 @@ class Employee {
         <h1 class="title is-5">Tags</h1>
         <div class="tags">
         
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/algorithm">algorithm</a></span>
+        
             <span class="tag"><a href="https://zhouqian0.github.io/tags/angular">angular</a></span>
         
             <span class="tag"><a href="https://zhouqian0.github.io/tags/go">go</a></span>
@@ -736,20 +738,20 @@ class Employee {
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
-            <h1><a href="https://zhouqian0.github.io/2020/fourth/">gRPC 学习小记</a></h1>
-            <time class="has-text-grey-light is-size-7">27 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/stack/">栈</a></h1>
+            <time class="has-text-grey-light is-size-7">5 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-twelfth/">Go 学习小记5</a></h1>
-            <time class="has-text-grey-light is-size-7">24 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/linked-list/">链表</a></h1>
+            <time class="has-text-grey-light is-size-7">5 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-eleventh/">Go 学习小记4</a></h1>
-            <time class="has-text-grey-light is-size-7">16 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/array/">数组</a></h1>
+            <time class="has-text-grey-light is-size-7">4 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-tenth/">Go 学习小记3</a></h1>
-            <time class="has-text-grey-light is-size-7">15 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/abstract/">算法入门摘要</a></h1>
+            <time class="has-text-grey-light is-size-7">4 July 2021</time>
         
-            <h1><a href="https://zhouqian0.github.io/2020/go-ninth/">Go 学习小记2</a></h1>
-            <time class="has-text-grey-light is-size-7">9 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2020/prom-first/">Prometheus 小记1</a></h1>
+            <time class="has-text-grey-light is-size-7">18 September 2020</time>
         
     </div>
 </div>
@@ -763,6 +765,9 @@ class Employee {
     <div class="card-content">
         <h1 class="title is-5">Related posts</h1>
       
+      
+            <h1><a href="https://zhouqian0.github.io/2020/prom-first/">Prometheus 小记1</a></h1>
+            <time class="has-text-grey-light is-size-7">18 September 2020</time>
       
             <h1><a href="https://zhouqian0.github.io/2019/ts-twenty-first/">TS文档阅读小结21 实用类型</a></h1>
             <time class="has-text-grey-light is-size-7">15 August 2019</time>
@@ -788,7 +793,9 @@ class Employee {
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2020">2020</a> (10)<br>
+            <a href="https://zhouqian0.github.io/archives/2021">2021</a> (4)<br>
+        
+            <a href="https://zhouqian0.github.io/archives/2020">2020</a> (11)<br>
         
             <a href="https://zhouqian0.github.io/archives/2019">2019</a> (46)<br>
         
@@ -811,7 +818,7 @@ class Employee {
             <span class="icon is-large"><a href="https://www.youtube.com/" class="mysocial" rel="me"><i class="fab fa-youtube fa-3x"></i></a></span>&nbsp;&nbsp;
             <span class="icon is-large"><a href="https://github.com/" class="mysocial" rel="me"><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;
             <br><br>
-            Copyright &copy; Let&#39;s finish what we started 2020 - Theme by <a href="https://jeffprod.com" class="mysocial">JeffProd.com</a>
+            Copyright &copy; Let&#39;s finish what we started 2021 - Theme by <a href="https://jeffprod.com" class="mysocial">JeffProd.com</a>
             - <a class="mysocial" href="https://zhouqian0.github.io/about">About</a>
         </p>
     </div>
