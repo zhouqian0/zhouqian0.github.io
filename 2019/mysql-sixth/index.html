@@ -73,8 +73,9 @@ BEGIN
     DECLARE t DECIMAL(8,2);
 
     -- Declare the cursor 
-    ARE ordernumbers CURSOR 
-        SELECT order_num FROM orders ORDER BY order_num;
+	DECLARE ordernumbers CURSOR 
+	FOR
+    SELECT order_num FROM orders ORDER BY order_num;
 
     -- Declare continue handler 
     DECLARE CONTINUE HANDLER FOR SQLSTATE '02000' SET done = 1;
@@ -85,7 +86,7 @@ BEGIN
         total DECIMAL(8 , 2 )
     );
 
-    pen the cursor 
+	-- Open the cursor 
     OPEN ordernumbers;
 
     -- Loop throught all rows
@@ -107,7 +108,7 @@ BEGIN
     UNTIL done END REPEAT;
 
     -- Close the cursor 
-    E ordernumbers;
+	CLOSE ordernumbers;
 END //
 DELIMITER ; 
 </code></pre><ul>
@@ -186,7 +187,7 @@ SELECT @msg;
 create trigger deleteorder before delete on orders
 for each row 
 begin
-    rt into archive_orders(order_num,order_date,cust_id) values
+	insert into archive_orders(order_num,order_date,cust_id) values
     (old.order_num,old.order_date,old.cust_id);
 end //
 DELIMITER ;
@@ -237,6 +238,9 @@ DELIMITER ;
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2021/queue/">队列</a></h1>
+            <time class="has-text-grey-light is-size-7">14 July 2021</time>
+        
             <h1><a href="https://zhouqian0.github.io/2021/stack/">栈</a></h1>
             <time class="has-text-grey-light is-size-7">5 July 2021</time>
         
@@ -248,9 +252,6 @@ DELIMITER ;
         
             <h1><a href="https://zhouqian0.github.io/2021/abstract/">算法入门摘要</a></h1>
             <time class="has-text-grey-light is-size-7">4 July 2021</time>
-        
-            <h1><a href="https://zhouqian0.github.io/2020/prom-first/">Prometheus 小记1</a></h1>
-            <time class="has-text-grey-light is-size-7">18 September 2020</time>
         
     </div>
 </div>
@@ -292,7 +293,7 @@ DELIMITER ;
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2021">2021</a> (4)<br>
+            <a href="https://zhouqian0.github.io/archives/2021">2021</a> (5)<br>
         
             <a href="https://zhouqian0.github.io/archives/2020">2020</a> (11)<br>
         

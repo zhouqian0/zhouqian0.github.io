@@ -251,11 +251,11 @@ SELECT @pricelow, @pricehigh, @priceaverage;
 <p>输入且输出变量的存储过程：</p>
 <pre><code>DELIMITER //
 CREATE  PROCEDURE ordertotal(
-    number int,
+	in onumber int,
     out ototal decimal(8,2)
 )
 BEGIN 
-    CT 
+	SELECT 
     SUM(item_price * quantity)
 FROM
     orderitems
@@ -274,34 +274,34 @@ SELECT @total;
 --  			    taxable = 0 if not taxable, 1 if taxable
 --   				ototal = order total vaiable
 CREATE PROCEDURE ordertotal(
-    number INT,
+	IN onumber INT,
     IN taxable BOOLEAN,
     OUT ototal DECIMAL(8,2)
 ) COMMENT &quot;Obtain order total , optionally adding tax&quot;
 BEGIN 
 
     -- Declar variable for total 
-    ARE total DECIMAL(8,2);
+	DECLARE total DECIMAL(8,2);
      -- Declar tax percentage 
     DECLARE taxrate INT DEFAULT 6;
 
     -- Get the order total 
-    CT 
+	SELECT 
         SUM(item_price * quantity)
-    
+	FROM
         orderitems
-    E
+	WHERE
         order_num = onumber 
-     total;
+	INTO total;
 
     -- Is  this taxable
     IF taxable THEN
         -- Yes, so add taxrate to the total 
         SELECT total + (total / 100 * taxrate) INTO total;
-    IF;
+	END IF;
 
     -- And finally, save to out variable 
-    CT total INTO ototal;
+	SELECT total INTO ototal;
 END //
 DELIMITER ;
 </code></pre><pre><code>CALL ordertotal(20005, 0, @total);
@@ -348,6 +348,9 @@ SHOW PROCEDURE STATUS LIKE 'ordertotal'
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
+            <h1><a href="https://zhouqian0.github.io/2021/queue/">队列</a></h1>
+            <time class="has-text-grey-light is-size-7">14 July 2021</time>
+        
             <h1><a href="https://zhouqian0.github.io/2021/stack/">栈</a></h1>
             <time class="has-text-grey-light is-size-7">5 July 2021</time>
         
@@ -359,9 +362,6 @@ SHOW PROCEDURE STATUS LIKE 'ordertotal'
         
             <h1><a href="https://zhouqian0.github.io/2021/abstract/">算法入门摘要</a></h1>
             <time class="has-text-grey-light is-size-7">4 July 2021</time>
-        
-            <h1><a href="https://zhouqian0.github.io/2020/prom-first/">Prometheus 小记1</a></h1>
-            <time class="has-text-grey-light is-size-7">18 September 2020</time>
         
     </div>
 </div>
@@ -403,7 +403,7 @@ SHOW PROCEDURE STATUS LIKE 'ordertotal'
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://zhouqian0.github.io/archives/2021">2021</a> (4)<br>
+            <a href="https://zhouqian0.github.io/archives/2021">2021</a> (5)<br>
         
             <a href="https://zhouqian0.github.io/archives/2020">2020</a> (11)<br>
         

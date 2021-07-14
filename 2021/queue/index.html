@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Let&#39;s finish what we started  | TS文档阅读小结1 基础类型</title>
+    <title>Let&#39;s finish what we started  | 队列</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -29,7 +29,7 @@
                 <br>
                 <h1 class="title is-size-1">
                     
-                        TS文档阅读小结1 基础类型
+                        队列
                     
                 </h1>
                 
@@ -46,33 +46,67 @@
     <div class="column is-9">
         <div class="tile is-child box">
             <div class="content">
-                <p>基础类型</p>
-<h3 id="基础类型">基础类型</h3>
+                <h4 id="队列学习摘记">队列学习摘记</h4>
+<hr>
+<ol start="0">
+<li>先进者先出为队列。</li>
+<li>队列跟栈一样，也是一种操作受限的线性表数据结构。
+<img src="../../img/algorithm/queue.jpg" alt=""></li>
+<li>队列可用数组、链表实现。用数组实现的队列叫作顺序队列，用链表实现的队列叫作链式队列。
+<ul>
+<li>在数组实现队列的时候，会有数据搬移操作，像环一样的循环队列可以有效解决数据搬移的问题。</li>
+</ul>
+</li>
+<li>循环队列(力扣622)：
+<ul>
+<li>确定队空和队满的判定条件</li>
+<li>当队满时，(tail+1)%n=head</li>
+<li>队列为空的判断条件仍然是 head == tail。</li>
+<li>循环队列会浪费一个数组的存储空间（也就是说实现一个容量为10的循环队列，实际上需要申请一个长度为 11 的数组，不然就需要另外设立变量来判断队满）
+<img src="../../img/algorithm/circular-queue.jpg" alt=""></li>
+</ul>
+</li>
+<li>阻塞队列：
+<ul>
+<li><img src="../../img/algorithm/blocking-queue.jpg" alt=""></li>
+<li><img src="../../img/algorithm/blocking-queue2.jpg" alt=""></li>
+<li>借由阻塞队列可以轻松实现一个“生产者 - 消费者模型”</li>
+</ul>
+</li>
+<li>并发队列:
+<ul>
+<li>线程安全的队列叫作并发队列。</li>
+<li>最简单直接的实现方式是直接在 enqueue()、dequeue() 方法上加锁，但是锁粒度大并发度会比较低，同一时刻仅允许一个存或者取操作。
+实际上，基于数组的循环队列，利用 CAS 原子操作，可以实现非常高效的并发队列。这也是循环队列比链式队列应用更加广泛的原因。
+<ul>
+<li>考虑使用 CAS 实现无锁队列，则在入队前，获取 tail 位置，入队时比较 tail 是否发生变化，如果否，则允许入队，反之，本次入队失败。出队则是获取 head 位置，进行 CAS。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>对于大部分资源有限的场景，当没有空闲资源时，基本上都可以通过“队列”这种数据结构来实现请求排队。比如线程池，分布式应用中的消息队列。</li>
+<li>线程池没有空闲线程时，新的任务请求线程资源时，线程池该如何处理？各种处理策略又是如何实现的呢？
+<ul>
+<li>思考方向
 <ol>
-<li><a href="https://typescript.bootcss.com/basic-types.html">https://typescript.bootcss.com/basic-types.html</a></li>
-<li>TypeScript 里的所有数字都是浮点数。</li>
-<li>模版字符串，可以定义多行文本和内嵌表达式。 其被反引号包围（ `），并且以 ${ expr } 这种形式嵌入表达式。</li>
-<li>数组，使用后跟[]元素的类型来表示该元素类型的数组或者使用通用数组类型Array<!-- raw HTML omitted -->。</li>
-<li>元组类型( Tuple )允许表示一个已知元素数量和类型的数组，各元素的类型不必相同。
-<ol>
-<li>eg: let x: [string, number];    x = [&lsquo;hello&rsquo;, 10]; // 必须要按照定义类型的顺序赋值</li>
-<li>访问越界元素会出现错误提示:
-<pre><code>x[3] = &quot;world&quot;; // Error, Property '3' does not exist on type '[string, number]'.
-
-console.log(x[5].toString()); // Error, Property '5' does not exist on type '[string, number]'.
-</code></pre></li>
+<li>非阻塞的处理方式，直接拒绝任务请求。</li>
+<li>阻塞的处理方式，请求排队，等到有空闲线程时，取出排队的请求继续处理。</li>
 </ol>
 </li>
-<li>枚举类型提供的一个便利是你可以由枚举的值得到它的名字。</li>
-<li>类型检查器不对 any 类型的值进行检查而是直接让它们通过编译阶段的检查。Object 类型的变量只允许给它赋任意值 ，但是却不能够在它上面调用任意的方法，即便它真的有这些方法。</li>
-<li>指定了 &ndash;strictNullChecks 标记(编译选项)，null 和 undefined 只能赋值给 void 和它们各自。</li>
-<li>never 类型表示的是那些永不存在的值的类型，即使 any 也不能赋值给 never。
+<li>实现方案
 <ol>
-<li>可作为 error 函数 (return Error()) 的返回值</li>
+<li>基于链表的实现方式，可以实现一个支持无限排队的无界队列（unbounded queue），但可能会导致过多的请求排队等待，请求处理的响应时间过长。
+所以，<strong>针对响应时间比较敏感的系统，基于链表实现的无限排队的线程池是不合适的</strong>。</li>
+<li>基于数组实现的有界队列（bounded queue），队列的大小有限，所以线程池中排队的请求超过队列大小时，之后的请求就会被拒。
+所以，<strong>对响应时间敏感的系统来说，相对更合理</strong>。
+<ul>
+<li>注意点：如何设置一个合理的队列大小。队列太大会导致等待的请求太多，队列太小会导致无法充分利用系统资源、发挥最大性能。</li>
+</ul>
+</li>
 </ol>
 </li>
-<li>类型断言( as , 尖括号 (&lt;String&gt;)) 类似 JAVA 中的类型转换，但是不进行特殊的数据检查和解构。不影响运行，只干预编译阶段。</li>
-<li>推荐使用 let 代替 var（和作用域有关）</li>
+</ul>
+</li>
 </ol>
             </div>
         </div>
@@ -134,26 +168,17 @@ console.log(x[5].toString()); // Error, Property '5' does not exist on type '[st
         <h1 class="title is-5">Related posts</h1>
       
       
-            <h1><a href="https://zhouqian0.github.io/2019/ts-fifteenth/">TS文档阅读小结15 命名空间和模块</a></h1>
-            <time class="has-text-grey-light is-size-7">1 August 2019</time>
+            <h1><a href="https://zhouqian0.github.io/2021/stack/">栈</a></h1>
+            <time class="has-text-grey-light is-size-7">5 July 2021</time>
       
-            <h1><a href="https://zhouqian0.github.io/2019/ts-fourteenth/">TS文档阅读小结14 命名空间</a></h1>
-            <time class="has-text-grey-light is-size-7">1 August 2019</time>
+            <h1><a href="https://zhouqian0.github.io/2021/linked-list/">链表</a></h1>
+            <time class="has-text-grey-light is-size-7">5 July 2021</time>
       
-            <h1><a href="https://zhouqian0.github.io/2019/ts-thirteenth/">TS文档阅读小结13 模块</a></h1>
-            <time class="has-text-grey-light is-size-7">31 July 2019</time>
+            <h1><a href="https://zhouqian0.github.io/2021/array/">数组</a></h1>
+            <time class="has-text-grey-light is-size-7">4 July 2021</time>
       
-            <h1><a href="https://zhouqian0.github.io/2019/ts-twelfth/">TS文档阅读小结12 迭代器和生成器</a></h1>
-            <time class="has-text-grey-light is-size-7">31 July 2019</time>
-      
-            <h1><a href="https://zhouqian0.github.io/2019/ts-eleventh/">TS文档阅读小结11 Symbols</a></h1>
-            <time class="has-text-grey-light is-size-7">30 July 2019</time>
-      
-            <h1><a href="https://zhouqian0.github.io/2019/ts-tenth/">TS文档阅读小结10 高级类型</a></h1>
-            <time class="has-text-grey-light is-size-7">17 July 2019</time>
-      
-            <h1><a href="https://zhouqian0.github.io/2019/ts-ninth/">TS文档阅读小结9 类型兼容性</a></h1>
-            <time class="has-text-grey-light is-size-7">16 July 2019</time>
+            <h1><a href="https://zhouqian0.github.io/2021/abstract/">算法入门摘要</a></h1>
+            <time class="has-text-grey-light is-size-7">4 July 2021</time>
       
     </div>
 </div>
