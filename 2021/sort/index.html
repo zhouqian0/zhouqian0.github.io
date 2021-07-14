@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Let&#39;s finish what we started  | 无顺序优先级的比较表达式优化</title>
+    <title>Let&#39;s finish what we started  | 排序概要</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -29,7 +29,7 @@
                 <br>
                 <h1 class="title is-size-1">
                     
-                        无顺序优先级的比较表达式优化
+                        排序概要
                     
                 </h1>
                 
@@ -46,15 +46,108 @@
     <div class="column is-9">
         <div class="tile is-child box">
             <div class="content">
-                <h3 id="比较表达式">比较表达式</h3>
-<ol>
-<li>当需要判断多个变量来获取结果，并且这些判断是没有判断先后顺序的优先级时，可以考虑将这些要判断的变量的值转换为数字，通过判断数字的大于小于来获取结果。
+                <h4 id="排序学习概要摘记">排序学习概要摘记</h4>
+<hr>
+<ol start="0">
+<li>算法执行效率
 <ul>
-<li>例如，权限系统会将权限等级用数字来表示，通过判断数字属于那个区间来判断具体权限。如判断权限 x &gt;= 400 &amp;&amp; x &lt;= 500。</li>
+<li>最好情况、最坏情况、平均情况时间复杂度</li>
+<li>时间复杂度的系数、常数 、低阶</li>
+<li>比较次数和交换（或移动）次数</li>
+</ul>
+</li>
+<li>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">排序算法</th>
+<th style="text-align:center">时间复杂度</th>
+<th style="text-align:center">是否基于比较</th>
+<th style="text-align:center">是否原地排序</th>
+<th style="text-align:center">是否稳定排序</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">冒泡排序</td>
+<td style="text-align:center">O(n2)</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">是</td>
+</tr>
+<tr>
+<td style="text-align:center">插入排序</td>
+<td style="text-align:center">O(n2)</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">是</td>
+</tr>
+<tr>
+<td style="text-align:center">选择排序</td>
+<td style="text-align:center">O(n2)</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">否</td>
+</tr>
+<tr>
+<td style="text-align:center">归并排序</td>
+<td style="text-align:center">O(nlogn）</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">否</td>
+</tr>
+<tr>
+<td style="text-align:center">快速排序</td>
+<td style="text-align:center">O(nlogn）</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">否</td>
+</tr>
+<tr>
+<td style="text-align:center">桶排序</td>
+<td style="text-align:center">O(n)</td>
+<td style="text-align:center">否</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">否</td>
+</tr>
+<tr>
+<td style="text-align:center">计数排序</td>
+<td style="text-align:center">O(n)</td>
+<td style="text-align:center">否</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">否</td>
+</tr>
+<tr>
+<td style="text-align:center">基数排序</td>
+<td style="text-align:center">O(n)</td>
+<td style="text-align:center">否</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">否</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>原地排序算法，就是特指空间复杂度是 O(1) 的排序算法。</li>
+<li>排序算法的稳定性，如果待排序的序列中存在值相等的元素，经过排序之后，相等元素之间原有的先后顺序不变。
+<ul>
+<li>如果现有 10 万条订单数据，希望按照金额从小到大对订单数据排序。对于金额相同的订单，希望按照下单时间从早到晚有序。
+<ul>
+<li>先按照下单时间给订单排序，不是金额。排序完成之后，用稳定排序算法，按照订单金额重新排序即可得到目标序列。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>有序度是数组中具有有序关系的元素对的个数。满足条件：a[i] &lt;= a[j], 且i &lt; j。
+<ul>
+<li>数组的初始状态是 4，5，6，3，2，1 ，其中有序元素对有 (4，5) (4，6)(5，6)，所以有序度是3 。
+<img src="../../img/algorithm/degree-of-order.jpg" alt=""></li>
+<li>满有序度就是 n*(n-1)/2，n为元素数量。</li>
+<li>逆序度的定义正好跟有序度相反（默认从小到大为有序），并且：逆序度 = 满有序度 - 有序度。</li>
 </ul>
 </li>
 </ol>
-
             </div>
         </div>
     </div>
@@ -115,14 +208,26 @@
         <h1 class="title is-5">Related posts</h1>
       
       
-            <h1><a href="https://zhouqian0.github.io/2020/fourth/">gRPC 学习小记</a></h1>
-            <time class="has-text-grey-light is-size-7">27 March 2020</time>
+            <h1><a href="https://zhouqian0.github.io/2021/sort1/">排序（冒泡排序、插入排序、选择排序）</a></h1>
+            <time class="has-text-grey-light is-size-7">14 July 2021</time>
       
-            <h1><a href="https://zhouqian0.github.io/2019/first/">条件判断语句优化</a></h1>
-            <time class="has-text-grey-light is-size-7">27 February 2019</time>
+            <h1><a href="https://zhouqian0.github.io/2021/recursion/">递归</a></h1>
+            <time class="has-text-grey-light is-size-7">11 July 2021</time>
       
-            <h1><a href="https://zhouqian0.github.io/2018/third/">由于滚动条引起的页面抖动</a></h1>
-            <time class="has-text-grey-light is-size-7">14 December 2018</time>
+            <h1><a href="https://zhouqian0.github.io/2021/queue/">队列</a></h1>
+            <time class="has-text-grey-light is-size-7">10 July 2021</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2021/stack/">栈</a></h1>
+            <time class="has-text-grey-light is-size-7">5 July 2021</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2021/linked-list/">链表</a></h1>
+            <time class="has-text-grey-light is-size-7">5 July 2021</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2021/array/">数组</a></h1>
+            <time class="has-text-grey-light is-size-7">4 July 2021</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2021/abstract/">算法入门摘要</a></h1>
+            <time class="has-text-grey-light is-size-7">4 July 2021</time>
       
     </div>
 </div>

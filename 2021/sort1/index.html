@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Let&#39;s finish what we started  | 排序（冒泡排序、插入排序、选择排序）</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://zhouqian0.github.io/css/blog.css" />
+    
+</head>
+<body>
+
+    
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://zhouqian0.github.io/">Home</a>
+        </div>
+    </nav>
+    
+
+    
+    <section class="hero is-info is-medium">
+        <div class="hero-body" style="background-image: url(https://zhouqian0.github.io/img/bg-blog.jpg);">
+            <div class="container has-text-centered">
+                <br>
+                <h1 class="title is-size-1">
+                    
+                        排序（冒泡排序、插入排序、选择排序）
+                    
+                </h1>
+                
+            </div>
+        </div>
+    </section>
+
+
+<div class="container">
+    <div class="section">
+    
+
+<div class="columns">
+    <div class="column is-9">
+        <div class="tile is-child box">
+            <div class="content">
+                <h4 id="排序学习摘记冒泡排序插入排序选择排序">排序学习摘记（冒泡排序、插入排序、选择排序）</h4>
+<hr>
+<ol start="0">
+<li>
+<p><img src="../../img/algorithm/sort1.jpg" alt=""></p>
+</li>
+<li>
+<p>冒泡排序（Bubble Sort）</p>
+<ol>
+<li>冒泡排序只会操作相邻的两个数据。每次冒泡操作都会对相邻的两个元素进行比较，看是否满足大小关系要求。
+如果不满足就让它俩互换。一次冒泡会让至少一个元素移动到它应该在的位置，重复 n 次，就完成了 n 个数据的排序工作。
+<img src="../../img/algorithm/bubble-sort.jpg" alt=""></li>
+<li>当某次冒泡操作已经没有数据交换时，说明已经达到完全有序，不用再继续执行后续的冒泡操作。(可以当作冒泡排序的优化条件)
+<img src="../../img/algorithm/bubble-sort2.jpg" alt=""></li>
+<li>最好情况时间复杂度是 O(n)，最坏情况时间复杂度为 O(n2)。
+<ul>
+<li>当数据都有序的时候，只要做一次遍历，所以最好情况时间复杂度是 O(n)。</li>
+</ul>
+</li>
+<li>平均时间复杂度 O(n2)。
+<ul>
+<li>对于包含 n 个数据的数组进行冒泡排序，平均交换次数是多少呢？
+最坏情况下，初始状态的有序度是 0，所以要进行 n*(n-1)/2 次交换。
+最好情况下，初始状态的有序度是 n*(n-1)/2，不需要进行交换。
+换句话说，平均情况下，需要 n*(n-1)/4 次交换操作，比较操作肯定要比交换操作多，而复杂度的上限是 O(n2)，所以平均情况下的时间复杂度就是 O(n2)。</li>
+</ul>
+</li>
+<li>示例代码：
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">func</span> <span style="color:#a6e22e">bubbleSort</span>(<span style="color:#a6e22e">arr</span> []<span style="color:#66d9ef">int</span>) {
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">range</span> <span style="color:#a6e22e">arr</span> {
+        <span style="color:#a6e22e">flag</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">false</span>
+        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">j</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">len</span>(<span style="color:#a6e22e">arr</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span><span style="color:#f92672">-</span><span style="color:#a6e22e">i</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span> {
+            <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">j</span>] <span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">j</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>] {
+               <span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">j</span>], <span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">j</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">j</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>], <span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">j</span>]
+               <span style="color:#a6e22e">flag</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>
+            }
+        }
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">!</span><span style="color:#a6e22e">flag</span> {
+            <span style="color:#66d9ef">break</span>
+        }
+    }
+}
+</code></pre></div></li>
+</ol>
+</li>
+<li>
+<p>插入排序（Insertion Sort）</p>
+<ol>
+<li>将数组中的数据分为两个区间，已排序区间和未排序区间。初始已排序区间只有一个元素，就是数组的第一个元素。
+插入算法的核心思想是取未排序区间中的元素，在已排序区间中找到合适的插入位置将其插入，并保证已排序区间数据一直有序。
+重复这个过程，直到未排序区间中元素为空，算法结束。
+<img src="../../img/algorithm/insert-sort.jpg" alt=""></li>
+<li>对于一个给定的初始序列，移动操作的次数总是固定的，等于逆序度。</li>
+<li>最好是时间复杂度为 O(n)。最坏情况时间复杂度为 O(n2)。
+<ul>
+<li>当数据都有序的时候，只要做一次遍历，所以最好情况时间复杂度是 O(n)。</li>
+</ul>
+</li>
+<li>平均时间复杂度O(n2)。
+<ul>
+<li>在数组中插入一个数据的平均时间复杂度是O(n)。所以，对于插入排序来说，每次插入操作都相当于在数组中插入一个数据，循环执行 n 次插入操作，所以平均时间复杂度为 O(n2)。</li>
+</ul>
+</li>
+<li>可以是稳定排序，取决于元素交换的条件。</li>
+<li>示例代码：
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">func</span> <span style="color:#a6e22e">insertionSort</span>(<span style="color:#a6e22e">arr</span> []<span style="color:#66d9ef">int</span>) {
+   <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">len</span>(<span style="color:#a6e22e">arr</span>) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">1</span> {
+       <span style="color:#66d9ef">return</span>
+   }
+   <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">len</span>(<span style="color:#a6e22e">arr</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+       <span style="color:#a6e22e">val</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">i</span>]
+       <span style="color:#a6e22e">j</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>
+       <span style="color:#66d9ef">for</span> ; <span style="color:#a6e22e">j</span> <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">--</span> {
+           <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">j</span>] <span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">val</span> {
+               <span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">j</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">j</span>]
+           } <span style="color:#66d9ef">else</span> {
+               <span style="color:#66d9ef">break</span>
+           }
+       }
+       <span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">j</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">val</span>
+   }
+}
+</code></pre></div></li>
+</ol>
+</li>
+<li>
+<p>选择排序（Selection Sort）</p>
+<ol>
+<li>选择排序算法分已排序区间和未排序区间，每次会从未排序区间中找到最小的元素，将其放到已排序区间的末尾。
+<ul>
+<li>选择排序每次都要找剩余未排序元素中的最小值，并和前面的元素交换位置，破坏了稳定性。
+<img src="../../img/algorithm/selection-sort.jpg" alt=""></li>
+</ul>
+</li>
+<li>最好情况时间复杂度、最坏情况和平均情况时间复杂度都为 O(n2)。</li>
+<li>示例代码：
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">func</span> <span style="color:#a6e22e">selectionSort</span>(<span style="color:#a6e22e">arr</span> []<span style="color:#66d9ef">int</span>) {
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">range</span> <span style="color:#a6e22e">arr</span> {
+        <span style="color:#a6e22e">idx</span>, <span style="color:#a6e22e">min</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">i</span>]
+        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">j</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">len</span>(<span style="color:#a6e22e">arr</span>); <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span> {
+            <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">j</span>] <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">min</span> {
+                <span style="color:#a6e22e">min</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">j</span>]
+                <span style="color:#a6e22e">idx</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">j</span>
+            }
+        }
+        <span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">i</span>], <span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">idx</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">idx</span>], <span style="color:#a6e22e">arr</span>[<span style="color:#a6e22e">i</span>]
+    }
+}
+</code></pre></div></li>
+</ol>
+</li>
+<li>
+<p>冒泡、插入、选择 小结：</p>
+<ul>
+<li>冒泡排序、插入排序不管怎么优化，元素交换的次数是一个固定值，是原始数据的逆序度。</li>
+<li>从代码实现上来看，冒泡排序的数据交换要比插入排序的数据移动要复杂，冒泡排序需要 3 个赋值操作，而插入排序只需要 1 个。
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// 冒泡排序：
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">a</span>[<span style="color:#a6e22e">j</span>] <span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">a</span>[<span style="color:#a6e22e">j</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>] {
+   <span style="color:#a6e22e">a</span>[<span style="color:#a6e22e">j</span>], <span style="color:#a6e22e">a</span>[<span style="color:#a6e22e">j</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">a</span>[<span style="color:#a6e22e">j</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>], <span style="color:#a6e22e">a</span>[<span style="color:#a6e22e">j</span>] 
+}
+
+<span style="color:#75715e">// 插入排序
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">a</span>[<span style="color:#a6e22e">j</span>] <span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">value</span> {
+   <span style="color:#a6e22e">a</span>[<span style="color:#a6e22e">j</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">a</span>[<span style="color:#a6e22e">j</span>]
+} <span style="color:#66d9ef">else</span> {
+   <span style="color:#66d9ef">break</span>
+}
+</code></pre></div></li>
+<li>虽然冒泡排序和插入排序在时间复杂度上是一样的，都是 O(n2)，但是如果希望把性能优化做到极致，首选插入排序。(希尔排序是更高效的插入排序算法，但为非稳定排序)</li>
+<li><strong>对于小规模数据的排序，用起来非常高效。但是在大规模数据排序的时候，这个时间复杂度还是稍微有点高，所以更倾向于时间复杂度为 O(nlogn) 的排序算法</strong>。</li>
+</ul>
+</li>
+<li>
+<p>冒泡、插入、选择排序如果使用链表实现（只能改变节点位置）。</p>
+<ul>
+<li>冒泡排序相较于数组实现，比较次数一致，但交换操作复杂（涉及多次指针变化）。</li>
+<li>插入排序相较于数组实现，比较次数一致，没有元素后移操作，找到位置后可以直接插入，但排序完毕后可能需要倒置链表。</li>
+<li>选择排序相较于数组实现，比较次数一致，但交换操作复杂（涉及多次指针变化）。</li>
+</ul>
+<p>综上，时间复杂度和空间复杂度并无明显变化，若追求极致性能，冒泡排序的时间复杂度系数会变大，插入排序系数会减小，选择排序无明显变化。</p>
+</li>
+</ol>
+            </div>
+        </div>
+    </div>
+    <div class="column is-3">
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Tags</h1>
+        <div class="tags">
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/algorithm">algorithm</a></span>
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/angular">angular</a></span>
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/go">go</a></span>
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/javascript">javascript</a></span>
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/journal">journal</a></span>
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/linux">linux</a></span>
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/mysql">mysql</a></span>
+        
+            <span class="tag"><a href="https://zhouqian0.github.io/tags/typescript">typescript</a></span>
+        
+        </div>          
+    </div>
+</div><br>
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Recent posts</h1>
+        
+            <h1><a href="https://zhouqian0.github.io/2021/sort1/">排序（冒泡排序、插入排序、选择排序）</a></h1>
+            <time class="has-text-grey-light is-size-7">14 July 2021</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2021/sort/">排序概要</a></h1>
+            <time class="has-text-grey-light is-size-7">14 July 2021</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2021/recursion/">递归</a></h1>
+            <time class="has-text-grey-light is-size-7">11 July 2021</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2021/queue/">队列</a></h1>
+            <time class="has-text-grey-light is-size-7">10 July 2021</time>
+        
+            <h1><a href="https://zhouqian0.github.io/2021/stack/">栈</a></h1>
+            <time class="has-text-grey-light is-size-7">5 July 2021</time>
+        
+    </div>
+</div>
+    <br>
+                
+  
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Related posts</h1>
+      
+      
+            <h1><a href="https://zhouqian0.github.io/2021/sort/">排序概要</a></h1>
+            <time class="has-text-grey-light is-size-7">14 July 2021</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2021/recursion/">递归</a></h1>
+            <time class="has-text-grey-light is-size-7">11 July 2021</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2021/queue/">队列</a></h1>
+            <time class="has-text-grey-light is-size-7">10 July 2021</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2021/stack/">栈</a></h1>
+            <time class="has-text-grey-light is-size-7">5 July 2021</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2021/linked-list/">链表</a></h1>
+            <time class="has-text-grey-light is-size-7">5 July 2021</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2021/array/">数组</a></h1>
+            <time class="has-text-grey-light is-size-7">4 July 2021</time>
+      
+            <h1><a href="https://zhouqian0.github.io/2021/abstract/">算法入门摘要</a></h1>
+            <time class="has-text-grey-light is-size-7">4 July 2021</time>
+      
+    </div>
+</div>
+
+    
+<br>
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Archives</h1>
+        
+            <a href="https://zhouqian0.github.io/archives/2021">2021</a> (8)<br>
+        
+            <a href="https://zhouqian0.github.io/archives/2020">2020</a> (11)<br>
+        
+            <a href="https://zhouqian0.github.io/archives/2019">2019</a> (46)<br>
+        
+            <a href="https://zhouqian0.github.io/archives/2018">2018</a> (3)<br>
+        
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+    </div>
+</div>
+
+<footer class="footer has-background-grey-darker has-text-white">
+    <div class="content has-text-centered">
+        <p>
+            <span class="icon is-large"><a href="https://twitter.com/" class="mysocial" rel="me"><i class="fab fa-twitter fa-3x"></i></a></span>&nbsp;&nbsp;
+            <span class="icon is-large"><a href="https://www.youtube.com/" class="mysocial" rel="me"><i class="fab fa-youtube fa-3x"></i></a></span>&nbsp;&nbsp;
+            <span class="icon is-large"><a href="https://github.com/" class="mysocial" rel="me"><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;
+            <br><br>
+            Copyright &copy; Let&#39;s finish what we started 2021 - Theme by <a href="https://jeffprod.com" class="mysocial">JeffProd.com</a>
+            - <a class="mysocial" href="https://zhouqian0.github.io/about">About</a>
+        </p>
+    </div>
+</footer>
+
+<script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+</body>
+</html>
